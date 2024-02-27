@@ -1,3 +1,3 @@
-# text-harvester
+# web-scribe
 
-A simple RAG tool chain used to back the `@Text Harvester` GPT
+A simple RAG tool chain used to back the `@Web Scribe` GPT
