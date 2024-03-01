@@ -1,7 +1,7 @@
 import subprocess
 import os
 from dotenv import load_dotenv
-import speech_recognition as sr
+from openai import OpenAI
 
 # Load environment variables from .env file
 load_dotenv()
@@ -16,11 +16,11 @@ def download_audio(url, path):
     if not os.path.exists(path):
         os.makedirs(path)
     # Construct the yt-dlp command
-    audio_file_path = os.path.join(path, 'audio.wav')  # Define the output file path
+    audio_file_path = os.path.join(path, 'audio.mp3')  # Define the output file path
     command = [
         'yt-dlp',
         '-x',  # Extract audio
-        '--audio-format', 'wav',  # Specify audio format
+        '--audio-format', 'mp3',  # Specify audio format
         '--output', os.path.join(path, '%(title)s.%(ext)s'),  # Naming convention
         url  # YouTube URL
     ]
@@ -30,21 +30,18 @@ def download_audio(url, path):
     # This is a simplistic approach; for more accuracy, consider parsing yt-dlp's output
     files = os.listdir(path)
     for file in files:
-        if file.endswith(".wav"):
+        if file.endswith(".mp3"):
             return os.path.join(path, file)
     return None  # In case no file is found, which is unlikely
 
 def transcribe_audio(audio_file_path):
-    recognizer = sr.Recognizer()
-    with sr.AudioFile(audio_file_path) as source:
-        audio_data = recognizer.record(source)
-        try:
-            text = recognizer.recognize_google(audio_data)
-            print(f"Transcription: {text}")
-        except sr.UnknownValueError:
-            print("Google Speech Recognition could not understand audio")
-        except sr.RequestError as e:
-            print(f"Could not request results from Google Speech Recognition service; {e}")
+    client = OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    # api_key="My API Key",
+    )
+    with open(audio_file_path, 'rb') as audio_file:
+       transcription = client.audio.transcriptions.create(model="whisper-1", file=audio_file)
+    return transcription.text
 
 # Example usage
 url = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
@@ -53,6 +50,7 @@ print("Fetching audio...")
 audio_file_path = download_audio(url, path)
 if audio_file_path:
     print(f"Running transcription on {audio_file_path}")
-    transcribe_audio(audio_file_path)
+    transcript = transcribe_audio(audio_file_path)
+    print(f"transcript: {transcript}")
 else:
     print("Could not download audio.")
