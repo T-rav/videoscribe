@@ -36,8 +36,7 @@ def download_audio(url, path):
 
 def transcribe_audio(audio_file_path):
     client = OpenAI(
-    # defaults to os.environ.get("OPENAI_API_KEY")
-    # api_key="My API Key",
+        api_key=OPENAI_API_KEY
     )
     with open(audio_file_path, 'rb') as audio_file:
        transcription = client.audio.transcriptions.create(model="whisper-1", file=audio_file)
