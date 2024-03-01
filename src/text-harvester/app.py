@@ -2,6 +2,15 @@ from pytube import YouTube
 import speech_recognition as sr
 import subprocess
 import os  # Import the os module
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the environment variables
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+ES_API_KEY = os.getenv("ES_API_KEY")
+ES_API_ENDPOINT = os.getenv("ES_API_ENDPOINT")
 
 def download_audio(url, path):
     yt = YouTube(url)
