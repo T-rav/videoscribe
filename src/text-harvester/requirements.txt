@@ -1,3 +1,4 @@
-pytube
+pytube3
 moviepy
 SpeechRecognition
+python-dotenv
