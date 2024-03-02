@@ -1,3 +1,3 @@
-# web-scribe
+# VideoScribe
 
-A simple RAG tool chain used to back the `@Web Scribe` GPT
+A simple RAG tool chain used to back the `@Video Scribe` GPT
