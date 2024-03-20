@@ -2,3 +2,7 @@ yt-dlp
 openai
 python-dotenv
 pydub
+langchain-elasticsearch
+langchain-openai
+tiktoken
+langchain

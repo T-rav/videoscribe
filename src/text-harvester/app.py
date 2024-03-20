@@ -1,14 +1,23 @@
 import subprocess
 import os
+from unittest import TestLoader
 from dotenv import load_dotenv
+from langchain_text_splitters import CharacterTextSplitter
 from openai import OpenAI
 from pydub import AudioSegment
+from langchain_elasticsearch import ElasticsearchStore
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import CharacterTextSplitter
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Access the environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+ES_API_ENDPOINT = "http://localhost:9200" #os.getenv("ES_API_ENDPOINT")
+ES_API_USER = os.getenv("ES_API_USER")
+ES_API_PASS = os.getenv("ES_API_PASS")
 
 def download_audio(url, path):
     # Ensure the path exists
@@ -65,8 +74,8 @@ def transcribe_audio(file_path, api_key):
 # Const
 path = './incoming'  # Specify the directory path where you want to save the audio file.
 # Input
-#url = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
-url = './incoming/The Gen AI payoff in 2024.mp4'
+url = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
+#url = './incoming/The Gen AI payoff in 2024.mp4'
 
 print("Fetching audio...")
 if url.startswith("https://"):
@@ -93,3 +102,34 @@ if audio_file_path is not None:
         file.write(combined_transcription)
 
     print(f"Transcription written to {transcription_file_path}")
+
+
+    print(f"Running embeddings...")
+
+    loader = TextLoader(transcription_file_path)
+    documents = loader.load()
+    text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+    docs = text_splitter.split_documents(documents)
+    embeddings = OpenAIEmbeddings()
+    # elastic_vector_search = ElasticsearchStore(
+    #     es_url=ES_API_ENDPOINT,
+    #     index_name="test_rag_index",
+    #     embedding=embeddings,
+    #     es_user=ES_API_USER,
+    #     es_password=ES_API_PASS
+    # )
+
+    db = ElasticsearchStore.from_documents(
+        docs,
+        es_url=ES_API_ENDPOINT,
+        index_name="test_rag_index",
+        embedding=embeddings,
+        # es_user=ES_API_USER,
+        # es_password=ES_API_PASS
+    )
+
+    db.client.indices.refresh(index="test_rag_index")
+
+    query = "What is GPT With Me?"
+    results = db.similarity_search(query)
+    print(results)
