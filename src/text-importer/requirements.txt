@@ -1,0 +1,4 @@
+langchain-elasticsearch
+langchain-openai
+tiktoken
+langchain

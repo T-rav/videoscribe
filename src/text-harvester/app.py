@@ -1,26 +1,14 @@
 import subprocess
 import os
 from dotenv import load_dotenv
-from langchain_text_splitters import CharacterTextSplitter
 from openai import OpenAI
 from pydub import AudioSegment
-from langchain_elasticsearch import ElasticsearchStore
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.document_loaders import TextLoader
-from langchain_text_splitters import CharacterTextSplitter
-import hashlib
-from elasticsearch import Elasticsearch
-
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Access the environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-ES_API_ENDPOINT = "http://localhost:9200" 
-#ES_API_ENDPOINT = os.getenv("ES_API_ENDPOINT")
-ES_API_USER = os.getenv("ES_API_USER")
-ES_API_PASS = os.getenv("ES_API_PASS")
 
 def download_audio(url, path):
     # Ensure the path exists
@@ -75,10 +63,10 @@ def transcribe_audio(file_path, api_key):
         return transcribe_audio_segment(api_key, file_path)
 
 # Const
-path = './incoming'  # Specify the directory path where you want to save the audio file.
+path = '../incoming'  # Specify the directory path where you want to save the audio file.
 # Input
-#src = './incoming/The Gen AI payoff in 2024.mp4'
-src = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
+src = '../incoming/The Gen AI payoff in 2024.mp4'
+#src = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
 url = src
 
 
@@ -107,72 +95,3 @@ if audio_file_path is not None:
         file.write(combined_transcription)
 
     print(f"Transcription written to {transcription_file_path}")
-
-
-    print(f"Running embeddings...")
-
-    es = Elasticsearch([ES_API_ENDPOINT])
-
-    def document_exists(index_name, url, doc_id):
-        query = {
-            "query": {
-                "bool": {
-                "must": [
-                    {
-                    "match": {
-                        "metadata.source": src
-                    }
-                    },
-                    {
-                    "match": {
-                        "metadata.source_transcript_sha256": doc_id
-                    }
-                    }
-                ]
-                }
-            },
-            "size": 1
-        }
-
-        response = es.search(index=index_name, body=query)
-        return response['hits']['total']['value'] > 0
-
-    def generate_document_id(file_path):
-        """Calculate the SHA-256 hash of a file's contents."""
-        sha256_hash = hashlib.sha256()
-        # Open the file in binary mode to ensure correct handling of all file types
-        with open(file_path, "rb") as file:
-            # Read and update hash in chunks of 4K
-            for byte_block in iter(lambda: file.read(4096), b""):
-                sha256_hash.update(byte_block)
-        return sha256_hash.hexdigest()
-
-    loader = TextLoader(transcription_file_path)
-    documents = loader.load()
-    text_splitter = CharacterTextSplitter(chunk_size=100, chunk_overlap=0)
-    docs = text_splitter.split_documents(documents)
-    embeddings = OpenAIEmbeddings()
-
-    db = ElasticsearchStore(
-            es_url=ES_API_ENDPOINT,
-            index_name="test_rag_index",
-            embedding=embeddings,
-            # es_user=ES_API_USER,
-            # es_password=ES_API_PASS
-        )
-    
-    doc_id = generate_document_id(transcription_file_path)
-    if not document_exists("test_rag_index", url, doc_id):
-        for doc in docs:
-            doc.metadata["source"] = url
-            doc.metadata["source_transcript_sha256"] = doc_id
-        print(f"Indexed document with ID: {doc_id}")
-    else:
-        print(f"Document with ID: {doc_id} and source {url} already exists. Skipping.")
-        
-    db.add_documents(docs);
-    db.client.indices.refresh(index="test_rag_index")
-
-    query = "What is GPT With Me?"
-    results = db.similarity_search(query)
-    print(results)
