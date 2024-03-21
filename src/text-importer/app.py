@@ -4,19 +4,26 @@ from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import CharacterTextSplitter
 import hashlib
 from elasticsearch import Elasticsearch
-from langchain_text_splitters import CharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
+from dotenv import load_dotenv
 
-print(f"Running embeddings...")
+# Load environment variables from .env file
+load_dotenv()
 
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 ES_API_ENDPOINT = "http://localhost:9200" 
 #ES_API_ENDPOINT = os.getenv("ES_API_ENDPOINT")
 ES_API_USER = os.getenv("ES_API_USER")
 ES_API_PASS = os.getenv("ES_API_PASS")
 
+
+print(f"Running embeddings...")
+
 es = Elasticsearch([ES_API_ENDPOINT])
 
-src = "./incoming/transcript/The-Gen-AI-payoff-in-2024_audio_transcript.txt"
+transcription_file_path = "../incoming/transcript/The-Gen-AI-payoff-in-2024_audio_transcript.txt"
+url = transcription_file_path
 
 def document_exists(index_name, url, doc_id):
     query = {
@@ -25,7 +32,7 @@ def document_exists(index_name, url, doc_id):
             "must": [
                 {
                 "match": {
-                    "metadata.source": src
+                    "metadata.source": transcription_file_path
                 }
                 },
                 {
@@ -53,10 +60,13 @@ def generate_document_id(file_path):
     return sha256_hash.hexdigest()
 
 loader = TextLoader(transcription_file_path)
-documents = loader.load()
-text_splitter = CharacterTextSplitter(chunk_size=100, chunk_overlap=0)
-docs = text_splitter.split_documents(documents)
-embeddings = OpenAIEmbeddings()
+text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+    chunk_size=512, chunk_overlap=256
+)
+docs = loader.load_and_split(text_splitter=text_splitter)
+embeddings = OpenAIEmbeddings(
+    model="text-embedding-3-small"
+)
 
 db = ElasticsearchStore(
         es_url=ES_API_ENDPOINT,
@@ -68,9 +78,10 @@ db = ElasticsearchStore(
 
 doc_id = generate_document_id(transcription_file_path)
 if not document_exists("test_rag_index", url, doc_id):
-    for doc in docs:
+    for index, doc in enumerate(docs):
         doc.metadata["source"] = url
         doc.metadata["source_transcript_sha256"] = doc_id
+        doc.metadata["doc_fragment"] = index +1
     print(f"Indexed document with ID: {doc_id}")
 else:
     print(f"Document with ID: {doc_id} and source {url} already exists. Skipping.")
