@@ -65,10 +65,9 @@ def transcribe_audio(file_path, api_key):
 # Const
 path = '../incoming'  # Specify the directory path where you want to save the audio file.
 # Input
-src = '../incoming/The Gen AI payoff in 2024.mp4'
-#src = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
-url = src
-
+#url = '../incoming/The Gen AI payoff in 2024.mp4'
+#url = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
+url = 'https://www.youtube.com/watch?v=jGCvY4gNnA8'
 
 print("Fetching audio...")
 if url.startswith("https://"):

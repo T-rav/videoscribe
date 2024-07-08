@@ -19,3 +19,15 @@ ES_API_ENDPOINT=ZZZ
 ```
 
 TODO : Add some summary and action point extractions as per https://platform.openai.com/docs/tutorials/meeting-minutes. Feels like these belong in the GPT not as additional queries? 
+
+TODO: 
+Workflow
+ + Call to function with url
+  -  if found process request and inject the transcript
+  -  if not found, queue request for download and return a status url, also update url if logged in (v2)
++ Basic UI with
+  -  artifact list
+  -  delete option
+  -  refresh option
+  -  add option
+  -  copy button for claude 
