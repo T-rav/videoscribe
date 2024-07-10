@@ -65,9 +65,9 @@ def transcribe_audio(file_path, api_key):
 # Const
 path = '../incoming'  # Specify the directory path where you want to save the audio file.
 # Input
-#url = '../incoming/The Gen AI payoff in 2024.mp4'
+url = './GMT20240709-170350_Recording.m4a'
 #url = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
-url = 'https://www.youtube.com/watch?v=jGCvY4gNnA8'
+#url = 'https://www.youtube.com/watch?v=jGCvY4gNnA8'
 
 print("Fetching audio...")
 if url.startswith("https://"):
@@ -76,6 +76,10 @@ else:
     # assume it is a local file
     file_name = os.path.basename(url)
     audio_file_path = os.path.join(path, "audio", file_name.replace(".mp4", "_audio.mp3").replace(" ","-"))
+    # m4a - zoom
+    if url.endswith(".m4a"):
+        audio_file_path = os.path.join(path, "audio", file_name.replace(".m4a", "_audio.mp3").replace(" ","-"))
+
     # Ensure the directory exists
     os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
     subprocess.run(['ffmpeg', '-i', url, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'mp3', audio_file_path], check=True)
