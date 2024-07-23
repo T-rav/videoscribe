@@ -20,14 +20,13 @@ ES_API_ENDPOINT=ZZZ
 
 TODO : Add some summary and action point extractions as per https://platform.openai.com/docs/tutorials/meeting-minutes. Feels like these belong in the GPT not as additional queries? 
 
-TODO: 
-Workflow
- + Call to function with url
-  -  if found process request and inject the transcript
-  -  if not found, queue request for download and return a status url, also update url if logged in (v2)
-+ Basic UI with
-  -  artifact list
-  -  delete option
-  -  refresh option
-  -  add option
-  -  copy button for claude 
+- PLAN -
+1. Create Function to process files on blob storage then save the transcript back to blob storage
+2. Create UI to allow for youtube or uploaded file to be processed (saved to blob storage and queued for work?)
+3. Amend UI to allow for (https://scribe.koderex.dev/)
+    -  artifact list
+    -  delete option
+    -  refresh option
+    -  add option
+    -  copy button for claude 
+    -  simple RAG aggregation on data
