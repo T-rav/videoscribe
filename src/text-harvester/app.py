@@ -19,7 +19,7 @@ def download_audio(url, path):
     command = [
         'yt-dlp',
         '-x',  # Extract audio
-        '--audio-format', 'mp3',  # Specify audio format
+        '--audio-format', 'm4a',  # Specify audio format
         '--output', os.path.join(path, '%(title)s.%(ext)s'),  # Naming convention
         url  # YouTube URL
     ]
@@ -27,11 +27,11 @@ def download_audio(url, path):
     result = subprocess.run(command, check=True, capture_output=True, text=True)
      # Extract the file path from the stdout
     output = result.stdout
-    file_path_match = re.search(r'Destination:\s+(.*\.mp3)', output)
+    file_path_match = re.search(r'Destination:\s+(.*\.m4a)', output)
     
     if file_path_match:
         file_path = file_path_match.group(1).strip()
-        if os.path.exists(file_path) and file_path.endswith(".mp3"):
+        if os.path.exists(file_path) and file_path.endswith(".m4a"):
             return file_path
     
     return None  # In case no file is found
@@ -40,11 +40,16 @@ def split_audio(file_path, segment_length_ms=600000):  # Default segment length:
     song = AudioSegment.from_file(file_path)
     parts = len(song) // segment_length_ms + 1
     base, ext = os.path.splitext(file_path)
+    audio_format = ext.replace('.', '')
+
     for i in range(parts):
         start = i * segment_length_ms
         part = song[start:start + segment_length_ms]
         part_file_path = f"{base}_part{i}{ext}"
-        part.export(part_file_path, format=ext.replace('.', ''))
+        if audio_format == 'm4a':
+            part.export(part_file_path, format='ipod')  # Use 'ipod' codec for m4a
+        else:
+            part.export(part_file_path, format=audio_format)
         yield part_file_path
 
 def transcribe_audio_segment(api_key, audio_file_path):
@@ -92,7 +97,7 @@ if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
     combined_transcription = transcribe_audio(audio_file_path, OPENAI_API_KEY)
     # Specify the file path where you want to save the transcription
-    transcription_file_path = f'{audio_file_path.replace(".mp3", "_transcript.txt").replace("audio/", "transcript/")}'
+    transcription_file_path = f'{audio_file_path.replace(".m4a", "_transcript.txt").replace("audio/", "transcript/")}'
     
     # Ensure the directory exists
     os.makedirs(os.path.dirname(transcription_file_path), exist_ok=True)
