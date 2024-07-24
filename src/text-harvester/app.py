@@ -1,5 +1,6 @@
 import subprocess
 import os
+import re
 from dotenv import load_dotenv
 from openai import OpenAI
 from pydub import AudioSegment
@@ -23,14 +24,17 @@ def download_audio(url, path):
         url  # YouTube URL
     ]
     # Execute the yt-dlp command
-    subprocess.run(command, check=True)
-    # Assuming yt-dlp names the file after the video title, you might need to find the file
-    # This is a simplistic approach; for more accuracy, consider parsing yt-dlp's output
-    files = os.listdir(path)
-    for file in files:
-        if file.endswith(".mp3"):
-            return os.path.join(path, file)
-    return None  # In case no file is found, which is unlikely
+    result = subprocess.run(command, check=True, capture_output=True, text=True)
+     # Extract the file path from the stdout
+    output = result.stdout
+    file_path_match = re.search(r'Destination:\s+(.*\.mp3)', output)
+    
+    if file_path_match:
+        file_path = file_path_match.group(1).strip()
+        if os.path.exists(file_path) and file_path.endswith(".mp3"):
+            return file_path
+    
+    return None  # In case no file is found
 
 def split_audio(file_path, segment_length_ms=600000):  # Default segment length: 10 minutes
     song = AudioSegment.from_file(file_path)
@@ -63,10 +67,10 @@ def transcribe_audio(file_path, api_key):
         return transcribe_audio_segment(api_key, file_path)
 
 # Const
-path = '../incoming'  # Specify the directory path where you want to save the audio file.
+path = './incoming'  # Specify the directory path where you want to save the audio file.
 # Input
-url = './GMT20240709-170350_Recording.m4a'
-#url = 'https://www.youtube.com/watch?v=Un-aZ7BO7gw'
+#url = './GMT20240709-170350_Recording.m4a'
+url = 'https://youtube.com/live/Nf9-0ARkQrA'
 #url = 'https://www.youtube.com/watch?v=jGCvY4gNnA8'
 
 print("Fetching audio...")
