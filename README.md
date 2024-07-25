@@ -35,5 +35,6 @@ MISSION : Create new content from existing sources - A mixing board for content 
 4. post processing 
     - remove ads (pod cast)
     - summarize for youtube (5000 chars or less)
+    - summarize for podcast (blinkist for podcast?)
 5. User search - index all your media then search for how to blend into new ideas for content? 
 6. Channel monitoring - poll for new stuff then index it when there is new stuff
