@@ -74,30 +74,40 @@ def transcribe_audio(file_path, api_key):
 # Const
 path = './incoming'  # Specify the directory path where you want to save the audio file.
 # Input
-#url = './GMT20240709-170350_Recording.m4a'
-url = 'https://youtube.com/live/Nf9-0ARkQrA'
+url = './incoming/audio/Building Domain-Specific Copilots.mp3'
+#url = 'https://youtube.com/live/Nf9-0ARkQrA'
 #url = 'https://www.youtube.com/watch?v=jGCvY4gNnA8'
 
-print("Fetching audio...")
+print("Processing audio...")
 if url.startswith("https://"):
     audio_file_path = download_audio(url, f'{path}/audio')
 else:
     # assume it is a local file
     file_name = os.path.basename(url)
-    audio_file_path = os.path.join(path, "audio", file_name.replace(".mp4", "_audio.mp3").replace(" ","-"))
-    # m4a - zoom
-    if url.endswith(".m4a"):
-        audio_file_path = os.path.join(path, "audio", file_name.replace(".m4a", "_audio.mp3").replace(" ","-"))
+    audio_file_path = os.path.join(path, "audio", file_name)
 
-    # Ensure the directory exists
-    os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
-    subprocess.run(['ffmpeg', '-i', url, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'mp3', audio_file_path], check=True)
+    # Check the file extension and only convert if it's not already .m4a or .mp3
+    if not (file_name.endswith(".m4a") or file_name.endswith(".mp3")):
+        print("Fetching audio...")
+        # Replace spaces with hyphens in the file name if not .m4a or .mp3
+        file_name = file_name.replace(" ", "-")
+        audio_file_path = os.path.join(path, "audio", os.path.splitext(file_name)[0] + "_audio.m4a")
+        
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
+        
+        # Convert the file to M4A format
+        subprocess.run(['ffmpeg', '-i', url, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
 
+print(f"Audio file is ready at {audio_file_path}")
+
+# Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
     combined_transcription = transcribe_audio(audio_file_path, OPENAI_API_KEY)
-    # Specify the file path where you want to save the transcription
-    transcription_file_path = f'{audio_file_path.replace(".m4a", "_transcript.txt").replace("audio/", "transcript/")}'
+    
+    # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
+    transcription_file_path = f'{os.path.splitext(audio_file_path)[0]}_transcript.txt'.replace("audio/", "transcript/")
     
     # Ensure the directory exists
     os.makedirs(os.path.dirname(transcription_file_path), exist_ok=True)
