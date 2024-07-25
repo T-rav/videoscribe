@@ -20,7 +20,7 @@ ES_API_ENDPOINT=ZZZ
 
 TODO : Add some summary and action point extractions as per https://platform.openai.com/docs/tutorials/meeting-minutes. Feels like these belong in the GPT not as additional queries? 
 
-MISSION : Create new content from existing sources
+MISSION : Create new content from existing sources - A mixing board for content creation!
 
 - PLAN -
 1. Create Function to process files on blob storage then save the transcript back to blob storage
