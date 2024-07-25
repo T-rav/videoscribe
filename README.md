@@ -30,3 +30,6 @@ TODO : Add some summary and action point extractions as per https://platform.ope
     -  add option
     -  copy button for claude 
     -  simple RAG aggregation on data
+4. post processing 
+    - remove ads (pod cast)
+    - summarize for youtube (5000 chars or less)
