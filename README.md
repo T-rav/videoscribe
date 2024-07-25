@@ -20,6 +20,8 @@ ES_API_ENDPOINT=ZZZ
 
 TODO : Add some summary and action point extractions as per https://platform.openai.com/docs/tutorials/meeting-minutes. Feels like these belong in the GPT not as additional queries? 
 
+MISSION : Create new content from existing sources
+
 - PLAN -
 1. Create Function to process files on blob storage then save the transcript back to blob storage
 2. Create UI to allow for youtube or uploaded file to be processed (saved to blob storage and queued for work?)
@@ -33,3 +35,5 @@ TODO : Add some summary and action point extractions as per https://platform.ope
 4. post processing 
     - remove ads (pod cast)
     - summarize for youtube (5000 chars or less)
+5. User search - index all your media then search for how to blend into new ideas for content? 
+6. Channel monitoring - poll for new stuff then index it when there is new stuff
