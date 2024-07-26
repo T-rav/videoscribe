@@ -36,5 +36,12 @@ MISSION : Create new content from existing sources - A mixing board for content 
     - remove ads (pod cast)
     - summarize for youtube (5000 chars or less)
     - summarize for podcast (blinkist for podcast?)
+    - fulltext search data
+       - abstract
+       - timestamps of key events (I can then group the transcript into these for vector?)
+         > give me a chapter breakdown of what is discussed in this transcript
+       - keyframes where they are matched to the timestamps
+       - full transcript
+       - transcript per timestamp chapter paired with keyframes if they exist.
 5. User search - index all your media then search for how to blend into new ideas for content? 
 6. Channel monitoring - poll for new stuff then index it when there is new stuff
