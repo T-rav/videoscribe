@@ -1,35 +1,41 @@
 import subprocess
 import os
 import re
+from enum import Enum
 from abc import ABC, abstractmethod
 from dotenv import load_dotenv
 from openai import OpenAI
 from groq import Groq
 from pydub import AudioSegment
+from typing import List, Optional, Iterator
 
 # Load environment variables from .env file
 load_dotenv()
 
+class TranscriptionServiceType(Enum):
+    OPENAI = "openai"
+    GROQ = "groq"
+
 class TranscriptionService(ABC):
     @abstractmethod
-    def transcribe(self, audio_file_path):
+    def transcribe(self, audio_file_path: str) -> str:
         pass
 
 class OpenAITranscriptionService(TranscriptionService):
-    def __init__(self, api_key):
+    def __init__(self, api_key: str):
         self.client = OpenAI(api_key=api_key)
 
-    def transcribe(self, audio_file_path):
+    def transcribe(self, audio_file_path: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
             transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="verbose_json", timestamp_granularities=["word"])
         return transcription.text
     
 class GroqTranscriptionService(TranscriptionService):
-    def __init__(self, api_key):
+    def __init__(self, api_key: str):
         self.client = Groq(api_key=api_key)
 
-    def transcribe(self, audio_file_path):
+    def transcribe(self, audio_file_path: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
             transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file, response_format="verbose_json")
@@ -37,17 +43,19 @@ class GroqTranscriptionService(TranscriptionService):
 
 class TranscriptionFactory:
     @staticmethod
-    def get_transcription_service(service_name):
-        if service_name == "openai":
+    def get_transcription_service(service_name: TranscriptionServiceType) -> TranscriptionService:
+        if service_name == TranscriptionServiceType.OPENAI:
             api_key = os.getenv("OPENAI_API_KEY")
+            if api_key is None:
+                raise ValueError("OpenAI API key is not provided")
             return OpenAITranscriptionService(api_key)
-        elif service_name == "groq":
+        elif service_name == TranscriptionServiceType.GROQ:
             api_key = os.getenv("GROQ_API_KEY")
+            if api_key is None:
+                raise ValueError("Groq API key is not provided")
             return GroqTranscriptionService(api_key)
-        else:
-            raise ValueError("Invalid API key provided")
 
-def download_audio(url, path):
+def download_audio(url: str, path: str) -> Optional[str]:
     # Ensure the path exists
     if not os.path.exists(path):
         os.makedirs(path)
@@ -72,7 +80,7 @@ def download_audio(url, path):
     
     return None  # In case no file is found
 
-def split_audio(file_path, segment_length_ms=600000):  # Default segment length: 10 minutes
+def split_audio(file_path: str, segment_length_ms: int = 600000) -> Iterator[str]:  # Default segment length: 10 minutes
     song = AudioSegment.from_file(file_path)
     parts = len(song) // segment_length_ms + 1
     base, ext = os.path.splitext(file_path)
@@ -88,13 +96,13 @@ def split_audio(file_path, segment_length_ms=600000):  # Default segment length:
             part.export(part_file_path, format=audio_format)
         yield part_file_path
 
-def transcribe_audio_segment(service, audio_file_path):
+def transcribe_audio_segment(service: TranscriptionService, audio_file_path: str) -> str:
     return service.transcribe(audio_file_path)
 
-def transcribe_audio(file_path, service):
+def transcribe_audio(file_path: str, service: TranscriptionService) -> str:
     # Check file size first
     if os.path.getsize(file_path) > 26214400:  # If file is larger than 25MB
-        transcriptions = []
+        transcriptions: List[str] = []
         for segment_path in split_audio(file_path):
             transcription = transcribe_audio_segment(service, segment_path)
             transcriptions.append(transcription)
@@ -106,8 +114,9 @@ def transcribe_audio(file_path, service):
 # Const
 path = './incoming'  # Specify the directory path where you want to save the audio file.
 # Input
-#url = './incoming/audio/Building Domain-Specific Copilots.mp3'
-url = 'https://youtu.be/Un-aZ7BO7gw'
+url = 'https://youtube.com/live/J2MYP9Srlng'
+# Testing url
+#url = 'https://youtu.be/Un-aZ7BO7gw'
 
 print("Processing audio...")
 if url.startswith("https://"):
@@ -135,7 +144,7 @@ print(f"Audio file is ready at {audio_file_path}")
 # Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
-    transcription_service = TranscriptionFactory.get_transcription_service("groq")
+    transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.OPENAI) 
     combined_transcription = transcribe_audio(audio_file_path, transcription_service)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
