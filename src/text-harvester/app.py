@@ -10,7 +10,8 @@ from pydub import AudioSegment
 load_dotenv()
 
 # Access the environment variables
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 class TranscriptionService(ABC):
     @abstractmethod
@@ -26,12 +27,26 @@ class OpenAITranscriptionService(TranscriptionService):
             print(f"Processing part {audio_file_path}")
             transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="verbose_json", timestamp_granularities=["word"])
         return transcription.text
+    
+class GrokTranscriptionService(TranscriptionService):
+    def __init__(self, api_key):
+        self.client = OpenAI(api_key=api_key, base_url="https://api.grok.ai/openai/v1")
+
+    def transcribe(self, audio_file_path):
+        with open(audio_file_path, 'rb') as audio_file:
+            print(f"Processing part {audio_file_path}")
+            transcription = self.groq.audio.transcriptions.create(model="whisper-large-v3", file=audio_file, response_format="verbose_json", timestamp_granularities=["word"])
+        return transcription.text
 
 class TranscriptionFactory:
     @staticmethod
-    def get_transcription_service(api_key):
-        if api_key:
+    def get_transcription_service(service_name):
+        if service_name == "openai":
+            api_key = os.getenv("OPENAI_API_KEY")
             return OpenAITranscriptionService(api_key)
+        elif service_name == "grok":
+            api_key = os.getenv("GROQ_API_KEY")
+            return GrokTranscriptionService(api_key)
         else:
             raise ValueError("Invalid API key provided")
 
@@ -95,7 +110,7 @@ def transcribe_audio(file_path, service):
 path = './incoming'  # Specify the directory path where you want to save the audio file.
 # Input
 #url = './incoming/audio/Building Domain-Specific Copilots.mp3'
-url = 'https://www.youtube.com/live/epLpzi3G910'
+url = 'https://youtu.be/Un-aZ7BO7gw'
 
 print("Processing audio...")
 if url.startswith("https://"):
@@ -123,7 +138,7 @@ print(f"Audio file is ready at {audio_file_path}")
 # Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
-    transcription_service = TranscriptionFactory.get_transcription_service(OPENAI_API_KEY)
+    transcription_service = TranscriptionFactory.get_transcription_service("openai")
     combined_transcription = transcribe_audio(audio_file_path, transcription_service)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
