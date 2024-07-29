@@ -2,3 +2,4 @@ yt-dlp
 openai
 python-dotenv
 pydub
+groq

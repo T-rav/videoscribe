@@ -4,14 +4,11 @@ import re
 from abc import ABC, abstractmethod
 from dotenv import load_dotenv
 from openai import OpenAI
+from groq import Groq
 from pydub import AudioSegment
 
 # Load environment variables from .env file
 load_dotenv()
-
-# Access the environment variables
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-# GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 class TranscriptionService(ABC):
     @abstractmethod
@@ -28,14 +25,14 @@ class OpenAITranscriptionService(TranscriptionService):
             transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="verbose_json", timestamp_granularities=["word"])
         return transcription.text
     
-class GrokTranscriptionService(TranscriptionService):
+class GroqTranscriptionService(TranscriptionService):
     def __init__(self, api_key):
-        self.client = OpenAI(api_key=api_key, base_url="https://api.grok.ai/openai/v1")
+        self.client = Groq(api_key=api_key)
 
     def transcribe(self, audio_file_path):
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
-            transcription = self.groq.audio.transcriptions.create(model="whisper-large-v3", file=audio_file, response_format="verbose_json", timestamp_granularities=["word"])
+            transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file, response_format="verbose_json")
         return transcription.text
 
 class TranscriptionFactory:
@@ -44,9 +41,9 @@ class TranscriptionFactory:
         if service_name == "openai":
             api_key = os.getenv("OPENAI_API_KEY")
             return OpenAITranscriptionService(api_key)
-        elif service_name == "grok":
+        elif service_name == "groq":
             api_key = os.getenv("GROQ_API_KEY")
-            return GrokTranscriptionService(api_key)
+            return GroqTranscriptionService(api_key)
         else:
             raise ValueError("Invalid API key provided")
 
@@ -138,7 +135,7 @@ print(f"Audio file is ready at {audio_file_path}")
 # Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
-    transcription_service = TranscriptionFactory.get_transcription_service("openai")
+    transcription_service = TranscriptionFactory.get_transcription_service("groq")
     combined_transcription = transcribe_audio(audio_file_path, transcription_service)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
