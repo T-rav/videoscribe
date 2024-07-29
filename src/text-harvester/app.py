@@ -1,6 +1,7 @@
 import subprocess
 import os
 import re
+from abc import ABC, abstractmethod
 from dotenv import load_dotenv
 from openai import OpenAI
 from pydub import AudioSegment
@@ -10,6 +11,29 @@ load_dotenv()
 
 # Access the environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+class TranscriptionService(ABC):
+    @abstractmethod
+    def transcribe(self, audio_file_path):
+        pass
+
+class OpenAITranscriptionService(TranscriptionService):
+    def __init__(self, api_key):
+        self.client = OpenAI(api_key=api_key)
+
+    def transcribe(self, audio_file_path):
+        with open(audio_file_path, 'rb') as audio_file:
+            print(f"Processing part {audio_file_path}")
+            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="verbose_json", timestamp_granularities=["word"])
+        return transcription.text
+
+class TranscriptionFactory:
+    @staticmethod
+    def get_transcription_service(api_key):
+        if api_key:
+            return OpenAITranscriptionService(api_key)
+        else:
+            raise ValueError("Invalid API key provided")
 
 def download_audio(url, path):
     # Ensure the path exists
@@ -25,7 +49,7 @@ def download_audio(url, path):
     ]
     # Execute the yt-dlp command
     result = subprocess.run(command, check=True, capture_output=True, text=True)
-     # Extract the file path from the stdout
+    # Extract the file path from the stdout
     output = result.stdout
     file_path_match = re.search(r'Destination:\s+(.*\.m4a)', output)
     
@@ -52,30 +76,26 @@ def split_audio(file_path, segment_length_ms=600000):  # Default segment length:
             part.export(part_file_path, format=audio_format)
         yield part_file_path
 
-def transcribe_audio_segment(api_key, audio_file_path):
-    client = OpenAI(api_key=api_key)
-    with open(audio_file_path, 'rb') as audio_file:
-        print(f"Processing part {audio_file_path}")
-        transcription = client.audio.transcriptions.create(model="whisper-1", file=audio_file)
-    return transcription.text
+def transcribe_audio_segment(service, audio_file_path):
+    return service.transcribe(audio_file_path)
 
-def transcribe_audio(file_path, api_key):
+def transcribe_audio(file_path, service):
     # Check file size first
     if os.path.getsize(file_path) > 26214400:  # If file is larger than 25MB
         transcriptions = []
         for segment_path in split_audio(file_path):
-            transcription = transcribe_audio_segment(api_key, segment_path)
+            transcription = transcribe_audio_segment(service, segment_path)
             transcriptions.append(transcription)
             os.remove(segment_path)  # Clean up the segment
         return ' '.join(transcriptions)
     else:
-        return transcribe_audio_segment(api_key, file_path)
+        return transcribe_audio_segment(service, file_path)
 
 # Const
 path = './incoming'  # Specify the directory path where you want to save the audio file.
 # Input
 #url = './incoming/audio/Building Domain-Specific Copilots.mp3'
-url = 'https://www.youtube.com/watch?v=6Rc71TsOcRk&t=1766s'
+url = 'https://www.youtube.com/live/epLpzi3G910'
 
 print("Processing audio...")
 if url.startswith("https://"):
@@ -103,7 +123,8 @@ print(f"Audio file is ready at {audio_file_path}")
 # Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
-    combined_transcription = transcribe_audio(audio_file_path, OPENAI_API_KEY)
+    transcription_service = TranscriptionFactory.get_transcription_service(OPENAI_API_KEY)
+    combined_transcription = transcribe_audio(audio_file_path, transcription_service)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
     transcription_file_path = f'{os.path.splitext(audio_file_path)[0]}_transcript.txt'.replace("audio/", "transcript/")
