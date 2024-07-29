@@ -20,7 +20,7 @@ class TranscriptionServiceType(Enum):
 
 class TranscriptionService(ABC):
     @abstractmethod
-    def transcribe(self, audio_file_path: str) -> str:
+    def transcribe(self, audio_file_path: str, prompt: str) -> str:
         pass
     def file_name_extension(self) -> str:
         pass
@@ -29,10 +29,10 @@ class OpenAITranscriptionService(TranscriptionService):
     def __init__(self, api_key: str):
         self.client = OpenAI(api_key=api_key)
 
-    def transcribe(self, audio_file_path: str) -> str:
+    def transcribe(self, audio_file_path: str, prompt: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file)
+            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, prompt=prompt)
         return transcription.text
 
     def file_name_extension(self) -> str:
@@ -42,11 +42,11 @@ class OpenAIVttTranscriptionService(TranscriptionService):
     def __init__(self, api_key: str):
         self.client = OpenAI(api_key=api_key)
 
-    def transcribe(self, audio_file_path: str) -> str:
+    def transcribe(self, audio_file_path: str, prompt: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="vtt")
-        return transcription
+            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="vtt", prompt=prompt)
+        return transcription.replace("WEBVTT\n\n", "")
 
     def file_name_extension(self) -> str:
         return ".vtt"
@@ -55,10 +55,10 @@ class OpenAISrtTranscriptionService(TranscriptionService):
     def __init__(self, api_key: str):
         self.client = OpenAI(api_key=api_key)
 
-    def transcribe(self, audio_file_path: str) -> str:
+    def transcribe(self, audio_file_path: str, prompt: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="srt")
+            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="srt", prompt=prompt)
         return transcription
 
     def file_name_extension(self) -> str:
@@ -68,10 +68,10 @@ class GroqTranscriptionService(TranscriptionService):
     def __init__(self, api_key: str):
         self.client = Groq(api_key=api_key)
 
-    def transcribe(self, audio_file_path: str) -> str:
+    def transcribe(self, audio_file_path: str, prompt: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file)
+            transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file, prompt=prompt)
         return transcription.text
 
     def file_name_extension(self) -> str:
@@ -139,23 +139,24 @@ def split_audio(file_path: str, segment_length_ms: int = 600000) -> Iterator[str
             part.export(part_file_path, format=audio_format)
         yield part_file_path
 
-def transcribe_audio_segment(service: TranscriptionService, audio_file_path: str) -> str:
-    return service.transcribe(audio_file_path)
+def transcribe_audio_segment(service: TranscriptionService, audio_file_path: str, prompt: str) -> str:
+    return service.transcribe(audio_file_path, prompt)
 
-def transcribe_audio(file_path: str, service: TranscriptionService) -> str:
+def transcribe_audio(file_path: str, service: TranscriptionService, prompt: str) -> str:
     # Check file size first
     if os.path.getsize(file_path) > 26214400:  # If file is larger than 25MB
         transcriptions: List[str] = []
         for segment_path in split_audio(file_path):
-            transcription = transcribe_audio_segment(service, segment_path)
+            transcription = transcribe_audio_segment(service, segment_path, prompt)
             transcriptions.append(transcription)
             os.remove(segment_path)  # Clean up the segment
         return ' '.join(transcriptions)
     else:
-        return transcribe_audio_segment(service, file_path)
+        return transcribe_audio_segment(service, file_path, prompt)
 
 # Const
 path = './incoming'  # Specify the directory path where you want to save the audio file.
+prompt = "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI."
 # Input
 #url = 'https://youtube.com/live/J2MYP9Srlng'
 # Testing url
@@ -188,7 +189,7 @@ print(f"Audio file is ready at {audio_file_path}")
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
     transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.OPENAI) 
-    combined_transcription = transcribe_audio(audio_file_path, transcription_service)
+    combined_transcription = transcribe_audio(audio_file_path, transcription_service, prompt)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
     transcription_file_path = f'{os.path.splitext(audio_file_path)[0]}_transcript{transcription_service.file_name_extension()}'.replace("audio/", "transcript/")
@@ -199,5 +200,7 @@ if audio_file_path is not None:
     # Writing the transcription to the file
     with open(transcription_file_path, 'w', encoding='utf-8') as file:
         file.write(combined_transcription)
+
+    os.remove(audio_file_path) # remove the audio once done with it
 
     print(f"Transcription written to {transcription_file_path}")
