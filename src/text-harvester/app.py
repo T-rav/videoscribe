@@ -14,11 +14,15 @@ load_dotenv()
 
 class TranscriptionServiceType(Enum):
     OPENAI = "openai"
+    OPENAI_VTT = "openai-vtt"
+    OPENAI_SRT = "openai-srt"
     GROQ = "groq"
 
 class TranscriptionService(ABC):
     @abstractmethod
     def transcribe(self, audio_file_path: str) -> str:
+        pass
+    def file_name_extension(self) -> str:
         pass
 
 class OpenAITranscriptionService(TranscriptionService):
@@ -28,8 +32,37 @@ class OpenAITranscriptionService(TranscriptionService):
     def transcribe(self, audio_file_path: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="verbose_json", timestamp_granularities=["word"])
+            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file)
         return transcription.text
+
+    def file_name_extension(self) -> str:
+        return ".txt"
+    
+class OpenAIVttTranscriptionService(TranscriptionService):
+    def __init__(self, api_key: str):
+        self.client = OpenAI(api_key=api_key)
+
+    def transcribe(self, audio_file_path: str) -> str:
+        with open(audio_file_path, 'rb') as audio_file:
+            print(f"Processing part {audio_file_path}")
+            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="vtt")
+        return transcription
+
+    def file_name_extension(self) -> str:
+        return ".vtt"
+
+class OpenAISrtTranscriptionService(TranscriptionService):
+    def __init__(self, api_key: str):
+        self.client = OpenAI(api_key=api_key)
+
+    def transcribe(self, audio_file_path: str) -> str:
+        with open(audio_file_path, 'rb') as audio_file:
+            print(f"Processing part {audio_file_path}")
+            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="srt")
+        return transcription
+
+    def file_name_extension(self) -> str:
+        return ".srt"
     
 class GroqTranscriptionService(TranscriptionService):
     def __init__(self, api_key: str):
@@ -38,22 +71,32 @@ class GroqTranscriptionService(TranscriptionService):
     def transcribe(self, audio_file_path: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file, response_format="verbose_json")
+            transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file)
         return transcription.text
 
+    def file_name_extension(self) -> str:
+        return ".txt"
+
 class TranscriptionFactory:
+    # add services here
+    _service_map = {
+        TranscriptionServiceType.OPENAI: (OpenAITranscriptionService, "OPENAI_API_KEY"),
+        TranscriptionServiceType.OPENAI_SRT: (OpenAISrtTranscriptionService, "OPENAI_API_KEY"),
+        TranscriptionServiceType.OPENAI_VTT: (OpenAIVttTranscriptionService, "OPENAI_API_KEY"),
+        TranscriptionServiceType.GROQ: (GroqTranscriptionService, "GROQ_API_KEY")
+    }
+
     @staticmethod
     def get_transcription_service(service_name: TranscriptionServiceType) -> TranscriptionService:
-        if service_name == TranscriptionServiceType.OPENAI:
-            api_key = os.getenv("OPENAI_API_KEY")
-            if api_key is None:
-                raise ValueError("OpenAI API key is not provided")
-            return OpenAITranscriptionService(api_key)
-        elif service_name == TranscriptionServiceType.GROQ:
-            api_key = os.getenv("GROQ_API_KEY")
-            if api_key is None:
-                raise ValueError("Groq API key is not provided")
-            return GroqTranscriptionService(api_key)
+        if service_name not in TranscriptionFactory._service_map:
+            raise ValueError(f"Unsupported transcription service: {service_name}")
+
+        service_class, api_key_env = TranscriptionFactory._service_map[service_name]
+        api_key = os.getenv(api_key_env)
+        if api_key is None:
+            raise ValueError(f"{api_key_env} is not provided")
+
+        return service_class(api_key)
 
 def download_audio(url: str, path: str) -> Optional[str]:
     # Ensure the path exists
@@ -114,9 +157,9 @@ def transcribe_audio(file_path: str, service: TranscriptionService) -> str:
 # Const
 path = './incoming'  # Specify the directory path where you want to save the audio file.
 # Input
-url = 'https://youtube.com/live/J2MYP9Srlng'
+#url = 'https://youtube.com/live/J2MYP9Srlng'
 # Testing url
-#url = 'https://youtu.be/Un-aZ7BO7gw'
+url = 'https://youtu.be/Un-aZ7BO7gw'
 
 print("Processing audio...")
 if url.startswith("https://"):
@@ -148,7 +191,7 @@ if audio_file_path is not None:
     combined_transcription = transcribe_audio(audio_file_path, transcription_service)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
-    transcription_file_path = f'{os.path.splitext(audio_file_path)[0]}_transcript.txt'.replace("audio/", "transcript/")
+    transcription_file_path = f'{os.path.splitext(audio_file_path)[0]}_transcript{transcription_service.file_name_extension()}'.replace("audio/", "transcript/")
     
     # Ensure the directory exists
     os.makedirs(os.path.dirname(transcription_file_path), exist_ok=True)
