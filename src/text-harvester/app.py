@@ -185,6 +185,10 @@ else:
 
 print(f"Audio file is ready at {audio_file_path}")
 
+# Embedding part
+print(f"Running embeddings...")
+search()
+
 # Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")

@@ -32,8 +32,8 @@
 
 .footer {
   flex-shrink: 0;
-  background-color: #D2B48C; /* Match the footer background color */
-  color: #4A4A4A; /* Match the text color */
+  background-color: #d2b48c;
+  color: #4a4a4a;
   padding: 10px 0;
   text-align: center;
   width: 100%;
