@@ -1,7 +1,7 @@
 .form-container {
   background-color: rgb(230,213,188); /* Adjust to match the original background color */
   padding: 20px;
-  margin: 20px auto;
+  margin: 20px;
   width: 100%;
   max-width: 500px;
   border-radius: 8px;
@@ -26,7 +26,7 @@
   font-family: "Space Mono", monospace;
 }
 
-.form-container input,
+.form-container input, 
 .form-container select,
 .form-container textarea {
   width: 100%;

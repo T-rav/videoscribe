@@ -1,8 +1,50 @@
 .App {
-  text-align: center;
-  background-color: hsl(36 39% 88%);
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  min-height: 100vh;
+  background-color: #f5ecd5;
+}
+
+.header {
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the start to move form up */
+  padding: 20px;
+  margin-top: 40px; /* Add margin to move the form up towards the top */
+}
+
+.form-container {
+  background-color: rgb(230,213,188);
+  padding: 20px;
+  margin: 20px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  font-weight: 700;
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: #D2B48C; /* Match the footer background color */
+  color: #4A4A4A; /* Match the text color */
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+  font-family: "DM Sans", sans-serif;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer p {
+  margin: 5px 0;
 }

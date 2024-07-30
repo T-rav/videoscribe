@@ -1,0 +1,20 @@
+.footer {
+    background-color: #D2B48C; /* Match the footer background color */
+    color: #4A4A4A; /* Match the text color */
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    font-family: "DM Sans", sans-serif;
+    position: relative;
+    bottom: 0;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer p {
+    margin: 5px 0;
+  }
+  
