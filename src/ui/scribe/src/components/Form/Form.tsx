@@ -53,13 +53,13 @@ const Form: React.FC = () => {
         </select>
 
         <label htmlFor="transcription-prompt">Transcription Prompt</label>
-        <input
-          type="text"
+        <textarea
           id="transcription-prompt"
           placeholder="Enter a prompt for the transcription (Optional)"
           value={transcriptionPrompt}
           onChange={(e) => setTranscriptionPrompt(e.target.value)}
-        />
+          rows={3}
+        ></textarea>
 
         <button type="submit" className="submit-button">
           Transcribe
