@@ -2,10 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #D2B48C; /* Use the correct color from the original */
+  background-color: #D2B48C;
   padding: 10px 20px;
   width: 100%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Ensure padding is included in the element's width */
 }
 
 .logo {
@@ -14,11 +15,11 @@
   font-size: 18px;
   font-weight: bold;
   font-family: "Space Mono", monospace;
-  color: #000000; /* Adjusted to match the original logo color */
+  color: #000000;
 }
 
 .sign-in {
-  background-color: rgb(217, 203, 176); /* Use the correct color from the original */
+  background-color: rgb(217, 203, 176);
   border: none;
   padding: 16px; /* Ensure 16px padding */
   font-size: 14px;
@@ -31,5 +32,5 @@
 }
 
 .sign-in:hover {
-  background-color: #d1b179; /* Adjust the hover color if needed */
+  background-color: #d1b179;
 }

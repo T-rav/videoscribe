@@ -13,9 +13,9 @@
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align items to the start to move form up */
+  align-items: flex-start;
   padding: 20px;
-  margin-top: 40px; /* Add margin to move the form up towards the top */
+  margin-top: 40px;
 }
 
 .form-container {
