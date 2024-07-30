@@ -17,7 +17,11 @@ const Form: React.FC = () => {
         </select>
 
         <label htmlFor="transcription-prompt">Transcription Prompt</label>
-        <input type="text" id="transcription-prompt" placeholder="Enter a prompt for the transcription" />
+        <input type="text" id="transcription-prompt" placeholder="Enter a prompt for the transcription (Optional)" />
+
+        <button type="submit" className="w-full">
+          Transcribe
+        </button>
       </form>
     </div>
   );

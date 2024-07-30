@@ -7,6 +7,10 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
+      {/* <div>
+     Transcribe YouTube Videos Effortlessly
+     Our SaaS platform makes it easy to convert your YouTube videos into text-based transcripts, captions, and subtitles.
+     </div> */}
       <Form />
     </div>
   );
