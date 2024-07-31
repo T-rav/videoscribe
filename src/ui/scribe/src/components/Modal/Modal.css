@@ -18,6 +18,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 500px;
+  max-height: 80vh; /* Set maximum height */
+  overflow-y: auto; /* Enable scrolling for overflow content */
   position: relative;
 }
 
@@ -34,17 +36,6 @@
 
 .modal-close:hover {
   color: #333;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: 24px;
 }
 
 .copy-button {
