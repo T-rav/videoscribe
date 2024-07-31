@@ -59,13 +59,13 @@
 
 .close-button {
   position: absolute;
-  top: -7px; /* Move the button up by 12px */
+  top: 12px; /* Dropped by 16px */
   right: 5px;
-  background: none;
+  background-color: rgb(217, 203, 176); /* Brown background */
   border: none;
   font-size: 10px; /* Reduced the size */
   cursor: pointer;
-  color: #888;
+  color: rgb(92, 69, 35); /* Text color */
   width: 20px; /* Ensure square shape */
   height: 20px; /* Ensure square shape */
   display: flex;
@@ -74,5 +74,6 @@
 }
 
 .close-button:hover {
+  background-color: #d1b179; /* Hover color */
   color: #333;
 }
