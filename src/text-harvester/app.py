@@ -136,6 +136,7 @@ def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None
             if os.path.exists(file_path) and file_path.endswith(".m4a"):
                 # If max_length_minutes is set, trim the audio
                 if max_length_minutes:
+                    print(f"Trimming audio file: {file_path}")
                     max_length_seconds = max_length_minutes * 60
                     trimmed_file_path = file_path.replace('.m4a', '_trimmed.m4a')
                     subprocess.run(['ffmpeg', '-i', file_path, '-ss', '00:00:00', '-t', str(max_length_seconds), trimmed_file_path], check=True)
@@ -185,8 +186,8 @@ def transcribe_audio(file_path: str, service: TranscriptionService, prompt: str)
 path = './incoming'  # Specify the directory path where you want to save the audio file.
 prompt = "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI."
 # Input
-url = 'https://www.youtube.com/live/ccsrX-DfmnA'
-max_length_minutes = 10  # Specify the maximum length of the video in minutes
+url = './incoming/audio/GPT with Me - Ep 18： Continuing to Build a UI with Gen AI.m4a'
+max_length_minutes = None # Specify the maximum length of the video in minutes
 
 print("Processing audio...")
 if url.startswith("https://"):
@@ -214,7 +215,7 @@ print(f"Audio file is ready at {audio_file_path}")
 # Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
-    transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.OPENAI_VTT) 
+    transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.OPENAI) 
     combined_transcription = transcribe_audio(audio_file_path, transcription_service, prompt)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
