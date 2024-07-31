@@ -13,6 +13,7 @@
   position: absolute;
   right: 0;
   top: 40px;
+  width: 300px; /* Make the menu wider */
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -21,8 +22,12 @@
 }
 
 .notification-item {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  position: relative;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .notification-item h4 {
@@ -50,4 +55,24 @@
 
 .view-button:hover {
   background-color: #d1b179;
+}
+
+.close-button {
+  position: absolute;
+  top: -7px; /* Move the button up by 12px */
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 10px; /* Reduced the size */
+  cursor: pointer;
+  color: #888;
+  width: 20px; /* Ensure square shape */
+  height: 20px; /* Ensure square shape */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  color: #333;
 }

@@ -71,7 +71,7 @@
 .dropdown-menu {
   position: absolute;
   right: 0;
-  top: 40px; /* Ensure the menu does not overlap the notifications icon */
+  top: 40px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;

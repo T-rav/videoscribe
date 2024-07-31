@@ -1,22 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Notifications.css';
-import Modal from '../Modal/Modal'; // Adjust the path if necessary
+import Modal from '../Modal/Modal';
 
 const Notifications: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: "Sample Video Title 1", datetime: "2024-07-30 14:30", length: "10:30", progress: "50%", content: "Here is the detailed content of the video transcription progress..." },
+    { id: 2, title: "Sample Video Title 2", datetime: "2024-07-30 15:00", length: "12:00", progress: "75%", content: "Here is the detailed content of the video transcription progress..." }
+  ]);
+  const [selectedNotification, setSelectedNotification] = useState<any>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setOpen(!open);
   };
 
-  const openModal = () => {
+  const openModal = (notification: any) => {
+    setSelectedNotification(notification);
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const removeNotification = (id: number) => {
+    setNotifications(notifications.filter(notification => notification.id !== id));
   };
 
   useEffect(() => {
@@ -39,24 +49,29 @@ const Notifications: React.FC = () => {
       </button>
       {open && (
         <div className="notifications-menu">
-          <div className="notification-item">
-            <h4>Sample Video Title</h4>
-            <p><strong>Datetime:</strong> 2024-07-30 14:30</p>
-            <p><strong>Length:</strong> 10:30</p>
-            <p><strong>Progress:</strong> 50%</p>
-            <button className="view-button" onClick={openModal}>View Details</button>
-          </div>
+          {notifications.map(notification => (
+            <div className="notification-item" key={notification.id}>
+              <button className="close-button" onClick={() => removeNotification(notification.id)}>×</button>
+              <h4>{notification.title}</h4>
+              <p><strong>Datetime:</strong> {notification.datetime}</p>
+              <p><strong>Length:</strong> {notification.length}</p>
+              <p><strong>Progress:</strong> {notification.progress}</p>
+              <button className="view-button" onClick={() => openModal(notification)}>View Details</button>
+            </div>
+          ))}
         </div>
       )}
-      <Modal
-        isOpen={modalOpen}
-        onClose={closeModal}
-        title="Sample Video Title"
-        datetime="2024-07-30 14:30"
-        length="10:30"
-        progress="50%"
-        content="Here is the detailed content of the video transcription progress..."
-      />
+      {selectedNotification && (
+        <Modal
+          isOpen={modalOpen}
+          onClose={closeModal}
+          title={selectedNotification.title}
+          datetime={selectedNotification.datetime}
+          length={selectedNotification.length}
+          progress={selectedNotification.progress}
+          content={selectedNotification.content}
+        />
+      )}
     </div>
   );
 };
