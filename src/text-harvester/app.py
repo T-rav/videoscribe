@@ -108,6 +108,8 @@ def download_audio(url: str, path: str) -> Optional[str]:
         '-x',  # Extract audio
         '--audio-format', 'm4a',  # Specify audio format
         '--output', os.path.join(path, '%(title)s.%(ext)s'),  # Naming convention
+        '--format', 'bestaudio',
+        '-N', '4', # use 4 connections
         url  # YouTube URL
     ]
     # Execute the yt-dlp command
@@ -146,8 +148,11 @@ def transcribe_audio(file_path: str, service: TranscriptionService, prompt: str)
     # Check file size first
     if os.path.getsize(file_path) > 26214400:  # If file is larger than 25MB
         transcriptions: List[str] = []
+        system_prompt = prompt
         for segment_path in split_audio(file_path):
-            transcription = transcribe_audio_segment(service, segment_path, prompt)
+            transcription = transcribe_audio_segment(service, segment_path, system_prompt)
+            # need to inject last segment into the prompt, last 224 tokens are respected
+            system_prompt = f"{transcription} {prompt}"
             transcriptions.append(transcription)
             os.remove(segment_path)  # Clean up the segment
         return ' '.join(transcriptions)
@@ -158,9 +163,9 @@ def transcribe_audio(file_path: str, service: TranscriptionService, prompt: str)
 path = './incoming'  # Specify the directory path where you want to save the audio file.
 prompt = "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI."
 # Input
-#url = 'https://youtube.com/live/J2MYP9Srlng'
+url = 'https://www.youtube.com/live/ccsrX-DfmnA'
 # Testing url
-url = 'https://youtu.be/Un-aZ7BO7gw'
+#url = 'https://youtu.be/Un-aZ7BO7gw'
 
 print("Processing audio...")
 if url.startswith("https://"):
@@ -185,14 +190,10 @@ else:
 
 print(f"Audio file is ready at {audio_file_path}")
 
-# Embedding part
-print(f"Running embeddings...")
-search()
-
 # Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
-    transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.OPENAI) 
+    transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.OPENAI_VTT) 
     combined_transcription = transcribe_audio(audio_file_path, transcription_service, prompt)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
@@ -205,6 +206,6 @@ if audio_file_path is not None:
     with open(transcription_file_path, 'w', encoding='utf-8') as file:
         file.write(combined_transcription)
 
-    os.remove(audio_file_path) # remove the audio once done with it
+    #os.remove(audio_file_path) # remove the audio once done with it
 
     print(f"Transcription written to {transcription_file_path}")

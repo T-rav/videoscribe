@@ -4,6 +4,7 @@ import './Form.css';
 const Form: React.FC = () => {
   const [youtubeLink, setYoutubeLink] = useState('');
   const [transcriptionType, setTranscriptionType] = useState('normal');
+  // https://platform.openai.com/docs/guides/speech-to-text/prompting
   const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -52,7 +53,7 @@ const Form: React.FC = () => {
           <option value="str">STR</option>
         </select>
 
-        <label htmlFor="transcription-prompt">Transcription Prompt</label>
+        <label htmlFor="transcription-prompt">Transcription Prompt <a href="https://platform.openai.com/docs/guides/speech-to-text/prompting" target="_blank" rel="noopener noreferrer">(?)</a></label>
         <textarea
           id="transcription-prompt"
           placeholder="Enter a prompt for the transcription (Optional)"
