@@ -38,10 +38,6 @@
   text-align: center;
   width: 100%;
   font-family: "DM Sans", sans-serif;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
 }
 
 .footer-left {
@@ -74,14 +70,13 @@
 
 .dropdown-menu {
   position: absolute;
-  left: 0;
-  bottom: 100%; /* Ensure the menu renders upwards */
+  right: 0;
+  top: 40px; /* Ensure the menu does not overlap the notifications icon */
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
   border-radius: 4px;
   z-index: 1000;
-  transform: translateY(-10px); /* Add slight offset to avoid overlap */
 }
 
 .sign-in {
