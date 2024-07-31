@@ -1,0 +1,4999 @@
+Original: 00:00:01.000 --> 00:00:05.000
+Parsed: 0:00:01 --> 0:00:05
+Last End Time: 0:00:00
+Adjusted: 00:00:01.000 --> 00:00:05.000
+
+Original: 00:00:07.000 --> 00:00:10.000
+Parsed: 0:00:07 --> 0:00:10
+Last End Time: 0:00:05
+Adjusted: 00:00:07.000 --> 00:00:10.000
+
+Original: 00:00:10.000 --> 00:00:13.000
+Parsed: 0:00:10 --> 0:00:13
+Last End Time: 0:00:10
+Adjusted: 00:00:10.000 --> 00:00:13.000
+
+Original: 00:00:14.000 --> 00:00:18.000
+Parsed: 0:00:14 --> 0:00:18
+Last End Time: 0:00:13
+Adjusted: 00:00:14.000 --> 00:00:18.000
+
+Original: 00:00:19.000 --> 00:00:22.000
+Parsed: 0:00:19 --> 0:00:22
+Last End Time: 0:00:18
+Adjusted: 00:00:19.000 --> 00:00:22.000
+
+Original: 00:00:23.000 --> 00:00:26.000
+Parsed: 0:00:23 --> 0:00:26
+Last End Time: 0:00:22
+Adjusted: 00:00:23.000 --> 00:00:26.000
+
+Original: 00:00:26.000 --> 00:00:29.000
+Parsed: 0:00:26 --> 0:00:29
+Last End Time: 0:00:26
+Adjusted: 00:00:26.000 --> 00:00:29.000
+
+Original: 00:00:30.000 --> 00:00:35.000
+Parsed: 0:00:30 --> 0:00:35
+Last End Time: 0:00:29
+Adjusted: 00:00:30.000 --> 00:00:35.000
+
+Original: 00:00:36.000 --> 00:00:40.000
+Parsed: 0:00:36 --> 0:00:40
+Last End Time: 0:00:35
+Adjusted: 00:00:36.000 --> 00:00:40.000
+
+Original: 00:00:41.000 --> 00:00:44.000
+Parsed: 0:00:41 --> 0:00:44
+Last End Time: 0:00:40
+Adjusted: 00:00:41.000 --> 00:00:44.000
+
+Original: 00:00:45.000 --> 00:00:51.000
+Parsed: 0:00:45 --> 0:00:51
+Last End Time: 0:00:44
+Adjusted: 00:00:45.000 --> 00:00:51.000
+
+Original: 00:00:51.000 --> 00:00:57.000
+Parsed: 0:00:51 --> 0:00:57
+Last End Time: 0:00:51
+Adjusted: 00:00:51.000 --> 00:00:57.000
+
+Original: 00:00:58.000 --> 00:01:03.000
+Parsed: 0:00:58 --> 0:01:03
+Last End Time: 0:00:57
+Adjusted: 00:00:58.000 --> 00:01:03.000
+
+Original: 00:01:04.000 --> 00:01:06.000
+Parsed: 0:01:04 --> 0:01:06
+Last End Time: 0:01:03
+Adjusted: 00:01:04.000 --> 00:01:06.000
+
+Original: 00:01:07.000 --> 00:01:15.000
+Parsed: 0:01:07 --> 0:01:15
+Last End Time: 0:01:06
+Adjusted: 00:01:07.000 --> 00:01:15.000
+
+Original: 00:01:15.000 --> 00:01:20.000
+Parsed: 0:01:15 --> 0:01:20
+Last End Time: 0:01:15
+Adjusted: 00:01:15.000 --> 00:01:20.000
+
+Original: 00:01:21.000 --> 00:01:23.000
+Parsed: 0:01:21 --> 0:01:23
+Last End Time: 0:01:20
+Adjusted: 00:01:21.000 --> 00:01:23.000
+
+Original: 00:01:24.000 --> 00:01:25.000
+Parsed: 0:01:24 --> 0:01:25
+Last End Time: 0:01:23
+Adjusted: 00:01:24.000 --> 00:01:25.000
+
+Original: 00:01:26.000 --> 00:01:30.000
+Parsed: 0:01:26 --> 0:01:30
+Last End Time: 0:01:25
+Adjusted: 00:01:26.000 --> 00:01:30.000
+
+Original: 00:01:31.000 --> 00:01:37.000
+Parsed: 0:01:31 --> 0:01:37
+Last End Time: 0:01:30
+Adjusted: 00:01:31.000 --> 00:01:37.000
+
+Original: 00:01:38.000 --> 00:01:42.000
+Parsed: 0:01:38 --> 0:01:42
+Last End Time: 0:01:37
+Adjusted: 00:01:38.000 --> 00:01:42.000
+
+Original: 00:01:42.000 --> 00:01:43.000
+Parsed: 0:01:42 --> 0:01:43
+Last End Time: 0:01:42
+Adjusted: 00:01:42.000 --> 00:01:43.000
+
+Original: 00:01:44.000 --> 00:01:45.000
+Parsed: 0:01:44 --> 0:01:45
+Last End Time: 0:01:43
+Adjusted: 00:01:44.000 --> 00:01:45.000
+
+Original: 00:01:46.000 --> 00:01:48.000
+Parsed: 0:01:46 --> 0:01:48
+Last End Time: 0:01:45
+Adjusted: 00:01:46.000 --> 00:01:48.000
+
+Original: 00:01:49.000 --> 00:01:52.000
+Parsed: 0:01:49 --> 0:01:52
+Last End Time: 0:01:48
+Adjusted: 00:01:49.000 --> 00:01:52.000
+
+Original: 00:01:53.000 --> 00:01:57.000
+Parsed: 0:01:53 --> 0:01:57
+Last End Time: 0:01:52
+Adjusted: 00:01:53.000 --> 00:01:57.000
+
+Original: 00:01:58.000 --> 00:02:03.000
+Parsed: 0:01:58 --> 0:02:03
+Last End Time: 0:01:57
+Adjusted: 00:01:58.000 --> 00:02:03.000
+
+Original: 00:02:04.000 --> 00:02:05.000
+Parsed: 0:02:04 --> 0:02:05
+Last End Time: 0:02:03
+Adjusted: 00:02:04.000 --> 00:02:05.000
+
+Original: 00:02:06.000 --> 00:02:07.000
+Parsed: 0:02:06 --> 0:02:07
+Last End Time: 0:02:05
+Adjusted: 00:02:06.000 --> 00:02:07.000
+
+Original: 00:02:07.000 --> 00:02:11.000
+Parsed: 0:02:07 --> 0:02:11
+Last End Time: 0:02:07
+Adjusted: 00:02:07.000 --> 00:02:11.000
+
+Original: 00:02:12.000 --> 00:02:13.000
+Parsed: 0:02:12 --> 0:02:13
+Last End Time: 0:02:11
+Adjusted: 00:02:12.000 --> 00:02:13.000
+
+Original: 00:02:14.000 --> 00:02:17.000
+Parsed: 0:02:14 --> 0:02:17
+Last End Time: 0:02:13
+Adjusted: 00:02:14.000 --> 00:02:17.000
+
+Original: 00:02:18.000 --> 00:02:19.000
+Parsed: 0:02:18 --> 0:02:19
+Last End Time: 0:02:17
+Adjusted: 00:02:18.000 --> 00:02:19.000
+
+Original: 00:02:20.000 --> 00:02:24.000
+Parsed: 0:02:20 --> 0:02:24
+Last End Time: 0:02:19
+Adjusted: 00:02:20.000 --> 00:02:24.000
+
+Original: 00:02:25.000 --> 00:02:29.000
+Parsed: 0:02:25 --> 0:02:29
+Last End Time: 0:02:24
+Adjusted: 00:02:25.000 --> 00:02:29.000
+
+Original: 00:02:30.000 --> 00:02:36.000
+Parsed: 0:02:30 --> 0:02:36
+Last End Time: 0:02:29
+Adjusted: 00:02:30.000 --> 00:02:36.000
+
+Original: 00:02:37.000 --> 00:02:38.000
+Parsed: 0:02:37 --> 0:02:38
+Last End Time: 0:02:36
+Adjusted: 00:02:37.000 --> 00:02:38.000
+
+Original: 00:02:39.000 --> 00:02:41.000
+Parsed: 0:02:39 --> 0:02:41
+Last End Time: 0:02:38
+Adjusted: 00:02:39.000 --> 00:02:41.000
+
+Original: 00:02:42.000 --> 00:02:45.000
+Parsed: 0:02:42 --> 0:02:45
+Last End Time: 0:02:41
+Adjusted: 00:02:42.000 --> 00:02:45.000
+
+Original: 00:02:46.000 --> 00:02:48.000
+Parsed: 0:02:46 --> 0:02:48
+Last End Time: 0:02:45
+Adjusted: 00:02:46.000 --> 00:02:48.000
+
+Original: 00:02:49.000 --> 00:02:53.000
+Parsed: 0:02:49 --> 0:02:53
+Last End Time: 0:02:48
+Adjusted: 00:02:49.000 --> 00:02:53.000
+
+Original: 00:02:54.000 --> 00:02:56.000
+Parsed: 0:02:54 --> 0:02:56
+Last End Time: 0:02:53
+Adjusted: 00:02:54.000 --> 00:02:56.000
+
+Original: 00:02:57.000 --> 00:02:58.000
+Parsed: 0:02:57 --> 0:02:58
+Last End Time: 0:02:56
+Adjusted: 00:02:57.000 --> 00:02:58.000
+
+Original: 00:02:59.000 --> 00:03:02.000
+Parsed: 0:02:59 --> 0:03:02
+Last End Time: 0:02:58
+Adjusted: 00:02:59.000 --> 00:03:02.000
+
+Original: 00:03:03.000 --> 00:03:04.000
+Parsed: 0:03:03 --> 0:03:04
+Last End Time: 0:03:02
+Adjusted: 00:03:03.000 --> 00:03:04.000
+
+Original: 00:03:05.000 --> 00:03:06.000
+Parsed: 0:03:05 --> 0:03:06
+Last End Time: 0:03:04
+Adjusted: 00:03:05.000 --> 00:03:06.000
+
+Original: 00:03:07.000 --> 00:03:09.000
+Parsed: 0:03:07 --> 0:03:09
+Last End Time: 0:03:06
+Adjusted: 00:03:07.000 --> 00:03:09.000
+
+Original: 00:03:10.000 --> 00:03:12.000
+Parsed: 0:03:10 --> 0:03:12
+Last End Time: 0:03:09
+Adjusted: 00:03:10.000 --> 00:03:12.000
+
+Original: 00:03:13.000 --> 00:03:14.000
+Parsed: 0:03:13 --> 0:03:14
+Last End Time: 0:03:12
+Adjusted: 00:03:13.000 --> 00:03:14.000
+
+Original: 00:03:15.000 --> 00:03:18.000
+Parsed: 0:03:15 --> 0:03:18
+Last End Time: 0:03:14
+Adjusted: 00:03:15.000 --> 00:03:18.000
+
+Original: 00:03:19.000 --> 00:03:21.000
+Parsed: 0:03:19 --> 0:03:21
+Last End Time: 0:03:18
+Adjusted: 00:03:19.000 --> 00:03:21.000
+
+Original: 00:03:22.000 --> 00:03:26.000
+Parsed: 0:03:22 --> 0:03:26
+Last End Time: 0:03:21
+Adjusted: 00:03:22.000 --> 00:03:26.000
+
+Original: 00:03:27.000 --> 00:03:32.000
+Parsed: 0:03:27 --> 0:03:32
+Last End Time: 0:03:26
+Adjusted: 00:03:27.000 --> 00:03:32.000
+
+Original: 00:03:33.000 --> 00:03:36.000
+Parsed: 0:03:33 --> 0:03:36
+Last End Time: 0:03:32
+Adjusted: 00:03:33.000 --> 00:03:36.000
+
+Original: 00:03:37.000 --> 00:03:39.000
+Parsed: 0:03:37 --> 0:03:39
+Last End Time: 0:03:36
+Adjusted: 00:03:37.000 --> 00:03:39.000
+
+Original: 00:03:40.000 --> 00:03:41.000
+Parsed: 0:03:40 --> 0:03:41
+Last End Time: 0:03:39
+Adjusted: 00:03:40.000 --> 00:03:41.000
+
+Original: 00:03:42.000 --> 00:03:44.000
+Parsed: 0:03:42 --> 0:03:44
+Last End Time: 0:03:41
+Adjusted: 00:03:42.000 --> 00:03:44.000
+
+Original: 00:03:45.000 --> 00:03:50.000
+Parsed: 0:03:45 --> 0:03:50
+Last End Time: 0:03:44
+Adjusted: 00:03:45.000 --> 00:03:50.000
+
+Original: 00:03:51.000 --> 00:03:54.000
+Parsed: 0:03:51 --> 0:03:54
+Last End Time: 0:03:50
+Adjusted: 00:03:51.000 --> 00:03:54.000
+
+Original: 00:03:55.000 --> 00:03:59.000
+Parsed: 0:03:55 --> 0:03:59
+Last End Time: 0:03:54
+Adjusted: 00:03:55.000 --> 00:03:59.000
+
+Original: 00:04:00.000 --> 00:04:02.000
+Parsed: 0:04:00 --> 0:04:02
+Last End Time: 0:03:59
+Adjusted: 00:04:00.000 --> 00:04:02.000
+
+Original: 00:04:03.000 --> 00:04:04.000
+Parsed: 0:04:03 --> 0:04:04
+Last End Time: 0:04:02
+Adjusted: 00:04:03.000 --> 00:04:04.000
+
+Original: 00:04:05.000 --> 00:04:06.000
+Parsed: 0:04:05 --> 0:04:06
+Last End Time: 0:04:04
+Adjusted: 00:04:05.000 --> 00:04:06.000
+
+Original: 00:04:07.000 --> 00:04:08.000
+Parsed: 0:04:07 --> 0:04:08
+Last End Time: 0:04:06
+Adjusted: 00:04:07.000 --> 00:04:08.000
+
+Original: 00:04:09.000 --> 00:04:10.000
+Parsed: 0:04:09 --> 0:04:10
+Last End Time: 0:04:08
+Adjusted: 00:04:09.000 --> 00:04:10.000
+
+Original: 00:04:11.000 --> 00:04:12.000
+Parsed: 0:04:11 --> 0:04:12
+Last End Time: 0:04:10
+Adjusted: 00:04:11.000 --> 00:04:12.000
+
+Original: 00:04:13.000 --> 00:04:14.000
+Parsed: 0:04:13 --> 0:04:14
+Last End Time: 0:04:12
+Adjusted: 00:04:13.000 --> 00:04:14.000
+
+Original: 00:04:15.000 --> 00:04:17.000
+Parsed: 0:04:15 --> 0:04:17
+Last End Time: 0:04:14
+Adjusted: 00:04:15.000 --> 00:04:17.000
+
+Original: 00:04:18.000 --> 00:04:19.000
+Parsed: 0:04:18 --> 0:04:19
+Last End Time: 0:04:17
+Adjusted: 00:04:18.000 --> 00:04:19.000
+
+Original: 00:04:20.000 --> 00:04:21.000
+Parsed: 0:04:20 --> 0:04:21
+Last End Time: 0:04:19
+Adjusted: 00:04:20.000 --> 00:04:21.000
+
+Original: 00:04:22.000 --> 00:04:24.000
+Parsed: 0:04:22 --> 0:04:24
+Last End Time: 0:04:21
+Adjusted: 00:04:22.000 --> 00:04:24.000
+
+Original: 00:04:25.000 --> 00:04:29.000
+Parsed: 0:04:25 --> 0:04:29
+Last End Time: 0:04:24
+Adjusted: 00:04:25.000 --> 00:04:29.000
+
+Original: 00:04:29.000 --> 00:04:32.000
+Parsed: 0:04:29 --> 0:04:32
+Last End Time: 0:04:29
+Adjusted: 00:04:29.000 --> 00:04:32.000
+
+Original: 00:04:33.000 --> 00:04:37.000
+Parsed: 0:04:33 --> 0:04:37
+Last End Time: 0:04:32
+Adjusted: 00:04:33.000 --> 00:04:37.000
+
+Original: 00:04:38.000 --> 00:04:39.000
+Parsed: 0:04:38 --> 0:04:39
+Last End Time: 0:04:37
+Adjusted: 00:04:38.000 --> 00:04:39.000
+
+Original: 00:04:40.000 --> 00:04:43.000
+Parsed: 0:04:40 --> 0:04:43
+Last End Time: 0:04:39
+Adjusted: 00:04:40.000 --> 00:04:43.000
+
+Original: 00:04:44.000 --> 00:04:45.000
+Parsed: 0:04:44 --> 0:04:45
+Last End Time: 0:04:43
+Adjusted: 00:04:44.000 --> 00:04:45.000
+
+Original: 00:04:46.000 --> 00:04:47.000
+Parsed: 0:04:46 --> 0:04:47
+Last End Time: 0:04:45
+Adjusted: 00:04:46.000 --> 00:04:47.000
+
+Original: 00:04:48.000 --> 00:04:49.000
+Parsed: 0:04:48 --> 0:04:49
+Last End Time: 0:04:47
+Adjusted: 00:04:48.000 --> 00:04:49.000
+
+Original: 00:04:50.000 --> 00:04:52.000
+Parsed: 0:04:50 --> 0:04:52
+Last End Time: 0:04:49
+Adjusted: 00:04:50.000 --> 00:04:52.000
+
+Original: 00:04:53.000 --> 00:04:55.000
+Parsed: 0:04:53 --> 0:04:55
+Last End Time: 0:04:52
+Adjusted: 00:04:53.000 --> 00:04:55.000
+
+Original: 00:04:56.000 --> 00:04:57.000
+Parsed: 0:04:56 --> 0:04:57
+Last End Time: 0:04:55
+Adjusted: 00:04:56.000 --> 00:04:57.000
+
+Original: 00:04:57.000 --> 00:04:59.000
+Parsed: 0:04:57 --> 0:04:59
+Last End Time: 0:04:57
+Adjusted: 00:04:57.000 --> 00:04:59.000
+
+Original: 00:05:00.000 --> 00:05:01.000
+Parsed: 0:05:00 --> 0:05:01
+Last End Time: 0:04:59
+Adjusted: 00:05:00.000 --> 00:05:01.000
+
+Original: 00:05:02.000 --> 00:05:04.000
+Parsed: 0:05:02 --> 0:05:04
+Last End Time: 0:05:01
+Adjusted: 00:05:02.000 --> 00:05:04.000
+
+Original: 00:05:05.000 --> 00:05:06.000
+Parsed: 0:05:05 --> 0:05:06
+Last End Time: 0:05:04
+Adjusted: 00:05:05.000 --> 00:05:06.000
+
+Original: 00:05:07.000 --> 00:05:09.000
+Parsed: 0:05:07 --> 0:05:09
+Last End Time: 0:05:06
+Adjusted: 00:05:07.000 --> 00:05:09.000
+
+Original: 00:05:10.000 --> 00:05:11.000
+Parsed: 0:05:10 --> 0:05:11
+Last End Time: 0:05:09
+Adjusted: 00:05:10.000 --> 00:05:11.000
+
+Original: 00:05:12.000 --> 00:05:15.000
+Parsed: 0:05:12 --> 0:05:15
+Last End Time: 0:05:11
+Adjusted: 00:05:12.000 --> 00:05:15.000
+
+Original: 00:05:16.000 --> 00:05:19.000
+Parsed: 0:05:16 --> 0:05:19
+Last End Time: 0:05:15
+Adjusted: 00:05:16.000 --> 00:05:19.000
+
+Original: 00:05:20.000 --> 00:05:21.000
+Parsed: 0:05:20 --> 0:05:21
+Last End Time: 0:05:19
+Adjusted: 00:05:20.000 --> 00:05:21.000
+
+Original: 00:05:22.000 --> 00:05:24.000
+Parsed: 0:05:22 --> 0:05:24
+Last End Time: 0:05:21
+Adjusted: 00:05:22.000 --> 00:05:24.000
+
+Original: 00:05:24.000 --> 00:05:27.000
+Parsed: 0:05:24 --> 0:05:27
+Last End Time: 0:05:24
+Adjusted: 00:05:24.000 --> 00:05:27.000
+
+Original: 00:05:28.000 --> 00:05:29.000
+Parsed: 0:05:28 --> 0:05:29
+Last End Time: 0:05:27
+Adjusted: 00:05:28.000 --> 00:05:29.000
+
+Original: 00:05:30.000 --> 00:05:31.000
+Parsed: 0:05:30 --> 0:05:31
+Last End Time: 0:05:29
+Adjusted: 00:05:30.000 --> 00:05:31.000
+
+Original: 00:05:32.000 --> 00:05:35.000
+Parsed: 0:05:32 --> 0:05:35
+Last End Time: 0:05:31
+Adjusted: 00:05:32.000 --> 00:05:35.000
+
+Original: 00:05:36.000 --> 00:05:37.000
+Parsed: 0:05:36 --> 0:05:37
+Last End Time: 0:05:35
+Adjusted: 00:05:36.000 --> 00:05:37.000
+
+Original: 00:05:38.000 --> 00:05:41.000
+Parsed: 0:05:38 --> 0:05:41
+Last End Time: 0:05:37
+Adjusted: 00:05:38.000 --> 00:05:41.000
+
+Original: 00:05:42.000 --> 00:05:43.000
+Parsed: 0:05:42 --> 0:05:43
+Last End Time: 0:05:41
+Adjusted: 00:05:42.000 --> 00:05:43.000
+
+Original: 00:05:44.000 --> 00:05:45.000
+Parsed: 0:05:44 --> 0:05:45
+Last End Time: 0:05:43
+Adjusted: 00:05:44.000 --> 00:05:45.000
+
+Original: 00:05:46.000 --> 00:05:47.000
+Parsed: 0:05:46 --> 0:05:47
+Last End Time: 0:05:45
+Adjusted: 00:05:46.000 --> 00:05:47.000
+
+Original: 00:05:48.000 --> 00:05:50.000
+Parsed: 0:05:48 --> 0:05:50
+Last End Time: 0:05:47
+Adjusted: 00:05:48.000 --> 00:05:50.000
+
+Original: 00:05:51.000 --> 00:05:52.000
+Parsed: 0:05:51 --> 0:05:52
+Last End Time: 0:05:50
+Adjusted: 00:05:51.000 --> 00:05:52.000
+
+Original: 00:05:52.000 --> 00:05:53.000
+Parsed: 0:05:52 --> 0:05:53
+Last End Time: 0:05:52
+Adjusted: 00:05:52.000 --> 00:05:53.000
+
+Original: 00:05:54.000 --> 00:05:57.000
+Parsed: 0:05:54 --> 0:05:57
+Last End Time: 0:05:53
+Adjusted: 00:05:54.000 --> 00:05:57.000
+
+Original: 00:05:58.000 --> 00:05:59.000
+Parsed: 0:05:58 --> 0:05:59
+Last End Time: 0:05:57
+Adjusted: 00:05:58.000 --> 00:05:59.000
+
+Original: 00:06:00.000 --> 00:06:02.000
+Parsed: 0:06:00 --> 0:06:02
+Last End Time: 0:05:59
+Adjusted: 00:06:00.000 --> 00:06:02.000
+
+Original: 00:06:03.000 --> 00:06:04.000
+Parsed: 0:06:03 --> 0:06:04
+Last End Time: 0:06:02
+Adjusted: 00:06:03.000 --> 00:06:04.000
+
+Original: 00:06:05.000 --> 00:06:06.000
+Parsed: 0:06:05 --> 0:06:06
+Last End Time: 0:06:04
+Adjusted: 00:06:05.000 --> 00:06:06.000
+
+Original: 00:06:07.000 --> 00:06:09.000
+Parsed: 0:06:07 --> 0:06:09
+Last End Time: 0:06:06
+Adjusted: 00:06:07.000 --> 00:06:09.000
+
+Original: 00:06:10.000 --> 00:06:12.000
+Parsed: 0:06:10 --> 0:06:12
+Last End Time: 0:06:09
+Adjusted: 00:06:10.000 --> 00:06:12.000
+
+Original: 00:06:13.000 --> 00:06:14.000
+Parsed: 0:06:13 --> 0:06:14
+Last End Time: 0:06:12
+Adjusted: 00:06:13.000 --> 00:06:14.000
+
+Original: 00:06:15.000 --> 00:06:18.000
+Parsed: 0:06:15 --> 0:06:18
+Last End Time: 0:06:14
+Adjusted: 00:06:15.000 --> 00:06:18.000
+
+Original: 00:06:19.000 --> 00:06:23.000
+Parsed: 0:06:19 --> 0:06:23
+Last End Time: 0:06:18
+Adjusted: 00:06:19.000 --> 00:06:23.000
+
+Original: 00:06:24.000 --> 00:06:25.000
+Parsed: 0:06:24 --> 0:06:25
+Last End Time: 0:06:23
+Adjusted: 00:06:24.000 --> 00:06:25.000
+
+Original: 00:06:26.000 --> 00:06:27.000
+Parsed: 0:06:26 --> 0:06:27
+Last End Time: 0:06:25
+Adjusted: 00:06:26.000 --> 00:06:27.000
+
+Original: 00:06:28.000 --> 00:06:30.000
+Parsed: 0:06:28 --> 0:06:30
+Last End Time: 0:06:27
+Adjusted: 00:06:28.000 --> 00:06:30.000
+
+Original: 00:06:31.000 --> 00:06:33.000
+Parsed: 0:06:31 --> 0:06:33
+Last End Time: 0:06:30
+Adjusted: 00:06:31.000 --> 00:06:33.000
+
+Original: 00:06:34.000 --> 00:06:35.000
+Parsed: 0:06:34 --> 0:06:35
+Last End Time: 0:06:33
+Adjusted: 00:06:34.000 --> 00:06:35.000
+
+Original: 00:06:36.000 --> 00:06:40.000
+Parsed: 0:06:36 --> 0:06:40
+Last End Time: 0:06:35
+Adjusted: 00:06:36.000 --> 00:06:40.000
+
+Original: 00:06:41.000 --> 00:06:44.000
+Parsed: 0:06:41 --> 0:06:44
+Last End Time: 0:06:40
+Adjusted: 00:06:41.000 --> 00:06:44.000
+
+Original: 00:06:45.000 --> 00:06:46.000
+Parsed: 0:06:45 --> 0:06:46
+Last End Time: 0:06:44
+Adjusted: 00:06:45.000 --> 00:06:46.000
+
+Original: 00:06:46.000 --> 00:06:47.000
+Parsed: 0:06:46 --> 0:06:47
+Last End Time: 0:06:46
+Adjusted: 00:06:46.000 --> 00:06:47.000
+
+Original: 00:06:48.000 --> 00:06:50.000
+Parsed: 0:06:48 --> 0:06:50
+Last End Time: 0:06:47
+Adjusted: 00:06:48.000 --> 00:06:50.000
+
+Original: 00:06:51.000 --> 00:06:54.000
+Parsed: 0:06:51 --> 0:06:54
+Last End Time: 0:06:50
+Adjusted: 00:06:51.000 --> 00:06:54.000
+
+Original: 00:06:55.000 --> 00:06:56.000
+Parsed: 0:06:55 --> 0:06:56
+Last End Time: 0:06:54
+Adjusted: 00:06:55.000 --> 00:06:56.000
+
+Original: 00:06:57.000 --> 00:06:58.000
+Parsed: 0:06:57 --> 0:06:58
+Last End Time: 0:06:56
+Adjusted: 00:06:57.000 --> 00:06:58.000
+
+Original: 00:06:59.000 --> 00:07:00.000
+Parsed: 0:06:59 --> 0:07:00
+Last End Time: 0:06:58
+Adjusted: 00:06:59.000 --> 00:07:00.000
+
+Original: 00:07:01.000 --> 00:07:02.000
+Parsed: 0:07:01 --> 0:07:02
+Last End Time: 0:07:00
+Adjusted: 00:07:01.000 --> 00:07:02.000
+
+Original: 00:07:03.000 --> 00:07:04.000
+Parsed: 0:07:03 --> 0:07:04
+Last End Time: 0:07:02
+Adjusted: 00:07:03.000 --> 00:07:04.000
+
+Original: 00:07:05.000 --> 00:07:08.000
+Parsed: 0:07:05 --> 0:07:08
+Last End Time: 0:07:04
+Adjusted: 00:07:05.000 --> 00:07:08.000
+
+Original: 00:07:09.000 --> 00:07:10.000
+Parsed: 0:07:09 --> 0:07:10
+Last End Time: 0:07:08
+Adjusted: 00:07:09.000 --> 00:07:10.000
+
+Original: 00:07:13.000 --> 00:07:15.000
+Parsed: 0:07:13 --> 0:07:15
+Last End Time: 0:07:10
+Adjusted: 00:07:13.000 --> 00:07:15.000
+
+Original: 00:07:18.000 --> 00:07:19.000
+Parsed: 0:07:18 --> 0:07:19
+Last End Time: 0:07:15
+Adjusted: 00:07:18.000 --> 00:07:19.000
+
+Original: 00:07:20.000 --> 00:07:21.000
+Parsed: 0:07:20 --> 0:07:21
+Last End Time: 0:07:19
+Adjusted: 00:07:20.000 --> 00:07:21.000
+
+Original: 00:07:22.000 --> 00:07:24.000
+Parsed: 0:07:22 --> 0:07:24
+Last End Time: 0:07:21
+Adjusted: 00:07:22.000 --> 00:07:24.000
+
+Original: 00:07:25.000 --> 00:07:26.000
+Parsed: 0:07:25 --> 0:07:26
+Last End Time: 0:07:24
+Adjusted: 00:07:25.000 --> 00:07:26.000
+
+Original: 00:07:27.000 --> 00:07:28.000
+Parsed: 0:07:27 --> 0:07:28
+Last End Time: 0:07:26
+Adjusted: 00:07:27.000 --> 00:07:28.000
+
+Original: 00:07:29.000 --> 00:07:30.000
+Parsed: 0:07:29 --> 0:07:30
+Last End Time: 0:07:28
+Adjusted: 00:07:29.000 --> 00:07:30.000
+
+Original: 00:07:31.000 --> 00:07:32.000
+Parsed: 0:07:31 --> 0:07:32
+Last End Time: 0:07:30
+Adjusted: 00:07:31.000 --> 00:07:32.000
+
+Original: 00:07:33.000 --> 00:07:34.000
+Parsed: 0:07:33 --> 0:07:34
+Last End Time: 0:07:32
+Adjusted: 00:07:33.000 --> 00:07:34.000
+
+Original: 00:07:35.000 --> 00:07:36.000
+Parsed: 0:07:35 --> 0:07:36
+Last End Time: 0:07:34
+Adjusted: 00:07:35.000 --> 00:07:36.000
+
+Original: 00:07:37.000 --> 00:07:38.000
+Parsed: 0:07:37 --> 0:07:38
+Last End Time: 0:07:36
+Adjusted: 00:07:37.000 --> 00:07:38.000
+
+Original: 00:07:39.000 --> 00:07:40.000
+Parsed: 0:07:39 --> 0:07:40
+Last End Time: 0:07:38
+Adjusted: 00:07:39.000 --> 00:07:40.000
+
+Original: 00:07:41.000 --> 00:07:42.000
+Parsed: 0:07:41 --> 0:07:42
+Last End Time: 0:07:40
+Adjusted: 00:07:41.000 --> 00:07:42.000
+
+Original: 00:07:43.000 --> 00:07:44.000
+Parsed: 0:07:43 --> 0:07:44
+Last End Time: 0:07:42
+Adjusted: 00:07:43.000 --> 00:07:44.000
+
+Original: 00:07:45.000 --> 00:07:46.000
+Parsed: 0:07:45 --> 0:07:46
+Last End Time: 0:07:44
+Adjusted: 00:07:45.000 --> 00:07:46.000
+
+Original: 00:07:47.000 --> 00:07:54.000
+Parsed: 0:07:47 --> 0:07:54
+Last End Time: 0:07:46
+Adjusted: 00:07:47.000 --> 00:07:54.000
+
+Original: 00:07:55.000 --> 00:07:56.000
+Parsed: 0:07:55 --> 0:07:56
+Last End Time: 0:07:54
+Adjusted: 00:07:55.000 --> 00:07:56.000
+
+Original: 00:07:57.000 --> 00:07:58.000
+Parsed: 0:07:57 --> 0:07:58
+Last End Time: 0:07:56
+Adjusted: 00:07:57.000 --> 00:07:58.000
+
+Original: 00:07:59.000 --> 00:08:01.000
+Parsed: 0:07:59 --> 0:08:01
+Last End Time: 0:07:58
+Adjusted: 00:07:59.000 --> 00:08:01.000
+
+Original: 00:08:02.000 --> 00:08:03.000
+Parsed: 0:08:02 --> 0:08:03
+Last End Time: 0:08:01
+Adjusted: 00:08:02.000 --> 00:08:03.000
+
+Original: 00:08:04.000 --> 00:08:05.000
+Parsed: 0:08:04 --> 0:08:05
+Last End Time: 0:08:03
+Adjusted: 00:08:04.000 --> 00:08:05.000
+
+Original: 00:08:06.000 --> 00:08:07.000
+Parsed: 0:08:06 --> 0:08:07
+Last End Time: 0:08:05
+Adjusted: 00:08:06.000 --> 00:08:07.000
+
+Original: 00:08:08.000 --> 00:08:10.000
+Parsed: 0:08:08 --> 0:08:10
+Last End Time: 0:08:07
+Adjusted: 00:08:08.000 --> 00:08:10.000
+
+Original: 00:08:11.000 --> 00:08:13.000
+Parsed: 0:08:11 --> 0:08:13
+Last End Time: 0:08:10
+Adjusted: 00:08:11.000 --> 00:08:13.000
+
+Original: 00:08:14.000 --> 00:08:15.000
+Parsed: 0:08:14 --> 0:08:15
+Last End Time: 0:08:13
+Adjusted: 00:08:14.000 --> 00:08:15.000
+
+Original: 00:08:16.000 --> 00:08:17.000
+Parsed: 0:08:16 --> 0:08:17
+Last End Time: 0:08:15
+Adjusted: 00:08:16.000 --> 00:08:17.000
+
+Original: 00:08:18.000 --> 00:08:19.000
+Parsed: 0:08:18 --> 0:08:19
+Last End Time: 0:08:17
+Adjusted: 00:08:18.000 --> 00:08:19.000
+
+Original: 00:08:20.000 --> 00:08:21.000
+Parsed: 0:08:20 --> 0:08:21
+Last End Time: 0:08:19
+Adjusted: 00:08:20.000 --> 00:08:21.000
+
+Original: 00:08:22.000 --> 00:08:23.000
+Parsed: 0:08:22 --> 0:08:23
+Last End Time: 0:08:21
+Adjusted: 00:08:22.000 --> 00:08:23.000
+
+Original: 00:08:24.000 --> 00:08:25.000
+Parsed: 0:08:24 --> 0:08:25
+Last End Time: 0:08:23
+Adjusted: 00:08:24.000 --> 00:08:25.000
+
+Original: 00:08:26.000 --> 00:08:27.000
+Parsed: 0:08:26 --> 0:08:27
+Last End Time: 0:08:25
+Adjusted: 00:08:26.000 --> 00:08:27.000
+
+Original: 00:08:28.000 --> 00:08:30.000
+Parsed: 0:08:28 --> 0:08:30
+Last End Time: 0:08:27
+Adjusted: 00:08:28.000 --> 00:08:30.000
+
+Original: 00:08:31.000 --> 00:08:33.000
+Parsed: 0:08:31 --> 0:08:33
+Last End Time: 0:08:30
+Adjusted: 00:08:31.000 --> 00:08:33.000
+
+Original: 00:08:34.000 --> 00:08:35.000
+Parsed: 0:08:34 --> 0:08:35
+Last End Time: 0:08:33
+Adjusted: 00:08:34.000 --> 00:08:35.000
+
+Original: 00:08:36.000 --> 00:08:37.000
+Parsed: 0:08:36 --> 0:08:37
+Last End Time: 0:08:35
+Adjusted: 00:08:36.000 --> 00:08:37.000
+
+Original: 00:08:38.000 --> 00:08:39.000
+Parsed: 0:08:38 --> 0:08:39
+Last End Time: 0:08:37
+Adjusted: 00:08:38.000 --> 00:08:39.000
+
+Original: 00:08:40.000 --> 00:08:41.000
+Parsed: 0:08:40 --> 0:08:41
+Last End Time: 0:08:39
+Adjusted: 00:08:40.000 --> 00:08:41.000
+
+Original: 00:08:42.000 --> 00:08:43.000
+Parsed: 0:08:42 --> 0:08:43
+Last End Time: 0:08:41
+Adjusted: 00:08:42.000 --> 00:08:43.000
+
+Original: 00:08:44.000 --> 00:08:45.000
+Parsed: 0:08:44 --> 0:08:45
+Last End Time: 0:08:43
+Adjusted: 00:08:44.000 --> 00:08:45.000
+
+Original: 00:08:46.000 --> 00:08:47.000
+Parsed: 0:08:46 --> 0:08:47
+Last End Time: 0:08:45
+Adjusted: 00:08:46.000 --> 00:08:47.000
+
+Original: 00:08:48.000 --> 00:08:49.000
+Parsed: 0:08:48 --> 0:08:49
+Last End Time: 0:08:47
+Adjusted: 00:08:48.000 --> 00:08:49.000
+
+Original: 00:08:50.000 --> 00:08:51.000
+Parsed: 0:08:50 --> 0:08:51
+Last End Time: 0:08:49
+Adjusted: 00:08:50.000 --> 00:08:51.000
+
+Original: 00:08:52.000 --> 00:08:53.000
+Parsed: 0:08:52 --> 0:08:53
+Last End Time: 0:08:51
+Adjusted: 00:08:52.000 --> 00:08:53.000
+
+Original: 00:08:54.000 --> 00:08:55.000
+Parsed: 0:08:54 --> 0:08:55
+Last End Time: 0:08:53
+Adjusted: 00:08:54.000 --> 00:08:55.000
+
+Original: 00:08:56.000 --> 00:08:57.000
+Parsed: 0:08:56 --> 0:08:57
+Last End Time: 0:08:55
+Adjusted: 00:08:56.000 --> 00:08:57.000
+
+Original: 00:08:58.000 --> 00:08:59.000
+Parsed: 0:08:58 --> 0:08:59
+Last End Time: 0:08:57
+Adjusted: 00:08:58.000 --> 00:08:59.000
+
+Original: 00:09:00.000 --> 00:09:01.000
+Parsed: 0:09:00 --> 0:09:01
+Last End Time: 0:08:59
+Adjusted: 00:09:00.000 --> 00:09:01.000
+
+Original: 00:09:02.000 --> 00:09:03.000
+Parsed: 0:09:02 --> 0:09:03
+Last End Time: 0:09:01
+Adjusted: 00:09:02.000 --> 00:09:03.000
+
+Original: 00:09:04.000 --> 00:09:05.000
+Parsed: 0:09:04 --> 0:09:05
+Last End Time: 0:09:03
+Adjusted: 00:09:04.000 --> 00:09:05.000
+
+Original: 00:09:06.000 --> 00:09:07.000
+Parsed: 0:09:06 --> 0:09:07
+Last End Time: 0:09:05
+Adjusted: 00:09:06.000 --> 00:09:07.000
+
+Original: 00:09:08.000 --> 00:09:10.000
+Parsed: 0:09:08 --> 0:09:10
+Last End Time: 0:09:07
+Adjusted: 00:09:08.000 --> 00:09:10.000
+
+Original: 00:09:11.000 --> 00:09:12.000
+Parsed: 0:09:11 --> 0:09:12
+Last End Time: 0:09:10
+Adjusted: 00:09:11.000 --> 00:09:12.000
+
+Original: 00:09:13.000 --> 00:09:15.000
+Parsed: 0:09:13 --> 0:09:15
+Last End Time: 0:09:12
+Adjusted: 00:09:13.000 --> 00:09:15.000
+
+Original: 00:09:16.000 --> 00:09:18.000
+Parsed: 0:09:16 --> 0:09:18
+Last End Time: 0:09:15
+Adjusted: 00:09:16.000 --> 00:09:18.000
+
+Original: 00:09:19.000 --> 00:09:21.000
+Parsed: 0:09:19 --> 0:09:21
+Last End Time: 0:09:18
+Adjusted: 00:09:19.000 --> 00:09:21.000
+
+Original: 00:09:22.000 --> 00:09:23.000
+Parsed: 0:09:22 --> 0:09:23
+Last End Time: 0:09:21
+Adjusted: 00:09:22.000 --> 00:09:23.000
+
+Original: 00:09:24.000 --> 00:09:25.000
+Parsed: 0:09:24 --> 0:09:25
+Last End Time: 0:09:23
+Adjusted: 00:09:24.000 --> 00:09:25.000
+
+Original: 00:09:26.000 --> 00:09:27.000
+Parsed: 0:09:26 --> 0:09:27
+Last End Time: 0:09:25
+Adjusted: 00:09:26.000 --> 00:09:27.000
+
+Original: 00:09:28.000 --> 00:09:29.000
+Parsed: 0:09:28 --> 0:09:29
+Last End Time: 0:09:27
+Adjusted: 00:09:28.000 --> 00:09:29.000
+
+Original: 00:09:30.000 --> 00:09:31.000
+Parsed: 0:09:30 --> 0:09:31
+Last End Time: 0:09:29
+Adjusted: 00:09:30.000 --> 00:09:31.000
+
+Original: 00:09:32.000 --> 00:09:33.000
+Parsed: 0:09:32 --> 0:09:33
+Last End Time: 0:09:31
+Adjusted: 00:09:32.000 --> 00:09:33.000
+
+Original: 00:09:34.000 --> 00:09:35.000
+Parsed: 0:09:34 --> 0:09:35
+Last End Time: 0:09:33
+Adjusted: 00:09:34.000 --> 00:09:35.000
+
+Original: 00:09:36.000 --> 00:09:37.000
+Parsed: 0:09:36 --> 0:09:37
+Last End Time: 0:09:35
+Adjusted: 00:09:36.000 --> 00:09:37.000
+
+Original: 00:09:38.000 --> 00:09:39.000
+Parsed: 0:09:38 --> 0:09:39
+Last End Time: 0:09:37
+Adjusted: 00:09:38.000 --> 00:09:39.000
+
+Original: 00:09:40.000 --> 00:09:42.000
+Parsed: 0:09:40 --> 0:09:42
+Last End Time: 0:09:39
+Adjusted: 00:09:40.000 --> 00:09:42.000
+
+Original: 00:09:43.000 --> 00:09:44.000
+Parsed: 0:09:43 --> 0:09:44
+Last End Time: 0:09:42
+Adjusted: 00:09:43.000 --> 00:09:44.000
+
+Original: 00:09:45.000 --> 00:09:46.000
+Parsed: 0:09:45 --> 0:09:46
+Last End Time: 0:09:44
+Adjusted: 00:09:45.000 --> 00:09:46.000
+
+Original: 00:09:47.000 --> 00:09:48.000
+Parsed: 0:09:47 --> 0:09:48
+Last End Time: 0:09:46
+Adjusted: 00:09:47.000 --> 00:09:48.000
+
+Original: 00:09:49.000 --> 00:09:50.000
+Parsed: 0:09:49 --> 0:09:50
+Last End Time: 0:09:48
+Adjusted: 00:09:49.000 --> 00:09:50.000
+
+Original: 00:09:51.000 --> 00:09:52.000
+Parsed: 0:09:51 --> 0:09:52
+Last End Time: 0:09:50
+Adjusted: 00:09:51.000 --> 00:09:52.000
+
+Original: 00:09:53.000 --> 00:09:54.000
+Parsed: 0:09:53 --> 0:09:54
+Last End Time: 0:09:52
+Adjusted: 00:09:53.000 --> 00:09:54.000
+
+Original: 00:09:55.000 --> 00:09:56.000
+Parsed: 0:09:55 --> 0:09:56
+Last End Time: 0:09:54
+Adjusted: 00:09:55.000 --> 00:09:56.000
+
+Original: 00:09:57.000 --> 00:09:58.000
+Parsed: 0:09:57 --> 0:09:58
+Last End Time: 0:09:56
+Adjusted: 00:09:57.000 --> 00:09:58.000
+
+Original: 00:09:59.000 --> 00:10:00.000
+Parsed: 0:09:59 --> 0:10:00
+Last End Time: 0:09:58
+Adjusted: 00:09:59.000 --> 00:10:00.000
+
+Original: 00:00:05.000 --> 00:00:10.000
+Parsed: 0:00:05 --> 0:00:10
+Last End Time: 0:10:00
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:00.000 --> 00:10:05.000
+
+Original: 00:00:10.000 --> 00:00:15.000
+Parsed: 0:00:10 --> 0:00:15
+Last End Time: 0:10:05
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:05.000 --> 00:10:10.000
+
+Original: 00:00:15.000 --> 00:00:20.000
+Parsed: 0:00:15 --> 0:00:20
+Last End Time: 0:10:10
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:10.000 --> 00:10:15.000
+
+Original: 00:00:20.000 --> 00:00:25.000
+Parsed: 0:00:20 --> 0:00:25
+Last End Time: 0:10:15
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:15.000 --> 00:10:20.000
+
+Original: 00:00:25.000 --> 00:00:30.000
+Parsed: 0:00:25 --> 0:00:30
+Last End Time: 0:10:20
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:20.000 --> 00:10:25.000
+
+Original: 00:00:30.000 --> 00:00:35.000
+Parsed: 0:00:30 --> 0:00:35
+Last End Time: 0:10:25
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:25.000 --> 00:10:30.000
+
+Original: 00:00:35.000 --> 00:00:40.000
+Parsed: 0:00:35 --> 0:00:40
+Last End Time: 0:10:30
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:30.000 --> 00:10:35.000
+
+Original: 00:00:40.000 --> 00:00:45.000
+Parsed: 0:00:40 --> 0:00:45
+Last End Time: 0:10:35
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:35.000 --> 00:10:40.000
+
+Original: 00:00:45.000 --> 00:00:50.000
+Parsed: 0:00:45 --> 0:00:50
+Last End Time: 0:10:40
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:40.000 --> 00:10:45.000
+
+Original: 00:00:50.000 --> 00:00:55.000
+Parsed: 0:00:50 --> 0:00:55
+Last End Time: 0:10:45
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:45.000 --> 00:10:50.000
+
+Original: 00:00:55.000 --> 00:01:00.000
+Parsed: 0:00:55 --> 0:01:00
+Last End Time: 0:10:50
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:50.000 --> 00:10:55.000
+
+Original: 00:01:00.000 --> 00:01:05.000
+Parsed: 0:01:00 --> 0:01:05
+Last End Time: 0:10:55
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:10:55.000 --> 00:11:00.000
+
+Original: 00:01:05.000 --> 00:01:10.000
+Parsed: 0:01:05 --> 0:01:10
+Last End Time: 0:11:00
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:00.000 --> 00:11:05.000
+
+Original: 00:01:10.000 --> 00:01:15.000
+Parsed: 0:01:10 --> 0:01:15
+Last End Time: 0:11:05
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:05.000 --> 00:11:10.000
+
+Original: 00:01:15.000 --> 00:01:20.000
+Parsed: 0:01:15 --> 0:01:20
+Last End Time: 0:11:10
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:10.000 --> 00:11:15.000
+
+Original: 00:01:20.000 --> 00:01:25.000
+Parsed: 0:01:20 --> 0:01:25
+Last End Time: 0:11:15
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:15.000 --> 00:11:20.000
+
+Original: 00:01:25.000 --> 00:01:30.000
+Parsed: 0:01:25 --> 0:01:30
+Last End Time: 0:11:20
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:20.000 --> 00:11:25.000
+
+Original: 00:01:30.000 --> 00:01:35.000
+Parsed: 0:01:30 --> 0:01:35
+Last End Time: 0:11:25
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:25.000 --> 00:11:30.000
+
+Original: 00:01:35.000 --> 00:01:40.000
+Parsed: 0:01:35 --> 0:01:40
+Last End Time: 0:11:30
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:30.000 --> 00:11:35.000
+
+Original: 00:01:40.000 --> 00:01:45.000
+Parsed: 0:01:40 --> 0:01:45
+Last End Time: 0:11:35
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:35.000 --> 00:11:40.000
+
+Original: 00:01:45.000 --> 00:01:50.000
+Parsed: 0:01:45 --> 0:01:50
+Last End Time: 0:11:40
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:40.000 --> 00:11:45.000
+
+Original: 00:01:50.000 --> 00:01:55.000
+Parsed: 0:01:50 --> 0:01:55
+Last End Time: 0:11:45
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:45.000 --> 00:11:50.000
+
+Original: 00:01:55.000 --> 00:02:00.000
+Parsed: 0:01:55 --> 0:02:00
+Last End Time: 0:11:50
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:50.000 --> 00:11:55.000
+
+Original: 00:02:00.000 --> 00:02:05.000
+Parsed: 0:02:00 --> 0:02:05
+Last End Time: 0:11:55
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:11:55.000 --> 00:12:00.000
+
+Original: 00:02:05.000 --> 00:02:10.000
+Parsed: 0:02:05 --> 0:02:10
+Last End Time: 0:12:00
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:00.000 --> 00:12:05.000
+
+Original: 00:02:10.000 --> 00:02:15.000
+Parsed: 0:02:10 --> 0:02:15
+Last End Time: 0:12:05
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:05.000 --> 00:12:10.000
+
+Original: 00:02:15.000 --> 00:02:20.000
+Parsed: 0:02:15 --> 0:02:20
+Last End Time: 0:12:10
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:10.000 --> 00:12:15.000
+
+Original: 00:02:20.000 --> 00:02:25.000
+Parsed: 0:02:20 --> 0:02:25
+Last End Time: 0:12:15
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:15.000 --> 00:12:20.000
+
+Original: 00:02:25.000 --> 00:02:30.000
+Parsed: 0:02:25 --> 0:02:30
+Last End Time: 0:12:20
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:20.000 --> 00:12:25.000
+
+Original: 00:02:30.000 --> 00:02:35.000
+Parsed: 0:02:30 --> 0:02:35
+Last End Time: 0:12:25
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:25.000 --> 00:12:30.000
+
+Original: 00:02:35.000 --> 00:02:40.000
+Parsed: 0:02:35 --> 0:02:40
+Last End Time: 0:12:30
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:30.000 --> 00:12:35.000
+
+Original: 00:02:40.000 --> 00:02:45.000
+Parsed: 0:02:40 --> 0:02:45
+Last End Time: 0:12:35
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:35.000 --> 00:12:40.000
+
+Original: 00:02:45.000 --> 00:02:50.000
+Parsed: 0:02:45 --> 0:02:50
+Last End Time: 0:12:40
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:40.000 --> 00:12:45.000
+
+Original: 00:02:50.000 --> 00:02:55.000
+Parsed: 0:02:50 --> 0:02:55
+Last End Time: 0:12:45
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:45.000 --> 00:12:50.000
+
+Original: 00:02:55.000 --> 00:02:59.000
+Parsed: 0:02:55 --> 0:02:59
+Last End Time: 0:12:50
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:50.000 --> 00:12:54.000
+
+Original: 00:02:59.000 --> 00:03:05.000
+Parsed: 0:02:59 --> 0:03:05
+Last End Time: 0:12:54
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:12:54.000 --> 00:13:00.000
+
+Original: 00:03:05.000 --> 00:03:11.000
+Parsed: 0:03:05 --> 0:03:11
+Last End Time: 0:13:00
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:00.000 --> 00:13:06.000
+
+Original: 00:03:11.000 --> 00:03:15.000
+Parsed: 0:03:11 --> 0:03:15
+Last End Time: 0:13:06
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:06.000 --> 00:13:10.000
+
+Original: 00:03:15.000 --> 00:03:23.000
+Parsed: 0:03:15 --> 0:03:23
+Last End Time: 0:13:10
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:10.000 --> 00:13:18.000
+
+Original: 00:03:23.000 --> 00:03:27.000
+Parsed: 0:03:23 --> 0:03:27
+Last End Time: 0:13:18
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:18.000 --> 00:13:22.000
+
+Original: 00:03:27.000 --> 00:03:31.000
+Parsed: 0:03:27 --> 0:03:31
+Last End Time: 0:13:22
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:22.000 --> 00:13:26.000
+
+Original: 00:03:31.000 --> 00:03:35.000
+Parsed: 0:03:31 --> 0:03:35
+Last End Time: 0:13:26
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:26.000 --> 00:13:30.000
+
+Original: 00:03:35.000 --> 00:03:38.000
+Parsed: 0:03:35 --> 0:03:38
+Last End Time: 0:13:30
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:30.000 --> 00:13:33.000
+
+Original: 00:03:38.000 --> 00:03:44.000
+Parsed: 0:03:38 --> 0:03:44
+Last End Time: 0:13:33
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:33.000 --> 00:13:39.000
+
+Original: 00:03:44.000 --> 00:03:48.000
+Parsed: 0:03:44 --> 0:03:48
+Last End Time: 0:13:39
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:39.000 --> 00:13:43.000
+
+Original: 00:03:48.000 --> 00:03:51.000
+Parsed: 0:03:48 --> 0:03:51
+Last End Time: 0:13:43
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:43.000 --> 00:13:46.000
+
+Original: 00:03:51.000 --> 00:03:55.000
+Parsed: 0:03:51 --> 0:03:55
+Last End Time: 0:13:46
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:46.000 --> 00:13:50.000
+
+Original: 00:03:55.000 --> 00:04:00.000
+Parsed: 0:03:55 --> 0:04:00
+Last End Time: 0:13:50
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:50.000 --> 00:13:55.000
+
+Original: 00:04:00.000 --> 00:04:04.000
+Parsed: 0:04:00 --> 0:04:04
+Last End Time: 0:13:55
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:55.000 --> 00:13:59.000
+
+Original: 00:04:04.000 --> 00:04:07.000
+Parsed: 0:04:04 --> 0:04:07
+Last End Time: 0:13:59
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:13:59.000 --> 00:14:02.000
+
+Original: 00:04:07.000 --> 00:04:12.000
+Parsed: 0:04:07 --> 0:04:12
+Last End Time: 0:14:02
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:14:02.000 --> 00:14:07.000
+
+Original: 00:04:12.000 --> 00:04:14.000
+Parsed: 0:04:12 --> 0:04:14
+Last End Time: 0:14:07
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:14:07.000 --> 00:14:09.000
+
+Original: 00:04:14.000 --> 00:04:19.000
+Parsed: 0:04:14 --> 0:04:19
+Last End Time: 0:14:09
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:14:09.000 --> 00:14:14.000
+
+Original: 00:04:19.000 --> 00:04:25.000
+Parsed: 0:04:19 --> 0:04:25
+Last End Time: 0:14:14
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:14:14.000 --> 00:14:20.000
+
+Original: 00:04:25.000 --> 00:04:28.000
+Parsed: 0:04:25 --> 0:04:28
+Last End Time: 0:14:20
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:14:20.000 --> 00:14:23.000
+
+Original: 00:04:28.000 --> 00:04:34.000
+Parsed: 0:04:28 --> 0:04:34
+Last End Time: 0:14:23
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:14:23.000 --> 00:14:29.000
+
+Original: 00:04:34.000 --> 00:04:36.000
+Parsed: 0:04:34 --> 0:04:36
+Last End Time: 0:14:29
+SEG SWITCH
+Adjusted Offset: 0:09:55
+Adjusted: 00:14:29.000 --> 00:14:31.000
+
+Original: 00:04:37.000 --> 00:04:48.000
+Parsed: 0:04:37 --> 0:04:48
+Last End Time: 0:14:31
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:14:31.000 --> 00:14:42.000
+
+Original: 00:04:48.000 --> 00:04:51.000
+Parsed: 0:04:48 --> 0:04:51
+Last End Time: 0:14:42
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:14:42.000 --> 00:14:45.000
+
+Original: 00:04:51.000 --> 00:04:59.000
+Parsed: 0:04:51 --> 0:04:59
+Last End Time: 0:14:45
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:14:45.000 --> 00:14:53.000
+
+Original: 00:04:59.000 --> 00:05:04.000
+Parsed: 0:04:59 --> 0:05:04
+Last End Time: 0:14:53
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:14:53.000 --> 00:14:58.000
+
+Original: 00:05:04.000 --> 00:05:09.000
+Parsed: 0:05:04 --> 0:05:09
+Last End Time: 0:14:58
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:14:58.000 --> 00:15:03.000
+
+Original: 00:05:09.000 --> 00:05:16.000
+Parsed: 0:05:09 --> 0:05:16
+Last End Time: 0:15:03
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:15:03.000 --> 00:15:10.000
+
+Original: 00:05:16.000 --> 00:05:18.000
+Parsed: 0:05:16 --> 0:05:18
+Last End Time: 0:15:10
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:15:10.000 --> 00:15:12.000
+
+Original: 00:05:18.000 --> 00:05:25.000
+Parsed: 0:05:18 --> 0:05:25
+Last End Time: 0:15:12
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:15:12.000 --> 00:15:19.000
+
+Original: 00:05:25.000 --> 00:05:30.000
+Parsed: 0:05:25 --> 0:05:30
+Last End Time: 0:15:19
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:15:19.000 --> 00:15:24.000
+
+Original: 00:05:30.000 --> 00:05:32.000
+Parsed: 0:05:30 --> 0:05:32
+Last End Time: 0:15:24
+SEG SWITCH
+Adjusted Offset: 0:09:54
+Adjusted: 00:15:24.000 --> 00:15:26.000
+
+Original: 00:05:33.000 --> 00:05:36.000
+Parsed: 0:05:33 --> 0:05:36
+Last End Time: 0:15:26
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:26.000 --> 00:15:29.000
+
+Original: 00:05:36.000 --> 00:05:39.000
+Parsed: 0:05:36 --> 0:05:39
+Last End Time: 0:15:29
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:29.000 --> 00:15:32.000
+
+Original: 00:05:39.000 --> 00:05:41.000
+Parsed: 0:05:39 --> 0:05:41
+Last End Time: 0:15:32
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:32.000 --> 00:15:34.000
+
+Original: 00:05:41.000 --> 00:05:44.000
+Parsed: 0:05:41 --> 0:05:44
+Last End Time: 0:15:34
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:34.000 --> 00:15:37.000
+
+Original: 00:05:44.000 --> 00:05:47.000
+Parsed: 0:05:44 --> 0:05:47
+Last End Time: 0:15:37
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:37.000 --> 00:15:40.000
+
+Original: 00:05:47.000 --> 00:05:49.000
+Parsed: 0:05:47 --> 0:05:49
+Last End Time: 0:15:40
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:40.000 --> 00:15:42.000
+
+Original: 00:05:49.000 --> 00:05:53.000
+Parsed: 0:05:49 --> 0:05:53
+Last End Time: 0:15:42
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:42.000 --> 00:15:46.000
+
+Original: 00:05:53.000 --> 00:05:55.000
+Parsed: 0:05:53 --> 0:05:55
+Last End Time: 0:15:46
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:46.000 --> 00:15:48.000
+
+Original: 00:05:55.000 --> 00:05:57.000
+Parsed: 0:05:55 --> 0:05:57
+Last End Time: 0:15:48
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:48.000 --> 00:15:50.000
+
+Original: 00:05:57.000 --> 00:05:59.000
+Parsed: 0:05:57 --> 0:05:59
+Last End Time: 0:15:50
+SEG SWITCH
+Adjusted Offset: 0:09:53
+Adjusted: 00:15:50.000 --> 00:15:52.000
+
+Original: 00:06:05.000 --> 00:06:07.000
+Parsed: 0:06:05 --> 0:06:07
+Last End Time: 0:15:52
+SEG SWITCH
+Adjusted Offset: 0:09:47
+Adjusted: 00:15:52.000 --> 00:15:54.000
+
+Original: 00:06:07.000 --> 00:06:10.000
+Parsed: 0:06:07 --> 0:06:10
+Last End Time: 0:15:54
+SEG SWITCH
+Adjusted Offset: 0:09:47
+Adjusted: 00:15:54.000 --> 00:15:57.000
+
+Original: 00:06:10.000 --> 00:06:15.000
+Parsed: 0:06:10 --> 0:06:15
+Last End Time: 0:15:57
+SEG SWITCH
+Adjusted Offset: 0:09:47
+Adjusted: 00:15:57.000 --> 00:16:02.000
+
+Original: 00:06:15.000 --> 00:06:20.000
+Parsed: 0:06:15 --> 0:06:20
+Last End Time: 0:16:02
+SEG SWITCH
+Adjusted Offset: 0:09:47
+Adjusted: 00:16:02.000 --> 00:16:07.000
+
+Original: 00:06:20.000 --> 00:06:25.000
+Parsed: 0:06:20 --> 0:06:25
+Last End Time: 0:16:07
+SEG SWITCH
+Adjusted Offset: 0:09:47
+Adjusted: 00:16:07.000 --> 00:16:12.000
+
+Original: 00:06:26.000 --> 00:06:29.000
+Parsed: 0:06:26 --> 0:06:29
+Last End Time: 0:16:12
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:12.000 --> 00:16:15.000
+
+Original: 00:06:29.000 --> 00:06:32.000
+Parsed: 0:06:29 --> 0:06:32
+Last End Time: 0:16:15
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:15.000 --> 00:16:18.000
+
+Original: 00:06:32.000 --> 00:06:35.000
+Parsed: 0:06:32 --> 0:06:35
+Last End Time: 0:16:18
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:18.000 --> 00:16:21.000
+
+Original: 00:06:35.000 --> 00:06:37.000
+Parsed: 0:06:35 --> 0:06:37
+Last End Time: 0:16:21
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:21.000 --> 00:16:23.000
+
+Original: 00:06:37.000 --> 00:06:39.000
+Parsed: 0:06:37 --> 0:06:39
+Last End Time: 0:16:23
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:23.000 --> 00:16:25.000
+
+Original: 00:06:39.000 --> 00:06:42.000
+Parsed: 0:06:39 --> 0:06:42
+Last End Time: 0:16:25
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:25.000 --> 00:16:28.000
+
+Original: 00:06:42.000 --> 00:06:44.000
+Parsed: 0:06:42 --> 0:06:44
+Last End Time: 0:16:28
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:28.000 --> 00:16:30.000
+
+Original: 00:06:44.000 --> 00:06:49.000
+Parsed: 0:06:44 --> 0:06:49
+Last End Time: 0:16:30
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:30.000 --> 00:16:35.000
+
+Original: 00:06:49.000 --> 00:06:51.000
+Parsed: 0:06:49 --> 0:06:51
+Last End Time: 0:16:35
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:35.000 --> 00:16:37.000
+
+Original: 00:06:51.000 --> 00:06:55.000
+Parsed: 0:06:51 --> 0:06:55
+Last End Time: 0:16:37
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:37.000 --> 00:16:41.000
+
+Original: 00:06:55.000 --> 00:06:57.000
+Parsed: 0:06:55 --> 0:06:57
+Last End Time: 0:16:41
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:41.000 --> 00:16:43.000
+
+Original: 00:06:57.000 --> 00:07:00.000
+Parsed: 0:06:57 --> 0:07:00
+Last End Time: 0:16:43
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:43.000 --> 00:16:46.000
+
+Original: 00:07:00.000 --> 00:07:05.000
+Parsed: 0:07:00 --> 0:07:05
+Last End Time: 0:16:46
+SEG SWITCH
+Adjusted Offset: 0:09:46
+Adjusted: 00:16:46.000 --> 00:16:51.000
+
+Original: 00:07:13.000 --> 00:07:14.000
+Parsed: 0:07:13 --> 0:07:14
+Last End Time: 0:16:51
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:16:51.000 --> 00:16:52.000
+
+Original: 00:07:14.000 --> 00:07:16.000
+Parsed: 0:07:14 --> 0:07:16
+Last End Time: 0:16:52
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:16:52.000 --> 00:16:54.000
+
+Original: 00:07:16.000 --> 00:07:20.000
+Parsed: 0:07:16 --> 0:07:20
+Last End Time: 0:16:54
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:16:54.000 --> 00:16:58.000
+
+Original: 00:07:20.000 --> 00:07:22.000
+Parsed: 0:07:20 --> 0:07:22
+Last End Time: 0:16:58
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:16:58.000 --> 00:17:00.000
+
+Original: 00:07:22.000 --> 00:07:26.000
+Parsed: 0:07:22 --> 0:07:26
+Last End Time: 0:17:00
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:00.000 --> 00:17:04.000
+
+Original: 00:07:26.000 --> 00:07:27.000
+Parsed: 0:07:26 --> 0:07:27
+Last End Time: 0:17:04
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:04.000 --> 00:17:05.000
+
+Original: 00:07:27.000 --> 00:07:29.000
+Parsed: 0:07:27 --> 0:07:29
+Last End Time: 0:17:05
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:05.000 --> 00:17:07.000
+
+Original: 00:07:29.000 --> 00:07:33.000
+Parsed: 0:07:29 --> 0:07:33
+Last End Time: 0:17:07
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:07.000 --> 00:17:11.000
+
+Original: 00:07:33.000 --> 00:07:38.000
+Parsed: 0:07:33 --> 0:07:38
+Last End Time: 0:17:11
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:11.000 --> 00:17:16.000
+
+Original: 00:07:38.000 --> 00:07:41.000
+Parsed: 0:07:38 --> 0:07:41
+Last End Time: 0:17:16
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:16.000 --> 00:17:19.000
+
+Original: 00:07:41.000 --> 00:07:44.000
+Parsed: 0:07:41 --> 0:07:44
+Last End Time: 0:17:19
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:19.000 --> 00:17:22.000
+
+Original: 00:07:44.000 --> 00:07:48.000
+Parsed: 0:07:44 --> 0:07:48
+Last End Time: 0:17:22
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:22.000 --> 00:17:26.000
+
+Original: 00:07:48.000 --> 00:07:50.000
+Parsed: 0:07:48 --> 0:07:50
+Last End Time: 0:17:26
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:26.000 --> 00:17:28.000
+
+Original: 00:07:50.000 --> 00:07:54.000
+Parsed: 0:07:50 --> 0:07:54
+Last End Time: 0:17:28
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:28.000 --> 00:17:32.000
+
+Original: 00:07:54.000 --> 00:07:56.000
+Parsed: 0:07:54 --> 0:07:56
+Last End Time: 0:17:32
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:32.000 --> 00:17:34.000
+
+Original: 00:07:56.000 --> 00:07:58.000
+Parsed: 0:07:56 --> 0:07:58
+Last End Time: 0:17:34
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:34.000 --> 00:17:36.000
+
+Original: 00:07:58.000 --> 00:08:01.000
+Parsed: 0:07:58 --> 0:08:01
+Last End Time: 0:17:36
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:36.000 --> 00:17:39.000
+
+Original: 00:08:01.000 --> 00:08:04.000
+Parsed: 0:08:01 --> 0:08:04
+Last End Time: 0:17:39
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:39.000 --> 00:17:42.000
+
+Original: 00:08:04.000 --> 00:08:06.000
+Parsed: 0:08:04 --> 0:08:06
+Last End Time: 0:17:42
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:42.000 --> 00:17:44.000
+
+Original: 00:08:06.000 --> 00:08:07.000
+Parsed: 0:08:06 --> 0:08:07
+Last End Time: 0:17:44
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:44.000 --> 00:17:45.000
+
+Original: 00:08:07.000 --> 00:08:11.000
+Parsed: 0:08:07 --> 0:08:11
+Last End Time: 0:17:45
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:45.000 --> 00:17:49.000
+
+Original: 00:08:11.000 --> 00:08:13.000
+Parsed: 0:08:11 --> 0:08:13
+Last End Time: 0:17:49
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:49.000 --> 00:17:51.000
+
+Original: 00:08:13.000 --> 00:08:17.000
+Parsed: 0:08:13 --> 0:08:17
+Last End Time: 0:17:51
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:51.000 --> 00:17:55.000
+
+Original: 00:08:17.000 --> 00:08:19.000
+Parsed: 0:08:17 --> 0:08:19
+Last End Time: 0:17:55
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:55.000 --> 00:17:57.000
+
+Original: 00:08:19.000 --> 00:08:23.000
+Parsed: 0:08:19 --> 0:08:23
+Last End Time: 0:17:57
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:17:57.000 --> 00:18:01.000
+
+Original: 00:08:23.000 --> 00:08:27.000
+Parsed: 0:08:23 --> 0:08:27
+Last End Time: 0:18:01
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:01.000 --> 00:18:05.000
+
+Original: 00:08:27.000 --> 00:08:28.000
+Parsed: 0:08:27 --> 0:08:28
+Last End Time: 0:18:05
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:05.000 --> 00:18:06.000
+
+Original: 00:08:28.000 --> 00:08:30.000
+Parsed: 0:08:28 --> 0:08:30
+Last End Time: 0:18:06
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:06.000 --> 00:18:08.000
+
+Original: 00:08:30.000 --> 00:08:32.000
+Parsed: 0:08:30 --> 0:08:32
+Last End Time: 0:18:08
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:08.000 --> 00:18:10.000
+
+Original: 00:08:32.000 --> 00:08:33.000
+Parsed: 0:08:32 --> 0:08:33
+Last End Time: 0:18:10
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:10.000 --> 00:18:11.000
+
+Original: 00:08:33.000 --> 00:08:36.000
+Parsed: 0:08:33 --> 0:08:36
+Last End Time: 0:18:11
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:11.000 --> 00:18:14.000
+
+Original: 00:08:36.000 --> 00:08:38.000
+Parsed: 0:08:36 --> 0:08:38
+Last End Time: 0:18:14
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:14.000 --> 00:18:16.000
+
+Original: 00:08:38.000 --> 00:08:42.000
+Parsed: 0:08:38 --> 0:08:42
+Last End Time: 0:18:16
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:16.000 --> 00:18:20.000
+
+Original: 00:08:42.000 --> 00:08:47.000
+Parsed: 0:08:42 --> 0:08:47
+Last End Time: 0:18:20
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:20.000 --> 00:18:25.000
+
+Original: 00:08:47.000 --> 00:08:50.000
+Parsed: 0:08:47 --> 0:08:50
+Last End Time: 0:18:25
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:25.000 --> 00:18:28.000
+
+Original: 00:08:50.000 --> 00:08:55.000
+Parsed: 0:08:50 --> 0:08:55
+Last End Time: 0:18:28
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:28.000 --> 00:18:33.000
+
+Original: 00:08:55.000 --> 00:09:00.000
+Parsed: 0:08:55 --> 0:09:00
+Last End Time: 0:18:33
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:33.000 --> 00:18:38.000
+
+Original: 00:09:00.000 --> 00:09:04.000
+Parsed: 0:09:00 --> 0:09:04
+Last End Time: 0:18:38
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:38.000 --> 00:18:42.000
+
+Original: 00:09:04.000 --> 00:09:06.000
+Parsed: 0:09:04 --> 0:09:06
+Last End Time: 0:18:42
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:42.000 --> 00:18:44.000
+
+Original: 00:09:06.000 --> 00:09:08.000
+Parsed: 0:09:06 --> 0:09:08
+Last End Time: 0:18:44
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:44.000 --> 00:18:46.000
+
+Original: 00:09:08.000 --> 00:09:10.000
+Parsed: 0:09:08 --> 0:09:10
+Last End Time: 0:18:46
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:46.000 --> 00:18:48.000
+
+Original: 00:09:10.000 --> 00:09:11.000
+Parsed: 0:09:10 --> 0:09:11
+Last End Time: 0:18:48
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:48.000 --> 00:18:49.000
+
+Original: 00:09:11.000 --> 00:09:12.000
+Parsed: 0:09:11 --> 0:09:12
+Last End Time: 0:18:49
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:49.000 --> 00:18:50.000
+
+Original: 00:09:12.000 --> 00:09:13.000
+Parsed: 0:09:12 --> 0:09:13
+Last End Time: 0:18:50
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:50.000 --> 00:18:51.000
+
+Original: 00:09:13.000 --> 00:09:17.000
+Parsed: 0:09:13 --> 0:09:17
+Last End Time: 0:18:51
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:51.000 --> 00:18:55.000
+
+Original: 00:09:17.000 --> 00:09:18.000
+Parsed: 0:09:17 --> 0:09:18
+Last End Time: 0:18:55
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:55.000 --> 00:18:56.000
+
+Original: 00:09:18.000 --> 00:09:23.000
+Parsed: 0:09:18 --> 0:09:23
+Last End Time: 0:18:56
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:18:56.000 --> 00:19:01.000
+
+Original: 00:09:23.000 --> 00:09:25.000
+Parsed: 0:09:23 --> 0:09:25
+Last End Time: 0:19:01
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:01.000 --> 00:19:03.000
+
+Original: 00:09:25.000 --> 00:09:27.000
+Parsed: 0:09:25 --> 0:09:27
+Last End Time: 0:19:03
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:03.000 --> 00:19:05.000
+
+Original: 00:09:27.000 --> 00:09:30.000
+Parsed: 0:09:27 --> 0:09:30
+Last End Time: 0:19:05
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:05.000 --> 00:19:08.000
+
+Original: 00:09:30.000 --> 00:09:32.000
+Parsed: 0:09:30 --> 0:09:32
+Last End Time: 0:19:08
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:08.000 --> 00:19:10.000
+
+Original: 00:09:32.000 --> 00:09:34.000
+Parsed: 0:09:32 --> 0:09:34
+Last End Time: 0:19:10
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:10.000 --> 00:19:12.000
+
+Original: 00:09:34.000 --> 00:09:38.000
+Parsed: 0:09:34 --> 0:09:38
+Last End Time: 0:19:12
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:12.000 --> 00:19:16.000
+
+Original: 00:09:38.000 --> 00:09:39.000
+Parsed: 0:09:38 --> 0:09:39
+Last End Time: 0:19:16
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:16.000 --> 00:19:17.000
+
+Original: 00:09:39.000 --> 00:09:40.000
+Parsed: 0:09:39 --> 0:09:40
+Last End Time: 0:19:17
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:17.000 --> 00:19:18.000
+
+Original: 00:09:40.000 --> 00:09:42.000
+Parsed: 0:09:40 --> 0:09:42
+Last End Time: 0:19:18
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:18.000 --> 00:19:20.000
+
+Original: 00:09:42.000 --> 00:09:46.000
+Parsed: 0:09:42 --> 0:09:46
+Last End Time: 0:19:20
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:20.000 --> 00:19:24.000
+
+Original: 00:09:46.000 --> 00:09:48.000
+Parsed: 0:09:46 --> 0:09:48
+Last End Time: 0:19:24
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:24.000 --> 00:19:26.000
+
+Original: 00:09:48.000 --> 00:09:55.000
+Parsed: 0:09:48 --> 0:09:55
+Last End Time: 0:19:26
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:26.000 --> 00:19:33.000
+
+Original: 00:09:55.000 --> 00:09:56.000
+Parsed: 0:09:55 --> 0:09:56
+Last End Time: 0:19:33
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:33.000 --> 00:19:34.000
+
+Original: 00:09:56.000 --> 00:10:00.000
+Parsed: 0:09:56 --> 0:10:00
+Last End Time: 0:19:34
+SEG SWITCH
+Adjusted Offset: 0:09:38
+Adjusted: 00:19:34.000 --> 00:19:38.000
+
+Original: 00:00:02.000 --> 00:00:06.000
+Parsed: 0:00:02 --> 0:00:06
+Last End Time: 0:19:38
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:19:38.000 --> 00:19:42.000
+
+Original: 00:00:06.000 --> 00:00:09.000
+Parsed: 0:00:06 --> 0:00:09
+Last End Time: 0:19:42
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:19:42.000 --> 00:19:45.000
+
+Original: 00:00:09.000 --> 00:00:18.000
+Parsed: 0:00:09 --> 0:00:18
+Last End Time: 0:19:45
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:19:45.000 --> 00:19:54.000
+
+Original: 00:00:18.000 --> 00:00:19.000
+Parsed: 0:00:18 --> 0:00:19
+Last End Time: 0:19:54
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:19:54.000 --> 00:19:55.000
+
+Original: 00:00:19.000 --> 00:00:25.000
+Parsed: 0:00:19 --> 0:00:25
+Last End Time: 0:19:55
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:19:55.000 --> 00:20:01.000
+
+Original: 00:00:25.000 --> 00:00:28.000
+Parsed: 0:00:25 --> 0:00:28
+Last End Time: 0:20:01
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:20:01.000 --> 00:20:04.000
+
+Original: 00:00:28.000 --> 00:00:31.000
+Parsed: 0:00:28 --> 0:00:31
+Last End Time: 0:20:04
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:20:04.000 --> 00:20:07.000
+
+Original: 00:00:31.000 --> 00:00:33.000
+Parsed: 0:00:31 --> 0:00:33
+Last End Time: 0:20:07
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:20:07.000 --> 00:20:09.000
+
+Original: 00:00:33.000 --> 00:00:36.000
+Parsed: 0:00:33 --> 0:00:36
+Last End Time: 0:20:09
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:20:09.000 --> 00:20:12.000
+
+Original: 00:00:36.000 --> 00:00:38.000
+Parsed: 0:00:36 --> 0:00:38
+Last End Time: 0:20:12
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:20:12.000 --> 00:20:14.000
+
+Original: 00:00:38.000 --> 00:00:42.000
+Parsed: 0:00:38 --> 0:00:42
+Last End Time: 0:20:14
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:20:14.000 --> 00:20:18.000
+
+Original: 00:00:42.000 --> 00:00:48.000
+Parsed: 0:00:42 --> 0:00:48
+Last End Time: 0:20:18
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:20:18.000 --> 00:20:24.000
+
+Original: 00:00:48.000 --> 00:00:51.000
+Parsed: 0:00:48 --> 0:00:51
+Last End Time: 0:20:24
+SEG SWITCH
+Adjusted Offset: 0:19:36
+Adjusted: 00:20:24.000 --> 00:20:27.000
+
+Original: 00:00:52.000 --> 00:00:58.000
+Parsed: 0:00:52 --> 0:00:58
+Last End Time: 0:20:27
+SEG SWITCH
+Adjusted Offset: 0:19:35
+Adjusted: 00:20:27.000 --> 00:20:33.000
+
+Original: 00:00:58.000 --> 00:01:00.000
+Parsed: 0:00:58 --> 0:01:00
+Last End Time: 0:20:33
+SEG SWITCH
+Adjusted Offset: 0:19:35
+Adjusted: 00:20:33.000 --> 00:20:35.000
+
+Original: 00:01:00.000 --> 00:01:03.000
+Parsed: 0:01:00 --> 0:01:03
+Last End Time: 0:20:35
+SEG SWITCH
+Adjusted Offset: 0:19:35
+Adjusted: 00:20:35.000 --> 00:20:38.000
+
+Original: 00:01:03.000 --> 00:01:05.000
+Parsed: 0:01:03 --> 0:01:05
+Last End Time: 0:20:38
+SEG SWITCH
+Adjusted Offset: 0:19:35
+Adjusted: 00:20:38.000 --> 00:20:40.000
+
+Original: 00:01:05.000 --> 00:01:09.000
+Parsed: 0:01:05 --> 0:01:09
+Last End Time: 0:20:40
+SEG SWITCH
+Adjusted Offset: 0:19:35
+Adjusted: 00:20:40.000 --> 00:20:44.000
+
+Original: 00:01:09.000 --> 00:01:11.000
+Parsed: 0:01:09 --> 0:01:11
+Last End Time: 0:20:44
+SEG SWITCH
+Adjusted Offset: 0:19:35
+Adjusted: 00:20:44.000 --> 00:20:46.000
+
+Original: 00:01:12.000 --> 00:01:16.000
+Parsed: 0:01:12 --> 0:01:16
+Last End Time: 0:20:46
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:20:46.000 --> 00:20:50.000
+
+Original: 00:01:16.000 --> 00:01:23.000
+Parsed: 0:01:16 --> 0:01:23
+Last End Time: 0:20:50
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:20:50.000 --> 00:20:57.000
+
+Original: 00:01:23.000 --> 00:01:24.000
+Parsed: 0:01:23 --> 0:01:24
+Last End Time: 0:20:57
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:20:57.000 --> 00:20:58.000
+
+Original: 00:01:24.000 --> 00:01:30.000
+Parsed: 0:01:24 --> 0:01:30
+Last End Time: 0:20:58
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:20:58.000 --> 00:21:04.000
+
+Original: 00:01:30.000 --> 00:01:35.000
+Parsed: 0:01:30 --> 0:01:35
+Last End Time: 0:21:04
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:04.000 --> 00:21:09.000
+
+Original: 00:01:35.000 --> 00:01:37.000
+Parsed: 0:01:35 --> 0:01:37
+Last End Time: 0:21:09
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:09.000 --> 00:21:11.000
+
+Original: 00:01:37.000 --> 00:01:47.000
+Parsed: 0:01:37 --> 0:01:47
+Last End Time: 0:21:11
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:11.000 --> 00:21:21.000
+
+Original: 00:01:47.000 --> 00:01:48.000
+Parsed: 0:01:47 --> 0:01:48
+Last End Time: 0:21:21
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:21.000 --> 00:21:22.000
+
+Original: 00:01:48.000 --> 00:01:57.000
+Parsed: 0:01:48 --> 0:01:57
+Last End Time: 0:21:22
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:22.000 --> 00:21:31.000
+
+Original: 00:01:57.000 --> 00:01:58.000
+Parsed: 0:01:57 --> 0:01:58
+Last End Time: 0:21:31
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:31.000 --> 00:21:32.000
+
+Original: 00:01:58.000 --> 00:01:59.000
+Parsed: 0:01:58 --> 0:01:59
+Last End Time: 0:21:32
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:32.000 --> 00:21:33.000
+
+Original: 00:01:59.000 --> 00:02:04.000
+Parsed: 0:01:59 --> 0:02:04
+Last End Time: 0:21:33
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:33.000 --> 00:21:38.000
+
+Original: 00:02:04.000 --> 00:02:08.000
+Parsed: 0:02:04 --> 0:02:08
+Last End Time: 0:21:38
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:38.000 --> 00:21:42.000
+
+Original: 00:02:08.000 --> 00:02:13.000
+Parsed: 0:02:08 --> 0:02:13
+Last End Time: 0:21:42
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:42.000 --> 00:21:47.000
+
+Original: 00:02:13.000 --> 00:02:15.000
+Parsed: 0:02:13 --> 0:02:15
+Last End Time: 0:21:47
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:47.000 --> 00:21:49.000
+
+Original: 00:02:15.000 --> 00:02:16.000
+Parsed: 0:02:15 --> 0:02:16
+Last End Time: 0:21:49
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:49.000 --> 00:21:50.000
+
+Original: 00:02:16.000 --> 00:02:26.000
+Parsed: 0:02:16 --> 0:02:26
+Last End Time: 0:21:50
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:21:50.000 --> 00:22:00.000
+
+Original: 00:02:26.000 --> 00:02:31.000
+Parsed: 0:02:26 --> 0:02:31
+Last End Time: 0:22:00
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:00.000 --> 00:22:05.000
+
+Original: 00:02:31.000 --> 00:02:33.000
+Parsed: 0:02:31 --> 0:02:33
+Last End Time: 0:22:05
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:05.000 --> 00:22:07.000
+
+Original: 00:02:33.000 --> 00:02:40.000
+Parsed: 0:02:33 --> 0:02:40
+Last End Time: 0:22:07
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:07.000 --> 00:22:14.000
+
+Original: 00:02:40.000 --> 00:02:41.000
+Parsed: 0:02:40 --> 0:02:41
+Last End Time: 0:22:14
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:14.000 --> 00:22:15.000
+
+Original: 00:02:41.000 --> 00:02:43.000
+Parsed: 0:02:41 --> 0:02:43
+Last End Time: 0:22:15
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:15.000 --> 00:22:17.000
+
+Original: 00:02:43.000 --> 00:02:45.000
+Parsed: 0:02:43 --> 0:02:45
+Last End Time: 0:22:17
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:17.000 --> 00:22:19.000
+
+Original: 00:02:45.000 --> 00:02:49.000
+Parsed: 0:02:45 --> 0:02:49
+Last End Time: 0:22:19
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:19.000 --> 00:22:23.000
+
+Original: 00:02:49.000 --> 00:02:55.000
+Parsed: 0:02:49 --> 0:02:55
+Last End Time: 0:22:23
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:23.000 --> 00:22:29.000
+
+Original: 00:02:55.000 --> 00:03:00.000
+Parsed: 0:02:55 --> 0:03:00
+Last End Time: 0:22:29
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:29.000 --> 00:22:34.000
+
+Original: 00:03:00.000 --> 00:03:11.000
+Parsed: 0:03:00 --> 0:03:11
+Last End Time: 0:22:34
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:34.000 --> 00:22:45.000
+
+Original: 00:03:11.000 --> 00:03:20.000
+Parsed: 0:03:11 --> 0:03:20
+Last End Time: 0:22:45
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:45.000 --> 00:22:54.000
+
+Original: 00:03:20.000 --> 00:03:21.000
+Parsed: 0:03:20 --> 0:03:21
+Last End Time: 0:22:54
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:54.000 --> 00:22:55.000
+
+Original: 00:03:21.000 --> 00:03:25.000
+Parsed: 0:03:21 --> 0:03:25
+Last End Time: 0:22:55
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:55.000 --> 00:22:59.000
+
+Original: 00:03:25.000 --> 00:03:33.000
+Parsed: 0:03:25 --> 0:03:33
+Last End Time: 0:22:59
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:22:59.000 --> 00:23:07.000
+
+Original: 00:03:33.000 --> 00:03:35.000
+Parsed: 0:03:33 --> 0:03:35
+Last End Time: 0:23:07
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:07.000 --> 00:23:09.000
+
+Original: 00:03:35.000 --> 00:03:36.000
+Parsed: 0:03:35 --> 0:03:36
+Last End Time: 0:23:09
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:09.000 --> 00:23:10.000
+
+Original: 00:03:36.000 --> 00:03:41.000
+Parsed: 0:03:36 --> 0:03:41
+Last End Time: 0:23:10
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:10.000 --> 00:23:15.000
+
+Original: 00:03:41.000 --> 00:03:42.000
+Parsed: 0:03:41 --> 0:03:42
+Last End Time: 0:23:15
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:15.000 --> 00:23:16.000
+
+Original: 00:03:42.000 --> 00:03:45.000
+Parsed: 0:03:42 --> 0:03:45
+Last End Time: 0:23:16
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:16.000 --> 00:23:19.000
+
+Original: 00:03:45.000 --> 00:03:47.000
+Parsed: 0:03:45 --> 0:03:47
+Last End Time: 0:23:19
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:19.000 --> 00:23:21.000
+
+Original: 00:03:47.000 --> 00:03:49.000
+Parsed: 0:03:47 --> 0:03:49
+Last End Time: 0:23:21
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:21.000 --> 00:23:23.000
+
+Original: 00:03:49.000 --> 00:03:53.000
+Parsed: 0:03:49 --> 0:03:53
+Last End Time: 0:23:23
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:23.000 --> 00:23:27.000
+
+Original: 00:03:53.000 --> 00:03:56.000
+Parsed: 0:03:53 --> 0:03:56
+Last End Time: 0:23:27
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:27.000 --> 00:23:30.000
+
+Original: 00:03:56.000 --> 00:03:59.000
+Parsed: 0:03:56 --> 0:03:59
+Last End Time: 0:23:30
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:30.000 --> 00:23:33.000
+
+Original: 00:03:59.000 --> 00:04:06.000
+Parsed: 0:03:59 --> 0:04:06
+Last End Time: 0:23:33
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:33.000 --> 00:23:40.000
+
+Original: 00:04:06.000 --> 00:04:11.000
+Parsed: 0:04:06 --> 0:04:11
+Last End Time: 0:23:40
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:40.000 --> 00:23:45.000
+
+Original: 00:04:11.000 --> 00:04:19.000
+Parsed: 0:04:11 --> 0:04:19
+Last End Time: 0:23:45
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:45.000 --> 00:23:53.000
+
+Original: 00:04:19.000 --> 00:04:20.000
+Parsed: 0:04:19 --> 0:04:20
+Last End Time: 0:23:53
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:53.000 --> 00:23:54.000
+
+Original: 00:04:20.000 --> 00:04:21.000
+Parsed: 0:04:20 --> 0:04:21
+Last End Time: 0:23:54
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:54.000 --> 00:23:55.000
+
+Original: 00:04:21.000 --> 00:04:23.000
+Parsed: 0:04:21 --> 0:04:23
+Last End Time: 0:23:55
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:55.000 --> 00:23:57.000
+
+Original: 00:04:23.000 --> 00:04:29.000
+Parsed: 0:04:23 --> 0:04:29
+Last End Time: 0:23:57
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:23:57.000 --> 00:24:03.000
+
+Original: 00:04:29.000 --> 00:04:30.000
+Parsed: 0:04:29 --> 0:04:30
+Last End Time: 0:24:03
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:03.000 --> 00:24:04.000
+
+Original: 00:04:30.000 --> 00:04:32.000
+Parsed: 0:04:30 --> 0:04:32
+Last End Time: 0:24:04
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:04.000 --> 00:24:06.000
+
+Original: 00:04:32.000 --> 00:04:36.000
+Parsed: 0:04:32 --> 0:04:36
+Last End Time: 0:24:06
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:06.000 --> 00:24:10.000
+
+Original: 00:04:36.000 --> 00:04:40.000
+Parsed: 0:04:36 --> 0:04:40
+Last End Time: 0:24:10
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:10.000 --> 00:24:14.000
+
+Original: 00:04:40.000 --> 00:04:43.000
+Parsed: 0:04:40 --> 0:04:43
+Last End Time: 0:24:14
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:14.000 --> 00:24:17.000
+
+Original: 00:04:43.000 --> 00:04:46.000
+Parsed: 0:04:43 --> 0:04:46
+Last End Time: 0:24:17
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:17.000 --> 00:24:20.000
+
+Original: 00:04:46.000 --> 00:04:48.000
+Parsed: 0:04:46 --> 0:04:48
+Last End Time: 0:24:20
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:20.000 --> 00:24:22.000
+
+Original: 00:04:48.000 --> 00:04:50.000
+Parsed: 0:04:48 --> 0:04:50
+Last End Time: 0:24:22
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:22.000 --> 00:24:24.000
+
+Original: 00:04:50.000 --> 00:04:52.000
+Parsed: 0:04:50 --> 0:04:52
+Last End Time: 0:24:24
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:24.000 --> 00:24:26.000
+
+Original: 00:04:52.000 --> 00:04:55.000
+Parsed: 0:04:52 --> 0:04:55
+Last End Time: 0:24:26
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:26.000 --> 00:24:29.000
+
+Original: 00:04:55.000 --> 00:04:57.000
+Parsed: 0:04:55 --> 0:04:57
+Last End Time: 0:24:29
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:29.000 --> 00:24:31.000
+
+Original: 00:04:57.000 --> 00:05:00.000
+Parsed: 0:04:57 --> 0:05:00
+Last End Time: 0:24:31
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:31.000 --> 00:24:34.000
+
+Original: 00:05:00.000 --> 00:05:07.000
+Parsed: 0:05:00 --> 0:05:07
+Last End Time: 0:24:34
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:34.000 --> 00:24:41.000
+
+Original: 00:05:07.000 --> 00:05:12.000
+Parsed: 0:05:07 --> 0:05:12
+Last End Time: 0:24:41
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:41.000 --> 00:24:46.000
+
+Original: 00:05:12.000 --> 00:05:16.000
+Parsed: 0:05:12 --> 0:05:16
+Last End Time: 0:24:46
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:46.000 --> 00:24:50.000
+
+Original: 00:05:16.000 --> 00:05:24.000
+Parsed: 0:05:16 --> 0:05:24
+Last End Time: 0:24:50
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:50.000 --> 00:24:58.000
+
+Original: 00:05:24.000 --> 00:05:31.000
+Parsed: 0:05:24 --> 0:05:31
+Last End Time: 0:24:58
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:24:58.000 --> 00:25:05.000
+
+Original: 00:05:31.000 --> 00:05:35.000
+Parsed: 0:05:31 --> 0:05:35
+Last End Time: 0:25:05
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:05.000 --> 00:25:09.000
+
+Original: 00:05:35.000 --> 00:05:38.000
+Parsed: 0:05:35 --> 0:05:38
+Last End Time: 0:25:09
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:09.000 --> 00:25:12.000
+
+Original: 00:05:38.000 --> 00:05:41.000
+Parsed: 0:05:38 --> 0:05:41
+Last End Time: 0:25:12
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:12.000 --> 00:25:15.000
+
+Original: 00:05:41.000 --> 00:05:42.000
+Parsed: 0:05:41 --> 0:05:42
+Last End Time: 0:25:15
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:15.000 --> 00:25:16.000
+
+Original: 00:05:42.000 --> 00:05:43.000
+Parsed: 0:05:42 --> 0:05:43
+Last End Time: 0:25:16
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:16.000 --> 00:25:17.000
+
+Original: 00:05:43.000 --> 00:05:45.000
+Parsed: 0:05:43 --> 0:05:45
+Last End Time: 0:25:17
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:17.000 --> 00:25:19.000
+
+Original: 00:05:45.000 --> 00:05:46.000
+Parsed: 0:05:45 --> 0:05:46
+Last End Time: 0:25:19
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:19.000 --> 00:25:20.000
+
+Original: 00:05:46.000 --> 00:05:49.000
+Parsed: 0:05:46 --> 0:05:49
+Last End Time: 0:25:20
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:20.000 --> 00:25:23.000
+
+Original: 00:05:49.000 --> 00:05:51.000
+Parsed: 0:05:49 --> 0:05:51
+Last End Time: 0:25:23
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:23.000 --> 00:25:25.000
+
+Original: 00:05:51.000 --> 00:05:52.000
+Parsed: 0:05:51 --> 0:05:52
+Last End Time: 0:25:25
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:25.000 --> 00:25:26.000
+
+Original: 00:05:52.000 --> 00:05:55.000
+Parsed: 0:05:52 --> 0:05:55
+Last End Time: 0:25:26
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:26.000 --> 00:25:29.000
+
+Original: 00:05:55.000 --> 00:06:00.000
+Parsed: 0:05:55 --> 0:06:00
+Last End Time: 0:25:29
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:29.000 --> 00:25:34.000
+
+Original: 00:06:00.000 --> 00:06:02.000
+Parsed: 0:06:00 --> 0:06:02
+Last End Time: 0:25:34
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:34.000 --> 00:25:36.000
+
+Original: 00:06:02.000 --> 00:06:04.000
+Parsed: 0:06:02 --> 0:06:04
+Last End Time: 0:25:36
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:36.000 --> 00:25:38.000
+
+Original: 00:06:04.000 --> 00:06:05.000
+Parsed: 0:06:04 --> 0:06:05
+Last End Time: 0:25:38
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:38.000 --> 00:25:39.000
+
+Original: 00:06:05.000 --> 00:06:11.000
+Parsed: 0:06:05 --> 0:06:11
+Last End Time: 0:25:39
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:39.000 --> 00:25:45.000
+
+Original: 00:06:11.000 --> 00:06:15.000
+Parsed: 0:06:11 --> 0:06:15
+Last End Time: 0:25:45
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:45.000 --> 00:25:49.000
+
+Original: 00:06:15.000 --> 00:06:20.000
+Parsed: 0:06:15 --> 0:06:20
+Last End Time: 0:25:49
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:49.000 --> 00:25:54.000
+
+Original: 00:06:20.000 --> 00:06:23.000
+Parsed: 0:06:20 --> 0:06:23
+Last End Time: 0:25:54
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:54.000 --> 00:25:57.000
+
+Original: 00:06:23.000 --> 00:06:26.000
+Parsed: 0:06:23 --> 0:06:26
+Last End Time: 0:25:57
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:25:57.000 --> 00:26:00.000
+
+Original: 00:06:26.000 --> 00:06:29.000
+Parsed: 0:06:26 --> 0:06:29
+Last End Time: 0:26:00
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:00.000 --> 00:26:03.000
+
+Original: 00:06:29.000 --> 00:06:33.000
+Parsed: 0:06:29 --> 0:06:33
+Last End Time: 0:26:03
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:03.000 --> 00:26:07.000
+
+Original: 00:06:33.000 --> 00:06:39.000
+Parsed: 0:06:33 --> 0:06:39
+Last End Time: 0:26:07
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:07.000 --> 00:26:13.000
+
+Original: 00:06:39.000 --> 00:06:40.000
+Parsed: 0:06:39 --> 0:06:40
+Last End Time: 0:26:13
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:13.000 --> 00:26:14.000
+
+Original: 00:06:40.000 --> 00:06:42.000
+Parsed: 0:06:40 --> 0:06:42
+Last End Time: 0:26:14
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:14.000 --> 00:26:16.000
+
+Original: 00:06:42.000 --> 00:06:44.000
+Parsed: 0:06:42 --> 0:06:44
+Last End Time: 0:26:16
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:16.000 --> 00:26:18.000
+
+Original: 00:06:44.000 --> 00:06:46.000
+Parsed: 0:06:44 --> 0:06:46
+Last End Time: 0:26:18
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:18.000 --> 00:26:20.000
+
+Original: 00:06:46.000 --> 00:06:49.000
+Parsed: 0:06:46 --> 0:06:49
+Last End Time: 0:26:20
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:20.000 --> 00:26:23.000
+
+Original: 00:06:49.000 --> 00:06:50.000
+Parsed: 0:06:49 --> 0:06:50
+Last End Time: 0:26:23
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:23.000 --> 00:26:24.000
+
+Original: 00:06:50.000 --> 00:06:51.000
+Parsed: 0:06:50 --> 0:06:51
+Last End Time: 0:26:24
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:24.000 --> 00:26:25.000
+
+Original: 00:06:51.000 --> 00:06:53.000
+Parsed: 0:06:51 --> 0:06:53
+Last End Time: 0:26:25
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:25.000 --> 00:26:27.000
+
+Original: 00:06:53.000 --> 00:06:58.000
+Parsed: 0:06:53 --> 0:06:58
+Last End Time: 0:26:27
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:27.000 --> 00:26:32.000
+
+Original: 00:06:58.000 --> 00:07:03.000
+Parsed: 0:06:58 --> 0:07:03
+Last End Time: 0:26:32
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:32.000 --> 00:26:37.000
+
+Original: 00:07:03.000 --> 00:07:10.000
+Parsed: 0:07:03 --> 0:07:10
+Last End Time: 0:26:37
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:37.000 --> 00:26:44.000
+
+Original: 00:07:10.000 --> 00:07:16.000
+Parsed: 0:07:10 --> 0:07:16
+Last End Time: 0:26:44
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:44.000 --> 00:26:50.000
+
+Original: 00:07:16.000 --> 00:07:19.000
+Parsed: 0:07:16 --> 0:07:19
+Last End Time: 0:26:50
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:50.000 --> 00:26:53.000
+
+Original: 00:07:19.000 --> 00:07:20.000
+Parsed: 0:07:19 --> 0:07:20
+Last End Time: 0:26:53
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:53.000 --> 00:26:54.000
+
+Original: 00:07:20.000 --> 00:07:21.000
+Parsed: 0:07:20 --> 0:07:21
+Last End Time: 0:26:54
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:54.000 --> 00:26:55.000
+
+Original: 00:07:21.000 --> 00:07:22.000
+Parsed: 0:07:21 --> 0:07:22
+Last End Time: 0:26:55
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:55.000 --> 00:26:56.000
+
+Original: 00:07:22.000 --> 00:07:28.000
+Parsed: 0:07:22 --> 0:07:28
+Last End Time: 0:26:56
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:26:56.000 --> 00:27:02.000
+
+Original: 00:07:28.000 --> 00:07:30.000
+Parsed: 0:07:28 --> 0:07:30
+Last End Time: 0:27:02
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:02.000 --> 00:27:04.000
+
+Original: 00:07:30.000 --> 00:07:32.000
+Parsed: 0:07:30 --> 0:07:32
+Last End Time: 0:27:04
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:04.000 --> 00:27:06.000
+
+Original: 00:07:32.000 --> 00:07:34.000
+Parsed: 0:07:32 --> 0:07:34
+Last End Time: 0:27:06
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:06.000 --> 00:27:08.000
+
+Original: 00:07:34.000 --> 00:07:39.000
+Parsed: 0:07:34 --> 0:07:39
+Last End Time: 0:27:08
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:08.000 --> 00:27:13.000
+
+Original: 00:07:39.000 --> 00:07:48.000
+Parsed: 0:07:39 --> 0:07:48
+Last End Time: 0:27:13
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:13.000 --> 00:27:22.000
+
+Original: 00:07:48.000 --> 00:07:50.000
+Parsed: 0:07:48 --> 0:07:50
+Last End Time: 0:27:22
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:22.000 --> 00:27:24.000
+
+Original: 00:07:50.000 --> 00:07:52.000
+Parsed: 0:07:50 --> 0:07:52
+Last End Time: 0:27:24
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:24.000 --> 00:27:26.000
+
+Original: 00:07:52.000 --> 00:07:54.000
+Parsed: 0:07:52 --> 0:07:54
+Last End Time: 0:27:26
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:26.000 --> 00:27:28.000
+
+Original: 00:07:54.000 --> 00:07:56.000
+Parsed: 0:07:54 --> 0:07:56
+Last End Time: 0:27:28
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:28.000 --> 00:27:30.000
+
+Original: 00:07:56.000 --> 00:07:58.000
+Parsed: 0:07:56 --> 0:07:58
+Last End Time: 0:27:30
+SEG SWITCH
+Adjusted Offset: 0:19:34
+Adjusted: 00:27:30.000 --> 00:27:32.000
+
+Original: 00:07:59.000 --> 00:08:04.000
+Parsed: 0:07:59 --> 0:08:04
+Last End Time: 0:27:32
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:27:32.000 --> 00:27:37.000
+
+Original: 00:08:04.000 --> 00:08:15.000
+Parsed: 0:08:04 --> 0:08:15
+Last End Time: 0:27:37
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:27:37.000 --> 00:27:48.000
+
+Original: 00:08:15.000 --> 00:08:18.000
+Parsed: 0:08:15 --> 0:08:18
+Last End Time: 0:27:48
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:27:48.000 --> 00:27:51.000
+
+Original: 00:08:18.000 --> 00:08:21.000
+Parsed: 0:08:18 --> 0:08:21
+Last End Time: 0:27:51
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:27:51.000 --> 00:27:54.000
+
+Original: 00:08:21.000 --> 00:08:23.000
+Parsed: 0:08:21 --> 0:08:23
+Last End Time: 0:27:54
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:27:54.000 --> 00:27:56.000
+
+Original: 00:08:23.000 --> 00:08:24.000
+Parsed: 0:08:23 --> 0:08:24
+Last End Time: 0:27:56
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:27:56.000 --> 00:27:57.000
+
+Original: 00:08:24.000 --> 00:08:25.000
+Parsed: 0:08:24 --> 0:08:25
+Last End Time: 0:27:57
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:27:57.000 --> 00:27:58.000
+
+Original: 00:08:25.000 --> 00:08:27.000
+Parsed: 0:08:25 --> 0:08:27
+Last End Time: 0:27:58
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:27:58.000 --> 00:28:00.000
+
+Original: 00:08:27.000 --> 00:08:28.000
+Parsed: 0:08:27 --> 0:08:28
+Last End Time: 0:28:00
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:00.000 --> 00:28:01.000
+
+Original: 00:08:28.000 --> 00:08:31.000
+Parsed: 0:08:28 --> 0:08:31
+Last End Time: 0:28:01
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:01.000 --> 00:28:04.000
+
+Original: 00:08:31.000 --> 00:08:32.000
+Parsed: 0:08:31 --> 0:08:32
+Last End Time: 0:28:04
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:04.000 --> 00:28:05.000
+
+Original: 00:08:32.000 --> 00:08:33.000
+Parsed: 0:08:32 --> 0:08:33
+Last End Time: 0:28:05
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:05.000 --> 00:28:06.000
+
+Original: 00:08:33.000 --> 00:08:34.000
+Parsed: 0:08:33 --> 0:08:34
+Last End Time: 0:28:06
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:06.000 --> 00:28:07.000
+
+Original: 00:08:34.000 --> 00:08:35.000
+Parsed: 0:08:34 --> 0:08:35
+Last End Time: 0:28:07
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:07.000 --> 00:28:08.000
+
+Original: 00:08:35.000 --> 00:08:37.000
+Parsed: 0:08:35 --> 0:08:37
+Last End Time: 0:28:08
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:08.000 --> 00:28:10.000
+
+Original: 00:08:37.000 --> 00:08:38.000
+Parsed: 0:08:37 --> 0:08:38
+Last End Time: 0:28:10
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:10.000 --> 00:28:11.000
+
+Original: 00:08:38.000 --> 00:08:41.000
+Parsed: 0:08:38 --> 0:08:41
+Last End Time: 0:28:11
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:11.000 --> 00:28:14.000
+
+Original: 00:08:41.000 --> 00:08:45.000
+Parsed: 0:08:41 --> 0:08:45
+Last End Time: 0:28:14
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:14.000 --> 00:28:18.000
+
+Original: 00:08:45.000 --> 00:08:47.000
+Parsed: 0:08:45 --> 0:08:47
+Last End Time: 0:28:18
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:18.000 --> 00:28:20.000
+
+Original: 00:08:47.000 --> 00:08:49.000
+Parsed: 0:08:47 --> 0:08:49
+Last End Time: 0:28:20
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:20.000 --> 00:28:22.000
+
+Original: 00:08:49.000 --> 00:08:53.000
+Parsed: 0:08:49 --> 0:08:53
+Last End Time: 0:28:22
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:22.000 --> 00:28:26.000
+
+Original: 00:08:53.000 --> 00:08:57.000
+Parsed: 0:08:53 --> 0:08:57
+Last End Time: 0:28:26
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:26.000 --> 00:28:30.000
+
+Original: 00:08:57.000 --> 00:09:01.000
+Parsed: 0:08:57 --> 0:09:01
+Last End Time: 0:28:30
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:30.000 --> 00:28:34.000
+
+Original: 00:09:01.000 --> 00:09:06.000
+Parsed: 0:09:01 --> 0:09:06
+Last End Time: 0:28:34
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:34.000 --> 00:28:39.000
+
+Original: 00:09:06.000 --> 00:09:09.000
+Parsed: 0:09:06 --> 0:09:09
+Last End Time: 0:28:39
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:39.000 --> 00:28:42.000
+
+Original: 00:09:09.000 --> 00:09:11.000
+Parsed: 0:09:09 --> 0:09:11
+Last End Time: 0:28:42
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:42.000 --> 00:28:44.000
+
+Original: 00:09:11.000 --> 00:09:12.000
+Parsed: 0:09:11 --> 0:09:12
+Last End Time: 0:28:44
+SEG SWITCH
+Adjusted Offset: 0:19:33
+Adjusted: 00:28:44.000 --> 00:28:45.000
+
+Original: 00:09:13.000 --> 00:09:22.000
+Parsed: 0:09:13 --> 0:09:22
+Last End Time: 0:28:45
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:28:45.000 --> 00:28:54.000
+
+Original: 00:09:22.000 --> 00:09:24.000
+Parsed: 0:09:22 --> 0:09:24
+Last End Time: 0:28:54
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:28:54.000 --> 00:28:56.000
+
+Original: 00:09:24.000 --> 00:09:25.000
+Parsed: 0:09:24 --> 0:09:25
+Last End Time: 0:28:56
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:28:56.000 --> 00:28:57.000
+
+Original: 00:09:25.000 --> 00:09:26.000
+Parsed: 0:09:25 --> 0:09:26
+Last End Time: 0:28:57
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:28:57.000 --> 00:28:58.000
+
+Original: 00:09:26.000 --> 00:09:27.000
+Parsed: 0:09:26 --> 0:09:27
+Last End Time: 0:28:58
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:28:58.000 --> 00:28:59.000
+
+Original: 00:09:27.000 --> 00:09:28.000
+Parsed: 0:09:27 --> 0:09:28
+Last End Time: 0:28:59
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:28:59.000 --> 00:29:00.000
+
+Original: 00:09:28.000 --> 00:09:30.000
+Parsed: 0:09:28 --> 0:09:30
+Last End Time: 0:29:00
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:00.000 --> 00:29:02.000
+
+Original: 00:09:30.000 --> 00:09:32.000
+Parsed: 0:09:30 --> 0:09:32
+Last End Time: 0:29:02
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:02.000 --> 00:29:04.000
+
+Original: 00:09:32.000 --> 00:09:36.000
+Parsed: 0:09:32 --> 0:09:36
+Last End Time: 0:29:04
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:04.000 --> 00:29:08.000
+
+Original: 00:09:36.000 --> 00:09:37.000
+Parsed: 0:09:36 --> 0:09:37
+Last End Time: 0:29:08
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:08.000 --> 00:29:09.000
+
+Original: 00:09:37.000 --> 00:09:38.000
+Parsed: 0:09:37 --> 0:09:38
+Last End Time: 0:29:09
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:09.000 --> 00:29:10.000
+
+Original: 00:09:38.000 --> 00:09:43.000
+Parsed: 0:09:38 --> 0:09:43
+Last End Time: 0:29:10
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:10.000 --> 00:29:15.000
+
+Original: 00:09:43.000 --> 00:09:48.000
+Parsed: 0:09:43 --> 0:09:48
+Last End Time: 0:29:15
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:15.000 --> 00:29:20.000
+
+Original: 00:09:48.000 --> 00:09:49.000
+Parsed: 0:09:48 --> 0:09:49
+Last End Time: 0:29:20
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:20.000 --> 00:29:21.000
+
+Original: 00:09:49.000 --> 00:09:50.000
+Parsed: 0:09:49 --> 0:09:50
+Last End Time: 0:29:21
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:21.000 --> 00:29:22.000
+
+Original: 00:09:50.000 --> 00:09:58.000
+Parsed: 0:09:50 --> 0:09:58
+Last End Time: 0:29:22
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:22.000 --> 00:29:30.000
+
+Original: 00:09:58.000 --> 00:10:00.000
+Parsed: 0:09:58 --> 0:10:00
+Last End Time: 0:29:30
+SEG SWITCH
+Adjusted Offset: 0:19:32
+Adjusted: 00:29:30.000 --> 00:29:32.000
+
+Original: 00:00:13.000 --> 00:00:24.000
+Parsed: 0:00:13 --> 0:00:24
+Last End Time: 0:29:32
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:29:32.000 --> 00:29:43.000
+
+Original: 00:00:24.000 --> 00:00:33.000
+Parsed: 0:00:24 --> 0:00:33
+Last End Time: 0:29:43
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:29:43.000 --> 00:29:52.000
+
+Original: 00:00:33.000 --> 00:00:43.000
+Parsed: 0:00:33 --> 0:00:43
+Last End Time: 0:29:52
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:29:52.000 --> 00:30:02.000
+
+Original: 00:00:43.000 --> 00:00:59.000
+Parsed: 0:00:43 --> 0:00:59
+Last End Time: 0:30:02
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:30:02.000 --> 00:30:18.000
+
+Original: 00:00:59.000 --> 00:01:08.000
+Parsed: 0:00:59 --> 0:01:08
+Last End Time: 0:30:18
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:30:18.000 --> 00:30:27.000
+
+Original: 00:01:08.000 --> 00:01:21.000
+Parsed: 0:01:08 --> 0:01:21
+Last End Time: 0:30:27
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:30:27.000 --> 00:30:40.000
+
+Original: 00:01:21.000 --> 00:01:32.000
+Parsed: 0:01:21 --> 0:01:32
+Last End Time: 0:30:40
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:30:40.000 --> 00:30:51.000
+
+Original: 00:01:32.000 --> 00:01:47.000
+Parsed: 0:01:32 --> 0:01:47
+Last End Time: 0:30:51
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:30:51.000 --> 00:31:06.000
+
+Original: 00:01:47.000 --> 00:02:01.000
+Parsed: 0:01:47 --> 0:02:01
+Last End Time: 0:31:06
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:31:06.000 --> 00:31:20.000
+
+Original: 00:02:01.000 --> 00:02:17.000
+Parsed: 0:02:01 --> 0:02:17
+Last End Time: 0:31:20
+SEG SWITCH
+Adjusted Offset: 0:29:19
+Adjusted: 00:31:20.000 --> 00:31:36.000
+
+Original: 00:02:31.000 --> 00:02:45.000
+Parsed: 0:02:31 --> 0:02:45
+Last End Time: 0:31:36
+SEG SWITCH
+Adjusted Offset: 0:29:05
+Adjusted: 00:31:36.000 --> 00:31:50.000
+
+Original: 00:02:45.000 --> 00:02:59.000
+Parsed: 0:02:45 --> 0:02:59
+Last End Time: 0:31:50
+SEG SWITCH
+Adjusted Offset: 0:29:05
+Adjusted: 00:31:50.000 --> 00:32:04.000
+
+Original: 00:02:59.000 --> 00:03:16.000
+Parsed: 0:02:59 --> 0:03:16
+Last End Time: 0:32:04
+SEG SWITCH
+Adjusted Offset: 0:29:05
+Adjusted: 00:32:04.000 --> 00:32:21.000
+
+Original: 00:03:16.000 --> 00:03:41.000
+Parsed: 0:03:16 --> 0:03:41
+Last End Time: 0:32:21
+SEG SWITCH
+Adjusted Offset: 0:29:05
+Adjusted: 00:32:21.000 --> 00:32:46.000
+
+Original: 00:03:42.000 --> 00:03:59.000
+Parsed: 0:03:42 --> 0:03:59
+Last End Time: 0:32:46
+SEG SWITCH
+Adjusted Offset: 0:29:04
+Adjusted: 00:32:46.000 --> 00:33:03.000
+
+Original: 00:03:59.000 --> 00:04:27.000
+Parsed: 0:03:59 --> 0:04:27
+Last End Time: 0:33:03
+SEG SWITCH
+Adjusted Offset: 0:29:04
+Adjusted: 00:33:03.000 --> 00:33:31.000
+
+Original: 00:04:27.000 --> 00:04:42.000
+Parsed: 0:04:27 --> 0:04:42
+Last End Time: 0:33:31
+SEG SWITCH
+Adjusted Offset: 0:29:04
+Adjusted: 00:33:31.000 --> 00:33:46.000
+
+Original: 00:04:42.000 --> 00:04:59.000
+Parsed: 0:04:42 --> 0:04:59
+Last End Time: 0:33:46
+SEG SWITCH
+Adjusted Offset: 0:29:04
+Adjusted: 00:33:46.000 --> 00:34:03.000
+
+Original: 00:04:59.000 --> 00:05:22.000
+Parsed: 0:04:59 --> 0:05:22
+Last End Time: 0:34:03
+SEG SWITCH
+Adjusted Offset: 0:29:04
+Adjusted: 00:34:03.000 --> 00:34:26.000
+
+Original: 00:05:23.000 --> 00:05:42.000
+Parsed: 0:05:23 --> 0:05:42
+Last End Time: 0:34:26
+SEG SWITCH
+Adjusted Offset: 0:29:03
+Adjusted: 00:34:26.000 --> 00:34:45.000
+
+Original: 00:05:42.000 --> 00:05:56.000
+Parsed: 0:05:42 --> 0:05:56
+Last End Time: 0:34:45
+SEG SWITCH
+Adjusted Offset: 0:29:03
+Adjusted: 00:34:45.000 --> 00:34:59.000
+
+Original: 00:05:56.000 --> 00:06:25.000
+Parsed: 0:05:56 --> 0:06:25
+Last End Time: 0:34:59
+SEG SWITCH
+Adjusted Offset: 0:29:03
+Adjusted: 00:34:59.000 --> 00:35:28.000
+
+Original: 00:06:27.000 --> 00:06:46.000
+Parsed: 0:06:27 --> 0:06:46
+Last End Time: 0:35:28
+SEG SWITCH
+Adjusted Offset: 0:29:01
+Adjusted: 00:35:28.000 --> 00:35:47.000
+
+Original: 00:06:46.000 --> 00:07:04.000
+Parsed: 0:06:46 --> 0:07:04
+Last End Time: 0:35:47
+SEG SWITCH
+Adjusted Offset: 0:29:01
+Adjusted: 00:35:47.000 --> 00:36:05.000
+
+Original: 00:07:05.000 --> 00:07:28.000
+Parsed: 0:07:05 --> 0:07:28
+Last End Time: 0:36:05
+SEG SWITCH
+Adjusted Offset: 0:29:00
+Adjusted: 00:36:05.000 --> 00:36:28.000
+
+Original: 00:07:29.000 --> 00:07:50.000
+Parsed: 0:07:29 --> 0:07:50
+Last End Time: 0:36:28
+SEG SWITCH
+Adjusted Offset: 0:28:59
+Adjusted: 00:36:28.000 --> 00:36:49.000
+
+Original: 00:07:51.000 --> 00:08:14.000
+Parsed: 0:07:51 --> 0:08:14
+Last End Time: 0:36:49
+SEG SWITCH
+Adjusted Offset: 0:28:58
+Adjusted: 00:36:49.000 --> 00:37:12.000
+
+Original: 00:08:15.000 --> 00:08:28.000
+Parsed: 0:08:15 --> 0:08:28
+Last End Time: 0:37:12
+SEG SWITCH
+Adjusted Offset: 0:28:57
+Adjusted: 00:37:12.000 --> 00:37:25.000
+
+Original: 00:08:28.000 --> 00:08:57.000
+Parsed: 0:08:28 --> 0:08:57
+Last End Time: 0:37:25
+SEG SWITCH
+Adjusted Offset: 0:28:57
+Adjusted: 00:37:25.000 --> 00:37:54.000
+
+Original: 00:08:59.000 --> 00:09:20.000
+Parsed: 0:08:59 --> 0:09:20
+Last End Time: 0:37:54
+SEG SWITCH
+Adjusted Offset: 0:28:55
+Adjusted: 00:37:54.000 --> 00:38:15.000
+
+Original: 00:09:21.000 --> 00:09:38.000
+Parsed: 0:09:21 --> 0:09:38
+Last End Time: 0:38:15
+SEG SWITCH
+Adjusted Offset: 0:28:54
+Adjusted: 00:38:15.000 --> 00:38:32.000
+
+Original: 00:09:38.000 --> 00:09:57.000
+Parsed: 0:09:38 --> 0:09:57
+Last End Time: 0:38:32
+SEG SWITCH
+Adjusted Offset: 0:28:54
+Adjusted: 00:38:32.000 --> 00:38:51.000
+
+Original: 00:00:11.840 --> 00:00:17.799
+Parsed: 0:00:11.840000 --> 0:00:17.799000
+Last End Time: 0:38:51
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:38:51.000 --> 00:38:56.959
+
+Original: 00:00:17.799 --> 00:00:25.520
+Parsed: 0:00:17.799000 --> 0:00:25.520000
+Last End Time: 0:38:56.959000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:38:56.959 --> 00:39:04.680
+
+Original: 00:00:25.520 --> 00:00:31.000
+Parsed: 0:00:25.520000 --> 0:00:31
+Last End Time: 0:39:04.680000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:39:04.680 --> 00:39:10.160
+
+Original: 00:00:31.000 --> 00:00:48.240
+Parsed: 0:00:31 --> 0:00:48.240000
+Last End Time: 0:39:10.160000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:39:10.160 --> 00:39:27.400
+
+Original: 00:00:48.240 --> 00:00:58.279
+Parsed: 0:00:48.240000 --> 0:00:58.279000
+Last End Time: 0:39:27.400000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:39:27.400 --> 00:39:37.439
+
+Original: 00:00:58.279 --> 00:01:03.799
+Parsed: 0:00:58.279000 --> 0:01:03.799000
+Last End Time: 0:39:37.439000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:39:37.439 --> 00:39:42.959
+
+Original: 00:01:03.799 --> 00:01:10.120
+Parsed: 0:01:03.799000 --> 0:01:10.120000
+Last End Time: 0:39:42.959000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:39:42.959 --> 00:39:49.280
+
+Original: 00:01:10.120 --> 00:01:14.440
+Parsed: 0:01:10.120000 --> 0:01:14.440000
+Last End Time: 0:39:49.280000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:39:49.280 --> 00:39:53.600
+
+Original: 00:01:14.440 --> 00:01:36.279
+Parsed: 0:01:14.440000 --> 0:01:36.279000
+Last End Time: 0:39:53.600000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:39:53.600 --> 00:40:15.439
+
+Original: 00:01:36.279 --> 00:01:42.559
+Parsed: 0:01:36.279000 --> 0:01:42.559000
+Last End Time: 0:40:15.439000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:40:15.439 --> 00:40:21.719
+
+Original: 00:01:42.559 --> 00:01:56.239
+Parsed: 0:01:42.559000 --> 0:01:56.239000
+Last End Time: 0:40:21.719000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:40:21.719 --> 00:40:35.399
+
+Original: 00:01:56.239 --> 00:02:07.959
+Parsed: 0:01:56.239000 --> 0:02:07.959000
+Last End Time: 0:40:35.399000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:40:35.399 --> 00:40:47.119
+
+Original: 00:02:07.959 --> 00:02:18.559
+Parsed: 0:02:07.959000 --> 0:02:18.559000
+Last End Time: 0:40:47.119000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:40:47.119 --> 00:40:57.719
+
+Original: 00:02:18.559 --> 00:02:22.520
+Parsed: 0:02:18.559000 --> 0:02:22.520000
+Last End Time: 0:40:57.719000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:40:57.719 --> 00:41:01.680
+
+Original: 00:02:22.520 --> 00:02:30.960
+Parsed: 0:02:22.520000 --> 0:02:30.960000
+Last End Time: 0:41:01.680000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:41:01.680 --> 00:41:10.120
+
+Original: 00:02:30.960 --> 00:02:36.119
+Parsed: 0:02:30.960000 --> 0:02:36.119000
+Last End Time: 0:41:10.120000
+SEG SWITCH
+Adjusted Offset: 0:38:39.160000
+Adjusted: 00:41:10.120 --> 00:41:15.279
+
+Original: 00:02:36.160 --> 00:02:41.399
+Parsed: 0:02:36.160000 --> 0:02:41.399000
+Last End Time: 0:41:15.279000
+SEG SWITCH
+Adjusted Offset: 0:38:39.119000
+Adjusted: 00:41:15.279 --> 00:41:20.518
+
+Original: 00:02:41.399 --> 00:02:46.479
+Parsed: 0:02:41.399000 --> 0:02:46.479000
+Last End Time: 0:41:20.518000
+SEG SWITCH
+Adjusted Offset: 0:38:39.119000
+Adjusted: 00:41:20.518 --> 00:41:25.598
+
+Original: 00:02:46.479 --> 00:02:51.160
+Parsed: 0:02:46.479000 --> 0:02:51.160000
+Last End Time: 0:41:25.598000
+SEG SWITCH
+Adjusted Offset: 0:38:39.119000
+Adjusted: 00:41:25.598 --> 00:41:30.279
+
+Original: 00:02:51.160 --> 00:02:57.360
+Parsed: 0:02:51.160000 --> 0:02:57.360000
+Last End Time: 0:41:30.279000
+SEG SWITCH
+Adjusted Offset: 0:38:39.119000
+Adjusted: 00:41:30.279 --> 00:41:36.479
+
+Original: 00:02:57.360 --> 00:03:02.000
+Parsed: 0:02:57.360000 --> 0:03:02
+Last End Time: 0:41:36.479000
+SEG SWITCH
+Adjusted Offset: 0:38:39.119000
+Adjusted: 00:41:36.479 --> 00:41:41.119
+
+Original: 00:03:02.000 --> 00:03:08.360
+Parsed: 0:03:02 --> 0:03:08.360000
+Last End Time: 0:41:41.119000
+SEG SWITCH
+Adjusted Offset: 0:38:39.119000
+Adjusted: 00:41:41.119 --> 00:41:47.479
+
+Original: 00:03:08.360 --> 00:03:13.279
+Parsed: 0:03:08.360000 --> 0:03:13.279000
+Last End Time: 0:41:47.479000
+SEG SWITCH
+Adjusted Offset: 0:38:39.119000
+Adjusted: 00:41:47.479 --> 00:41:52.398
+
+Original: 00:03:14.960 --> 00:03:22.759
+Parsed: 0:03:14.960000 --> 0:03:22.759000
+Last End Time: 0:41:52.398000
+SEG SWITCH
+Adjusted Offset: 0:38:37.438000
+Adjusted: 00:41:52.398 --> 00:42:00.197
+
+Original: 00:03:22.759 --> 00:03:33.320
+Parsed: 0:03:22.759000 --> 0:03:33.320000
+Last End Time: 0:42:00.197000
+SEG SWITCH
+Adjusted Offset: 0:38:37.438000
+Adjusted: 00:42:00.197 --> 00:42:10.758
+
+Original: 00:03:33.320 --> 00:03:42.520
+Parsed: 0:03:33.320000 --> 0:03:42.520000
+Last End Time: 0:42:10.758000
+SEG SWITCH
+Adjusted Offset: 0:38:37.438000
+Adjusted: 00:42:10.758 --> 00:42:19.958
+
+Original: 00:03:42.520 --> 00:03:48.080
+Parsed: 0:03:42.520000 --> 0:03:48.080000
+Last End Time: 0:42:19.958000
+SEG SWITCH
+Adjusted Offset: 0:38:37.438000
+Adjusted: 00:42:19.958 --> 00:42:25.518
+
+Original: 00:03:52.880 --> 00:04:07.399
+Parsed: 0:03:52.880000 --> 0:04:07.399000
+Last End Time: 0:42:25.518000
+SEG SWITCH
+Adjusted Offset: 0:38:32.638000
+Adjusted: 00:42:25.518 --> 00:42:40.037
+
+Original: 00:04:07.399 --> 00:04:18.279
+Parsed: 0:04:07.399000 --> 0:04:18.279000
+Last End Time: 0:42:40.037000
+SEG SWITCH
+Adjusted Offset: 0:38:32.638000
+Adjusted: 00:42:40.037 --> 00:42:50.917
+
+Original: 00:04:18.279 --> 00:04:30.440
+Parsed: 0:04:18.279000 --> 0:04:30.440000
+Last End Time: 0:42:50.917000
+SEG SWITCH
+Adjusted Offset: 0:38:32.638000
+Adjusted: 00:42:50.917 --> 00:43:03.078
+
+Original: 00:04:30.440 --> 00:04:54.440
+Parsed: 0:04:30.440000 --> 0:04:54.440000
+Last End Time: 0:43:03.078000
+SEG SWITCH
+Adjusted Offset: 0:38:32.638000
+Adjusted: 00:43:03.078 --> 00:43:27.078
+
+Original: 00:04:54.600 --> 00:05:06.519
+Parsed: 0:04:54.600000 --> 0:05:06.519000
+Last End Time: 0:43:27.078000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:43:27.078 --> 00:43:38.997
+
+Original: 00:05:06.519 --> 00:05:11.399
+Parsed: 0:05:06.519000 --> 0:05:11.399000
+Last End Time: 0:43:38.997000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:43:38.997 --> 00:43:43.877
+
+Original: 00:05:11.399 --> 00:05:15.920
+Parsed: 0:05:11.399000 --> 0:05:15.920000
+Last End Time: 0:43:43.877000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:43:43.877 --> 00:43:48.398
+
+Original: 00:05:15.920 --> 00:05:24.480
+Parsed: 0:05:15.920000 --> 0:05:24.480000
+Last End Time: 0:43:48.398000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:43:48.398 --> 00:43:56.958
+
+Original: 00:05:24.480 --> 00:05:31.839
+Parsed: 0:05:24.480000 --> 0:05:31.839000
+Last End Time: 0:43:56.958000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:43:56.958 --> 00:44:04.317
+
+Original: 00:05:31.839 --> 00:05:36.519
+Parsed: 0:05:31.839000 --> 0:05:36.519000
+Last End Time: 0:44:04.317000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:04.317 --> 00:44:08.997
+
+Original: 00:05:36.519 --> 00:05:41.040
+Parsed: 0:05:36.519000 --> 0:05:41.040000
+Last End Time: 0:44:08.997000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:08.997 --> 00:44:13.518
+
+Original: 00:05:41.040 --> 00:05:46.720
+Parsed: 0:05:41.040000 --> 0:05:46.720000
+Last End Time: 0:44:13.518000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:13.518 --> 00:44:19.198
+
+Original: 00:05:46.720 --> 00:05:51.880
+Parsed: 0:05:46.720000 --> 0:05:51.880000
+Last End Time: 0:44:19.198000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:19.198 --> 00:44:24.358
+
+Original: 00:05:51.880 --> 00:05:58.239
+Parsed: 0:05:51.880000 --> 0:05:58.239000
+Last End Time: 0:44:24.358000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:24.358 --> 00:44:30.717
+
+Original: 00:05:58.239 --> 00:06:03.959
+Parsed: 0:05:58.239000 --> 0:06:03.959000
+Last End Time: 0:44:30.717000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:30.717 --> 00:44:36.437
+
+Original: 00:06:03.959 --> 00:06:15.160
+Parsed: 0:06:03.959000 --> 0:06:15.160000
+Last End Time: 0:44:36.437000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:36.437 --> 00:44:47.638
+
+Original: 00:06:15.160 --> 00:06:22.359
+Parsed: 0:06:15.160000 --> 0:06:22.359000
+Last End Time: 0:44:47.638000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:47.638 --> 00:44:54.837
+
+Original: 00:06:22.359 --> 00:06:42.040
+Parsed: 0:06:22.359000 --> 0:06:42.040000
+Last End Time: 0:44:54.837000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:44:54.837 --> 00:45:14.518
+
+Original: 00:06:42.040 --> 00:07:06.279
+Parsed: 0:06:42.040000 --> 0:07:06.279000
+Last End Time: 0:45:14.518000
+SEG SWITCH
+Adjusted Offset: 0:38:32.478000
+Adjusted: 00:45:14.518 --> 00:45:38.757
+
+Original: 00:07:07.279 --> 00:07:18.279
+Parsed: 0:07:07.279000 --> 0:07:18.279000
+Last End Time: 0:45:38.757000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:45:38.757 --> 00:45:49.757
+
+Original: 00:07:18.279 --> 00:07:25.399
+Parsed: 0:07:18.279000 --> 0:07:25.399000
+Last End Time: 0:45:49.757000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:45:49.757 --> 00:45:56.877
+
+Original: 00:07:25.399 --> 00:07:50.399
+Parsed: 0:07:25.399000 --> 0:07:50.399000
+Last End Time: 0:45:56.877000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:45:56.877 --> 00:46:21.877
+
+Original: 00:07:50.399 --> 00:08:15.399
+Parsed: 0:07:50.399000 --> 0:08:15.399000
+Last End Time: 0:46:21.877000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:46:21.877 --> 00:46:46.877
+
+Original: 00:08:15.399 --> 00:08:20.399
+Parsed: 0:08:15.399000 --> 0:08:20.399000
+Last End Time: 0:46:46.877000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:46:46.877 --> 00:46:51.877
+
+Original: 00:08:20.399 --> 00:08:28.399
+Parsed: 0:08:20.399000 --> 0:08:28.399000
+Last End Time: 0:46:51.877000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:46:51.877 --> 00:46:59.877
+
+Original: 00:08:28.399 --> 00:08:35.400
+Parsed: 0:08:28.399000 --> 0:08:35.400000
+Last End Time: 0:46:59.877000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:46:59.877 --> 00:47:06.878
+
+Original: 00:08:35.400 --> 00:08:43.400
+Parsed: 0:08:35.400000 --> 0:08:43.400000
+Last End Time: 0:47:06.878000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:47:06.878 --> 00:47:14.878
+
+Original: 00:08:43.400 --> 00:09:12.400
+Parsed: 0:08:43.400000 --> 0:09:12.400000
+Last End Time: 0:47:14.878000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:47:14.878 --> 00:47:43.878
+
+Original: 00:09:12.400 --> 00:09:22.400
+Parsed: 0:09:12.400000 --> 0:09:22.400000
+Last End Time: 0:47:43.878000
+SEG SWITCH
+Adjusted Offset: 0:38:31.478000
+Adjusted: 00:47:43.878 --> 00:47:53.878
+
+Original: 00:09:43.400 --> 00:09:49.400
+Parsed: 0:09:43.400000 --> 0:09:49.400000
+Last End Time: 0:47:53.878000
+SEG SWITCH
+Adjusted Offset: 0:38:10.478000
+Adjusted: 00:47:53.878 --> 00:47:59.878
+
+Original: 00:09:49.400 --> 00:09:58.400
+Parsed: 0:09:49.400000 --> 0:09:58.400000
+Last End Time: 0:47:59.878000
+SEG SWITCH
+Adjusted Offset: 0:38:10.478000
+Adjusted: 00:47:59.878 --> 00:48:08.878
+
+Original: 00:09:58.400 --> 00:09:59.400
+Parsed: 0:09:58.400000 --> 0:09:59.400000
+Last End Time: 0:48:08.878000
+SEG SWITCH
+Adjusted Offset: 0:38:10.478000
+Adjusted: 00:48:08.878 --> 00:48:09.878
+
+Original: 00:00:11.000 --> 00:00:19.000
+Parsed: 0:00:11 --> 0:00:19
+Last End Time: 0:48:09.878000
+SEG SWITCH
+Adjusted Offset: 0:47:58.878000
+Adjusted: 00:48:09.878 --> 00:48:17.878
+
+Original: 00:00:20.000 --> 00:00:28.000
+Parsed: 0:00:20 --> 0:00:28
+Last End Time: 0:48:17.878000
+SEG SWITCH
+Adjusted Offset: 0:47:57.878000
+Adjusted: 00:48:17.878 --> 00:48:25.878
+
+Original: 00:00:29.000 --> 00:00:35.000
+Parsed: 0:00:29 --> 0:00:35
+Last End Time: 0:48:25.878000
+SEG SWITCH
+Adjusted Offset: 0:47:56.878000
+Adjusted: 00:48:25.878 --> 00:48:31.878
+
+Original: 00:00:36.000 --> 00:00:42.000
+Parsed: 0:00:36 --> 0:00:42
+Last End Time: 0:48:31.878000
+SEG SWITCH
+Adjusted Offset: 0:47:55.878000
+Adjusted: 00:48:31.878 --> 00:48:37.878
+
+Original: 00:00:42.000 --> 00:00:51.000
+Parsed: 0:00:42 --> 0:00:51
+Last End Time: 0:48:37.878000
+SEG SWITCH
+Adjusted Offset: 0:47:55.878000
+Adjusted: 00:48:37.878 --> 00:48:46.878
+
+Original: 00:00:54.000 --> 00:00:57.000
+Parsed: 0:00:54 --> 0:00:57
+Last End Time: 0:48:46.878000
+SEG SWITCH
+Adjusted Offset: 0:47:52.878000
+Adjusted: 00:48:46.878 --> 00:48:49.878
+
+Original: 00:01:01.000 --> 00:01:03.000
+Parsed: 0:01:01 --> 0:01:03
+Last End Time: 0:48:49.878000
+SEG SWITCH
+Adjusted Offset: 0:47:48.878000
+Adjusted: 00:48:49.878 --> 00:48:51.878
+
+Original: 00:01:07.000 --> 00:01:08.000
+Parsed: 0:01:07 --> 0:01:08
+Last End Time: 0:48:51.878000
+SEG SWITCH
+Adjusted Offset: 0:47:44.878000
+Adjusted: 00:48:51.878 --> 00:48:52.878
+
+Original: 00:01:09.000 --> 00:01:13.000
+Parsed: 0:01:09 --> 0:01:13
+Last End Time: 0:48:52.878000
+SEG SWITCH
+Adjusted Offset: 0:47:43.878000
+Adjusted: 00:48:52.878 --> 00:48:56.878
+
+Original: 00:01:15.000 --> 00:01:17.000
+Parsed: 0:01:15 --> 0:01:17
+Last End Time: 0:48:56.878000
+SEG SWITCH
+Adjusted Offset: 0:47:41.878000
+Adjusted: 00:48:56.878 --> 00:48:58.878
+
+Original: 00:01:18.000 --> 00:01:23.000
+Parsed: 0:01:18 --> 0:01:23
+Last End Time: 0:48:58.878000
+SEG SWITCH
+Adjusted Offset: 0:47:40.878000
+Adjusted: 00:48:58.878 --> 00:49:03.878
+
+Original: 00:01:28.000 --> 00:01:34.000
+Parsed: 0:01:28 --> 0:01:34
+Last End Time: 0:49:03.878000
+SEG SWITCH
+Adjusted Offset: 0:47:35.878000
+Adjusted: 00:49:03.878 --> 00:49:09.878
+
+Original: 00:01:39.000 --> 00:01:43.000
+Parsed: 0:01:39 --> 0:01:43
+Last End Time: 0:49:09.878000
+SEG SWITCH
+Adjusted Offset: 0:47:30.878000
+Adjusted: 00:49:09.878 --> 00:49:13.878
+
+Original: 00:01:46.000 --> 00:01:52.000
+Parsed: 0:01:46 --> 0:01:52
+Last End Time: 0:49:13.878000
+SEG SWITCH
+Adjusted Offset: 0:47:27.878000
+Adjusted: 00:49:13.878 --> 00:49:19.878
+
+Original: 00:01:53.000 --> 00:01:55.000
+Parsed: 0:01:53 --> 0:01:55
+Last End Time: 0:49:19.878000
+SEG SWITCH
+Adjusted Offset: 0:47:26.878000
+Adjusted: 00:49:19.878 --> 00:49:21.878
+
+Original: 00:01:57.000 --> 00:02:02.000
+Parsed: 0:01:57 --> 0:02:02
+Last End Time: 0:49:21.878000
+SEG SWITCH
+Adjusted Offset: 0:47:24.878000
+Adjusted: 00:49:21.878 --> 00:49:26.878
+
+Original: 00:02:09.000 --> 00:02:12.000
+Parsed: 0:02:09 --> 0:02:12
+Last End Time: 0:49:26.878000
+SEG SWITCH
+Adjusted Offset: 0:47:17.878000
+Adjusted: 00:49:26.878 --> 00:49:29.878
+
+Original: 00:02:14.000 --> 00:02:16.000
+Parsed: 0:02:14 --> 0:02:16
+Last End Time: 0:49:29.878000
+SEG SWITCH
+Adjusted Offset: 0:47:15.878000
+Adjusted: 00:49:29.878 --> 00:49:31.878
+
+Original: 00:02:19.000 --> 00:02:24.000
+Parsed: 0:02:19 --> 0:02:24
+Last End Time: 0:49:31.878000
+SEG SWITCH
+Adjusted Offset: 0:47:12.878000
+Adjusted: 00:49:31.878 --> 00:49:36.878
+
+Original: 00:02:29.000 --> 00:02:32.000
+Parsed: 0:02:29 --> 0:02:32
+Last End Time: 0:49:36.878000
+SEG SWITCH
+Adjusted Offset: 0:47:07.878000
+Adjusted: 00:49:36.878 --> 00:49:39.878
+
+Original: 00:02:33.000 --> 00:02:37.000
+Parsed: 0:02:33 --> 0:02:37
+Last End Time: 0:49:39.878000
+SEG SWITCH
+Adjusted Offset: 0:47:06.878000
+Adjusted: 00:49:39.878 --> 00:49:43.878
+
+Original: 00:02:38.000 --> 00:02:42.000
+Parsed: 0:02:38 --> 0:02:42
+Last End Time: 0:49:43.878000
+SEG SWITCH
+Adjusted Offset: 0:47:05.878000
+Adjusted: 00:49:43.878 --> 00:49:47.878
+
+Original: 00:02:51.000 --> 00:02:53.000
+Parsed: 0:02:51 --> 0:02:53
+Last End Time: 0:49:47.878000
+SEG SWITCH
+Adjusted Offset: 0:46:56.878000
+Adjusted: 00:49:47.878 --> 00:49:49.878
+
+Original: 00:02:53.000 --> 00:02:55.000
+Parsed: 0:02:53 --> 0:02:55
+Last End Time: 0:49:49.878000
+SEG SWITCH
+Adjusted Offset: 0:46:56.878000
+Adjusted: 00:49:49.878 --> 00:49:51.878
+
+Original: 00:03:06.000 --> 00:03:08.000
+Parsed: 0:03:06 --> 0:03:08
+Last End Time: 0:49:51.878000
+SEG SWITCH
+Adjusted Offset: 0:46:45.878000
+Adjusted: 00:49:51.878 --> 00:49:53.878
+
+Original: 00:03:11.000 --> 00:03:15.000
+Parsed: 0:03:11 --> 0:03:15
+Last End Time: 0:49:53.878000
+SEG SWITCH
+Adjusted Offset: 0:46:42.878000
+Adjusted: 00:49:53.878 --> 00:49:57.878
+
+Original: 00:03:17.000 --> 00:03:20.000
+Parsed: 0:03:17 --> 0:03:20
+Last End Time: 0:49:57.878000
+SEG SWITCH
+Adjusted Offset: 0:46:40.878000
+Adjusted: 00:49:57.878 --> 00:50:00.878
+
+Original: 00:03:21.000 --> 00:03:23.000
+Parsed: 0:03:21 --> 0:03:23
+Last End Time: 0:50:00.878000
+SEG SWITCH
+Adjusted Offset: 0:46:39.878000
+Adjusted: 00:50:00.878 --> 00:50:02.878
+
+Original: 00:03:35.000 --> 00:03:37.000
+Parsed: 0:03:35 --> 0:03:37
+Last End Time: 0:50:02.878000
+SEG SWITCH
+Adjusted Offset: 0:46:27.878000
+Adjusted: 00:50:02.878 --> 00:50:04.878
+
+Original: 00:03:40.000 --> 00:03:48.000
+Parsed: 0:03:40 --> 0:03:48
+Last End Time: 0:50:04.878000
+SEG SWITCH
+Adjusted Offset: 0:46:24.878000
+Adjusted: 00:50:04.878 --> 00:50:12.878
+
+Original: 00:03:48.000 --> 00:03:51.000
+Parsed: 0:03:48 --> 0:03:51
+Last End Time: 0:50:12.878000
+SEG SWITCH
+Adjusted Offset: 0:46:24.878000
+Adjusted: 00:50:12.878 --> 00:50:15.878
+
+Original: 00:03:53.000 --> 00:03:56.000
+Parsed: 0:03:53 --> 0:03:56
+Last End Time: 0:50:15.878000
+SEG SWITCH
+Adjusted Offset: 0:46:22.878000
+Adjusted: 00:50:15.878 --> 00:50:18.878
+
+Original: 00:03:57.000 --> 00:04:00.000
+Parsed: 0:03:57 --> 0:04:00
+Last End Time: 0:50:18.878000
+SEG SWITCH
+Adjusted Offset: 0:46:21.878000
+Adjusted: 00:50:18.878 --> 00:50:21.878
+
+Original: 00:04:04.000 --> 00:04:06.000
+Parsed: 0:04:04 --> 0:04:06
+Last End Time: 0:50:21.878000
+SEG SWITCH
+Adjusted Offset: 0:46:17.878000
+Adjusted: 00:50:21.878 --> 00:50:23.878
+
+Original: 00:04:07.000 --> 00:04:09.000
+Parsed: 0:04:07 --> 0:04:09
+Last End Time: 0:50:23.878000
+SEG SWITCH
+Adjusted Offset: 0:46:16.878000
+Adjusted: 00:50:23.878 --> 00:50:25.878
+
+Original: 00:04:09.000 --> 00:04:10.000
+Parsed: 0:04:09 --> 0:04:10
+Last End Time: 0:50:25.878000
+SEG SWITCH
+Adjusted Offset: 0:46:16.878000
+Adjusted: 00:50:25.878 --> 00:50:26.878
+
+Original: 00:04:11.000 --> 00:04:14.000
+Parsed: 0:04:11 --> 0:04:14
+Last End Time: 0:50:26.878000
+SEG SWITCH
+Adjusted Offset: 0:46:15.878000
+Adjusted: 00:50:26.878 --> 00:50:29.878
+
+Original: 00:04:15.000 --> 00:04:20.000
+Parsed: 0:04:15 --> 0:04:20
+Last End Time: 0:50:29.878000
+SEG SWITCH
+Adjusted Offset: 0:46:14.878000
+Adjusted: 00:50:29.878 --> 00:50:34.878
+
+Original: 00:04:22.000 --> 00:04:26.000
+Parsed: 0:04:22 --> 0:04:26
+Last End Time: 0:50:34.878000
+SEG SWITCH
+Adjusted Offset: 0:46:12.878000
+Adjusted: 00:50:34.878 --> 00:50:38.878
+
+Original: 00:04:27.000 --> 00:04:29.000
+Parsed: 0:04:27 --> 0:04:29
+Last End Time: 0:50:38.878000
+SEG SWITCH
+Adjusted Offset: 0:46:11.878000
+Adjusted: 00:50:38.878 --> 00:50:40.878
+
+Original: 00:04:31.000 --> 00:04:35.000
+Parsed: 0:04:31 --> 0:04:35
+Last End Time: 0:50:40.878000
+SEG SWITCH
+Adjusted Offset: 0:46:09.878000
+Adjusted: 00:50:40.878 --> 00:50:44.878
+
+Original: 00:04:35.000 --> 00:04:37.000
+Parsed: 0:04:35 --> 0:04:37
+Last End Time: 0:50:44.878000
+SEG SWITCH
+Adjusted Offset: 0:46:09.878000
+Adjusted: 00:50:44.878 --> 00:50:46.878
+
+Original: 00:04:37.000 --> 00:04:40.000
+Parsed: 0:04:37 --> 0:04:40
+Last End Time: 0:50:46.878000
+SEG SWITCH
+Adjusted Offset: 0:46:09.878000
+Adjusted: 00:50:46.878 --> 00:50:49.878
+
+Original: 00:04:40.000 --> 00:04:42.000
+Parsed: 0:04:40 --> 0:04:42
+Last End Time: 0:50:49.878000
+SEG SWITCH
+Adjusted Offset: 0:46:09.878000
+Adjusted: 00:50:49.878 --> 00:50:51.878
+
+Original: 00:04:43.000 --> 00:04:45.000
+Parsed: 0:04:43 --> 0:04:45
+Last End Time: 0:50:51.878000
+SEG SWITCH
+Adjusted Offset: 0:46:08.878000
+Adjusted: 00:50:51.878 --> 00:50:53.878
+
+Original: 00:04:46.000 --> 00:04:52.000
+Parsed: 0:04:46 --> 0:04:52
+Last End Time: 0:50:53.878000
+SEG SWITCH
+Adjusted Offset: 0:46:07.878000
+Adjusted: 00:50:53.878 --> 00:50:59.878
+
+Original: 00:04:52.000 --> 00:04:54.000
+Parsed: 0:04:52 --> 0:04:54
+Last End Time: 0:50:59.878000
+SEG SWITCH
+Adjusted Offset: 0:46:07.878000
+Adjusted: 00:50:59.878 --> 00:51:01.878
+
+Original: 00:04:54.000 --> 00:04:56.000
+Parsed: 0:04:54 --> 0:04:56
+Last End Time: 0:51:01.878000
+SEG SWITCH
+Adjusted Offset: 0:46:07.878000
+Adjusted: 00:51:01.878 --> 00:51:03.878
+
+Original: 00:04:57.000 --> 00:04:59.000
+Parsed: 0:04:57 --> 0:04:59
+Last End Time: 0:51:03.878000
+SEG SWITCH
+Adjusted Offset: 0:46:06.878000
+Adjusted: 00:51:03.878 --> 00:51:05.878
+
+Original: 00:05:00.000 --> 00:05:03.000
+Parsed: 0:05:00 --> 0:05:03
+Last End Time: 0:51:05.878000
+SEG SWITCH
+Adjusted Offset: 0:46:05.878000
+Adjusted: 00:51:05.878 --> 00:51:08.878
+
+Original: 00:05:03.000 --> 00:05:05.000
+Parsed: 0:05:03 --> 0:05:05
+Last End Time: 0:51:08.878000
+SEG SWITCH
+Adjusted Offset: 0:46:05.878000
+Adjusted: 00:51:08.878 --> 00:51:10.878
+
+Original: 00:05:06.000 --> 00:05:08.000
+Parsed: 0:05:06 --> 0:05:08
+Last End Time: 0:51:10.878000
+SEG SWITCH
+Adjusted Offset: 0:46:04.878000
+Adjusted: 00:51:10.878 --> 00:51:12.878
+
+Original: 00:05:18.000 --> 00:05:21.000
+Parsed: 0:05:18 --> 0:05:21
+Last End Time: 0:51:12.878000
+SEG SWITCH
+Adjusted Offset: 0:45:54.878000
+Adjusted: 00:51:12.878 --> 00:51:15.878
+
+Original: 00:05:21.000 --> 00:05:31.000
+Parsed: 0:05:21 --> 0:05:31
+Last End Time: 0:51:15.878000
+SEG SWITCH
+Adjusted Offset: 0:45:54.878000
+Adjusted: 00:51:15.878 --> 00:51:25.878
+
+Original: 00:05:31.000 --> 00:05:33.000
+Parsed: 0:05:31 --> 0:05:33
+Last End Time: 0:51:25.878000
+SEG SWITCH
+Adjusted Offset: 0:45:54.878000
+Adjusted: 00:51:25.878 --> 00:51:27.878
+
+Original: 00:05:33.000 --> 00:05:37.000
+Parsed: 0:05:33 --> 0:05:37
+Last End Time: 0:51:27.878000
+SEG SWITCH
+Adjusted Offset: 0:45:54.878000
+Adjusted: 00:51:27.878 --> 00:51:31.878
+
+Original: 00:05:44.000 --> 00:05:48.000
+Parsed: 0:05:44 --> 0:05:48
+Last End Time: 0:51:31.878000
+SEG SWITCH
+Adjusted Offset: 0:45:47.878000
+Adjusted: 00:51:31.878 --> 00:51:35.878
+
+Original: 00:05:54.000 --> 00:05:56.000
+Parsed: 0:05:54 --> 0:05:56
+Last End Time: 0:51:35.878000
+SEG SWITCH
+Adjusted Offset: 0:45:41.878000
+Adjusted: 00:51:35.878 --> 00:51:37.878
+
+Original: 00:06:02.000 --> 00:06:04.000
+Parsed: 0:06:02 --> 0:06:04
+Last End Time: 0:51:37.878000
+SEG SWITCH
+Adjusted Offset: 0:45:35.878000
+Adjusted: 00:51:37.878 --> 00:51:39.878
+
+Original: 00:06:07.000 --> 00:06:09.000
+Parsed: 0:06:07 --> 0:06:09
+Last End Time: 0:51:39.878000
+SEG SWITCH
+Adjusted Offset: 0:45:32.878000
+Adjusted: 00:51:39.878 --> 00:51:41.878
+
+Original: 00:06:09.000 --> 00:06:11.000
+Parsed: 0:06:09 --> 0:06:11
+Last End Time: 0:51:41.878000
+SEG SWITCH
+Adjusted Offset: 0:45:32.878000
+Adjusted: 00:51:41.878 --> 00:51:43.878
+
+Original: 00:06:14.000 --> 00:06:16.000
+Parsed: 0:06:14 --> 0:06:16
+Last End Time: 0:51:43.878000
+SEG SWITCH
+Adjusted Offset: 0:45:29.878000
+Adjusted: 00:51:43.878 --> 00:51:45.878
+
+Original: 00:06:16.000 --> 00:06:18.000
+Parsed: 0:06:16 --> 0:06:18
+Last End Time: 0:51:45.878000
+SEG SWITCH
+Adjusted Offset: 0:45:29.878000
+Adjusted: 00:51:45.878 --> 00:51:47.878
+
+Original: 00:06:18.000 --> 00:06:20.000
+Parsed: 0:06:18 --> 0:06:20
+Last End Time: 0:51:47.878000
+SEG SWITCH
+Adjusted Offset: 0:45:29.878000
+Adjusted: 00:51:47.878 --> 00:51:49.878
+
+Original: 00:06:23.000 --> 00:06:27.000
+Parsed: 0:06:23 --> 0:06:27
+Last End Time: 0:51:49.878000
+SEG SWITCH
+Adjusted Offset: 0:45:26.878000
+Adjusted: 00:51:49.878 --> 00:51:53.878
+
+Original: 00:06:28.000 --> 00:06:31.000
+Parsed: 0:06:28 --> 0:06:31
+Last End Time: 0:51:53.878000
+SEG SWITCH
+Adjusted Offset: 0:45:25.878000
+Adjusted: 00:51:53.878 --> 00:51:56.878
+
+Original: 00:06:31.000 --> 00:06:33.000
+Parsed: 0:06:31 --> 0:06:33
+Last End Time: 0:51:56.878000
+SEG SWITCH
+Adjusted Offset: 0:45:25.878000
+Adjusted: 00:51:56.878 --> 00:51:58.878
+
+Original: 00:06:34.000 --> 00:06:36.000
+Parsed: 0:06:34 --> 0:06:36
+Last End Time: 0:51:58.878000
+SEG SWITCH
+Adjusted Offset: 0:45:24.878000
+Adjusted: 00:51:58.878 --> 00:52:00.878
+
+Original: 00:06:38.000 --> 00:06:41.000
+Parsed: 0:06:38 --> 0:06:41
+Last End Time: 0:52:00.878000
+SEG SWITCH
+Adjusted Offset: 0:45:22.878000
+Adjusted: 00:52:00.878 --> 00:52:03.878
+
+Original: 00:06:48.000 --> 00:06:50.000
+Parsed: 0:06:48 --> 0:06:50
+Last End Time: 0:52:03.878000
+SEG SWITCH
+Adjusted Offset: 0:45:15.878000
+Adjusted: 00:52:03.878 --> 00:52:05.878
+
+Original: 00:06:51.000 --> 00:06:53.000
+Parsed: 0:06:51 --> 0:06:53
+Last End Time: 0:52:05.878000
+SEG SWITCH
+Adjusted Offset: 0:45:14.878000
+Adjusted: 00:52:05.878 --> 00:52:07.878
+
+Original: 00:06:53.000 --> 00:06:55.000
+Parsed: 0:06:53 --> 0:06:55
+Last End Time: 0:52:07.878000
+SEG SWITCH
+Adjusted Offset: 0:45:14.878000
+Adjusted: 00:52:07.878 --> 00:52:09.878
+
+Original: 00:06:58.000 --> 00:07:00.000
+Parsed: 0:06:58 --> 0:07:00
+Last End Time: 0:52:09.878000
+SEG SWITCH
+Adjusted Offset: 0:45:11.878000
+Adjusted: 00:52:09.878 --> 00:52:11.878
+
+Original: 00:07:02.000 --> 00:07:07.000
+Parsed: 0:07:02 --> 0:07:07
+Last End Time: 0:52:11.878000
+SEG SWITCH
+Adjusted Offset: 0:45:09.878000
+Adjusted: 00:52:11.878 --> 00:52:16.878
+
+Original: 00:07:11.000 --> 00:07:13.000
+Parsed: 0:07:11 --> 0:07:13
+Last End Time: 0:52:16.878000
+SEG SWITCH
+Adjusted Offset: 0:45:05.878000
+Adjusted: 00:52:16.878 --> 00:52:18.878
+
+Original: 00:07:18.000 --> 00:07:20.000
+Parsed: 0:07:18 --> 0:07:20
+Last End Time: 0:52:18.878000
+SEG SWITCH
+Adjusted Offset: 0:45:00.878000
+Adjusted: 00:52:18.878 --> 00:52:20.878
+
+Original: 00:07:20.000 --> 00:07:23.000
+Parsed: 0:07:20 --> 0:07:23
+Last End Time: 0:52:20.878000
+SEG SWITCH
+Adjusted Offset: 0:45:00.878000
+Adjusted: 00:52:20.878 --> 00:52:23.878
+
+Original: 00:07:24.000 --> 00:07:26.000
+Parsed: 0:07:24 --> 0:07:26
+Last End Time: 0:52:23.878000
+SEG SWITCH
+Adjusted Offset: 0:44:59.878000
+Adjusted: 00:52:23.878 --> 00:52:25.878
+
+Original: 00:07:26.000 --> 00:07:28.000
+Parsed: 0:07:26 --> 0:07:28
+Last End Time: 0:52:25.878000
+SEG SWITCH
+Adjusted Offset: 0:44:59.878000
+Adjusted: 00:52:25.878 --> 00:52:27.878
+
+Original: 00:07:35.000 --> 00:07:37.000
+Parsed: 0:07:35 --> 0:07:37
+Last End Time: 0:52:27.878000
+SEG SWITCH
+Adjusted Offset: 0:44:52.878000
+Adjusted: 00:52:27.878 --> 00:52:29.878
+
+Original: 00:07:37.000 --> 00:07:39.000
+Parsed: 0:07:37 --> 0:07:39
+Last End Time: 0:52:29.878000
+SEG SWITCH
+Adjusted Offset: 0:44:52.878000
+Adjusted: 00:52:29.878 --> 00:52:31.878
+
+Original: 00:07:42.000 --> 00:07:44.000
+Parsed: 0:07:42 --> 0:07:44
+Last End Time: 0:52:31.878000
+SEG SWITCH
+Adjusted Offset: 0:44:49.878000
+Adjusted: 00:52:31.878 --> 00:52:33.878
+
+Original: 00:07:44.000 --> 00:07:46.000
+Parsed: 0:07:44 --> 0:07:46
+Last End Time: 0:52:33.878000
+SEG SWITCH
+Adjusted Offset: 0:44:49.878000
+Adjusted: 00:52:33.878 --> 00:52:35.878
+
+Original: 00:07:46.000 --> 00:07:48.000
+Parsed: 0:07:46 --> 0:07:48
+Last End Time: 0:52:35.878000
+SEG SWITCH
+Adjusted Offset: 0:44:49.878000
+Adjusted: 00:52:35.878 --> 00:52:37.878
+
+Original: 00:07:48.000 --> 00:07:50.000
+Parsed: 0:07:48 --> 0:07:50
+Last End Time: 0:52:37.878000
+SEG SWITCH
+Adjusted Offset: 0:44:49.878000
+Adjusted: 00:52:37.878 --> 00:52:39.878
+
+Original: 00:07:50.000 --> 00:07:52.000
+Parsed: 0:07:50 --> 0:07:52
+Last End Time: 0:52:39.878000
+SEG SWITCH
+Adjusted Offset: 0:44:49.878000
+Adjusted: 00:52:39.878 --> 00:52:41.878
+
+Original: 00:07:52.000 --> 00:07:54.000
+Parsed: 0:07:52 --> 0:07:54
+Last End Time: 0:52:41.878000
+SEG SWITCH
+Adjusted Offset: 0:44:49.878000
+Adjusted: 00:52:41.878 --> 00:52:43.878
+
+Original: 00:07:55.000 --> 00:07:57.000
+Parsed: 0:07:55 --> 0:07:57
+Last End Time: 0:52:43.878000
+SEG SWITCH
+Adjusted Offset: 0:44:48.878000
+Adjusted: 00:52:43.878 --> 00:52:45.878
+
+Original: 00:07:57.000 --> 00:07:59.000
+Parsed: 0:07:57 --> 0:07:59
+Last End Time: 0:52:45.878000
+SEG SWITCH
+Adjusted Offset: 0:44:48.878000
+Adjusted: 00:52:45.878 --> 00:52:47.878
+
+Original: 00:08:09.000 --> 00:08:11.000
+Parsed: 0:08:09 --> 0:08:11
+Last End Time: 0:52:47.878000
+SEG SWITCH
+Adjusted Offset: 0:44:38.878000
+Adjusted: 00:52:47.878 --> 00:52:49.878
+
+Original: 00:08:11.000 --> 00:08:12.000
+Parsed: 0:08:11 --> 0:08:12
+Last End Time: 0:52:49.878000
+SEG SWITCH
+Adjusted Offset: 0:44:38.878000
+Adjusted: 00:52:49.878 --> 00:52:50.878
+
+Original: 00:08:12.000 --> 00:08:14.000
+Parsed: 0:08:12 --> 0:08:14
+Last End Time: 0:52:50.878000
+SEG SWITCH
+Adjusted Offset: 0:44:38.878000
+Adjusted: 00:52:50.878 --> 00:52:52.878
+
+Original: 00:08:16.000 --> 00:08:19.000
+Parsed: 0:08:16 --> 0:08:19
+Last End Time: 0:52:52.878000
+SEG SWITCH
+Adjusted Offset: 0:44:36.878000
+Adjusted: 00:52:52.878 --> 00:52:55.878
+
+Original: 00:08:22.000 --> 00:08:24.000
+Parsed: 0:08:22 --> 0:08:24
+Last End Time: 0:52:55.878000
+SEG SWITCH
+Adjusted Offset: 0:44:33.878000
+Adjusted: 00:52:55.878 --> 00:52:57.878
+
+Original: 00:08:24.000 --> 00:08:26.000
+Parsed: 0:08:24 --> 0:08:26
+Last End Time: 0:52:57.878000
+SEG SWITCH
+Adjusted Offset: 0:44:33.878000
+Adjusted: 00:52:57.878 --> 00:52:59.878
+
+Original: 00:08:26.000 --> 00:08:28.000
+Parsed: 0:08:26 --> 0:08:28
+Last End Time: 0:52:59.878000
+SEG SWITCH
+Adjusted Offset: 0:44:33.878000
+Adjusted: 00:52:59.878 --> 00:53:01.878
+
+Original: 00:08:28.000 --> 00:08:29.000
+Parsed: 0:08:28 --> 0:08:29
+Last End Time: 0:53:01.878000
+SEG SWITCH
+Adjusted Offset: 0:44:33.878000
+Adjusted: 00:53:01.878 --> 00:53:02.878
+
+Original: 00:08:29.000 --> 00:08:34.000
+Parsed: 0:08:29 --> 0:08:34
+Last End Time: 0:53:02.878000
+SEG SWITCH
+Adjusted Offset: 0:44:33.878000
+Adjusted: 00:53:02.878 --> 00:53:07.878
+
+Original: 00:08:34.000 --> 00:08:37.000
+Parsed: 0:08:34 --> 0:08:37
+Last End Time: 0:53:07.878000
+SEG SWITCH
+Adjusted Offset: 0:44:33.878000
+Adjusted: 00:53:07.878 --> 00:53:10.878
+
+Original: 00:08:39.000 --> 00:08:41.000
+Parsed: 0:08:39 --> 0:08:41
+Last End Time: 0:53:10.878000
+SEG SWITCH
+Adjusted Offset: 0:44:31.878000
+Adjusted: 00:53:10.878 --> 00:53:12.878
+
+Original: 00:08:41.000 --> 00:08:42.000
+Parsed: 0:08:41 --> 0:08:42
+Last End Time: 0:53:12.878000
+SEG SWITCH
+Adjusted Offset: 0:44:31.878000
+Adjusted: 00:53:12.878 --> 00:53:13.878
+
+Original: 00:08:42.000 --> 00:08:44.000
+Parsed: 0:08:42 --> 0:08:44
+Last End Time: 0:53:13.878000
+SEG SWITCH
+Adjusted Offset: 0:44:31.878000
+Adjusted: 00:53:13.878 --> 00:53:15.878
+
+Original: 00:08:44.000 --> 00:08:47.000
+Parsed: 0:08:44 --> 0:08:47
+Last End Time: 0:53:15.878000
+SEG SWITCH
+Adjusted Offset: 0:44:31.878000
+Adjusted: 00:53:15.878 --> 00:53:18.878
+
+Original: 00:08:47.000 --> 00:08:48.000
+Parsed: 0:08:47 --> 0:08:48
+Last End Time: 0:53:18.878000
+SEG SWITCH
+Adjusted Offset: 0:44:31.878000
+Adjusted: 00:53:18.878 --> 00:53:19.878
+
+Original: 00:08:48.000 --> 00:08:50.000
+Parsed: 0:08:48 --> 0:08:50
+Last End Time: 0:53:19.878000
+SEG SWITCH
+Adjusted Offset: 0:44:31.878000
+Adjusted: 00:53:19.878 --> 00:53:21.878
+
+Original: 00:08:53.000 --> 00:09:00.000
+Parsed: 0:08:53 --> 0:09:00
+Last End Time: 0:53:21.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:21.878 --> 00:53:28.878
+
+Original: 00:09:00.000 --> 00:09:02.000
+Parsed: 0:09:00 --> 0:09:02
+Last End Time: 0:53:28.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:28.878 --> 00:53:30.878
+
+Original: 00:09:02.000 --> 00:09:03.000
+Parsed: 0:09:02 --> 0:09:03
+Last End Time: 0:53:30.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:30.878 --> 00:53:31.878
+
+Original: 00:09:03.000 --> 00:09:06.000
+Parsed: 0:09:03 --> 0:09:06
+Last End Time: 0:53:31.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:31.878 --> 00:53:34.878
+
+Original: 00:09:06.000 --> 00:09:08.000
+Parsed: 0:09:06 --> 0:09:08
+Last End Time: 0:53:34.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:34.878 --> 00:53:36.878
+
+Original: 00:09:08.000 --> 00:09:11.000
+Parsed: 0:09:08 --> 0:09:11
+Last End Time: 0:53:36.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:36.878 --> 00:53:39.878
+
+Original: 00:09:11.000 --> 00:09:13.000
+Parsed: 0:09:11 --> 0:09:13
+Last End Time: 0:53:39.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:39.878 --> 00:53:41.878
+
+Original: 00:09:13.000 --> 00:09:16.000
+Parsed: 0:09:13 --> 0:09:16
+Last End Time: 0:53:41.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:41.878 --> 00:53:44.878
+
+Original: 00:09:16.000 --> 00:09:18.000
+Parsed: 0:09:16 --> 0:09:18
+Last End Time: 0:53:44.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:44.878 --> 00:53:46.878
+
+Original: 00:09:18.000 --> 00:09:21.000
+Parsed: 0:09:18 --> 0:09:21
+Last End Time: 0:53:46.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:46.878 --> 00:53:49.878
+
+Original: 00:09:21.000 --> 00:09:23.000
+Parsed: 0:09:21 --> 0:09:23
+Last End Time: 0:53:49.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:49.878 --> 00:53:51.878
+
+Original: 00:09:23.000 --> 00:09:24.000
+Parsed: 0:09:23 --> 0:09:24
+Last End Time: 0:53:51.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:51.878 --> 00:53:52.878
+
+Original: 00:09:24.000 --> 00:09:26.000
+Parsed: 0:09:24 --> 0:09:26
+Last End Time: 0:53:52.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:52.878 --> 00:53:54.878
+
+Original: 00:09:26.000 --> 00:09:32.000
+Parsed: 0:09:26 --> 0:09:32
+Last End Time: 0:53:54.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:53:54.878 --> 00:54:00.878
+
+Original: 00:09:32.000 --> 00:09:34.000
+Parsed: 0:09:32 --> 0:09:34
+Last End Time: 0:54:00.878000
+SEG SWITCH
+Adjusted Offset: 0:44:28.878000
+Adjusted: 00:54:00.878 --> 00:54:02.878
+
+Original: 00:09:39.000 --> 00:09:41.000
+Parsed: 0:09:39 --> 0:09:41
+Last End Time: 0:54:02.878000
+SEG SWITCH
+Adjusted Offset: 0:44:23.878000
+Adjusted: 00:54:02.878 --> 00:54:04.878
+
+Original: 00:09:41.000 --> 00:09:47.000
+Parsed: 0:09:41 --> 0:09:47
+Last End Time: 0:54:04.878000
+SEG SWITCH
+Adjusted Offset: 0:44:23.878000
+Adjusted: 00:54:04.878 --> 00:54:10.878
+
+Original: 00:09:47.000 --> 00:09:48.000
+Parsed: 0:09:47 --> 0:09:48
+Last End Time: 0:54:10.878000
+SEG SWITCH
+Adjusted Offset: 0:44:23.878000
+Adjusted: 00:54:10.878 --> 00:54:11.878
+
+Original: 00:09:48.000 --> 00:09:52.000
+Parsed: 0:09:48 --> 0:09:52
+Last End Time: 0:54:11.878000
+SEG SWITCH
+Adjusted Offset: 0:44:23.878000
+Adjusted: 00:54:11.878 --> 00:54:15.878
+
+Original: 00:09:52.000 --> 00:09:54.000
+Parsed: 0:09:52 --> 0:09:54
+Last End Time: 0:54:15.878000
+SEG SWITCH
+Adjusted Offset: 0:44:23.878000
+Adjusted: 00:54:15.878 --> 00:54:17.878
+
+Original: 00:09:54.000 --> 00:09:57.000
+Parsed: 0:09:54 --> 0:09:57
+Last End Time: 0:54:17.878000
+SEG SWITCH
+Adjusted Offset: 0:44:23.878000
+Adjusted: 00:54:17.878 --> 00:54:20.878
+
+Original: 00:09:57.000 --> 00:10:00.000
+Parsed: 0:09:57 --> 0:10:00
+Last End Time: 0:54:20.878000
+SEG SWITCH
+Adjusted Offset: 0:44:23.878000
+Adjusted: 00:54:20.878 --> 00:54:23.878
+
+Original: 00:00:30.000 --> 00:00:37.000
+Parsed: 0:00:30 --> 0:00:37
+Last End Time: 0:54:23.878000
+SEG SWITCH
+Adjusted Offset: 0:53:53.878000
+Adjusted: 00:54:23.878 --> 00:54:30.878
+
+Original: 00:01:00.000 --> 00:01:08.000
+Parsed: 0:01:00 --> 0:01:08
+Last End Time: 0:54:30.878000
+SEG SWITCH
+Adjusted Offset: 0:53:30.878000
+Adjusted: 00:54:30.878 --> 00:54:38.878
+
+Original: 00:01:30.000 --> 00:01:47.000
+Parsed: 0:01:30 --> 0:01:47
+Last End Time: 0:54:38.878000
+SEG SWITCH
+Adjusted Offset: 0:53:08.878000
+Adjusted: 00:54:38.878 --> 00:54:55.878
+
+Original: 00:01:47.000 --> 00:01:59.000
+Parsed: 0:01:47 --> 0:01:59
+Last End Time: 0:54:55.878000
+SEG SWITCH
+Adjusted Offset: 0:53:08.878000
+Adjusted: 00:54:55.878 --> 00:55:07.878
+
+Original: 00:01:59.000 --> 00:02:06.000
+Parsed: 0:01:59 --> 0:02:06
+Last End Time: 0:55:07.878000
+SEG SWITCH
+Adjusted Offset: 0:53:08.878000
+Adjusted: 00:55:07.878 --> 00:55:14.878
+
+Original: 00:02:06.000 --> 00:02:17.000
+Parsed: 0:02:06 --> 0:02:17
+Last End Time: 0:55:14.878000
+SEG SWITCH
+Adjusted Offset: 0:53:08.878000
+Adjusted: 00:55:14.878 --> 00:55:25.878
+
+Original: 00:02:48.000 --> 00:02:54.000
+Parsed: 0:02:48 --> 0:02:54
+Last End Time: 0:55:25.878000
+SEG SWITCH
+Adjusted Offset: 0:52:37.878000
+Adjusted: 00:55:25.878 --> 00:55:31.878
+
+Original: 00:02:54.000 --> 00:03:00.160
+Parsed: 0:02:54 --> 0:03:00.160000
+Last End Time: 0:55:31.878000
+SEG SWITCH
+Adjusted Offset: 0:52:37.878000
+Adjusted: 00:55:31.878 --> 00:55:38.038
+
+Original: 00:03:00.160 --> 00:03:05.279
+Parsed: 0:03:00.160000 --> 0:03:05.279000
+Last End Time: 0:55:38.038000
+SEG SWITCH
+Adjusted Offset: 0:52:37.878000
+Adjusted: 00:55:38.038 --> 00:55:43.157
+
+Original: 00:03:05.279 --> 00:03:12.279
+Parsed: 0:03:05.279000 --> 0:03:12.279000
+Last End Time: 0:55:43.157000
+SEG SWITCH
+Adjusted Offset: 0:52:37.878000
+Adjusted: 00:55:43.157 --> 00:55:50.157
+
+Original: 00:03:13.039 --> 00:03:20.039
+Parsed: 0:03:13.039000 --> 0:03:20.039000
+Last End Time: 0:55:50.157000
+SEG SWITCH
+Adjusted Offset: 0:52:37.118000
+Adjusted: 00:55:50.157 --> 00:55:57.157
+
+Original: 00:03:21.600 --> 00:03:26.960
+Parsed: 0:03:21.600000 --> 0:03:26.960000
+Last End Time: 0:55:57.157000
+SEG SWITCH
+Adjusted Offset: 0:52:35.557000
+Adjusted: 00:55:57.157 --> 00:56:02.517
+
+Original: 00:03:26.960 --> 00:03:31.199
+Parsed: 0:03:26.960000 --> 0:03:31.199000
+Last End Time: 0:56:02.517000
+SEG SWITCH
+Adjusted Offset: 0:52:35.557000
+Adjusted: 00:56:02.517 --> 00:56:06.756
+
+Original: 00:03:31.199 --> 00:03:37.160
+Parsed: 0:03:31.199000 --> 0:03:37.160000
+Last End Time: 0:56:06.756000
+SEG SWITCH
+Adjusted Offset: 0:52:35.557000
+Adjusted: 00:56:06.756 --> 00:56:12.717
+
+Original: 00:03:37.160 --> 00:03:37.520
+Parsed: 0:03:37.160000 --> 0:03:37.520000
+Last End Time: 0:56:12.717000
+SEG SWITCH
+Adjusted Offset: 0:52:35.557000
+Adjusted: 00:56:12.717 --> 00:56:13.077
+

@@ -20,9 +20,8 @@ def adjust_vtt_timings(vtt_file, output_file):
         lines = file.readlines()
 
     adjusted_lines = []
-    cumulative_offset = timedelta(0)
+    #cumulative_offset = timedelta(0)
     last_end_time = timedelta(0)
-
     time_pattern = re.compile(r"(\d{2}:\d{2}:\d{2}\.\d{3}) --> (\d{2}:\d{2}:\d{2}\.\d{3})")
 
     for line in lines:
@@ -35,21 +34,23 @@ def adjust_vtt_timings(vtt_file, output_file):
             print(f"Original: {start_time} --> {end_time}")
             print(f"Parsed: {start_time_td} --> {end_time_td}")
             print(f"Last End Time: {last_end_time}")
-            print(f"Cumulative Offset Before: {cumulative_offset}")
+            # print(f"Cumulative Offset Before: {cumulative_offset}")
 
             if start_time_td < last_end_time:
+                if last_end_time > end_time_td:
+                    print("SEG SWITCH")
+            
+
+                # once I can detect segment switch - I can remove the offset piece and just store the last 
+                # end time when the swap happens and add it to current time.
                 offset = last_end_time - start_time_td
-                cumulative_offset += offset
                 start_time_td += offset
                 end_time_td += offset
                 print(f"Adjusted Offset: {offset}")
-            else:
-                start_time_td += cumulative_offset
-                end_time_td += cumulative_offset
 
             last_end_time = end_time_td
 
-            print(f"Cumulative Offset After: {cumulative_offset}")
+            #print(f"Cumulative Offset After: {cumulative_offset}")
             print(f"Adjusted: {format_vtt_time(start_time_td)} --> {format_vtt_time(end_time_td)}\n")
 
             adjusted_line = f"{format_vtt_time(start_time_td)} --> {format_vtt_time(end_time_td)}\n"
