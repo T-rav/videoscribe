@@ -32,16 +32,25 @@ def adjust_vtt_timings(vtt_file, output_file):
             start_time_td = parse_vtt_time(start_time)
             end_time_td = parse_vtt_time(end_time)
 
+            print(f"Original: {start_time} --> {end_time}")
+            print(f"Parsed: {start_time_td} --> {end_time_td}")
+            print(f"Last End Time: {last_end_time}")
+            print(f"Cumulative Offset Before: {cumulative_offset}")
+
             if start_time_td < last_end_time:
                 offset = last_end_time - start_time_td
                 cumulative_offset += offset
                 start_time_td += offset
                 end_time_td += offset
+                print(f"Adjusted Offset: {offset}")
             else:
                 start_time_td += cumulative_offset
                 end_time_td += cumulative_offset
 
             last_end_time = end_time_td
+
+            print(f"Cumulative Offset After: {cumulative_offset}")
+            print(f"Adjusted: {format_vtt_time(start_time_td)} --> {format_vtt_time(end_time_td)}\n")
 
             adjusted_line = f"{format_vtt_time(start_time_td)} --> {format_vtt_time(end_time_td)}\n"
             adjusted_lines.append(adjusted_line)
