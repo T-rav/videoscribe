@@ -72,11 +72,19 @@ class GroqTranscriptionService(TranscriptionService):
     def transcribe(self, audio_file_path: str, prompt: str) -> str:
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file, prompt=prompt)
+            trimmed_prompt = self.take_last_896_chars(prompt)
+            transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file)
         return transcription.text
 
     def file_name_extension(self) -> str:
         return ".txt"
+
+    # limit the prompt to 896 characters
+    def take_last_896_chars(self, input_string):
+        if len(input_string) > 896:
+            return input_string[-896:]
+        else:
+            return input_string
 
 class TranscriptionFactory:
     # add services here
@@ -215,7 +223,7 @@ print(f"Audio file is ready at {audio_file_path}")
 # Transcription part
 if audio_file_path is not None:
     print(f"Running transcription on {audio_file_path}")
-    transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.OPENAI) 
+    transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.GROQ) 
     combined_transcription = transcribe_audio(audio_file_path, transcription_service, prompt)
     
     # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
@@ -228,7 +236,7 @@ if audio_file_path is not None:
     with open(transcription_file_path, 'w', encoding='utf-8') as file:
         file.write(combined_transcription)
 
-    os.remove(audio_file_path) # remove the audio once done with it
+    #os.remove(audio_file_path) # remove the audio once done with it
     
     # if it was vtt or srt then post process it 
 
