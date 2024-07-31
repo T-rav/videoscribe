@@ -1,3 +1,4 @@
+import json
 import subprocess
 import os
 import re
@@ -98,7 +99,17 @@ class TranscriptionFactory:
 
         return service_class(api_key)
 
-def download_audio(url: str, path: str) -> Optional[str]:
+def get_video_info(url: str) -> dict:
+    command = [
+        'yt-dlp',
+        '--dump-json',
+        url
+    ]
+    result = subprocess.run(command, check=True, capture_output=True, text=True)
+    video_info = result.stdout
+    return json.loads(video_info)
+
+def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None) -> Optional[str]:
     # Ensure the path exists
     if not os.path.exists(path):
         os.makedirs(path)
@@ -112,16 +123,27 @@ def download_audio(url: str, path: str) -> Optional[str]:
         '-N', '4', # use 4 connections
         url  # YouTube URL
     ]
-    # Execute the yt-dlp command
-    result = subprocess.run(command, check=True, capture_output=True, text=True)
-    # Extract the file path from the stdout
-    output = result.stdout
-    file_path_match = re.search(r'Destination:\s+(.*\.m4a)', output)
-    
-    if file_path_match:
-        file_path = file_path_match.group(1).strip()
-        if os.path.exists(file_path) and file_path.endswith(".m4a"):
-            return file_path
+
+    try:
+        # Execute the yt-dlp command
+        result = subprocess.run(command, check=True, capture_output=True, text=True)
+        # Extract the file path from the stdout
+        output = result.stdout
+        file_path_match = re.search(r'Destination:\s+(.*\.m4a)', output)
+        
+        if file_path_match:
+            file_path = file_path_match.group(1).strip()
+            if os.path.exists(file_path) and file_path.endswith(".m4a"):
+                # If max_length_minutes is set, trim the audio
+                if max_length_minutes:
+                    max_length_seconds = max_length_minutes * 60
+                    trimmed_file_path = file_path.replace('.m4a', '_trimmed.m4a')
+                    subprocess.run(['ffmpeg', '-i', file_path, '-ss', '00:00:00', '-t', str(max_length_seconds), trimmed_file_path], check=True)
+                    os.remove(file_path)  # Remove the original untrimmed file
+                    return trimmed_file_path
+                return file_path
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e.stderr}")
     
     return None  # In case no file is found
 
@@ -164,12 +186,11 @@ path = './incoming'  # Specify the directory path where you want to save the aud
 prompt = "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI."
 # Input
 url = 'https://www.youtube.com/live/ccsrX-DfmnA'
-# Testing url
-#url = 'https://youtu.be/Un-aZ7BO7gw'
+max_length_minutes = 10  # Specify the maximum length of the video in minutes
 
 print("Processing audio...")
 if url.startswith("https://"):
-    audio_file_path = download_audio(url, f'{path}/audio')
+    audio_file_path = download_audio(url, f'{path}/audio', max_length_minutes=max_length_minutes)
 else:
     # assume it is a local file
     file_name = os.path.basename(url)
@@ -207,5 +228,7 @@ if audio_file_path is not None:
         file.write(combined_transcription)
 
     os.remove(audio_file_path) # remove the audio once done with it
+    
+    # if it was vtt or srt then post process it 
 
     print(f"Transcription written to {transcription_file_path}")
