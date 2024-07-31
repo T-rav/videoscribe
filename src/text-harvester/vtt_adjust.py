@@ -39,7 +39,7 @@ def adjust_vtt_timings(vtt_file, output_file):
 
             if start_time_td < last_end_time:
                 print("SEG SWITCH")
-                last_segment_end_time = last_end_time
+                last_segment_end_time = (last_segment_end_time + last_end_time)
                 
             last_end_time = end_time_td
             start_time_td += last_segment_end_time
