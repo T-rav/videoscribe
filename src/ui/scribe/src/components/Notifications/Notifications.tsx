@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import './Notifications.css';
+import Modal from '../Modal/Modal'; // Adjust the path if necessary
 
 const Notifications: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setOpen(!open);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -15,9 +25,24 @@ const Notifications: React.FC = () => {
       </button>
       {open && (
         <div className="notifications-menu">
-          <p>No new notifications</p>
+          <div className="notification-item">
+            <h4>Sample Video Title</h4>
+            <p><strong>Datetime:</strong> 2024-07-30 14:30</p>
+            <p><strong>Length:</strong> 10:30</p>
+            <p><strong>Progress:</strong> 50%</p>
+            <button className="view-button" onClick={openModal}>View Details</button>
+          </div>
         </div>
       )}
+      <Modal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        title="Sample Video Title"
+        datetime="2024-07-30 14:30"
+        length="10:30"
+        progress="50%"
+        content="Here is the detailed content of the video transcription progress..."
+      />
     </div>
   );
 };

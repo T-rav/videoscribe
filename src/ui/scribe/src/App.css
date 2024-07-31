@@ -75,12 +75,13 @@
 .dropdown-menu {
   position: absolute;
   left: 0;
-  bottom: 40px;
+  bottom: 100%; /* Ensure the menu renders upwards */
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
   border-radius: 4px;
   z-index: 1000;
+  transform: translateY(-10px); /* Add slight offset to avoid overlap */
 }
 
 .sign-in {

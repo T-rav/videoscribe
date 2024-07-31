@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
         <DropdownMenu />
       </div>
       <div className="footer-content">
-        <p>© 2024 Scribe AI - Transcribe YouTube Videos Effortlessly</p>
+        <p>© 2024 Scribe AI - Transcribe YouTube Videos Effortlessly. Chat with Them Endlessly!</p>
       </div>
     </footer>
   );

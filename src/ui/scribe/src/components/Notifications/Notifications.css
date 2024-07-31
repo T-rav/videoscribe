@@ -1,22 +1,53 @@
 .notifications {
-    position: relative;
-  }
-  
-  .notifications-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-  }
-  
-  .notifications-menu {
-    position: absolute;
-    right: 0;
-    top: 40px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 4px;
-    z-index: 1000;
-  }
-  
+  position: relative;
+}
+
+.notifications-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.notifications-menu {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-item h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.notification-item p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.view-button {
+  background-color: rgb(217, 203, 176);
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: rgb(92, 69, 35);
+  font-weight: 500;
+}
+
+.view-button:hover {
+  background-color: #d1b179;
+}
