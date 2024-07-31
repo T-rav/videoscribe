@@ -36,13 +36,37 @@
   color: #333;
 }
 
-.modal h2 {
-  margin: 0 0 20px;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
   font-size: 24px;
 }
 
+.copy-button {
+  background-color: rgb(217, 203, 176);
+  border: none;
+  padding: 5px 10px; /* Make the button smaller */
+  font-size: 14px; /* Adjust font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: rgb(92, 69, 35);
+  font-weight: 500;
+  margin-top: 10px;
+  display: block; /* Ensure the button takes its own line */
+}
+
+.copy-button:hover {
+  background-color: #d1b179;
+}
+
 .modal p {
-  margin: 0;
+  margin: 20px 0 0;
   font-size: 16px;
   line-height: 1.5;
 }
