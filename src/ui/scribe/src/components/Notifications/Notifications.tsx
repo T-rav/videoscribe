@@ -6,9 +6,7 @@ const Notifications: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedNotification, setSelectedNotification] = useState<any>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  const notifications = [
+  const [notifications, setNotifications] = useState([
     {
       id: 1,
       title: "Sample Video Title 1",
@@ -25,7 +23,9 @@ const Notifications: React.FC = () => {
       progress: "75%",
       content: "Here is the detailed content of the video transcription progress for video 2..."
     }
-  ];
+  ]);
+
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setOpen(!open);
@@ -38,6 +38,10 @@ const Notifications: React.FC = () => {
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const removeNotification = (id: number) => {
+    setNotifications(notifications.filter(notification => notification.id !== id));
   };
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const Notifications: React.FC = () => {
         <div className="notifications-menu">
           {notifications.map(notification => (
             <div className="notification-item" key={notification.id}>
-              <button className="close-button" onClick={() => setOpen(false)}>×</button>
+              <button className="close-button" onClick={() => removeNotification(notification.id)}>×</button>
               <h4>{notification.title}</h4>
               <p><strong>Datetime:</strong> {notification.datetime}</p>
               <p><strong>Length:</strong> {notification.length}</p>
