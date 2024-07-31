@@ -6,7 +6,7 @@
   padding: 10px 20px;
   width: 100%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Ensure padding is included in the element's width */
+  box-sizing: border-box;
 }
 
 .logo {
@@ -18,19 +18,24 @@
   color: #000000;
 }
 
-.sign-in {
-  background-color: rgb(217, 203, 176);
-  border: none;
-  padding: 16px; /* Ensure 16px padding */
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: "Space Mono", monospace;
-  color: rgb(92, 69, 35);
-  font-weight: 500;
-  box-sizing: border-box;
+.notifications {
+  position: relative;
 }
 
-.sign-in:hover {
-  background-color: #d1b179;
+.notifications-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.notifications-menu {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000;
 }
