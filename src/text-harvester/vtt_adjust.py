@@ -20,7 +20,6 @@ def adjust_vtt_timings(vtt_file, output_file):
         lines = file.readlines()
 
     adjusted_lines = []
-    #cumulative_offset = timedelta(0)
     last_end_time = timedelta(0)
     last_segment_end_time = timedelta(0)
     time_pattern = re.compile(r"(\d{2}:\d{2}:\d{2}\.\d{3}) --> (\d{2}:\d{2}:\d{2}\.\d{3})")
@@ -35,8 +34,7 @@ def adjust_vtt_timings(vtt_file, output_file):
             print(f"Original: {start_time} --> {end_time}")
             print(f"Parsed: {start_time_td} --> {end_time_td}")
             print(f"Last End Time: {last_end_time}")
-            # print(f"Cumulative Offset Before: {cumulative_offset}")
-
+            
             if start_time_td < last_end_time:
                 print("SEG SWITCH")
                 last_segment_end_time = (last_segment_end_time + last_end_time)
