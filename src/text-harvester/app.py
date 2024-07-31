@@ -206,6 +206,6 @@ if audio_file_path is not None:
     with open(transcription_file_path, 'w', encoding='utf-8') as file:
         file.write(combined_transcription)
 
-    #os.remove(audio_file_path) # remove the audio once done with it
+    os.remove(audio_file_path) # remove the audio once done with it
 
     print(f"Transcription written to {transcription_file_path}")

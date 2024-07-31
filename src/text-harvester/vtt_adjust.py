@@ -45,7 +45,6 @@ def adjust_vtt_timings(vtt_file, output_file):
             start_time_td += last_segment_end_time
             end_time_td += last_segment_end_time
 
-            #print(f"Cumulative Offset After: {cumulative_offset}")
             print(f"Adjusted: {format_vtt_time(start_time_td)} --> {format_vtt_time(end_time_td)}\n")
 
             adjusted_line = f"{format_vtt_time(start_time_td)} --> {format_vtt_time(end_time_td)}\n"
