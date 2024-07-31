@@ -64,16 +64,20 @@ const Notifications: React.FC = () => {
       </button>
       {open && (
         <div className="notifications-menu">
-          {notifications.map(notification => (
-            <div className="notification-item" key={notification.id}>
-              <button className="close-button" onClick={() => removeNotification(notification.id)}>×</button>
-              <h4>{notification.title}</h4>
-              <p><strong>Datetime:</strong> {notification.datetime}</p>
-              <p><strong>Length:</strong> {notification.length}</p>
-              <p><strong>Progress:</strong> {notification.progress}</p>
-              <button className="view-button" onClick={() => openModal(notification)}>View Details</button>
-            </div>
-          ))}
+          {notifications.length === 0 ? (
+            <div className="no-notifications">No notifications</div>
+          ) : (
+            notifications.map(notification => (
+              <div className="notification-item" key={notification.id}>
+                <button className="close-button" onClick={() => removeNotification(notification.id)}>×</button>
+                <h4>{notification.title}</h4>
+                <p><strong>Datetime:</strong> {notification.datetime}</p>
+                <p><strong>Length:</strong> {notification.length}</p>
+                <p><strong>Progress:</strong> {notification.progress}</p>
+                <button className="view-button" onClick={() => openModal(notification)}>View Details</button>
+              </div>
+            ))
+          )}
         </div>
       )}
       {selectedNotification && (
