@@ -241,7 +241,22 @@ if __name__ == "__main__":
         with open(transcription_file_path, 'w', encoding='utf-8') as file:
             file.write(combined_transcription)
 
-        print(f"Transcription written to {transcription_file_path}")
+        # Read the transcription file contents
+        with open(transcription_file_path, "r") as file:
+            transcription_text = file.read()
 
-    # python app.py "./incoming/audio/Design Patterns For AI Interfaces.mp4" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
+        result = {
+            "url": args.url,
+            "service": args.service,
+            "transcription_file_path": transcription_file_path,
+            "transcript": transcription_text
+        }
+
+        # remove the audio file
+        os.remove(audio_file_path)
+
+        # Print result as JSON
+        print(json.dumps(result))
+
+    # python app.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
     # --max_length_minutes 10

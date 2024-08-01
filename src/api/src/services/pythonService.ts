@@ -18,27 +18,31 @@ export const transcribe = async ({
   transcriptionType,
 }: TranscriptionRequest): Promise<TranscriptionResponse> => {
   return new Promise((resolve, reject) => {
-    const python = spawn('python3', ['transcriber.py']); // todo :fix path
-    const inputData = JSON.stringify({ url, transcriptionType });
+    const python = spawn('python3', ['../text-harvester/app.py', url, '--service', transcriptionType, '--path', './incoming', '--prompt', 'My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI.']);
 
-    python.stdin.write(inputData);
     python.stdin.end();
 
     let output = '';
+    let errorOutput = '';
 
     python.stdout.on('data', (data) => {
       output += data.toString();
     });
 
     python.stderr.on('data', (data) => {
-      console.error(`stderr: ${data}`);
+      errorOutput += data.toString();
     });
 
     python.on('close', (code) => {
       if (code !== 0) {
-        reject(new Error('Failed to process transcription'));
+        reject(new Error(`Python script exited with code ${code}: ${errorOutput}`));
       } else {
-        resolve(JSON.parse(output));
+        try {
+          const parsedOutput = JSON.parse(output);
+          resolve(parsedOutput);
+        } catch (error) {
+          reject(new Error(`Failed to parse Python script output: ${errorOutput} - [${output}]`));
+        }
       }
     });
   });

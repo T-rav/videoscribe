@@ -40,7 +40,7 @@ const createApp = (transcribe: TranscribeFunction) => {
       const result = await transcribe({ url, transcriptionType });
       res.json(result);
     } catch (error) {
-      res.status(500).json({ error: 'Failed to process transcription' });
+      res.status(500).json({ error: 'Failed to process transcription ' + error });
     }
   });
 
