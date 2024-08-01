@@ -2,6 +2,7 @@ import json
 import subprocess
 import os
 import re
+import argparse
 from enum import Enum
 from abc import ABC, abstractmethod
 from dotenv import load_dotenv
@@ -190,54 +191,57 @@ def transcribe_audio(file_path: str, service: TranscriptionService, prompt: str)
     else:
         return transcribe_audio_segment(service, file_path, prompt)
 
-# Const
-path = './incoming'  # Specify the directory path where you want to save the audio file.
-prompt = "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI."
-# Input
-url = './incoming/audio/GPT with Me - Ep 18： Continuing to Build a UI with Gen AI.m4a'
-max_length_minutes = None # Specify the maximum length of the video in minutes
+if __name__ == "__main__":
+    # Command line arguments
+    parser = argparse.ArgumentParser(description='Transcribe audio from a video or local file.')
+    parser.add_argument('url', type=str, help='The URL of the video or path to the local file.')
+    parser.add_argument('--path', type=str, default='./incoming', help='The directory path to save the audio file.')
+    parser.add_argument('--max_length_minutes', type=int, default=None, help='Maximum length of the video in minutes.')
+    parser.add_argument('--prompt', type=str, default=None, help='Prompt for the transcription service.')
+    parser.add_argument('--service', type=str, choices=[service.value for service in TranscriptionServiceType], default='openai-srt', help='The transcription service to use.')
 
-print("Processing audio...")
-if url.startswith("https://"):
-    audio_file_path = download_audio(url, f'{path}/audio', max_length_minutes=max_length_minutes)
-else:
-    # assume it is a local file
-    file_name = os.path.basename(url)
-    audio_file_path = os.path.join(path, "audio", file_name)
+    args = parser.parse_args()
 
-    # Check the file extension and only convert if it's not already .m4a or .mp3
-    if not (file_name.endswith(".m4a") or file_name.endswith(".mp3")):
-        print("Fetching audio...")
-        # Replace spaces with hyphens in the file name if not .m4a or .mp3
-        file_name = file_name.replace(" ", "-")
-        audio_file_path = os.path.join(path, "audio", os.path.splitext(file_name)[0] + "_audio.m4a")
+    print("Processing audio...")
+    if args.url.startswith("https://"):
+        audio_file_path = download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
+    else:
+        # assume it is a local file
+        file_name = os.path.basename(args.url)
+        audio_file_path = os.path.join(args.path, "audio", file_name)
+
+        # Check the file extension and only convert if it's not already .m4a or .mp3
+        if not (file_name.endswith(".m4a") or file_name.endswith(".mp3")):
+            print("Fetching audio...")
+            # Replace spaces with hyphens in the file name if not .m4a or .mp3
+            file_name = file_name.replace(" ", "-")
+            audio_file_path = os.path.join(args.path, "audio", os.path.splitext(file_name)[0] + "_audio.m4a")
+            
+            # Ensure the directory exists
+            os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
+            
+            # Convert the file to M4A format
+            subprocess.run(['ffmpeg', '-i', args.url, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
+
+    print(f"Audio file is ready at {audio_file_path}")
+
+    # Transcription part
+    if audio_file_path is not None:
+        print(f"Running transcription on {audio_file_path}")
+        transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType(args.service)) 
+        combined_transcription = transcribe_audio(audio_file_path, transcription_service, args.prompt)
+        
+        # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
+        transcription_file_path = f'{os.path.splitext(audio_file_path)[0]}_transcript{transcription_service.file_name_extension()}'.replace("audio/", "transcript/")
         
         # Ensure the directory exists
-        os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
+        os.makedirs(os.path.dirname(transcription_file_path), exist_ok=True)
         
-        # Convert the file to M4A format
-        subprocess.run(['ffmpeg', '-i', url, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
+        # Writing the transcription to the file
+        with open(transcription_file_path, 'w', encoding='utf-8') as file:
+            file.write(combined_transcription)
 
-print(f"Audio file is ready at {audio_file_path}")
+        print(f"Transcription written to {transcription_file_path}")
 
-# Transcription part
-if audio_file_path is not None:
-    print(f"Running transcription on {audio_file_path}")
-    transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType.GROQ) 
-    combined_transcription = transcribe_audio(audio_file_path, transcription_service, prompt)
-    
-    # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
-    transcription_file_path = f'{os.path.splitext(audio_file_path)[0]}_transcript{transcription_service.file_name_extension()}'.replace("audio/", "transcript/")
-    
-    # Ensure the directory exists
-    os.makedirs(os.path.dirname(transcription_file_path), exist_ok=True)
-    
-    # Writing the transcription to the file
-    with open(transcription_file_path, 'w', encoding='utf-8') as file:
-        file.write(combined_transcription)
-
-    #os.remove(audio_file_path) # remove the audio once done with it
-    
-    # if it was vtt or srt then post process it 
-
-    print(f"Transcription written to {transcription_file_path}")
+    # python3 app.py "https://youtu.be/ZLXHyOIIM0o" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." --service "openai-srt"
+    # --max_length_minutes 10

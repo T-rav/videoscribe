@@ -1,4 +1,5 @@
 import re
+import argparse
 from datetime import timedelta
 
 # Function to parse SRT time format
@@ -57,8 +58,14 @@ def adjust_srt_timings(srt_file, output_file):
     with open(output_file, 'w', encoding='utf-8') as file:
         file.writelines(adjusted_lines)
 
-# Example usage with your specified file paths
-input_srt_file = './incoming/transcript/GPT with Me - Ep 17： Bootstrapping a UI with Gen AI_transcript.srt'
-output_srt_file = './incoming/transcript/adjusted_output.srt'
+if __name__ == "__main__":
+    # Command line arguments
+    parser = argparse.ArgumentParser(description='Adjust timings in an SRT file.')
+    parser.add_argument('input_srt_file', type=str, help='Path to the input SRT file.')
+    parser.add_argument('output_srt_file', type=str, help='Path to the output SRT file.')
 
-adjust_srt_timings(input_srt_file, output_srt_file)
+    args = parser.parse_args()
+
+    adjust_srt_timings(args.input_srt_file, args.output_srt_file)
+
+    # python adjust_srt.py "./incoming/transcript/GPT_with_Me.srt" "./incoming/transcript/adjusted_GPT_with_Me.srt"

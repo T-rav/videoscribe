@@ -1,4 +1,5 @@
 import re
+import argparse
 from datetime import timedelta
 
 # Function to parse VTT time format
@@ -53,8 +54,14 @@ def adjust_vtt_timings(vtt_file, output_file):
     with open(output_file, 'w', encoding='utf-8') as file:
         file.writelines(adjusted_lines)
 
-# Example usage with your specified file paths
-input_vtt_file = './incoming/transcript/GPT with Me - Ep 17： Bootstrapping a UI with Gen AI_transcript.vtt'
-output_vtt_file = './incoming/transcript/adjusted_output.vtt'
+if __name__ == "__main__":
+    # Command line arguments
+    parser = argparse.ArgumentParser(description='Adjust timings in a VTT file.')
+    parser.add_argument('input_vtt_file', type=str, help='Path to the input VTT file.')
+    parser.add_argument('output_vtt_file', type=str, help='Path to the output VTT file.')
 
-adjust_vtt_timings(input_vtt_file, output_vtt_file)
+    args = parser.parse_args()
+
+    adjust_vtt_timings(args.input_vtt_file, args.output_vtt_file)
+
+    # python adjust_vtt.py "./incoming/transcript/GPT_with_Me.vtt" "./incoming/transcript/adjusted_GPT_with_Me.vtt"
