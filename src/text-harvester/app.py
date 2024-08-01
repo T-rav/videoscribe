@@ -243,5 +243,5 @@ if __name__ == "__main__":
 
         print(f"Transcription written to {transcription_file_path}")
 
-    # python3 app.py "./incoming/audio/AI Unplugged - Ep 0003.mp4" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
+    # python app.py "./incoming/audio/Design Patterns For AI Interfaces.mp4" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
     # --max_length_minutes 10
