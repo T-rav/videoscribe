@@ -68,4 +68,4 @@ if __name__ == "__main__":
 
     adjust_srt_timings(args.input_srt_file, args.output_srt_file)
 
-    # python3 srt_adjust.py "./incoming/transcript/AI-Unplugged---Ep-0003_audio_transcript.srt" "./incoming/transcript/adjusted_AI-Unplugged---Ep-0003_audio_transcript.srt"
+    # python srt_adjust.py "./incoming/transcript/GPT with Me - Ep 19： Bootstrapping an API with Gen AI_transcript.srt" "./incoming/transcript/adjusted_GPT with Me - Ep 19： Bootstrapping an API with Gen AI_transcript.srt"

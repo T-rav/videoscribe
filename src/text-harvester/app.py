@@ -241,15 +241,13 @@ if __name__ == "__main__":
         with open(transcription_file_path, 'w', encoding='utf-8') as file:
             file.write(combined_transcription)
 
-        # Read the transcription file contents
-        with open(transcription_file_path, "r") as file:
-            transcription_text = file.read()
+        # todo : now refactor to use srt or vtt class to adjust if need be.
 
         result = {
             "url": args.url,
             "service": args.service,
             "transcription_file_path": transcription_file_path,
-            "transcript": transcription_text
+            "transcript": combined_transcription
         }
 
         # remove the audio file
