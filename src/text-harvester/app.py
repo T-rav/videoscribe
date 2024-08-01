@@ -48,7 +48,7 @@ class OpenAIVttTranscriptionService(TranscriptionService):
         with open(audio_file_path, 'rb') as audio_file:
             print(f"Processing part {audio_file_path}")
             transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="vtt", prompt=prompt)
-        return transcription.replace("WEBVTT\n\n", "")
+        return transcription
 
     def file_name_extension(self) -> str:
         return ".vtt"
@@ -198,7 +198,7 @@ if __name__ == "__main__":
     parser.add_argument('--path', type=str, default='./incoming', help='The directory path to save the audio file.')
     parser.add_argument('--max_length_minutes', type=int, default=None, help='Maximum length of the video in minutes.')
     parser.add_argument('--prompt', type=str, default=None, help='Prompt for the transcription service.')
-    parser.add_argument('--service', type=str, choices=[service.value for service in TranscriptionServiceType], default='openai-srt', help='The transcription service to use.')
+    parser.add_argument('--service', type=str, choices=[service.value for service in TranscriptionServiceType], default='groq', help='The transcription service to use.')
 
     args = parser.parse_args()
 
