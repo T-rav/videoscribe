@@ -1,43 +1,50 @@
+// src/app.ts
 import express, { Request, Response } from 'express';
 import { TranscriptionServiceType } from './enums/TranscriptionServiceType';
 
-const app = express();
+interface TranscriptionRequest {
+  url: string;
+  transcriptionType: TranscriptionServiceType;
+}
 
-// Middleware to parse JSON bodies
-app.use(express.json());
+interface TranscriptionResponse {
+  url: string;
+  transcriptionType: TranscriptionServiceType;
+  transcription: string;
+}
 
-// Function to validate YouTube URL
-const isValidYouTubeUrl = (url: string): boolean => {
+type TranscribeFunction = (req: TranscriptionRequest) => Promise<TranscriptionResponse>;
+
+const createApp = (transcribe: TranscribeFunction) => {
+  const app = express();
+
+  app.use(express.json());
+
+  const isValidYouTubeUrl = (url: string): boolean => {
     const regex = /^(https?:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/;
     return regex.test(url);
-};
+  };
 
-// Define the API endpoint
-app.post('/transcribe', (req: Request, res: Response) => {
+  app.post('/transcribe', async (req: Request, res: Response) => {
     const { url, transcriptionType } = req.body;
 
-    // Validate the transcriptionType
     if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
-        return res.status(400).json({ error: 'Invalid transcription type' });
+      return res.status(400).json({ error: 'Invalid transcription type' });
     }
 
-    // Validate the YouTube URL
     if (!isValidYouTubeUrl(url)) {
-        return res.status(400).json({ error: 'Invalid YouTube URL' });
+      return res.status(400).json({ error: 'Invalid YouTube URL' });
     }
 
-    // todo : call out to python code 
+    try {
+      const result = await transcribe({ url, transcriptionType });
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to process transcription' });
+    }
+  });
 
-    // For now, just return some dummy text
-    res.json({
-        message: 'Dummy transcription text',
-        url: url,
-        transcriptionType: transcriptionType
-    });
-});
+  return app;
+};
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+export default createApp;
