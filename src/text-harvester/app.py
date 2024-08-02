@@ -3,6 +3,7 @@ import subprocess
 import os
 import re
 import argparse
+import logging
 from enum import Enum
 from abc import ABC, abstractmethod
 from dotenv import load_dotenv
@@ -13,6 +14,9 @@ from typing import List, Optional, Iterator
 
 # Load environment variables from .env file
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(filename='transcription.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
 
 class TranscriptionServiceType(Enum):
     OPENAI = "openai"
@@ -32,10 +36,14 @@ class OpenAITranscriptionService(TranscriptionService):
         self.client = OpenAI(api_key=api_key)
 
     def transcribe(self, audio_file_path: str, prompt: str) -> str:
-        with open(audio_file_path, 'rb') as audio_file:
-            print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, prompt=prompt)
-        return transcription.text
+        try:
+            with open(audio_file_path, 'rb') as audio_file:
+                logging.debug(f"Processing part {audio_file_path}")
+                transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, prompt=prompt)
+            return transcription.text
+        except Exception as e:
+            logging.error(f"Error transcribing audio file: {e}")
+            return ""
 
     def file_name_extension(self) -> str:
         return ".txt"
@@ -45,10 +53,14 @@ class OpenAIVttTranscriptionService(TranscriptionService):
         self.client = OpenAI(api_key=api_key)
 
     def transcribe(self, audio_file_path: str, prompt: str) -> str:
-        with open(audio_file_path, 'rb') as audio_file:
-            print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="vtt", prompt=prompt)
-        return transcription
+        try:
+            with open(audio_file_path, 'rb') as audio_file:
+                logging.debug(f"Processing part {audio_file_path}")
+                transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="vtt", prompt=prompt)
+            return transcription
+        except Exception as e:
+            logging.error(f"Error transcribing audio file: {e}")
+            return ""
 
     def file_name_extension(self) -> str:
         return ".vtt"
@@ -58,10 +70,14 @@ class OpenAISrtTranscriptionService(TranscriptionService):
         self.client = OpenAI(api_key=api_key)
 
     def transcribe(self, audio_file_path: str, prompt: str) -> str:
-        with open(audio_file_path, 'rb') as audio_file:
-            print(f"Processing part {audio_file_path}")
-            transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="srt", prompt=prompt)
-        return transcription
+        try:
+            with open(audio_file_path, 'rb') as audio_file:
+                logging.debug(f"Processing part {audio_file_path}")
+                transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="srt", prompt=prompt)
+            return transcription
+        except Exception as e:
+            logging.error(f"Error transcribing audio file: {e}")
+            return ""
 
     def file_name_extension(self) -> str:
         return ".srt"
@@ -71,11 +87,15 @@ class GroqTranscriptionService(TranscriptionService):
         self.client = Groq(api_key=api_key)
 
     def transcribe(self, audio_file_path: str, prompt: str) -> str:
-        with open(audio_file_path, 'rb') as audio_file:
-            print(f"Processing part {audio_file_path}")
-            trimmed_prompt = self.take_last_896_chars(prompt)
-            transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file)
-        return transcription.text
+        try:
+            with open(audio_file_path, 'rb') as audio_file:
+                logging.debug(f"Processing part {audio_file_path}")
+                trimmed_prompt = self.take_last_896_chars(prompt)
+                transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file)
+            return transcription.text
+        except Exception as e:
+            logging.error(f"Error transcribing audio file: {e}")
+            return ""
 
     def file_name_extension(self) -> str:
         return ".txt"
@@ -120,6 +140,11 @@ def get_video_info(url: str) -> dict:
 
 def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None) -> Optional[str]:
     # Ensure the path exists
+
+    logging.debug(f"Downloading audio from {url} to {path}")
+    current_directory = os.getcwd()
+    logging.debug(f"Current Directory: {current_directory}")
+
     if not os.path.exists(path):
         os.makedirs(path)
 
@@ -138,22 +163,29 @@ def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None
         result = subprocess.run(command, check=True, capture_output=True, text=True)
         # Extract the file path from the stdout
         output = result.stdout
+        logging.debug(f"yt-dlp output: {output}")
         file_path_match = re.search(r'Destination:\s+(.*\.m4a)', output)
         
         if file_path_match:
             file_path = file_path_match.group(1).strip()
+            logging.debug(f"File path found: {file_path}")
             if os.path.exists(file_path) and file_path.endswith(".m4a"):
+                logging.debug(f"File exists: {file_path}")
                 # If max_length_minutes is set, trim the audio
                 if max_length_minutes:
-                    print(f"Trimming audio file: {file_path}")
+                    logging.debug(f"Trimming audio file: {file_path}")
                     max_length_seconds = max_length_minutes * 60
                     trimmed_file_path = file_path.replace('.m4a', '_trimmed.m4a')
                     subprocess.run(['ffmpeg', '-i', file_path, '-ss', '00:00:00', '-t', str(max_length_seconds), trimmed_file_path], check=True)
                     os.remove(file_path)  # Remove the original untrimmed file
                     return trimmed_file_path
                 return file_path
+            else:
+                logging.error(f"File does not exist or is not a .m4a file: {file_path}")
+        else:
+            logging.error("File path not found in yt-dlp output")
     except subprocess.CalledProcessError as e:
-        print(f"Error: {e.stderr}")
+        logging.error(f"Error: {e.stderr}")
     
     return None  # In case no file is found
 
@@ -202,7 +234,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    print("Processing audio...")
+    logging.debug("Processing audio...")
     if args.url.startswith("https://"):
         audio_file_path = download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     else:
@@ -212,7 +244,7 @@ if __name__ == "__main__":
 
         # Check the file extension and only convert if it's not already .m4a or .mp3
         if not (file_name.endswith(".m4a") or file_name.endswith(".mp3")):
-            print("Fetching audio...")
+            logging.debug("Fetching audio...")
             # Replace spaces with hyphens in the file name if not .m4a or .mp3
             file_name = file_name.replace(" ", "-")
             audio_file_path = os.path.join(args.path, "audio", os.path.splitext(file_name)[0] + "_audio.m4a")
@@ -223,11 +255,11 @@ if __name__ == "__main__":
             # Convert the file to M4A format
             subprocess.run(['ffmpeg', '-i', args.url, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
 
-    print(f"Audio file is ready at {audio_file_path}")
+    logging.debug(f"Audio file is ready at {audio_file_path}")
 
     # Transcription part
     if audio_file_path is not None:
-        print(f"Running transcription on {audio_file_path}")
+        logging.debug(f"Running transcription on {audio_file_path}")
         transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType(args.service)) 
         combined_transcription = transcribe_audio(audio_file_path, transcription_service, args.prompt)
         
@@ -240,8 +272,6 @@ if __name__ == "__main__":
         # Writing the transcription to the file
         with open(transcription_file_path, 'w', encoding='utf-8') as file:
             file.write(combined_transcription)
-
-        # todo : now refactor to use srt or vtt class to adjust if need be.
 
         result = {
             "url": args.url,
@@ -256,5 +286,5 @@ if __name__ == "__main__":
         # Print result as JSON
         print(json.dumps(result))
 
-    # python app.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
+    # python app.py "https://www.youtube.com/watch?v=CYazjdqiFfg" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
     # --max_length_minutes 10
