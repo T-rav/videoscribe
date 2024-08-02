@@ -235,6 +235,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     logging.debug("Processing audio...")
+
+    # Get video info
+    video_info = get_video_info(args.url)
+    title = video_info.get("title", "Unknown Title")
+    duration = video_info.get("duration", 0)
+    
     if args.url.startswith("https://"):
         audio_file_path = download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     else:
@@ -275,6 +281,8 @@ if __name__ == "__main__":
 
         result = {
             "url": args.url,
+            "title": title,
+            "duration": duration,
             "service": args.service,
             "transcription_file_path": transcription_file_path,
             "transcript": combined_transcription
