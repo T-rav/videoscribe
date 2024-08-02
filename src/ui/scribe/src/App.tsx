@@ -10,7 +10,7 @@ const App: React.FC = () => {
     <NotificationProvider>
       <div className="App">
         <Header />
-        <div className="content">
+        <div className="main-content">
           <Form />
         </div>
         <Footer />
