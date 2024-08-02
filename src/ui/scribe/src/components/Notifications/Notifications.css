@@ -6,81 +6,77 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10px;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
 }
 
 .notifications-menu {
   position: absolute;
+  top: 30px;
   right: 0;
-  top: 40px;
-  width: 300px; /* Make the menu wider */
-  background-color: #fff;
+  width: 300px;
+  background: white;
+  border: 1px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
   border-radius: 4px;
   z-index: 1000;
-}
-
-.no-notifications {
-  text-align: center;
-  color: #888;
-  font-size: 14px;
-  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
   position: relative;
-  padding: 15px;
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .notification-item h4 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: bold;
+  margin: 0 0 5px;
 }
 
 .notification-item p {
   margin: 5px 0;
-  font-size: 14px;
 }
 
 .view-button {
-  background-color: rgb(217, 203, 176);
+  background-color: rgb(199, 162, 107);
   border: none;
   padding: 5px 10px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-family: "Space Mono", monospace;
-  color: rgb(92, 69, 35);
-  font-weight: 500;
+  font-weight: 600;
+  color: white;
+  border-radius: 4px;
 }
 
 .view-button:hover {
-  background-color: #d1b179;
+  background-color: #bfa26c;
 }
 
 .close-button {
   position: absolute;
-  top: 12px; /* Adjust the top position */
-  right: 5px;
-  background-color: rgb(217, 203, 176); /* Brown background */
+  top: 12px;
+  right: 10px;
+  background: none;
   border: none;
-  font-size: 10px; /* Reduced the size */
+  font-size: 16px;
   cursor: pointer;
-  color: rgb(92, 69, 35); /* Text color */
-  width: 20px; /* Ensure square shape */
-  height: 20px; /* Ensure square shape */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.close-button:hover {
-  background-color: #d1b179; /* Hover color */
-  color: #333;
+.no-notifications {
+  padding: 10px;
+  text-align: center;
+  color: #888;
 }

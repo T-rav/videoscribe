@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import './Form.css';
+import { useNotificationContext } from '../NotificationContext';
 
 const Form: React.FC = () => {
   const [youtubeLink, setYoutubeLink] = useState('');
   const [transcriptionType, setTranscriptionType] = useState('groq');
   const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { addNotification } = useNotificationContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     const data = {
       url: youtubeLink,
       transcriptionType: transcriptionType,
     };
-
-    console.log('Submitting form with data:', data);
 
     try {
       const response = await fetch('http://localhost:3001/transcribe', {
@@ -27,20 +29,25 @@ const Form: React.FC = () => {
         body: JSON.stringify(data),
       });
 
-      console.log('Response:', response);
-
       if (response.ok) {
         const result = await response.json();
         console.log('Transcription Result:', result);
-        // Handle the result here (e.g., display it in the UI or store it in state)
+
+        // Add notification
+        addNotification({
+          title: result.title,
+          datetime: new Date().toLocaleString(),
+          length: result.duration,
+          progress: 'Completed',
+          transcript: result.transcript
+        });
+
       } else {
         const error = await response.json();
-        console.error('Error:', error.error || response.statusText);
-        // Handle the error here (e.g., display an error message)
+        setError(error.error || response.statusText);
       }
     } catch (error) {
-      console.error('Error:', error);
-      // Handle the error here (e.g., display an error message)
+      setError('An error occurred while processing the request.');
     } finally {
       setLoading(false);
     }
@@ -49,6 +56,7 @@ const Form: React.FC = () => {
   return (
     <div className="form-container">
       <h2>Transcribe YouTube Videos</h2>
+      {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="youtube-link">YouTube Link</label>
         <input

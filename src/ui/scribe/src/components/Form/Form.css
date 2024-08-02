@@ -75,3 +75,8 @@
     transform: rotate(360deg);
   }
 }
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
