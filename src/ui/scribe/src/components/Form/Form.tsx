@@ -76,7 +76,7 @@ const Form: React.FC = () => {
           <option value="groq">Quick</option>
           <option value="openai">Good</option>
           <option value="openai-vtt">VTT</option>
-          <option value="openai-str">STR</option>
+          <option value="openai-srt">SRT</option>
         </select>
 
         <label htmlFor="transcription-prompt">Transcription Prompt</label>
