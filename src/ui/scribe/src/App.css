@@ -13,9 +13,8 @@
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center; /* Change from flex-start to center */
   padding: 20px;
-  margin-top: 40px;
 }
 
 .form-container {
@@ -38,6 +37,7 @@
   text-align: center;
   width: 100%;
   font-family: "DM Sans", sans-serif;
+  margin-top: auto;
 }
 
 .footer-left {
@@ -93,4 +93,24 @@
 
 .sign-in:hover {
   background-color: #d1b179;
+}
+
+/* Additional styles for the spinner */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

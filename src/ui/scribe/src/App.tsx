@@ -3,7 +3,6 @@ import './App.css';
 import Header from './components/Header/Header';
 import Form from './components/Form/Form';
 import Footer from './components/Footer/Footer';
-import Notifications from './components/Notifications/Notifications';
 import { NotificationProvider } from './components/NotificationContext';
 
 const App: React.FC = () => {
@@ -11,8 +10,9 @@ const App: React.FC = () => {
     <NotificationProvider>
       <div className="App">
         <Header />
-        <Notifications />
-        <Form />
+        <div className="content">
+          <Form />
+        </div>
         <Footer />
       </div>
     </NotificationProvider>
