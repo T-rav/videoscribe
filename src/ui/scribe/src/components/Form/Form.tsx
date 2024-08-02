@@ -3,29 +3,46 @@ import './Form.css';
 
 const Form: React.FC = () => {
   const [youtubeLink, setYoutubeLink] = useState('');
-  const [transcriptionType, setTranscriptionType] = useState('normal');
-  // https://platform.openai.com/docs/guides/speech-to-text/prompting
+  const [transcriptionType, setTranscriptionType] = useState('groq');
   const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+
+    const data = {
+      url: youtubeLink,
+      transcriptionType: transcriptionType,
+    };
+
+    console.log('Submitting form with data:', data);
+
     try {
-      const response = await fetch('https://<your-azure-web-app-name>.azurewebsites.net/api/transcribe', {
+      const response = await fetch('http://localhost:3001/transcribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          youtubeLink,
-          transcriptionType,
-          transcriptionPrompt,
-        }),
+        body: JSON.stringify(data),
       });
-      const data = await response.json();
-      console.log(data);
-      // Handle the response data as needed
+
+      console.log('Response:', response);
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Transcription Result:', result);
+        // Handle the result here (e.g., display it in the UI or store it in state)
+      } else {
+        const error = await response.json();
+        console.error('Error:', error.error || response.statusText);
+        // Handle the error here (e.g., display an error message)
+      }
     } catch (error) {
       console.error('Error:', error);
+      // Handle the error here (e.g., display an error message)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,9 +54,9 @@ const Form: React.FC = () => {
         <input
           type="text"
           id="youtube-link"
-          placeholder="Paste YouTube link here"
           value={youtubeLink}
           onChange={(e) => setYoutubeLink(e.target.value)}
+          placeholder="Paste YouTube link here"
         />
 
         <label htmlFor="transcription-type">Transcription Type</label>
@@ -48,22 +65,23 @@ const Form: React.FC = () => {
           value={transcriptionType}
           onChange={(e) => setTranscriptionType(e.target.value)}
         >
-          <option value="normal">Normal</option>
-          <option value="vtt">VTT</option>
-          <option value="str">STR</option>
+          <option value="groq">Quick</option>
+          <option value="openai">Good</option>
+          <option value="openai-vtt">VTT</option>
+          <option value="openai-str">STR</option>
         </select>
 
-        <label htmlFor="transcription-prompt">Transcription Prompt <a href="https://platform.openai.com/docs/guides/speech-to-text/prompting" target="_blank" rel="noopener noreferrer">(?)</a></label>
+        <label htmlFor="transcription-prompt">Transcription Prompt</label>
         <textarea
           id="transcription-prompt"
-          placeholder="Enter a prompt for the transcription (Optional)"
           value={transcriptionPrompt}
           onChange={(e) => setTranscriptionPrompt(e.target.value)}
+          placeholder="Enter a prompt for the transcription (Optional)"
           rows={3}
         ></textarea>
 
-        <button type="submit" className="submit-button">
-          Transcribe
+        <button type="submit" className="submit-button" disabled={loading}>
+          {loading ? <div className="spinner"></div> : 'Transcribe'}
         </button>
       </form>
     </div>
