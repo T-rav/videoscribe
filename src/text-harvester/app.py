@@ -28,6 +28,7 @@ class TranscriptionService(ABC):
     @abstractmethod
     def transcribe(self, audio_file_path: str, prompt: str) -> str:
         pass
+
     def file_name_extension(self) -> str:
         pass
 
@@ -140,7 +141,6 @@ def get_video_info(url: str) -> dict:
 
 def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None) -> Optional[str]:
     # Ensure the path exists
-
     logging.debug(f"Downloading audio from {url} to {path}")
     current_directory = os.getcwd()
     logging.debug(f"Current Directory: {current_directory}")
@@ -236,15 +236,16 @@ if __name__ == "__main__":
 
     logging.debug("Processing audio...")
 
-    # Get video info
-    video_info = get_video_info(args.url)
-    title = video_info.get("title", "Unknown Title")
-    duration = video_info.get("duration", 0)
-    
     if args.url.startswith("https://"):
+        # Get video info if it's a URL
+        video_info = get_video_info(args.url)
+        title = video_info.get("title", "Unknown Title")
+        duration = video_info.get("duration", 0)
         audio_file_path = download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     else:
         # assume it is a local file
+        title = os.path.basename(args.url)
+        duration = None
         file_name = os.path.basename(args.url)
         audio_file_path = os.path.join(args.path, "audio", file_name)
 
@@ -266,7 +267,7 @@ if __name__ == "__main__":
     # Transcription part
     if audio_file_path is not None:
         logging.debug(f"Running transcription on {audio_file_path}")
-        transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType(args.service)) 
+        transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType(args.service))
         combined_transcription = transcribe_audio(audio_file_path, transcription_service, args.prompt)
         
         # Derive the transcription file path by replacing the audio file extension with '_transcript.txt'
@@ -289,10 +290,10 @@ if __name__ == "__main__":
         }
 
         # remove the audio file
-        os.remove(audio_file_path)
+        #os.remove(audio_file_path)
 
         # Print result as JSON
         print(json.dumps(result))
 
-    # python app.py "https://www.youtube.com/watch?v=CYazjdqiFfg" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
+    # python3 app.py "./incoming/audio/AI Unplugged - Ep 0003.mp4" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
     # --max_length_minutes 10
