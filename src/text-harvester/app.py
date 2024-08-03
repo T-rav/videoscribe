@@ -139,7 +139,7 @@ def get_video_info(url: str) -> dict:
     video_info = result.stdout
     return json.loads(video_info)
 
-def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None) -> Optional[str]:
+def download_audio(url: str, path: str, audio_format: str, max_length_minutes: Optional[int] = None) -> Optional[str]:
     # Ensure the path exists
     logging.debug(f"Downloading audio from {url} to {path}")
     current_directory = os.getcwd()
@@ -151,7 +151,7 @@ def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None
     command = [
         'yt-dlp',
         '-x',  # Extract audio
-        '--audio-format', 'm4a',  # Specify audio format
+        '--audio-format', audio_format,  # Specify audio format
         '--output', os.path.join(path, '%(title)s.%(ext)s'),  # Naming convention
         '--format', 'bestaudio',
         '-N', '4', # use 4 connections
@@ -164,26 +164,26 @@ def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None
         # Extract the file path from the stdout
         output = result.stdout
         logging.debug(f"yt-dlp output: {output}")
-        file_path_match = re.search(r'Destination:\s+(.*\.m4a)', output)
+        file_path_match = re.search(r'Destination:\s+(.*\.' + audio_format + ')', output)
         
         if file_path_match:
             file_path = file_path_match.group(1).strip()
             logging.debug(f"File path found: {file_path}")
-            if os.path.exists(file_path) and file_path.endswith(".m4a"):
+            if os.path.exists(file_path) and file_path.endswith("." + audio_format):
                 logging.debug(f"File exists: {file_path}")
                 # If max_length_minutes is set, trim the audio
                 if max_length_minutes:
                     logging.debug(f"Trimming audio file: {file_path}")
                     max_length_seconds = max_length_minutes * 60
-                    trimmed_file_path = file_path.replace('.m4a', '_trimmed.m4a')
-                    subprocess.run(['ffmpeg', '-i', file_path, '-ss', '00:00:00', '-t', str(max_length_seconds), trimmed_file_path], check=True)
+                    trimmed_file_path = file_path.replace(f'.{audio_format}', f'_trimmed.{audio_format}')
+                    subprocess.run(['ffmpeg', '-i', file_path, '-ss', '00:00:00', '-t', str(max_length_seconds), '-ar', '44100', trimmed_file_path], check=True)
                     os.remove(file_path)  # Remove the original untrimmed file
                     return trimmed_file_path
                 return file_path
             else:
-                logging.error(f"File does not exist or is not a .m4a file: {file_path}")
+                logging.error(f"File does not exist or is not a .{audio_format} file: {file_path}")
         else:
-            logging.error("File path not found in yt-dlp output")
+            logging.error(f"File path not found in yt-dlp output for {audio_format} format")
     except subprocess.CalledProcessError as e:
         logging.error(f"Error: {e.stderr}")
     
@@ -228,6 +228,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Transcribe audio from a video or local file.')
     parser.add_argument('url', type=str, help='The URL of the video or path to the local file.')
     parser.add_argument('--path', type=str, default='./incoming', help='The directory path to save the audio file.')
+    parser.add_argument('--audio_format', type=str, choices=['mp3', 'm4a'], default='m4a', help='The audio format for the output file.')
     parser.add_argument('--max_length_minutes', type=int, default=None, help='Maximum length of the video in minutes.')
     parser.add_argument('--prompt', type=str, default=None, help='Prompt for the transcription service.')
     parser.add_argument('--service', type=str, choices=[service.value for service in TranscriptionServiceType], default='groq', help='The transcription service to use.')
@@ -241,7 +242,7 @@ if __name__ == "__main__":
         video_info = get_video_info(args.url)
         title = video_info.get("title", "Unknown Title")
         duration = video_info.get("duration", 0)
-        audio_file_path = download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
+        audio_file_path = download_audio(args.url, f'{args.path}/audio', args.audio_format, max_length_minutes=args.max_length_minutes)
     else:
         # assume it is a local file
         title = os.path.basename(args.url)
@@ -249,18 +250,21 @@ if __name__ == "__main__":
         file_name = os.path.basename(args.url)
         audio_file_path = os.path.join(args.path, "audio", file_name)
 
-        # Check the file extension and only convert if it's not already .m4a or .mp3
-        if not (file_name.endswith(".m4a") or file_name.endswith(".mp3")):
+        # Check the file extension and only convert if it's not already the desired format
+        if not file_name.endswith(f".{args.audio_format}"):
             logging.debug("Fetching audio...")
-            # Replace spaces with hyphens in the file name if not .m4a or .mp3
+            # Replace spaces with hyphens in the file name if not in the desired format
             file_name = file_name.replace(" ", "-")
-            audio_file_path = os.path.join(args.path, "audio", os.path.splitext(file_name)[0] + "_audio.m4a")
+            audio_file_path = os.path.join(args.path, "audio", os.path.splitext(file_name)[0] + f"_audio.{args.audio_format}")
             
             # Ensure the directory exists
             os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
             
-            # Convert the file to M4A format
-            subprocess.run(['ffmpeg', '-i', args.url, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
+            # Convert the file to the desired format
+            if args.audio_format == 'm4a':
+                subprocess.run(['ffmpeg', '-i', args.url, '-vn', '-ar', '44100', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
+            else:
+                subprocess.run(['ffmpeg', '-i', args.url, '-vn', '-ar', '44100', '-ac', '1', '-ab', '128k', '-f', args.audio_format, audio_file_path], check=True)
 
     logging.debug(f"Audio file is ready at {audio_file_path}")
 
@@ -290,10 +294,10 @@ if __name__ == "__main__":
         }
 
         # remove the audio file
-        #os.remove(audio_file_path)
+        # os.remove(audio_file_path)
 
         # Print result as JSON
         print(json.dumps(result))
 
     # python3 app.py "./incoming/audio/AI Unplugged - Ep 0003.mp4" --service "openai-srt" --path "./incoming"  --prompt "My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI." 
-    # --max_length_minutes 10
+    # --max_length_minutes 10 --audio_format mp3
