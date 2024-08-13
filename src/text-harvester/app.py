@@ -7,8 +7,6 @@ from dotenv import load_dotenv
 from services.audio.audio_service import AudioService
 from services.audio.audio_downloader import AudioDownloader
 from services.audio.file_handler import FileHandler
-from services.audio.srt_adjuster import SrtAdjuster
-from services.audio.vtt_adjuster import VttAdjuster
 from services.transcription import TranscriptionServiceType, TranscriptionFactory
 
 # Load environment variables from .env file
@@ -49,28 +47,8 @@ if __name__ == "__main__":
         with open(transcription_file_path, 'w', encoding='utf-8') as file:
             file.write(combined_transcription)
 
-        # Check if SRT or VTT adjustment is needed
-        if args.service == 'openai-srt':
-            adjusted_srt_file_path = transcription_file_path.replace(".srt", "_adjusted.srt")
-            srt_adjuster = SrtAdjuster(transcription_file_path, adjusted_srt_file_path)
-            srt_adjuster.adjust_timings()
-
-            # Read the adjusted SRT file content
-            with open(adjusted_srt_file_path, 'r', encoding='utf-8') as file:
-                combined_transcription = file.read()
-
-            transcription_file_path = adjusted_srt_file_path
-
-        elif args.service == 'openai-vtt':
-            adjusted_vtt_file_path = transcription_file_path.replace(".vtt", "_adjusted.vtt")
-            vtt_adjuster = VttAdjuster(transcription_file_path, adjusted_vtt_file_path)
-            vtt_adjuster.adjust_timings()
-
-            # Read the adjusted VTT file content
-            with open(adjusted_vtt_file_path, 'r', encoding='utf-8') as file:
-                combined_transcription = file.read()
-
-            transcription_file_path = adjusted_vtt_file_path
+        # Adjust transcript if necessary
+        combined_transcription, transcription_file_path = AudioService.adjust_transcript_if_needed(transcription_file_path, TranscriptionServiceType(args.service))
 
         result = {
             "url": args.url,
