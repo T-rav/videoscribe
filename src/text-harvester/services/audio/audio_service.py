@@ -1,5 +1,6 @@
 import os
-from typing import List
+import logging
+from typing import List, Optional
 from pydub import AudioSegment
 from services.transcription import TranscriptionServiceType
 from services.audio.srt_adjuster import SrtAdjuster
@@ -29,7 +30,23 @@ class AudioService:
 
     @staticmethod
     def transcribe_audio_segment(service, audio_file_path: str, prompt: str) -> str:
-        return service.transcribe(audio_file_path, prompt)
+        try:
+            # Making the transcription API call
+            with open(audio_file_path, 'rb') as audio_file:
+                logging.debug(f"Processing part {audio_file_path}")
+                transcription = service.client.audio.transcriptions.create(
+                    model="whisper-1", 
+                    file=audio_file, 
+                    prompt=prompt,
+                    response_format=service.file_name_extension().lstrip('.')
+                )
+                # Handle the response as plain text
+                transcription_text = transcription
+        except Exception as e:
+            logging.error(f"Error transcribing audio file: {e}")
+            transcription_text = ""
+        
+        return transcription_text
 
     @staticmethod
     def transcribe_audio(file_path: str, service, prompt: str) -> str:

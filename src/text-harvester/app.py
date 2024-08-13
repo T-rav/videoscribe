@@ -1,5 +1,5 @@
-# app.py
 import argparse
+from datetime import datetime
 import logging
 import os
 import json
@@ -12,8 +12,11 @@ from services.transcription import TranscriptionServiceType, TranscriptionFactor
 # Load environment variables from .env file
 load_dotenv()
 
-# Configure logging
-logging.basicConfig(filename='transcription.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
+# Generate a log file name with the current date
+log_filename = f"transcription_{datetime.now().strftime('%Y-%m-%d')}.log"
+
+# Configure logging with the date in the file name
+logging.basicConfig(filename=log_filename, level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Transcribe audio from a video or local file.')
