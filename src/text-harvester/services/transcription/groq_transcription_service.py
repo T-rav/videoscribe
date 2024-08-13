@@ -11,7 +11,11 @@ class GroqTranscriptionService(TranscriptionService):
             with open(audio_file_path, 'rb') as audio_file:
                 logging.debug(f"Processing part {audio_file_path}")
                 trimmed_prompt = self.take_last_896_chars(prompt)
-                transcription = self.client.audio.transcriptions.create(model="whisper-large-v3", file=audio_file)
+                transcription = self.client.audio.transcriptions.create(
+                    model="whisper-large-v3", 
+                    file=audio_file,
+                    response_format="json"  # Correctly specify the response format here
+                )
             return transcription.text
         except Exception as e:
             logging.error(f"Error transcribing audio file: {e}")
