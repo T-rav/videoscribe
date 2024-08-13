@@ -1,4 +1,5 @@
 # app.py
+from datetime import datetime
 import json
 import subprocess
 import os
@@ -13,8 +14,18 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# Configure logging
-logging.basicConfig(filename='transcription.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
+# Get the current date
+current_date = datetime.now().strftime('%Y-%m-%d')
+
+# Create the filename with the date
+log_filename = f'transcription_{current_date}.log'
+
+# Set up logging with the dynamic filename
+logging.basicConfig(
+    filename=log_filename,
+    level=logging.DEBUG,
+    format='%(asctime)s %(levelname)s:%(message)s'
+)
 
 def get_video_info(url: str) -> dict:
     command = [
