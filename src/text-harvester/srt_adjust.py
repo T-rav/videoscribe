@@ -67,5 +67,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     adjust_srt_timings(args.input_srt_file, args.output_srt_file)
-
-    # python srt_adjust.py "./incoming/transcript/GPT with Me - Ep 19： Bootstrapping an API with Gen AI_transcript.srt" "./incoming/transcript/adjusted_GPT with Me - Ep 19： Bootstrapping an API with Gen AI_transcript.srt"
