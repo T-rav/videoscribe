@@ -100,8 +100,7 @@ const Form: React.FC = () => {
           value={transcriptionType}
           onChange={(e) => setTranscriptionType(e.target.value)}
         >
-          <option value="groq">Quick</option>
-          <option value="openai">Good</option>
+          <option value="openai">Text</option>
           <option value="openai-vtt">VTT</option>
           <option value="openai-srt">SRT</option>
         </select>
