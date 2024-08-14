@@ -116,7 +116,11 @@ class AudioDownloader:
                 logging.debug(f"Downloaded video file path: {video_file_path}")
                 
                 # Convert the video file to audio
-                audio_file_path = os.path.splitext(video_file_path)[0] + '.m4a'
+                audio_file_name = os.path.splitext(os.path.basename(video_file_path))[0] + '_audio.m4a'
+                audio_dir = os.path.join(path, 'audio')
+                if not os.path.exists(audio_dir):
+                    os.makedirs(audio_dir)
+                audio_file_path = os.path.join(audio_dir, audio_file_name)
                 subprocess.run(['ffmpeg', '-i', video_file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'mp4', audio_file_path], check=True)
                 logging.debug(f"Converted audio file saved to {audio_file_path}")
                 
