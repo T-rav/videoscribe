@@ -1,5 +1,23 @@
 #!/bin/bash
 
+# Script Name: text-harvester.sh
+# Purpose: This script recursively searches a given directory for files with specified extensions,
+# verifies that they are plain text files, and concatenates their content into a single output file.
+# This output file can then be used as input for GPT or other text processing tools.
+#
+# Usage: ./text-harvester.sh <start_directory> <output_file> <extensions>
+# 
+# <start_directory>: The root directory where the script will begin its search.
+# <output_file>: The file where the concatenated content of the matching files will be saved.
+# <extensions>: A comma-separated list of file extensions to include (e.g., "py,css,ts,html").
+#
+# Example: 
+# ./text-harvester.sh ./src/ui/scribe output.txt "py,css,ts,html"
+# This example searches the ./src/ui/scribe directory for files with .py, .css, .ts, and .html extensions,
+# checks if they are plain text files, and concatenates their content into output.txt.
+#
+# This script is particularly useful for gathering code and related text files into a single file for input into GPT models.
+
 # Set the starting directory, output file, and extensions list
 START_DIR="$1"
 OUTPUT_FILE="$2"
