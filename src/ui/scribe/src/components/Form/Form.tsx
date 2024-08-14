@@ -3,7 +3,7 @@ import './Form.css';
 import { useNotificationContext } from '../NotificationContext';
 
 const Form: React.FC = () => {
-  const [youtubeLink, setYoutubeLink] = useState('');
+  const [videoLink, setVideoLink] = useState('');
   const [transcriptionType, setTranscriptionType] = useState('groq');
   const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,10 +15,37 @@ const Form: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    const data = {
-      url: youtubeLink,
-      transcriptionType: transcriptionType,
-    };
+    let data;
+
+    if (videoLink.includes('youtube.com') || videoLink.includes('youtu.be')) {
+      data = {
+        url: videoLink,
+        transcriptionType: transcriptionType,
+      };
+    } else if (videoLink.includes('vimeo.com')) {
+      data = {
+        url: videoLink,
+        transcriptionType: transcriptionType,
+      };
+    } else if (videoLink.includes('drive.google.com')) {
+      const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
+      const fileId = fileIdMatch ? fileIdMatch[1] : null;
+
+      if (!fileId) {
+        setError('Invalid Google Drive URL.');
+        setLoading(false);
+        return;
+      }
+
+      data = {
+        url: `https://drive.google.com/uc?export=download&id=${fileId}`,
+        transcriptionType: transcriptionType,
+      };
+    } else {
+      setError('Unsupported URL. Please provide a valid YouTube, Vimeo, or Google Drive link.');
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:3001/transcribe', {
@@ -55,16 +82,16 @@ const Form: React.FC = () => {
 
   return (
     <div className="form-container">
-      <h2>Transcribe YouTube Videos</h2>
+      <h2>Transcribe Videos</h2>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="youtube-link">YouTube Link</label>
+        <label htmlFor="video-link">Video Link</label>
         <input
           type="text"
-          id="youtube-link"
-          value={youtubeLink}
-          onChange={(e) => setYoutubeLink(e.target.value)}
-          placeholder="Paste YouTube link here"
+          id="video-link"
+          value={videoLink}
+          onChange={(e) => setVideoLink(e.target.value)}
+          placeholder="Paste YouTube, Vimeo, or Google Drive link here"
         />
 
         <label htmlFor="transcription-type">Transcription Type</label>
