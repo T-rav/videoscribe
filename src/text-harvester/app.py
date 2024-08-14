@@ -30,7 +30,10 @@ if __name__ == "__main__":
 
     logging.debug("Processing audio...")
 
-    if args.url.startswith("https://"):
+    if args.url.startswith("https://drive.google.com"):
+        audio_file_path = AudioDownloader.download_google_drive_video(args.url, args.path)
+        video_info = {"title": "Google Drive Video", "duration": 0}  # Google Drive doesn't give video info easily
+    elif args.url.startswith("https://"):
         video_info = AudioDownloader.get_video_info(args.url)
         audio_file_path = AudioDownloader.download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     else:
@@ -62,6 +65,6 @@ if __name__ == "__main__":
             "transcript": combined_transcription  # Return the adjusted transcript text
         }
 
-        os.remove(audio_file_path)
+        #os.remove(audio_file_path)
 
         print(json.dumps(result))
