@@ -14,11 +14,11 @@ class FileHandler:
         if ext.lower() in [".mov", ".mp4", ".avi", ".mkv", ".webm"]:
             logging.debug(f"Converting video file {file_name} to audio...")
             os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
-            subprocess.run(['ffmpeg', '-i', file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'm4a', audio_file_path], check=True)
+            subprocess.run(['ffmpeg', '-i', file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
         elif ext.lower() not in [".m4a", ".mp3"]:
             logging.debug(f"Converting unsupported audio file {file_name} to m4a...")
             os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
-            subprocess.run(['ffmpeg', '-i', file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'm4a', audio_file_path], check=True)
+            subprocess.run(['ffmpeg', '-i', file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
         else:
             logging.debug(f"No conversion needed for file {file_name}, copying to output directory...")
             os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
