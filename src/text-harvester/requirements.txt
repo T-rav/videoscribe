@@ -3,3 +3,5 @@ openai
 python-dotenv
 pydub
 groq
+pytest 
+pytest-mock

@@ -9,16 +9,16 @@ from services.audio.audio_downloader import AudioDownloader
 from services.audio.file_handler import FileHandler
 from services.transcription import TranscriptionServiceType, TranscriptionFactory
 
-# Load environment variables from .env file
-load_dotenv()
+def main():
+    # Load environment variables from .env file
+    load_dotenv()
 
-# Generate a log file name with the current date
-log_filename = f"transcription_{datetime.now().strftime('%Y-%m-%d')}.log"
+    # Generate a log file name with the current date
+    log_filename = f"transcription_{datetime.now().strftime('%Y-%m-%d')}.log"
 
-# Configure logging with the date in the file name
-logging.basicConfig(filename=log_filename, level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
+    # Configure logging with the date in the file name
+    logging.basicConfig(filename=log_filename, level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
 
-if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Transcribe audio from a video or local file.')
     parser.add_argument('url', type=str, help='The URL of the video or path to the local file.')
     parser.add_argument('--path', type=str, default='./incoming', help='The directory path to save the audio file.')
@@ -68,3 +68,6 @@ if __name__ == "__main__":
         os.remove(audio_file_path)
 
         print(json.dumps(result))
+
+if __name__ == "__main__":
+    main()

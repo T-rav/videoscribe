@@ -11,7 +11,10 @@ class AudioService:
     @staticmethod
     def split_audio(file_path: str, segment_length_ms: int = 600000) -> List[str]:
         song = AudioSegment.from_file(file_path)
-        parts = len(song) // segment_length_ms + 1
+        parts = len(song) // segment_length_ms
+        if len(song) % segment_length_ms != 0:
+            parts += 1
+        
         base, ext = os.path.splitext(file_path)
         audio_format = ext.replace('.', '')
 
