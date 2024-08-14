@@ -68,16 +68,16 @@ class AudioService:
             adjusted_srt_file_path = transcription_file_path.replace(".srt", "_adjusted.srt")
             srt_adjuster = SrtAdjuster(transcription_file_path, adjusted_srt_file_path)
             srt_adjuster.adjust_timings()
-            with open(adjusted_srt_file_path, 'r', encoding='utf-8') as file:
-                return file.read(), adjusted_srt_file_path
+            os.replace(adjusted_srt_file_path, transcription_file_path)  # Replace original with adjusted
+            logging.debug(f"Replaced original SRT file with adjusted SRT file: {transcription_file_path}")
 
         elif service_type == TranscriptionServiceType.OPENAI_VTT:
             adjusted_vtt_file_path = transcription_file_path.replace(".vtt", "_adjusted.vtt")
             vtt_adjuster = VttAdjuster(transcription_file_path, adjusted_vtt_file_path)
             vtt_adjuster.adjust_timings()
-            with open(adjusted_vtt_file_path, 'r', encoding='utf-8') as file:
-                return file.read(), adjusted_vtt_file_path
+            os.replace(adjusted_vtt_file_path, transcription_file_path)  # Replace original with adjusted
+            logging.debug(f"Replaced original VTT file with adjusted VTT file: {transcription_file_path}")
 
-        # If no adjustment was needed, just return the original transcript
+        # Return the path to the adjusted transcript
         with open(transcription_file_path, 'r', encoding='utf-8') as file:
             return file.read(), transcription_file_path

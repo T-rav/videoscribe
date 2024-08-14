@@ -65,6 +65,6 @@ if __name__ == "__main__":
             "transcript": combined_transcription  # Return the adjusted transcript text
         }
 
-        #os.remove(audio_file_path)
+        os.remove(audio_file_path)
 
         print(json.dumps(result))

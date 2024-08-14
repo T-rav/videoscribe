@@ -124,6 +124,10 @@ class AudioDownloader:
                 subprocess.run(['ffmpeg', '-i', video_file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'mp4', audio_file_path], check=True)
                 logging.debug(f"Converted audio file saved to {audio_file_path}")
                 
+                # Delete the original video file after conversion
+                os.remove(video_file_path)
+                logging.debug(f"Deleted original video file: {video_file_path}")
+                
                 if max_length_minutes:
                     logging.debug(f"Trimming audio file: {audio_file_path}")
                     max_length_seconds = max_length_minutes * 60
