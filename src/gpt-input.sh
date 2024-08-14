@@ -48,3 +48,5 @@ find "$START_DIR" -type f | while read -r FILE; do
 done
 
 echo "All matching text files have been concatenated into $OUTPUT_FILE."
+
+# Usage: ./gpt-input.sh text-harvester foo.txt "py,css,ts,html"     
