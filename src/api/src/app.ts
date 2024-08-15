@@ -78,15 +78,15 @@ const createApp = (transcribe: TranscribeFunction) => {
       const result = await transcribe({ url:filePath, transcriptionType });
       res.json(result);
     } catch (error) {
-      if (file) {
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            logger.error('Failed to delete temp file:', err);
-          } else {
-            logger.info(`Temp file ${filePath} deleted successfully`);
-          }
-        });
-      }
+      // if (file) {
+      //   fs.unlink(filePath, (err) => {
+      //     if (err) {
+      //       logger.error('Failed to delete temp file:', err);
+      //     } else {
+      //       logger.info(`Temp file ${filePath} deleted successfully`);
+      //     }
+      //   });
+      // }
       next(error); // Pass the error to the global error handler
     }
   });

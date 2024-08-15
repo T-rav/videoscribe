@@ -50,8 +50,9 @@ def main():
         video_info = AudioDownloader.get_video_info(args.url)
         audio_file_path = AudioDownloader.download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     else:
-        video_info = {"title": os.path.basename(args.url), "duration": get_audio_duration(args.url)}
+        logging.debug("Processing file...")
         audio_file_path = FileHandler.handle_local_file(args.url, args.path)
+        video_info = {"title": os.path.basename(args.url), "duration": get_audio_duration(audio_file_path)}
 
     logging.debug(f"Audio file is ready at {audio_file_path}")
 
