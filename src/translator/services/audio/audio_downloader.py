@@ -16,9 +16,18 @@ class AudioDownloader:
             '--dump-json',
             url
         ]
-        result = subprocess.run(command, check=True, capture_output=True, text=True)
-        video_info = result.stdout
-        return json.loads(video_info)
+        try:
+            result = subprocess.run(command, check=True, capture_output=True, text=True)
+            video_info = result.stdout
+            return json.loads(video_info)
+        except Exception as e:
+            logging.error(f"Error occurred while trying to get video info: {str(e)}")
+            logging.info(f"Continuing with default video info for URL: {url}")
+            return {
+                "title": "Unknown Title",
+                "duration": 0,
+                "url": url
+            }
 
     @staticmethod
     def download_audio(url: str, path: str, max_length_minutes: Optional[int] = None) -> Optional[str]:
