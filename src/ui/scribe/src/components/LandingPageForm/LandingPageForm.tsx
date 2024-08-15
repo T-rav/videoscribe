@@ -23,12 +23,13 @@ const LandingPageForm: React.FC = () => {
     setError(null);
     setResult(null);
 
-    let data: FormData | { url: string; transform: string };
+    let data: FormData | { url: string; transform: string; transcriptionType: string };
 
     if (file) {
       data = new FormData();
       data.append('file', file);
       data.append('transform', transformOption);
+      data.append('transcriptionType', 'openai'); // Ensure transcription type is sent
 
       try {
         const response = await fetch('http://localhost:3001/transcribe', {
@@ -69,6 +70,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: videoLink,
           transform: transformOption,
+          transcriptionType: 'openai', // Ensure transcription type is sent
         };
       } else if (videoLink.includes('drive.google.com')) {
         const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
@@ -83,6 +85,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: `https://drive.google.com/uc?export=download&id=${fileId}`,
           transform: transformOption,
+          transcriptionType: 'openai', // Ensure transcription type is sent
         };
       } else {
         setError('Unsupported URL. Please provide a valid YouTube or Google Drive link.');
