@@ -2,10 +2,9 @@ import os
 import logging
 from typing import List, Optional
 from pydub import AudioSegment
-from services.transcription import TranscriptionServiceType
+from services.transcription import TranscriptionServiceType, TranscriptionService
 from services.audio.srt_adjuster import SrtAdjuster
 from services.audio.vtt_adjuster import VttAdjuster
-from translator.services.transcription.transcription_service import TranscriptionService
 
 class AudioService:
     
