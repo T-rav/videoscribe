@@ -56,10 +56,10 @@ const createApp = (transcribe: TranscribeFunction) => {
   });
 
   app.post('/transcribe_file', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { transcriptionType, transform } = req.body;
-      const file = req.file;
+    const file = req.file;
+    const { transcriptionType } = req.body;
 
+    try {
       if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
         return res.status(400).json({ error: 'Invalid transcription type' });
       }
@@ -72,12 +72,36 @@ const createApp = (transcribe: TranscribeFunction) => {
       const uploadsDir = path.resolve('uploads');
       const filePath = path.join(uploadsDir, file.originalname);
 
-      // Pass the file path to the transcribe function
-      const result = await transcribe({ url:filePath, transcriptionType });
+      // Ensure the uploads directory exists
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir);
+      }
+
+      // Move the file from the temporary location to the final destination
+      fs.renameSync(file.path, filePath);
+
+      // Pass the file path and transform option to the transcribe function
+      const result = await transcribe({ transcriptionType, filePath });
       res.json(result);
     } catch (error) {
+      if (file) {
+        // Cleanup: Delete the temp file if an error occurs
+        fs.unlink(file.path, (err) => {
+          if (err) {
+            logger.error('Failed to delete temp file:', err);
+          } else {
+            logger.info(`Temp file ${file.path} deleted successfully`);
+          }
+        });
+      }
       next(error); // Pass the error to the global error handler
     }
+  });
+
+  // Global error handling middleware
+  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    logger.error('Global Error Handler:', err); // Log the error to error.log using winston
+    res.status(500).json({ error: 'An internal server error occurred' });
   });
 
   // Global error handling middleware
