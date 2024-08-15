@@ -151,7 +151,7 @@ const LandingPageForm: React.FC = () => {
 
   return (
     <div className="form-container">
-      <h2>Transcribe Videos</h2>
+      <h2>Transcribe & Transform Videos</h2>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="file-upload-container">
@@ -212,7 +212,7 @@ const LandingPageForm: React.FC = () => {
           <p>Duration: {result.duration} seconds</p>
           <h4>Transcript:</h4>
           <pre>{result.transcript}</pre>
-          <button className="copy-button" onClick={copyToClipboard}>Copy Transcript</button>
+          <button className="copy-button" onClick={copyToClipboard}>Copy</button>
         </div>
       )}
     </div>
