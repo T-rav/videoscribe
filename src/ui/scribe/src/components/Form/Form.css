@@ -80,3 +80,81 @@
   color: red;
   margin-bottom: 10px;
 }
+
+.transcription-result {
+  background-color: #f5ecd5; /* Match the background color used in notifications */
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Space Mono", monospace; /* Font family to match the modal text */
+  color: #4a4a4a; /* Text color similar to the modal */
+  max-width: 600px; /* Set a max-width similar to the modal */
+  margin-left: auto; /* Center the result area */
+  margin-right: auto;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
+  border: 1px solid #ddd; /* Border similar to modal outline */
+  position: relative; /* For positioning the close button */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.transcription-result h3 {
+  margin-bottom: 10px;
+  font-family: "DM Sans", sans-serif; /* Title font similar to the modal */
+  font-size: 20px; /* Adjust the font size to match the modal title */
+  font-weight: bold;
+  color: #333; /* Title color similar to the modal */
+}
+
+.transcription-result p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.transcription-result h4 {
+  margin-bottom: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.transcription-result pre {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap; /* Preserves formatting of the transcript */
+}
+
+.copy-button {
+  background-color: #d2b48c;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: #4a4a4a;
+  font-weight: 500;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.copy-button:hover {
+  background-color: #bfa26c;
+}

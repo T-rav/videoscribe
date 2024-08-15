@@ -8,12 +8,14 @@ const Form: React.FC = () => {
   const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<{ title: string; duration: string; transcript: string } | null>(null);
   const { addNotification } = useNotificationContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setResult(null);
 
     let data;
 
@@ -58,16 +60,24 @@ const Form: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log('Transcription Result:', result);
-
+        
+        const structuredResult = {
+          title: result.title,
+          duration: result.duration,
+          transcript: result.transcript,
+        };
+        
         // Add notification
         addNotification({
-          title: result.title,
+          title: structuredResult.title,
           datetime: new Date().toLocaleString(),
-          length: result.duration,
+          length: structuredResult.duration,
           progress: 'Completed',
-          transcript: result.transcript
+          transcript: structuredResult.transcript,
         });
+
+        // Set the structured result state to display it below the button
+        setResult(structuredResult);
 
       } else {
         const error = await response.json();
@@ -78,6 +88,21 @@ const Form: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const copyToClipboard = () => {
+    if (result) {
+      const formattedText = `Title: ${result.title}\nDuration: ${result.duration}\n\n${result.transcript}`;
+      navigator.clipboard.writeText(formattedText);
+    }
+  };
+
+  const closeTranscript = () => {
+    // Clear the result and input fields
+    setResult(null);
+    setVideoLink('');
+    setTranscriptionType('openai');
+    setTranscriptionPrompt('');
   };
 
   return (
@@ -118,6 +143,18 @@ const Form: React.FC = () => {
           {loading ? <div className="spinner"></div> : 'Transcribe'}
         </button>
       </form>
+
+      {/* Display the result below the button */}
+      {result && (
+        <div className="transcription-result">
+          <button className="close-button" onClick={closeTranscript}>X</button>
+          <h3>Title: {result.title}</h3>
+          <p>Duration: {result.duration} seconds</p>
+          <h4>Transcript:</h4>
+          <pre>{result.transcript}</pre>
+          <button className="copy-button" onClick={copyToClipboard}>Copy Transcript</button>
+        </div>
+      )}
     </div>
   );
 };

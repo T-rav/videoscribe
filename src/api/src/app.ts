@@ -31,7 +31,7 @@ const createApp = (transcribe: TranscribeFunction) => {
   const isValidUrl = (url: string): boolean => {
     const youtubeRegex = /^(https?:\/\/)?(www\.youtube\.com|youtube\.com|youtu\.?be)\/(watch\?v=|embed\/|v\/|.+\?v=|live\/|shorts\/)?([a-zA-Z0-9_-]{11})$/;
     const googleDriveRegex = /^(https?:\/\/)?(drive\.google\.com|docs\.google\.com)\/(file\/d\/|present\/d\/|uc\?(export=download&)?id=)([a-zA-Z0-9_-]+)(\/view)?$/;
-    const vimeoRegex = /^(https?:\/\/)?(vimeo\.com)\/([0-9]+)$/;
+    const vimeoRegex = /^(https?:\/\/)?(vimeo\.com)\/([a-zA-Z0-9_-]+\/?)+$/;
     return youtubeRegex.test(url) || googleDriveRegex.test(url) || vimeoRegex.test(url);
   };
 
