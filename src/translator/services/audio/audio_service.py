@@ -5,6 +5,7 @@ from pydub import AudioSegment
 from services.transcription import TranscriptionServiceType
 from services.audio.srt_adjuster import SrtAdjuster
 from services.audio.vtt_adjuster import VttAdjuster
+from translator.services.transcription.transcription_service import TranscriptionService
 
 class AudioService:
     
@@ -32,7 +33,7 @@ class AudioService:
         return segments
 
     @staticmethod
-    def transcribe_audio_segment(service, audio_file_path: str, prompt: str) -> str:
+    def transcribe_audio_segment(service: TranscriptionServiceType, audio_file_path: str, prompt: str) -> str:
         try:
             # Making the transcription API call
             with open(audio_file_path, 'rb') as audio_file:
@@ -52,18 +53,18 @@ class AudioService:
         return transcription_text
 
     @staticmethod
-    def transcribe_audio(file_path: str, service, prompt: str) -> str:
+    def transcribe_audio(file_path: str, service: TranscriptionService, prompt: str) -> str:
         if os.path.getsize(file_path) > 26214400:  # If file size exceeds 25MB
             transcriptions: List[str] = []
             system_prompt = prompt
             for segment_path in AudioService.split_audio(file_path):
-                transcription = AudioService.transcribe_audio_segment(service, segment_path, system_prompt)
+                transcription = service.transcribe(segment_path, system_prompt)
                 system_prompt = f"{transcription} {prompt}"
                 transcriptions.append(transcription)
                 os.remove(segment_path)
             return ' '.join(transcriptions)
         else:
-            return AudioService.transcribe_audio_segment(service, file_path, prompt)
+            return service.transcribe(file_path, prompt)
 
     @staticmethod
     def adjust_transcript_if_needed(transcription_file_path: str, service_type: TranscriptionServiceType) -> str:
