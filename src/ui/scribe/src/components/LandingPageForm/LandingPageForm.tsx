@@ -255,13 +255,16 @@ const LandingPageForm: React.FC = () => {
       {results.map((result, index) => (
         <div key={index} className="transcription-result">
           <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
-          <h3>Title: {result.title}</h3>
+          <h3>#{results.length - index}</h3>
+          <h4>Title: {result.title}</h4>
           <p>Duration: {result.duration} seconds</p>
           <h4>Transcript:</h4>
           <pre>{result.transcript}</pre>
           <button className="copy-button" onClick={() => copyToClipboard(result.transcript)}>Copy</button>
         </div>
       ))}
+
+
     </div>
   );
 };
