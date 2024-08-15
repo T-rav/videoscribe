@@ -58,6 +58,7 @@ const createApp = (transcribe: TranscribeFunction) => {
   app.post('/transcribe_file', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
     const file = req.file;
     const { transcriptionType } = req.body;
+    let filePath = '';
 
     try {
       if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
@@ -70,30 +71,24 @@ const createApp = (transcribe: TranscribeFunction) => {
 
       // Define the directory where you want to store uploaded files
       const uploadsDir = path.resolve('uploads');
-      const filePath = path.join(uploadsDir, file.originalname);
+      filePath = path.join(uploadsDir, file.originalname);
+      fs.renameSync(file.path, filePath);
 
       // Pass the file path and transform option to the transcribe function
       const result = await transcribe({ url:filePath, transcriptionType });
       res.json(result);
     } catch (error) {
       if (file) {
-        // Cleanup: Delete the temp file if an error occurs
-        fs.unlink(file.path, (err) => {
+        fs.unlink(filePath, (err) => {
           if (err) {
             logger.error('Failed to delete temp file:', err);
           } else {
-            logger.info(`Temp file ${file.path} deleted successfully`);
+            logger.info(`Temp file ${filePath} deleted successfully`);
           }
         });
       }
       next(error); // Pass the error to the global error handler
     }
-  });
-
-  // Global error handling middleware
-  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    logger.error('Global Error Handler:', err); // Log the error to error.log using winston
-    res.status(500).json({ error: 'An internal server error occurred' });
   });
 
   // Global error handling middleware
