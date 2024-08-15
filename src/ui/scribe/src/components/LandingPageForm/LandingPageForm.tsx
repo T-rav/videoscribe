@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './LandingPageForm.css';
-import { useNotificationContext } from '../NotificationContext';
 
 const LandingPageForm: React.FC = () => {
   const [videoLink, setVideoLink] = useState('');
@@ -11,7 +10,6 @@ const LandingPageForm: React.FC = () => {
   const [results, setResults] = useState<
     { title: string; duration: string; transcript: string }[]
   >([]);
-  const { addNotification } = useNotificationContext();
 
   const maxFileSizeInMB = 2500; // 2.5 GB
 
@@ -94,14 +92,6 @@ const LandingPageForm: React.FC = () => {
             transcript: result.transcript,
           };
 
-          addNotification({
-            title: structuredResult.title,
-            datetime: new Date().toLocaleString(),
-            length: structuredResult.duration,
-            progress: 'Completed',
-            transcript: structuredResult.transcript,
-          });
-
           setResults((prevResults) => [structuredResult, ...prevResults]);
         } else {
           const error = await response.json();
@@ -158,14 +148,6 @@ const LandingPageForm: React.FC = () => {
             duration: result.duration,
             transcript: result.transcript,
           };
-
-          addNotification({
-            title: structuredResult.title,
-            datetime: new Date().toLocaleString(),
-            length: structuredResult.duration,
-            progress: 'Completed',
-            transcript: structuredResult.transcript,
-          });
 
           setResults((prevResults) => [structuredResult, ...prevResults]);
         } else {
