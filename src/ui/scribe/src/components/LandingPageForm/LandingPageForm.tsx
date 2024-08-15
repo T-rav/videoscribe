@@ -13,7 +13,18 @@ const LandingPageForm: React.FC = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+
+      // Check if the file size exceeds 25 MB
+      const maxSizeInBytes = 25 * 1024 * 1024; // 25 MB
+      if (selectedFile.size > maxSizeInBytes) {
+        setError('File size exceeds 25 MB. Please upload a smaller file.');
+        setFile(null);
+        return;
+      }
+
+      setFile(selectedFile);
+      setError(null); // Clear any previous errors
     }
   };
 
@@ -27,14 +38,14 @@ const LandingPageForm: React.FC = () => {
 
     if (file) {
       data = new FormData();
-      data.append('file', file);
-      data.append('transform', transformOption);
+      data.append('file', file); // Add the file to the FormData
+      data.append('transform', transformOption); // Add the transform option
       data.append('transcriptionType', 'openai'); // Ensure transcription type is sent
 
       try {
         const response = await fetch('http://localhost:3001/transcribe', {
           method: 'POST',
-          body: data,
+          body: data, // Send FormData as the body
         });
 
         if (response.ok) {
@@ -94,7 +105,7 @@ const LandingPageForm: React.FC = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe', {
+        const response = await fetch('http://localhost:3001/transcribe_link', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -151,7 +162,7 @@ const LandingPageForm: React.FC = () => {
 
   return (
     <div className="form-container">
-      <h2>Transcribe & Transform Videos</h2>
+      <h2>Transcribe and Enhance Your Videos</h2>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="file-upload-container">
@@ -185,7 +196,7 @@ const LandingPageForm: React.FC = () => {
           placeholder="Paste YouTube or Google Drive link here"
         />
 
-        <label htmlFor="transform-option">Transcript Transformation</label>
+        <label htmlFor="transform-option">Enhancement</label>
         <select
           id="transform-option"
           value={transformOption}
@@ -195,9 +206,9 @@ const LandingPageForm: React.FC = () => {
           <option value="summarize">Summarize</option>
           <option value="formatting">Format for Readability</option>
           <option value="fillerremoval">Filler Word Removal</option>
-          <option value="segmentation">Segmentation</option>
+          <option value="paragraphs">Paragraphs</option>
           <option value="keywords">Keyword Extraction</option>
-          <option value="translation">Translation</option>
+          {/* <option value="translation">Translation</option> */}
         </select>
 
         <button type="submit" className="submit-button" disabled={loading}>
