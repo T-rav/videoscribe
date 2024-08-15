@@ -8,7 +8,7 @@ dotenv.config();
 // Function to generate a timestamped log file name
 const getLogFileName = () => {
   const timestamp = new Date().toISOString().split('T')[0]; // Get only the date part (YYYY-MM-DD)
-  return `${timestamp}.log`;
+  return `api_${timestamp}.log`;
 };
 
 // Get the log level from environment variables or default to 'info'

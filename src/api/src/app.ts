@@ -72,16 +72,8 @@ const createApp = (transcribe: TranscribeFunction) => {
       const uploadsDir = path.resolve('uploads');
       const filePath = path.join(uploadsDir, file.originalname);
 
-      // Ensure the uploads directory exists
-      if (!fs.existsSync(uploadsDir)) {
-        fs.mkdirSync(uploadsDir);
-      }
-
-      // Move the file from the temporary location to the final destination
-      fs.renameSync(file.path, filePath);
-
       // Pass the file path and transform option to the transcribe function
-      const result = await transcribe({ transcriptionType, filePath });
+      const result = await transcribe({ url:filePath, transcriptionType });
       res.json(result);
     } catch (error) {
       if (file) {
