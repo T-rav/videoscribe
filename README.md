@@ -23,6 +23,14 @@ TODO : Add some summary and action point extractions as per https://platform.ope
 MISSION : Create new content from existing sources - A mixing board for content creation!
 
 - PLAN -
+0. Get a basic UI up and running for Vimeo, YouTube and Google Drive Links
+1. API to write to blob storage and return call back URL to check status
+1a. Marketing copy on site
+2. Translator to run in container and listen to blob storage for files and links
+3. Deploy
+4. Google Login for longer limits (2 GB and 20 length, 60 minutes total, $5 for up to 4 hours / month, $15 for up to 20 hours, $35 for up up to 200 hours)
+5. UI router and marketing copy
+----- v2 ----
 1. Create Function to process files on blob storage then save the transcript back to blob storage
 2. Create UI to allow for youtube or uploaded file to be processed (saved to blob storage and queued for work?)
 3. Amend UI to allow for (https://scribe.koderex.dev/)
