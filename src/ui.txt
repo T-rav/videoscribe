@@ -1,0 +1,991 @@
+----- FILE: scribe/public/index.html -----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Scribe AI</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
+
+
+----- FILE: scribe/src/index.tsx -----
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+
+----- FILE: scribe/src/App.tsx -----
+import React from 'react';
+import './App.css';
+import Header from './components/Header/Header';
+import Form from './components/Form/Form';
+import Footer from './components/Footer/Footer';
+import { NotificationProvider } from './components/NotificationContext';
+
+const App: React.FC = () => {
+  return (
+    <NotificationProvider>
+      <div className="App">
+        <Header />
+        <div className="main-content">
+          <Form />
+        </div>
+        <Footer />
+      </div>
+    </NotificationProvider>
+  );
+}
+
+export default App;
+
+
+----- FILE: scribe/src/App.test.tsx -----
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
+});
+
+
+----- FILE: scribe/src/App.css -----
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5ecd5;
+}
+
+.header {
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.form-container {
+  background-color: rgb(230,213,188);
+  padding: 20px;
+  margin: 20px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  font-weight: 700;
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: #d2b48c;
+  color: #4a4a4a;
+  padding: 10px 20px;
+  text-align: center;
+  width: 100%;
+  font-family: "DM Sans", sans-serif;
+}
+
+.footer-left {
+  flex-shrink: 0;
+}
+
+.footer-content {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.footer p {
+  margin: 5px 0;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(92, 69, 35);
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.sign-in {
+  background-color: rgb(217, 203, 176);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: rgb(92, 69, 35);
+  font-weight: 500;
+}
+
+.sign-in:hover {
+  background-color: #d1b179;
+}
+
+/* Additional styles for the spinner */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+----- FILE: scribe/src/index.css -----
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+----- FILE: scribe/src/components/Footer/Footer.css -----
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d2b48c;
+  color: #4a4a4a;
+  padding: 10px 20px;
+  text-align: center;
+  width: 100%;
+  font-family: "DM Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+.footer-left {
+  flex-shrink: 0;
+  position: relative; /* Ensure the dropdown menu is positioned relative to the footer */
+}
+
+.footer-content {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.footer p {
+  margin: 5px 0;
+}
+
+
+----- FILE: scribe/src/components/Form/Form.css -----
+.form-container {
+  background-color: rgb(230,213,188); /* Adjust to match the original background color */
+  padding: 20px;
+  margin: 20px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  font-weight: 700;
+}
+
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #4A4A4A; /* Adjust the color to match the original text color */
+  font-family: "DM Sans", sans-serif;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #4A4A4A; /* Adjust the color to match the original text color */
+  font-family: "Space Mono", monospace;
+}
+
+.form-container input, 
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid rgb(199, 162, 107);
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #FFF9F0; /* Adjust the input background color */
+  font-family: "Space Mono", monospace;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(199, 162, 107); /* Adjust to match the button color */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  font-weight: 600;
+  position: relative;
+}
+
+.submit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+
+----- FILE: scribe/src/components/Form/Form.tsx -----
+import React, { useState } from 'react';
+import './Form.css';
+import { useNotificationContext } from '../NotificationContext';
+
+const Form: React.FC = () => {
+  const [videoLink, setVideoLink] = useState('');
+  const [transcriptionType, setTranscriptionType] = useState('openai');
+  const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { addNotification } = useNotificationContext();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    let data;
+
+    if (videoLink.includes('youtube.com') || videoLink.includes('youtu.be')) {
+      data = {
+        url: videoLink,
+        transcriptionType: transcriptionType,
+      };
+    } else if (videoLink.includes('vimeo.com')) {
+      data = {
+        url: videoLink,
+        transcriptionType: transcriptionType,
+      };
+    } else if (videoLink.includes('drive.google.com')) {
+      const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
+      const fileId = fileIdMatch ? fileIdMatch[1] : null;
+
+      if (!fileId) {
+        setError('Invalid Google Drive URL.');
+        setLoading(false);
+        return;
+      }
+
+      data = {
+        url: `https://drive.google.com/uc?export=download&id=${fileId}`,
+        transcriptionType: transcriptionType,
+      };
+    } else {
+      setError('Unsupported URL. Please provide a valid YouTube, Vimeo, or Google Drive link.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3001/transcribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Transcription Result:', result);
+
+        // Add notification
+        addNotification({
+          title: result.title,
+          datetime: new Date().toLocaleString(),
+          length: result.duration,
+          progress: 'Completed',
+          transcript: result.transcript
+        });
+
+      } else {
+        const error = await response.json();
+        setError(error.error || response.statusText);
+      }
+    } catch (error) {
+      setError('An error occurred while processing the request.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="form-container">
+      <h2>Transcribe Videos</h2>
+      {error && <div className="error-message">{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="video-link">Video Link</label>
+        <input
+          type="text"
+          id="video-link"
+          value={videoLink}
+          onChange={(e) => setVideoLink(e.target.value)}
+          placeholder="Paste YouTube, Vimeo, or Google Drive link here"
+        />
+
+        <label htmlFor="transcription-type">Transcription Type</label>
+        <select
+          id="transcription-type"
+          value={transcriptionType}
+          onChange={(e) => setTranscriptionType(e.target.value)}
+        >
+          <option value="openai">Text</option>
+          <option value="openai-vtt">VTT</option>
+          <option value="openai-srt">SRT</option>
+        </select>
+
+        <label htmlFor="transcription-prompt">Transcription Prompt</label>
+        <textarea
+          id="transcription-prompt"
+          value={transcriptionPrompt}
+          onChange={(e) => setTranscriptionPrompt(e.target.value)}
+          placeholder="Enter a prompt for the transcription (Optional)"
+          rows={3}
+        ></textarea>
+
+        <button type="submit" className="submit-button" disabled={loading}>
+          {loading ? <div className="spinner"></div> : 'Transcribe'}
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Form;
+
+
+----- FILE: scribe/src/components/DropdownMenu/DropdownMenu.css -----
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(92, 69, 35);
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 40px; /* Adjust the positioning to avoid overlap */
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.sign-in {
+  background-color: rgb(217, 203, 176);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: rgb(92, 69, 35);
+  font-weight: 500;
+}
+
+.sign-in:hover {
+  background-color: #d1b179;
+}
+
+
+----- FILE: scribe/src/components/DropdownMenu/DropdownMenu.tsx -----
+import React, { useState, useEffect, useRef } from 'react';
+import './DropdownMenu.css';
+
+const DropdownMenu: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const toggleMenu = () => {
+    setOpen(!open);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className="dropdown" ref={menuRef}>
+      <button className="dropdown-toggle" onClick={toggleMenu}>
+        Menu
+      </button>
+      {open && (
+        <div className="dropdown-menu">
+          <button className="sign-in">Sign in with Google</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DropdownMenu;
+
+
+----- FILE: scribe/src/components/Modal/Modal.css -----
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh; /* Set maximum height */
+  overflow-y: auto; /* Enable scrolling for overflow content */
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px; /* Increase size for better visibility */
+  cursor: pointer;
+  color: #888;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.copy-button {
+  background-color: rgb(217, 203, 176);
+  border: none;
+  padding: 5px 10px; /* Make the button smaller */
+  font-size: 14px; /* Adjust font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: rgb(92, 69, 35);
+  font-weight: 500;
+  margin-top: 10px;
+  display: block; /* Ensure the button takes its own line */
+}
+
+.copy-button:hover {
+  background-color: #d1b179;
+}
+
+.modal p {
+  margin: 20px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+----- FILE: scribe/src/components/Notifications/Notifications.tsx -----
+import React, { useState, useEffect, useRef } from 'react';
+import './Notifications.css';
+import Modal from '../Modal/Modal'; // Adjust the path if necessary
+import { useNotificationContext } from '../NotificationContext';
+
+const Notifications: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentNotification, setCurrentNotification] = useState<any>(null);
+  const { notifications, removeNotification } = useNotificationContext();
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const toggleMenu = () => {
+    setOpen(!open);
+  };
+
+  const openModal = (notification: any) => {
+    setCurrentNotification(notification);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setCurrentNotification(null);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className="notifications" ref={menuRef}>
+      <button className="notifications-icon" onClick={toggleMenu}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 16v2a4 4 0 0 1-8 0v-2"></path><rect x="2" y="7" width="20" height="13" rx="2" ry="2"></rect><path d="M7 7V4a4 4 0 0 1 8 0v3"></path></svg>
+        {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
+      </button>
+      {open && (
+        <div className="notifications-menu">
+          {notifications.length === 0 ? (
+            <div className="no-notifications">No notifications</div>
+          ) : (
+            notifications.map((notification, index) => (
+              <div key={index} className="notification-item">
+                <h4>{notification.title}</h4>
+                <p><strong>Datetime:</strong> {notification.datetime}</p>
+                <p><strong>Length:</strong> {notification.length}</p>
+                <button className="view-button" onClick={() => openModal(notification)}>View Details</button>
+                <button className="close-button" onClick={() => removeNotification(index)}>x</button>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+      {currentNotification && (
+        <Modal
+          isOpen={modalOpen}
+          onClose={closeModal}
+          title={currentNotification.title}
+          content={currentNotification.transcript}
+        />
+      )}
+    </div>
+  );
+};
+
+export default Notifications;
+
+
+----- FILE: scribe/src/components/Notifications/Notifications.css -----
+.notifications {
+  position: relative;
+}
+
+.notifications-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.notifications-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 300px;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  z-index: 1000;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.notification-item h4 {
+  margin: 0 0 5px;
+}
+
+.notification-item p {
+  margin: 5px 0;
+}
+
+.view-button {
+  background-color: rgb(199, 162, 107);
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  font-weight: 600;
+  color: white;
+  border-radius: 4px;
+}
+
+.view-button:hover {
+  background-color: #bfa26c;
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.no-notifications {
+  padding: 10px;
+  text-align: center;
+  color: #888;
+}
+
+
+----- FILE: scribe/src/components/Header/Header.tsx -----
+import React from 'react';
+import './Header.css';
+import Notifications from '../Notifications/Notifications';
+import DropdownMenu from '../DropdownMenu/DropdownMenu';
+
+const Header: React.FC = () => {
+  return (
+    <header className="header">
+      <div className="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-id="4"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg> 
+        <span>&nbsp;Scribe AI</span>
+      </div>
+      <div className="header-right">
+        <Notifications />
+        <DropdownMenu />
+      </div>
+    </header>
+  );
+};
+
+export default Header;
+
+
+----- FILE: scribe/src/components/Header/Header.css -----
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #D2B48C;
+  padding: 10px 20px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Space Mono", monospace;
+  color: #000000;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  position: relative; /* Ensure relative positioning for absolute children */
+}
+
+.notifications {
+  position: relative;
+  margin-right: 20px;
+}
+
+.notifications-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.notifications-menu {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-item h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.notification-item p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.view-button {
+  background-color: rgb(217, 203, 176);
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: rgb(92, 69, 35);
+  font-weight: 500;
+}
+
+.view-button:hover {
+  background-color: #d1b179;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(92, 69, 35);
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0; /* Ensure the menu is aligned to the right of the parent */
+  top: 40px; /* Adjust the positioning to avoid overlap */
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.sign-in {
+  background-color: rgb(217, 203, 176);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: rgb(92, 69, 35);
+  font-weight: 500;
+}
+
+.sign-in:hover {
+  background-color: #d1b179;
+}
+
+
+----- FILE: scribe/src/components/NotificationContext.tsx -----
+import React, { createContext, useState, useContext, ReactNode } from 'react';
+
+interface Notification {
+  title: string;
+  datetime: string;
+  length: string;
+  progress: string;
+  transcript: string;
+}
+
+interface NotificationContextType {
+  notifications: Notification[];
+  addNotification: (notification: Notification) => void;
+  removeNotification: (index: number) => void;
+}
+
+const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+
+export const useNotificationContext = () => {
+  const context = useContext(NotificationContext);
+  if (!context) {
+    throw new Error('useNotificationContext must be used within a NotificationProvider');
+  }
+  return context;
+};
+
+interface NotificationProviderProps {
+  children: ReactNode;
+}
+
+export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+
+  const addNotification = (notification: Notification) => {
+    setNotifications((prevNotifications) => [...prevNotifications, notification]);
+  };
+
+  const removeNotification = (index: number) => {
+    setNotifications((prevNotifications) =>
+      prevNotifications.filter((_, i) => i !== index)
+    );
+  };
+
+  return (
+    <NotificationContext.Provider value={{ notifications, addNotification, removeNotification }}>
+      {children}
+    </NotificationContext.Provider>
+  );
+};
+
+
