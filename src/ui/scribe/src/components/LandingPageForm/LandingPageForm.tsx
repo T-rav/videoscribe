@@ -28,6 +28,32 @@ const LandingPageForm: React.FC = () => {
     }
   };
 
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const selectedFile = e.dataTransfer.files[0];
+
+      // Check if the file size exceeds 25 MB
+      const maxSizeInBytes = 25 * 1024 * 1024; // 25 MB
+      if (selectedFile.size > maxSizeInBytes) {
+        setError('File size exceeds 25 MB. Please upload a smaller file.');
+        setFile(null);
+        return;
+      }
+
+      setFile(selectedFile);
+      setError(null); // Clear any previous errors
+      e.dataTransfer.clearData();
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -165,7 +191,11 @@ const LandingPageForm: React.FC = () => {
       <h2>Transcribe and Enhance Your Videos</h2>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
-        <div className="file-upload-container">
+        <div
+          className="file-upload-container"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
           <input
             type="file"
             id="file-upload"
