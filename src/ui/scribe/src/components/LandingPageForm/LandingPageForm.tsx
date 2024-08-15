@@ -5,7 +5,7 @@ import { useNotificationContext } from '../NotificationContext';
 const LandingPageForm: React.FC = () => {
   const [videoLink, setVideoLink] = useState('');
   const [file, setFile] = useState<File | null>(null);
-  const [transformOption, setTransformOption] = useState('none');
+  const [transformOption, setTransformOption] = useState('summarize');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<{ title: string; duration: string; transcript: string } | null>(null);
