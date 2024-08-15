@@ -97,6 +97,14 @@ const Form: React.FC = () => {
     }
   };
 
+  const closeTranscript = () => {
+    // Clear the result and input fields
+    setResult(null);
+    setVideoLink('');
+    setTranscriptionType('openai');
+    setTranscriptionPrompt('');
+  };
+
   return (
     <div className="form-container">
       <h2>Transcribe Videos</h2>
@@ -139,6 +147,7 @@ const Form: React.FC = () => {
       {/* Display the result below the button */}
       {result && (
         <div className="transcription-result">
+          <button className="close-button" onClick={closeTranscript}>X</button>
           <h3>Title: {result.title}</h3>
           <p>Duration: {result.duration} seconds</p>
           <h4>Transcript:</h4>
