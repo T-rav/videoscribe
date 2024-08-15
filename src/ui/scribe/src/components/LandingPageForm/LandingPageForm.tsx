@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './Form.css';
+import './LandingPageForm.css';
 import { useNotificationContext } from '../NotificationContext';
 
-const Form: React.FC = () => {
+const LandingPageForm: React.FC = () => {
   const [videoLink, setVideoLink] = useState('');
   const [transcriptionType, setTranscriptionType] = useState('openai');
   const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
@@ -24,11 +24,6 @@ const Form: React.FC = () => {
         url: videoLink,
         transcriptionType: transcriptionType,
       };
-    } else if (videoLink.includes('vimeo.com')) {
-      data = {
-        url: videoLink,
-        transcriptionType: transcriptionType,
-      };
     } else if (videoLink.includes('drive.google.com')) {
       const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
       const fileId = fileIdMatch ? fileIdMatch[1] : null;
@@ -44,7 +39,7 @@ const Form: React.FC = () => {
         transcriptionType: transcriptionType,
       };
     } else {
-      setError('Unsupported URL. Please provide a valid YouTube, Vimeo, or Google Drive link.');
+      setError('Unsupported URL. Please provide a valid YouTube or Google Drive link.');
       setLoading(false);
       return;
     }
@@ -116,7 +111,7 @@ const Form: React.FC = () => {
           id="video-link"
           value={videoLink}
           onChange={(e) => setVideoLink(e.target.value)}
-          placeholder="Paste YouTube, Vimeo, or Google Drive link here"
+          placeholder="Paste YouTube or Google Drive link here"
         />
 
         <label htmlFor="transcription-type">Transcription Type</label>
@@ -159,4 +154,4 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+export default LandingPageForm;
