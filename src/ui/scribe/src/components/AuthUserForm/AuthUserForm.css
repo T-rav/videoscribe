@@ -1,0 +1,160 @@
+.form-container {
+  background-color: rgb(230,213,188); /* Adjust to match the original background color */
+  padding: 20px;
+  margin: 20px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  font-weight: 700;
+}
+
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #4A4A4A; /* Adjust the color to match the original text color */
+  font-family: "DM Sans", sans-serif;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #4A4A4A; /* Adjust the color to match the original text color */
+  font-family: "Space Mono", monospace;
+}
+
+.form-container input, 
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid rgb(199, 162, 107);
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #FFF9F0; /* Adjust the input background color */
+  font-family: "Space Mono", monospace;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(199, 162, 107); /* Adjust to match the button color */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  font-weight: 600;
+  position: relative;
+}
+
+.submit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.transcription-result {
+  background-color: #f5ecd5; /* Match the background color used in notifications */
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Space Mono", monospace; /* Font family to match the modal text */
+  color: #4a4a4a; /* Text color similar to the modal */
+  max-width: 600px; /* Set a max-width similar to the modal */
+  margin-left: auto; /* Center the result area */
+  margin-right: auto;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
+  border: 1px solid #ddd; /* Border similar to modal outline */
+  position: relative; /* For positioning the close button */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.transcription-result h3 {
+  margin-bottom: 10px;
+  font-family: "DM Sans", sans-serif; /* Title font similar to the modal */
+  font-size: 20px; /* Adjust the font size to match the modal title */
+  font-weight: bold;
+  color: #333; /* Title color similar to the modal */
+}
+
+.transcription-result p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.transcription-result h4 {
+  margin-bottom: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.transcription-result pre {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap; /* Preserves formatting of the transcript */
+}
+
+.copy-button {
+  background-color: #d2b48c;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: #4a4a4a;
+  font-weight: 500;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.copy-button:hover {
+  background-color: #bfa26c;
+}
