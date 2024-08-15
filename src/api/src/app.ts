@@ -28,9 +28,11 @@ const createApp = (transcribe: TranscribeFunction) => {
   app.use(cors());
   app.use(express.json());
 
-  const isValidYouTubeUrl = (url: string): boolean => {
-    const regex = /^(https?:\/\/)?(www\.youtube\.com|youtube\.com|youtu\.?be)\/(watch\?v=|embed\/|v\/|.+\?v=|live\/|shorts\/)?([a-zA-Z0-9_-]{11})$/;
-    return regex.test(url);
+  const isValidUrl = (url: string): boolean => {
+    const youtubeRegex = /^(https?:\/\/)?(www\.youtube\.com|youtube\.com|youtu\.?be)\/(watch\?v=|embed\/|v\/|.+\?v=|live\/|shorts\/)?([a-zA-Z0-9_-]{11})$/;
+    const googleDriveRegex = /^(https?:\/\/)?(drive\.google\.com|docs\.google\.com)\/(file\/d\/|present\/d\/|uc\?(export=download&)?id=)([a-zA-Z0-9_-]+)(\/view)?$/;
+    const vimeoRegex = /^(https?:\/\/)?(vimeo\.com)\/([0-9]+)$/;
+    return youtubeRegex.test(url) || googleDriveRegex.test(url) || vimeoRegex.test(url);
   };
 
   app.post('/transcribe', async (req: Request, res: Response) => {
@@ -40,8 +42,8 @@ const createApp = (transcribe: TranscribeFunction) => {
       return res.status(400).json({ error: 'Invalid transcription type' });
     }
 
-    if (!isValidYouTubeUrl(url)) {
-      return res.status(400).json({ error: 'Invalid YouTube URL' });
+    if (!isValidUrl(url)) {
+      return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo or Google Drive URL' });
     }
 
     try {

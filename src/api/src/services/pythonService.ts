@@ -18,7 +18,7 @@ export const transcribe = async ({
   transcriptionType,
 }: TranscriptionRequest): Promise<TranscriptionResponse> => {
   return new Promise((resolve, reject) => {
-    const python = spawn('python3', ['../text-harvester/app.py', url, '--service', transcriptionType, '--path', './incoming', '--prompt', 'My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI.']);
+    const python = spawn('python3', ['../translator/app.py', url, '--service', transcriptionType, '--path', './incoming', '--prompt', 'My name is Travis Frisinger. I am a software engineer who blogs, streams and pod cast about my AI Adventures with Gen AI.']);
 
     python.stdin.end();
 
