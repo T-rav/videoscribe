@@ -37,8 +37,11 @@ def main():
     logging.debug("Processing audio...")
 
     if args.url.startswith("https://drive.google.com"):
-        audio_file_path = AudioDownloader.download_google_drive_video(args.url, args.path)
+        audio_file_path = AudioDownloader.download_google_drive_video(args.url, args.path, max_length_minutes=args.max_length_minutes)
         video_info = {"title": "Google Drive Video", "duration": get_audio_duration(audio_file_path)}  # Google Drive doesn't give video info easily
+    elif "vimeo.com" in args.url:
+        video_info = AudioDownloader.get_video_info(args.url)
+        audio_file_path = AudioDownloader.download_vimeo_video(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     elif args.url.startswith("https://"):
         video_info = AudioDownloader.get_video_info(args.url)
         audio_file_path = AudioDownloader.download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)

@@ -44,8 +44,8 @@ class AudioDownloader:
             '--audio-format', 'm4a',  # Specify audio format
             '--output', os.path.join(path, '%(title)s.%(ext)s'),  # Naming convention
             '--format', 'bestaudio',
-            '-N', '4',  # use 4 connections
-            url  # YouTube URL
+            '-N', '4',  # Use 4 connections
+            url  # Video URL (Vimeo/YouTube/Google Drive)
         ]
 
         try:
@@ -73,6 +73,61 @@ class AudioDownloader:
                 logging.error("File path not found in yt-dlp output")
         except subprocess.CalledProcessError as e:
             logging.error(f"Error: {e.stderr}")
+        
+        return None
+
+    @staticmethod
+    def download_vimeo_video(url: str, path: str, max_length_minutes: Optional[int] = None) -> Optional[str]:
+        logging.debug(f"Processing Vimeo URL: {url}")
+        
+        vimeo_dir = os.path.join(path, 'vimeo')
+        if not os.path.exists(vimeo_dir):
+            os.makedirs(vimeo_dir)
+
+        command = [
+            'yt-dlp',
+            '--output', os.path.join(vimeo_dir, '%(title)s.%(ext)s'),  # Naming convention
+            '--format', 'bestvideo+bestaudio/best',  # Download best video and audio format available
+            url  # Vimeo URL
+        ]
+
+        try:
+            result = subprocess.run(command, check=True, capture_output=True, text=True)
+            output = result.stdout
+            logging.debug(f"yt-dlp output: {output}")
+            
+            # Find the downloaded video file
+            downloaded_files = os.listdir(vimeo_dir)
+            if downloaded_files:
+                video_file_path = os.path.join(vimeo_dir, downloaded_files[0])
+                logging.debug(f"Downloaded video file path: {video_file_path}")
+                
+                # Convert the video file to audio
+                audio_file_name = os.path.splitext(os.path.basename(video_file_path))[0] + '_audio.m4a'
+                audio_dir = os.path.join(path, 'audio')
+                if not os.path.exists(audio_dir):
+                    os.makedirs(audio_dir)
+                audio_file_path = os.path.join(audio_dir, audio_file_name)
+                subprocess.run(['ffmpeg', '-i', video_file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
+                logging.debug(f"Converted audio file saved to {audio_file_path}")
+                
+                # Delete the original video file after conversion
+                os.remove(video_file_path)
+                logging.debug(f"Deleted original video file: {video_file_path}")
+                
+                if max_length_minutes:
+                    logging.debug(f"Trimming audio file: {audio_file_path}")
+                    max_length_seconds = max_length_minutes * 60
+                    trimmed_file_path = audio_file_path.replace('.m4a', '_trimmed.m4a')
+                    subprocess.run(['ffmpeg', '-i', audio_file_path, '-ss', '00:00:00', '-t', str(max_length_seconds), trimmed_file_path], check=True)
+                    os.remove(audio_file_path)
+                    return trimmed_file_path
+
+                return audio_file_path
+            else:
+                logging.error("No files were downloaded.")
+        except subprocess.CalledProcessError as e:
+            logging.error(f"Error downloading video from Vimeo: {e.stderr}")
         
         return None
 
