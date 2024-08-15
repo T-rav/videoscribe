@@ -40,6 +40,13 @@
   box-sizing: border-box; /* Ensures padding doesn't affect the width */
 }
 
+.form-container select {
+  appearance: none;
+  background-color: #FFF9F0; /* Matching the input background color */
+  font-family: "Space Mono", monospace;
+  color: #4A4A4A; /* Adjust the text color to match the form */
+}
+
 .submit-button {
   width: 100%;
   padding: 10px;

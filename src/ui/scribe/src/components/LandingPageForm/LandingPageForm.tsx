@@ -4,8 +4,7 @@ import { useNotificationContext } from '../NotificationContext';
 
 const LandingPageForm: React.FC = () => {
   const [videoLink, setVideoLink] = useState('');
-  const [transcriptionType, setTranscriptionType] = useState('openai');
-  const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
+  const [transformOption, setTransformOption] = useState('none');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<{ title: string; duration: string; transcript: string } | null>(null);
@@ -22,7 +21,7 @@ const LandingPageForm: React.FC = () => {
     if (videoLink.includes('youtube.com') || videoLink.includes('youtu.be')) {
       data = {
         url: videoLink,
-        transcriptionType: transcriptionType,
+        transform: transformOption,
       };
     } else if (videoLink.includes('drive.google.com')) {
       const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
@@ -36,7 +35,7 @@ const LandingPageForm: React.FC = () => {
 
       data = {
         url: `https://drive.google.com/uc?export=download&id=${fileId}`,
-        transcriptionType: transcriptionType,
+        transform: transformOption,
       };
     } else {
       setError('Unsupported URL. Please provide a valid YouTube or Google Drive link.');
@@ -96,8 +95,7 @@ const LandingPageForm: React.FC = () => {
     // Clear the result and input fields
     setResult(null);
     setVideoLink('');
-    setTranscriptionType('openai');
-    setTranscriptionPrompt('');
+    setTransformOption('none');
   };
 
   return (
@@ -114,25 +112,20 @@ const LandingPageForm: React.FC = () => {
           placeholder="Paste YouTube or Google Drive link here"
         />
 
-        <label htmlFor="transcription-type">Transcription Type</label>
+        <label htmlFor="transform-option">Transcript Transformation</label>
         <select
-          id="transcription-type"
-          value={transcriptionType}
-          onChange={(e) => setTranscriptionType(e.target.value)}
+          id="transform-option"
+          value={transformOption}
+          onChange={(e) => setTransformOption(e.target.value)}
         >
-          <option value="openai">Text</option>
-          <option value="openai-vtt">VTT</option>
-          <option value="openai-srt">SRT</option>
+          <option value="none">None</option>
+          <option value="summarize" selected>Summarize</option>
+          <option value="formatting" selected>Format for Readability</option>
+          <option value="fillerremoval" selected>Filler Word Removal</option>
+          <option value="segmentation" selected>Segmentation</option>
+          <option value="keywords" selected>Keyword Extraction</option>
+          <option value="translation" selected>Translation</option>
         </select>
-
-        <label htmlFor="transcription-prompt">Transcription Prompt</label>
-        <textarea
-          id="transcription-prompt"
-          value={transcriptionPrompt}
-          onChange={(e) => setTranscriptionPrompt(e.target.value)}
-          placeholder="Enter a prompt for the transcription (Optional)"
-          rows={3}
-        ></textarea>
 
         <button type="submit" className="submit-button" disabled={loading}>
           {loading ? <div className="spinner"></div> : 'Transcribe'}
