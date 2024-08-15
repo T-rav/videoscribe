@@ -165,25 +165,33 @@ input[type="text"], select {
 }
 
 .transcription-result pre {
+  max-height: 200px; /* Set the maximum height for the transcript box */
+  overflow-y: auto; /* Enable vertical scrolling */
   margin: 0;
   font-size: 14px;
   line-height: 1.5;
-  white-space: pre-wrap;
+  white-space: pre-wrap; /* Preserve formatting of the transcript */
 }
 
 .copy-button {
   background-color: #d2b48c;
   border: none;
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-family: "Space Mono", monospace;
   font-weight: 500;
   border-radius: 4px;
-  margin-top: 15px;
 }
 
 .copy-button:hover {
   background-color: #bfa26c;
+}
+
+.transcription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }

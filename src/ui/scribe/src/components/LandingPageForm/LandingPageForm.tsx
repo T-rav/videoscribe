@@ -11,14 +11,19 @@ const LandingPageForm: React.FC = () => {
   const [result, setResult] = useState<{ title: string; duration: string; transcript: string } | null>(null);
   const { addNotification } = useNotificationContext();
 
+  const maxFileSizeInMB = 2500; // 2.5 GB
+
+  const isFileSizeValid = (file: File, maxSizeInMB: number): boolean => {
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // Convert MB to Bytes
+    return file.size <= maxSizeInBytes;
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
 
-      // Check if the file size exceeds 25 MB
-      const maxSizeInBytes = 25 * 1024 * 1024; // 25 MB
-      if (selectedFile.size > maxSizeInBytes) {
-        setError('File size exceeds 25 MB. Please upload a smaller file.');
+      if (!isFileSizeValid(selectedFile, maxFileSizeInMB)) {
+        setError(`File size exceeds ${maxFileSizeInMB} MB. Please upload a smaller file.`);
         setFile(null);
         return;
       }
@@ -35,10 +40,8 @@ const LandingPageForm: React.FC = () => {
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const selectedFile = e.dataTransfer.files[0];
 
-      // Check if the file size exceeds 25 MB
-      const maxSizeInBytes = 25 * 1024 * 1024; // 25 MB
-      if (selectedFile.size > maxSizeInBytes) {
-        setError('File size exceeds 25 MB. Please upload a smaller file.');
+      if (!isFileSizeValid(selectedFile, maxFileSizeInMB)) {
+        setError(`File size exceeds ${maxFileSizeInMB} MB. Please upload a smaller file.`);
         setFile(null);
         return;
       }

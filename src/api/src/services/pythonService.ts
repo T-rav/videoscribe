@@ -1,11 +1,9 @@
 import { spawn } from 'child_process';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
-import path from 'path';
-import fs from 'fs';
 import logger from '../utils/logger';
 
 interface TranscriptionRequest {
-  url: string;
+  url?: string;
   transcriptionType: TranscriptionServiceType;
 }
 
