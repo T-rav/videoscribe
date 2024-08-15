@@ -8,7 +8,9 @@ const LandingPageForm: React.FC = () => {
   const [transformOption, setTransformOption] = useState('summarize');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<{ title: string; duration: string; transcript: string } | null>(null);
+  const [results, setResults] = useState<
+    { title: string; duration: string; transcript: string }[]
+  >([]);
   const { addNotification } = useNotificationContext();
 
   const maxFileSizeInMB = 2500; // 2.5 GB
@@ -16,6 +18,12 @@ const LandingPageForm: React.FC = () => {
   const isFileSizeValid = (file: File, maxSizeInMB: number): boolean => {
     const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // Convert MB to Bytes
     return file.size <= maxSizeInBytes;
+  };
+  
+  const handleVideoLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVideoLink(e.target.value);
+    setError(null); // Clear any previous errors
+    setFile(null);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +56,7 @@ const LandingPageForm: React.FC = () => {
 
       setFile(selectedFile);
       setError(null); // Clear any previous errors
+      setVideoLink('');
       e.dataTransfer.clearData();
     }
   };
@@ -61,7 +70,6 @@ const LandingPageForm: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setResult(null);
 
     let data: FormData | { url: string; transform: string; transcriptionType: string };
 
@@ -94,7 +102,7 @@ const LandingPageForm: React.FC = () => {
             transcript: structuredResult.transcript,
           });
 
-          setResult(structuredResult);
+          setResults((prevResults) => [structuredResult, ...prevResults]);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -159,7 +167,7 @@ const LandingPageForm: React.FC = () => {
             transcript: structuredResult.transcript,
           });
 
-          setResult(structuredResult);
+          setResults((prevResults) => [structuredResult, ...prevResults]);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -175,18 +183,13 @@ const LandingPageForm: React.FC = () => {
     }
   };
 
-  const copyToClipboard = () => {
-    if (result) {
-      const formattedText = `Title: ${result.title}\nDuration: ${result.duration}\n\n${result.transcript}`;
-      navigator.clipboard.writeText(formattedText);
-    }
+  const copyToClipboard = (transcript: string) => {
+    const formattedText = `Transcript:\n\n${transcript}`;
+    navigator.clipboard.writeText(formattedText);
   };
 
-  const closeTranscript = () => {
-    setResult(null);
-    setVideoLink('');
-    setFile(null);
-    setTransformOption('none');
+  const closeTranscript = (index: number) => {
+    setResults((prevResults) => prevResults.filter((_, i) => i !== index));
   };
 
   return (
@@ -225,7 +228,7 @@ const LandingPageForm: React.FC = () => {
           type="text"
           id="video-link"
           value={videoLink}
-          onChange={(e) => setVideoLink(e.target.value)}
+          onChange={handleVideoLinkChange}
           placeholder="Paste YouTube or Google Drive link here"
         />
 
@@ -249,16 +252,16 @@ const LandingPageForm: React.FC = () => {
         </button>
       </form>
 
-      {result && (
-        <div className="transcription-result">
-          <button className="close-button" onClick={closeTranscript}>X</button>
+      {results.map((result, index) => (
+        <div key={index} className="transcription-result">
+          <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
           <h3>Title: {result.title}</h3>
           <p>Duration: {result.duration} seconds</p>
           <h4>Transcript:</h4>
           <pre>{result.transcript}</pre>
-          <button className="copy-button" onClick={copyToClipboard}>Copy</button>
+          <button className="copy-button" onClick={() => copyToClipboard(result.transcript)}>Copy</button>
         </div>
-      )}
+      ))}
     </div>
   );
 };
