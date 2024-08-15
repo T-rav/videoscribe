@@ -1,5 +1,5 @@
 .form-container {
-  background-color: rgb(230,213,188); /* Adjust to match the original background color */
+  background-color: rgb(230,213,188); 
   padding: 20px;
   margin: 20px;
   width: 100%;
@@ -8,43 +8,70 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: left;
   font-weight: 700;
+  font-family: "Space Mono", monospace;
 }
 
-.form-container h2 {
-  font-size: 24px;
-  margin-bottom: 24px;
+h2 {
   text-align: center;
-  color: #4A4A4A; /* Adjust the color to match the original text color */
   font-family: "DM Sans", sans-serif;
+  color: #4A4A4A;
+  margin-bottom: 24px;
 }
 
-.form-container label {
+label {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
-  color: #4A4A4A; /* Adjust the color to match the original text color */
+  color: #4A4A4A;
   font-family: "Space Mono", monospace;
 }
 
-.form-container input, 
-.form-container select,
-.form-container textarea {
+input[type="text"], select {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid rgb(199, 162, 107);
   border-radius: 4px;
-  font-size: 16px;
-  background-color: #FFF9F0; /* Adjust the input background color */
+  border: 1px solid rgb(199, 162, 107);
   font-family: "Space Mono", monospace;
-  box-sizing: border-box; /* Ensures padding doesn't affect the width */
+  background-color: #FFF9F0;
+  box-sizing: border-box;
 }
 
-.form-container select {
-  appearance: none;
-  background-color: #FFF9F0; /* Matching the input background color */
+.file-upload-container {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.file-upload-label {
+  display: block;
+  cursor: pointer;
+}
+
+.file-dropzone {
+  display: flex;
+  flex-direction: column; /* This ensures the text is stacked vertically */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 2px dashed rgb(199, 162, 107);
+  border-radius: 8px;
+  background-color: #f5ecd5;
+  color: #4A4A4A;
   font-family: "Space Mono", monospace;
-  color: #4A4A4A; /* Adjust the text color to match the form */
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.file-dropzone span {
+  font-size: 14px;
+  margin-bottom: 5px; /* Adds space between "Upload file" and the next line */
+}
+
+.file-dropzone p {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  text-align: center; /* Ensure the text is centered */
 }
 
 .submit-button {
@@ -52,14 +79,13 @@
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: rgb(199, 162, 107); /* Adjust to match the button color */
+  background-color: rgb(199, 162, 107); 
   color: white;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-family: "Space Mono", monospace;
   font-weight: 600;
-  position: relative;
 }
 
 .submit-button:disabled {
@@ -89,19 +115,18 @@
 }
 
 .transcription-result {
-  background-color: #f5ecd5; /* Match the background color used in notifications */
+  background-color: #f5ecd5;
   padding: 20px;
   margin-top: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: "Space Mono", monospace; /* Font family to match the modal text */
-  color: #4a4a4a; /* Text color similar to the modal */
-  max-width: 600px; /* Set a max-width similar to the modal */
-  margin-left: auto; /* Center the result area */
+  color: #4a4a4a;
+  max-width: 600px;
+  margin-left: auto;
   margin-right: auto;
-  box-sizing: border-box; /* Ensures padding doesn't affect the width */
-  border: 1px solid #ddd; /* Border similar to modal outline */
-  position: relative; /* For positioning the close button */
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  position: relative;
 }
 
 .close-button {
@@ -121,10 +146,9 @@
 
 .transcription-result h3 {
   margin-bottom: 10px;
-  font-family: "DM Sans", sans-serif; /* Title font similar to the modal */
-  font-size: 20px; /* Adjust the font size to match the modal title */
+  font-size: 20px;
   font-weight: bold;
-  color: #333; /* Title color similar to the modal */
+  color: #333;
 }
 
 .transcription-result p {
@@ -135,33 +159,39 @@
 
 .transcription-result h4 {
   margin-bottom: 10px;
-  font-family: "DM Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   color: #333;
 }
 
 .transcription-result pre {
+  max-height: 200px; /* Set the maximum height for the transcript box */
+  overflow-y: auto; /* Enable vertical scrolling */
   margin: 0;
   font-size: 14px;
   line-height: 1.5;
-  white-space: pre-wrap; /* Preserves formatting of the transcript */
+  white-space: pre-wrap; /* Preserve formatting of the transcript */
 }
 
 .copy-button {
   background-color: #d2b48c;
   border: none;
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-family: "Space Mono", monospace;
-  color: #4a4a4a;
   font-weight: 500;
   border-radius: 4px;
-  margin-top: 15px;
 }
 
 .copy-button:hover {
   background-color: #bfa26c;
+}
+
+.transcription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }

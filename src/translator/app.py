@@ -19,8 +19,12 @@ def main():
     # Load environment variables from .env file
     load_dotenv()
 
+   # Create logs directory if it doesn't exist
+    logs_dir = 'logs'
+    os.makedirs(logs_dir, exist_ok=True)
+
     # Generate a log file name with the current date
-    log_filename = f"transcription_{datetime.now().strftime('%Y-%m-%d')}.log"
+    log_filename = os.path.join(logs_dir, f"transcription_{datetime.now().strftime('%Y-%m-%d')}.log")
 
     # Configure logging with the date in the file name
     logging.basicConfig(filename=log_filename, level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
@@ -46,8 +50,9 @@ def main():
         video_info = AudioDownloader.get_video_info(args.url)
         audio_file_path = AudioDownloader.download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     else:
-        video_info = {"title": os.path.basename(args.url), "duration": get_audio_duration(args.url)}
+        logging.debug("Processing file...")
         audio_file_path = FileHandler.handle_local_file(args.url, args.path)
+        video_info = {"title": os.path.basename(args.url), "duration": get_audio_duration(audio_file_path)}
 
     logging.debug(f"Audio file is ready at {audio_file_path}")
 

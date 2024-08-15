@@ -12,7 +12,7 @@ class FileHandler:
 
         # Check for video formats that need conversion to audio
         if ext.lower() in [".mov", ".mp4", ".avi", ".mkv", ".webm"]:
-            logging.debug(f"Converting video file {file_name} to audio...")
+            logging.debug(f"Converting video file {file_name} to audio and saving to {audio_file_path}")
             os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
             subprocess.run(['ffmpeg', '-i', file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
         elif ext.lower() not in [".m4a", ".mp3"]:
