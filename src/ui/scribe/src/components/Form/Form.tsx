@@ -4,7 +4,7 @@ import { useNotificationContext } from '../NotificationContext';
 
 const Form: React.FC = () => {
   const [videoLink, setVideoLink] = useState('');
-  const [transcriptionType, setTranscriptionType] = useState('groq');
+  const [transcriptionType, setTranscriptionType] = useState('openai');
   const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

@@ -10,7 +10,7 @@ class OpenAITranscriptionService(TranscriptionService):
         try:
             with open(audio_file_path, 'rb') as audio_file:
                 logging.debug(f"Processing part {audio_file_path}")
-                transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, prompt=prompt)
+                transcription = self.client.audio.transcriptions.create(model="whisper-1", file=audio_file, response_format="json", prompt=prompt)
             return transcription.text
         except Exception as e:
             logging.error(f"Error transcribing audio file: {e}")

@@ -73,14 +73,16 @@ class AudioDownloader:
         
         # Extract file ID from Google Drive URL
         parsed_url = urlparse(url)
+        file_id = None
+
         if 'drive.google.com' in parsed_url.netloc:
             if '/file/d/' in parsed_url.path:
                 # Extract file ID from /file/d/FILE_ID/view format
                 file_id = parsed_url.path.split('/')[3]
             elif 'id=' in parsed_url.query:
                 # Extract file ID from id=FILE_ID format
-                query_params = parsed_url.query
-                file_id = query_params.split('=')[1]
+                query_params = parse_qs(parsed_url.query)
+                file_id = query_params.get('id', [None])[0]
             else:
                 logging.error("Invalid Google Drive URL")
                 return None
@@ -88,9 +90,12 @@ class AudioDownloader:
             logging.error("Invalid Google Drive URL")
             return None
 
+        if not file_id:
+            logging.error("File ID could not be extracted.")
+            return None
+
         # Convert to direct download link
         direct_link = f"https://drive.google.com/uc?export=download&id={file_id}"
-
         logging.debug(f"Converted Google Drive link to direct download: {direct_link}")
         
         google_dir = os.path.join(path, 'google')
