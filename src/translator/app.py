@@ -8,6 +8,12 @@ from services.audio.audio_service import AudioService
 from services.audio.audio_downloader import AudioDownloader
 from services.audio.file_handler import FileHandler
 from services.transcription import TranscriptionServiceType, TranscriptionFactory
+from pydub import AudioSegment
+
+def get_audio_duration(file_path: str) -> int:
+    audio = AudioSegment.from_file(file_path)
+    duration_seconds = len(audio) / 1000  # pydub returns length in milliseconds
+    return duration_seconds
 
 def main():
     # Load environment variables from .env file
@@ -32,12 +38,12 @@ def main():
 
     if args.url.startswith("https://drive.google.com"):
         audio_file_path = AudioDownloader.download_google_drive_video(args.url, args.path)
-        video_info = {"title": "Google Drive Video", "duration": 0}  # Google Drive doesn't give video info easily
+        video_info = {"title": "Google Drive Video", "duration": get_audio_duration(audio_file_path)}  # Google Drive doesn't give video info easily
     elif args.url.startswith("https://"):
         video_info = AudioDownloader.get_video_info(args.url)
         audio_file_path = AudioDownloader.download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     else:
-        video_info = {"title": os.path.basename(args.url), "duration": 0}
+        video_info = {"title": os.path.basename(args.url), "duration": get_audio_duration(args.url)}
         audio_file_path = FileHandler.handle_local_file(args.url, args.path)
 
     logging.debug(f"Audio file is ready at {audio_file_path}")
