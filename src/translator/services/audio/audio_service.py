@@ -32,26 +32,6 @@ class AudioService:
         return segments
 
     @staticmethod
-    def transcribe_audio_segment(service: TranscriptionServiceType, audio_file_path: str, prompt: str) -> str:
-        try:
-            # Making the transcription API call
-            with open(audio_file_path, 'rb') as audio_file:
-                logging.debug(f"Processing part {audio_file_path}")
-                transcription = service.client.audio.transcriptions.create(
-                    model="whisper-1", 
-                    file=audio_file, 
-                    prompt=prompt,
-                    response_format=service.file_name_extension().lstrip('.')
-                )
-                # Handle the response as plain text
-                transcription_text = transcription
-        except Exception as e:
-            logging.error(f"Error transcribing audio file: {e}")
-            transcription_text = ""
-        
-        return transcription_text
-
-    @staticmethod
     def transcribe_audio(file_path: str, service: TranscriptionService, prompt: str) -> str:
         if os.path.getsize(file_path) > 26214400:  # If file size exceeds 25MB
             transcriptions: List[str] = []
