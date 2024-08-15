@@ -125,8 +125,23 @@ const LandingPageForm: React.FC = () => {
           transform: transformOption,
           transcriptionType: 'openai', // Ensure transcription type is sent
         };
+      } else if (videoLink.includes('vimeo.com')) {
+        const videoIdMatch = videoLink.match(/vimeo\.com\/(\d+)/);
+        const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+        if (!videoId) {
+          setError('Invalid Vimeo URL.');
+          setLoading(false);
+          return;
+        }
+
+        data = {
+          url: videoLink,
+          transform: transformOption,
+          transcriptionType: 'openai', // Ensure transcription type is sent
+        };
       } else {
-        setError('Unsupported URL. Please provide a valid YouTube or Google Drive link.');
+        setError('Unsupported URL. Please provide a valid YouTube, Google Drive, or Vimeo link.');
         setLoading(false);
         return;
       }
@@ -205,13 +220,13 @@ const LandingPageForm: React.FC = () => {
           </label>
         </div>
 
-        <label htmlFor="video-link">Paste a video link from YouTube or Google Drive</label>
+        <label htmlFor="video-link">Paste a video link from YouTube, Google Drive, or Vimeo</label>
         <input
           type="text"
           id="video-link"
           value={videoLink}
           onChange={handleVideoLinkChange}
-          placeholder="Paste YouTube or Google Drive link here"
+          placeholder="Paste YouTube, Google Drive, or Vimeo link here"
         />
 
         <label htmlFor="transform-option">Enhancement</label>

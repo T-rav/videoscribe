@@ -33,8 +33,11 @@ const createApp = (transcribe: TranscribeFunction) => {
   const isValidUrl = (url: string): boolean => {
     const youtubeRegex = /^(https?:\/\/)?(www\.youtube\.com|youtube\.com|youtu\.?be)\/(watch\?v=|embed\/|v\/|.+\?v=|live\/|shorts\/)?([a-zA-Z0-9_-]{11})$/;
     const googleDriveRegex = /^(https?:\/\/)?(drive\.google\.com|docs\.google\.com)\/(file\/d\/|present\/d\/|uc\?(export=download&)?id=)([a-zA-Z0-9_-]+)(\/view)?$/;
-    return youtubeRegex.test(url) || googleDriveRegex.test(url);
-  };
+    const vimeoRegex = /^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)(\/[a-zA-Z0-9_-]+)?$/;
+    
+    return youtubeRegex.test(url) || googleDriveRegex.test(url) || vimeoRegex.test(url);
+};
+
 
   app.post('/transcribe_link', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -45,7 +48,7 @@ const createApp = (transcribe: TranscribeFunction) => {
       }
 
       if (!url || !isValidUrl(url)) {
-        return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube or Google Drive URL' });
+        return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo or Google Drive URL' });
       }
 
       const result = await transcribe({ url, transcriptionType });
@@ -78,15 +81,15 @@ const createApp = (transcribe: TranscribeFunction) => {
       const result = await transcribe({ url:filePath, transcriptionType });
       res.json(result);
     } catch (error) {
-      // if (file) {
-      //   fs.unlink(filePath, (err) => {
-      //     if (err) {
-      //       logger.error('Failed to delete temp file:', err);
-      //     } else {
-      //       logger.info(`Temp file ${filePath} deleted successfully`);
-      //     }
-      //   });
-      // }
+      if (file) {
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            logger.error('Failed to delete file:', err);
+          } else {
+            logger.info(`Temp file ${filePath} deleted successfully`);
+          }
+        });
+      }
       next(error); // Pass the error to the global error handler
     }
   });
