@@ -1,5 +1,9 @@
 import { createLogger, format, transports } from 'winston';
 import path from 'path';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 // Function to generate a timestamped log file name
 const getLogFileName = () => {
@@ -7,8 +11,11 @@ const getLogFileName = () => {
   return `${timestamp}.log`;
 };
 
+// Get the log level from environment variables or default to 'info'
+const logLevel = process.env.LOG_LEVEL || 'info';
+
 const logger = createLogger({
-  level: 'error', // Log only errors
+  level: logLevel, // Log level from environment variable or default to 'info'
   format: format.combine(
     format.timestamp(),
     format.errors({ stack: true }),

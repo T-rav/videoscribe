@@ -72,10 +72,8 @@ const createApp = (transcribe: TranscribeFunction) => {
       const uploadsDir = path.resolve('uploads');
       const filePath = path.join(uploadsDir, file.originalname);
 
-      logger.log('info', `Uploading file: ${filePath}`);
-
       // Pass the file path to the transcribe function
-      const result = await transcribe({ transcriptionType, filePath });
+      const result = await transcribe({ url:filePath, transcriptionType });
       res.json(result);
     } catch (error) {
       next(error); // Pass the error to the global error handler

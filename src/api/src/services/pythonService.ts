@@ -1,13 +1,12 @@
-// src/services/pythonService.ts
 import { spawn } from 'child_process';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import path from 'path';
 import fs from 'fs';
+import logger from '../utils/logger';
 
 interface TranscriptionRequest {
-  url?: string;
+  url: string;
   transcriptionType: TranscriptionServiceType;
-  file?: Express.Multer.File;
 }
 
 interface TranscriptionResponse {
@@ -20,23 +19,15 @@ interface TranscriptionResponse {
 export const transcribe = async ({
   url,
   transcriptionType,
-  file,
 }: TranscriptionRequest): Promise<TranscriptionResponse> => {
   return new Promise((resolve, reject) => {
     let scriptArgs: string[] = [];
-    let filePath: string | undefined;
+
+    // Log the input parameters
+    logger.log('info', `Received transcription request with URL: ${url} and Transcription Type: ${transcriptionType}`);
 
     if (url) {
       scriptArgs.push(url);
-    } else if (file) {
-      // Determine the file path and move the file to a specific location
-      filePath = path.resolve('uploads', file.originalname);
-
-      // Rename/move the file to the desired location
-      fs.renameSync(file.path, filePath);
-
-      // Use the file path as the URL argument for the Python script
-      scriptArgs.push(filePath);
     } else {
       return reject(new Error('Either URL or file must be provided'));
     }
@@ -63,7 +54,7 @@ export const transcribe = async ({
         reject(new Error(`Python script exited with code ${code}: ${errorOutput}`));
       } else {
         try {
-          const parsedOutput = JSON.parse(output);
+          const parsedOutput = JSON.parse(output) as TranscriptionResponse;
           resolve(parsedOutput);
         } catch (error) {
           reject(new Error(`Failed to parse Python script output: ${errorOutput} - [${output}]`));
