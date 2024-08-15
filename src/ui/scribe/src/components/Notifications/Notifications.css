@@ -7,6 +7,13 @@
   border: none;
   cursor: pointer;
   position: relative;
+  padding: 10px;
+}
+
+.notifications-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #000; /* Adjust stroke color as needed */
 }
 
 .badge {
@@ -32,6 +39,15 @@
   z-index: 1000;
   max-height: 400px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.notifications-list {
+  max-height: 150px; /* Height for showing two notifications */
+  overflow-y: auto;
+  flex-grow: 1;
+  margin-bottom: 10px; /* Space between list and login button */
 }
 
 .notification-item {
@@ -79,4 +95,22 @@
   padding: 10px;
   text-align: center;
   color: #888;
+}
+
+.sign-in {
+  background-color: rgb(217, 203, 176);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Space Mono", monospace;
+  color: rgb(92, 69, 35);
+  font-weight: 500;
+  margin: 0 auto 10px; /* Center and space the login button */
+  display: block;
+}
+
+.sign-in:hover {
+  background-color: #d1b179;
 }

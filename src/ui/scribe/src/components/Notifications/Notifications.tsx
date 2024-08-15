@@ -40,24 +40,27 @@ const Notifications: React.FC = () => {
   return (
     <div className="notifications" ref={menuRef}>
       <button className="notifications-icon" onClick={toggleMenu}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 16v2a4 4 0 0 1-8 0v-2"></path><rect x="2" y="7" width="20" height="13" rx="2" ry="2"></rect><path d="M7 7V4a4 4 0 0 1 8 0v3"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="7" r="4"></circle><path d="M5.2 18.2C6.2 15.3 8.8 13 12 13s5.8 2.3 6.8 5.2"></path></svg>
         {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
       </button>
       {open && (
         <div className="notifications-menu">
-          {notifications.length === 0 ? (
-            <div className="no-notifications">No notifications</div>
-          ) : (
-            notifications.map((notification, index) => (
-              <div key={index} className="notification-item">
-                <h4>{notification.title}</h4>
-                <p><strong>Datetime:</strong> {notification.datetime}</p>
-                <p><strong>Length:</strong> {notification.length}</p>
-                <button className="view-button" onClick={() => openModal(notification)}>View Details</button>
-                <button className="close-button" onClick={() => removeNotification(index)}>x</button>
-              </div>
-            ))
-          )}
+          <div className="notifications-list">
+            {notifications.length === 0 ? (
+              <div className="no-notifications">No notifications</div>
+            ) : (
+              notifications.map((notification, index) => (
+                <div key={index} className="notification-item">
+                  <h4>{notification.title}</h4>
+                  <p><strong>Datetime:</strong> {notification.datetime}</p>
+                  <p><strong>Length:</strong> {notification.length}</p>
+                  <button className="view-button" onClick={() => openModal(notification)}>View Details</button>
+                  <button className="close-button" onClick={() => removeNotification(index)}>x</button>
+                </div>
+              ))
+            )}
+          </div>
+          <button className="sign-in">Sign in with Google</button>
         </div>
       )}
       {currentNotification && (

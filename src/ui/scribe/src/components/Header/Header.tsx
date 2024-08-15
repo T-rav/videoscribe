@@ -1,7 +1,6 @@
 import React from 'react';
 import './Header.css';
 import Notifications from '../Notifications/Notifications';
-import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
 const Header: React.FC = () => {
   return (
@@ -12,7 +11,6 @@ const Header: React.FC = () => {
       </div>
       <div className="header-right">
         <Notifications />
-        <DropdownMenu />
       </div>
     </header>
   );
