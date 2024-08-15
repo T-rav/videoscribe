@@ -43,7 +43,7 @@ const LandingPageForm: React.FC = () => {
       data.append('transcriptionType', 'openai'); // Ensure transcription type is sent
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe', {
+        const response = await fetch('http://localhost:3001/transcribe_file', {
           method: 'POST',
           body: data, // Send FormData as the body
         });
