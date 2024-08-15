@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './AuthUserForm.css';
+import './TranscribeForm.css';
 import { useNotificationContext } from '../NotificationContext';
 
-const AuthUserForm: React.FC = () => {
+const TranscribeForm: React.FC = () => {
   const [videoLink, setVideoLink] = useState('');
   const [transcriptionType, setTranscriptionType] = useState('openai');
   const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
@@ -154,4 +154,4 @@ const AuthUserForm: React.FC = () => {
   );
 };
 
-export default AuthUserForm;
+export default TranscribeForm;
