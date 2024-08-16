@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import Notifications from '../Notifications/Notifications';
+import Notifications from '../Menu/Menu';
 
 const Header: React.FC = () => {
   return (

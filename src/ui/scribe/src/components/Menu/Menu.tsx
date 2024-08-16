@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Notifications.css';
+import './Menu.css';
 import Modal from '../Modal/Modal'; // Adjust the path if necessary
 import { useNotificationContext } from '../NotificationContext';
 
