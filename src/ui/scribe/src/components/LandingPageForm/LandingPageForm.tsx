@@ -200,7 +200,7 @@ const LandingPageForm: React.FC = () => {
             our tool empowers you to <strong>quickly understand and extract the most important information.</strong>
           </p>
           <p>
-            With options to <strong>summarize</strong>, <strong>highlight key points</strong>, or even <strong>format the content for readability</strong>, 
+            With options to <strong>summarize</strong>, <strong>highlight key points</strong>, or even <strong>just format the content for readability</strong>, 
             you can now digest hours of video in just minutes.
           </p>
           <p>
