@@ -16,7 +16,6 @@ const App: React.FC = () => {
 
   return (
     <NotificationProvider>
-      <Router>
         <Header />
         <div className="main-content">
           <Routes>
@@ -34,7 +33,6 @@ const App: React.FC = () => {
           </Routes>
         </div>
         <Footer />
-      </Router>
     </NotificationProvider>
   );
 };
