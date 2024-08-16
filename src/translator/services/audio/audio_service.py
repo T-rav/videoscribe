@@ -54,6 +54,7 @@ class AudioService:
                     index = futures[future]
                     segment_path = segments[index]
                     try:
+                        logging.info(f"Transcribing segment {segment_path}")
                         transcriptions[index] = future.result()
                     except Exception as e:
                         logging.error(f"Error transcribing segment {segment_path}: {e}")
