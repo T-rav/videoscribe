@@ -19,9 +19,6 @@ const App: React.FC = () => {
         <Header />
         <div className="main-content">
           <Routes>
-            {/* Root route redirection based on authentication */}
-            {/* <Route path="/" element={isAuthenticated() ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} /> */}
-
             {/* Login route */}
             <Route path="/login" element={<Login />} />
 

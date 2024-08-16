@@ -1,7 +1,52 @@
-.form-container {
-  background-color: rgb(230,213,188); 
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   padding: 20px;
-  margin: 20px;
+  box-sizing: border-box;
+}
+
+.marketing-copy-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.marketing-copy {
+  width: 80%;
+  padding: 15px;
+  font-family: "Space Mono", monospace;
+  font-weight: 600;
+  color: #4A4A4A; /* Use the same text color as the form */
+  background-color: #F5ECD5; /* Match the background color of the form */
+  border: 1px solid rgb(199, 162, 107); /* Match the border color of the form */
+  border-radius: 8px; /* Subtle rounded corners for consistency */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.marketing-copy h1 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #4A4A4A; /* Darker color to match form text */
+}
+
+.marketing-copy p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  color: #4A4A4A; /* Match the form text color */
+}
+
+.marketing-copy strong {
+  color: rgb(199, 162, 107);  /* Use the same color as the form's button */
+}
+
+.form-container {
+  background-color: rgb(230, 213, 188);
+  padding: 20px;
   width: 100%;
   max-width: 500px;
   border-radius: 8px;
@@ -9,13 +54,15 @@
   text-align: left;
   font-weight: 700;
   font-family: "Space Mono", monospace;
+  margin: 20px auto; /* Ensure the form container stays centered with some margin */
 }
 
 h2 {
   text-align: center;
   font-family: "DM Sans", sans-serif;
   color: #4A4A4A;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  font-size: 22px; /* Adjusted font size for balance */
 }
 
 label {
@@ -24,6 +71,7 @@ label {
   font-weight: 600;
   color: #4A4A4A;
   font-family: "Space Mono", monospace;
+  font-size: 14px; /* Standard font size */
 }
 
 input[type="text"], select {
@@ -35,6 +83,7 @@ input[type="text"], select {
   font-family: "Space Mono", monospace;
   background-color: #FFF9F0;
   box-sizing: border-box;
+  font-size: 14px; /* Standard input font size */
 }
 
 .file-upload-container {
@@ -49,10 +98,10 @@ input[type="text"], select {
 
 .file-dropzone {
   display: flex;
-  flex-direction: column; /* This ensures the text is stacked vertically */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
   border: 2px dashed rgb(199, 162, 107);
   border-radius: 8px;
   background-color: #f5ecd5;
@@ -64,14 +113,14 @@ input[type="text"], select {
 
 .file-dropzone span {
   font-size: 14px;
-  margin-bottom: 5px; /* Adds space between "Upload file" and the next line */
+  margin-bottom: 5px;
 }
 
 .file-dropzone p {
   font-size: 12px;
   color: #888;
   margin: 0;
-  text-align: center; /* Ensure the text is centered */
+  text-align: center;
 }
 
 .submit-button {
@@ -146,7 +195,7 @@ input[type="text"], select {
 
 .transcription-result h3 {
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px; /* Adjusted font size for balance */
   font-weight: bold;
   color: #333;
 }
@@ -165,12 +214,12 @@ input[type="text"], select {
 }
 
 .transcription-result pre {
-  max-height: 200px; /* Set the maximum height for the transcript box */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 200px;
+  overflow-y: auto;
   margin: 0;
   font-size: 14px;
   line-height: 1.5;
-  white-space: pre-wrap; /* Preserve formatting of the transcript */
+  white-space: pre-wrap;
 }
 
 .copy-button {
