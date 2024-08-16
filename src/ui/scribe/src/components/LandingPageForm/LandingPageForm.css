@@ -12,6 +12,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: -20px;
 }
 
 .marketing-copy {
@@ -35,7 +36,7 @@
 
 .marketing-copy p {
   font-size: 16px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   line-height: 1.4;
   color: #4A4A4A; /* Match the form text color */
 }
@@ -54,7 +55,7 @@
   text-align: left;
   font-weight: 700;
   font-family: "Space Mono", monospace;
-  margin: 20px auto; /* Ensure the form container stays centered with some margin */
+  margin: 40px auto; /* Ensure the form container stays centered with some margin */
 }
 
 h2 {
