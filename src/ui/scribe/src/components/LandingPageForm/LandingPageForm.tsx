@@ -192,11 +192,11 @@ const LandingPageForm: React.FC = () => {
 
   return (
     <div className="landing-page">
-      <div className="marketing-copy-container"> {/* New container to center marketing copy */}
+      <div className="marketing-copy-container">
         <div className="marketing-copy">
           <h1>Unlock Insights from Your Videos Instantly</h1>
           <p>
-            <strong>Transform the way you consume videos.</strong> Whether it's a lecture, a meeting, or any other valuable content, 
+            <strong>Transform the way you consume videos.</strong> Whether it's a lecture, a meeting, or your kid's school sending a video communication, 
             our tool empowers you to <strong>quickly understand and extract the most important information.</strong>
           </p>
           <p>
@@ -204,8 +204,11 @@ const LandingPageForm: React.FC = () => {
             you can now digest hours of video in just minutes.
           </p>
           <p>
-            Perfect for <strong>busy professionals</strong>, <strong>students</strong>, or anyone looking to <strong>maximize the value of videos.</strong>
+            Perfect for <strong>busy professionals</strong>, <strong>students</strong>, <strong>parents</strong>, or anyone looking to <strong>maximize the value of videos.</strong>
           </p>
+          <div className="cta-message">
+            <a href="#">Start optimizing your video experience today!</a>
+          </div>
         </div>
       </div>
       <div className="form-container">
@@ -265,7 +268,6 @@ const LandingPageForm: React.FC = () => {
             {loading ? <div className="spinner"></div> : 'Transcribe'}
           </button>
         </form>
-
         {results.map((result, index) => (
           <div key={index} className="transcription-result">
             <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
@@ -277,8 +279,6 @@ const LandingPageForm: React.FC = () => {
             <button className="copy-button" onClick={() => copyToClipboard(result.transcript)}>Copy</button>
           </div>
         ))}
-
-
       </div>
     </div>
   );
