@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Menu.css';
-import Modal from '../Modal/Modal'; // Adjust the path if necessary
+import Modal from '../Modal/Modal';
 import { useNotificationContext } from '../NotificationContext';
+import { useAuth } from '../AuthContext'; // Import the useAuth hook
 
 const Notifications: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentNotification, setCurrentNotification] = useState<any>(null);
   const { notifications, removeNotification } = useNotificationContext();
+  const { isAuthenticated, user, login, logout } = useAuth(); // Destructure the authentication methods and state
   const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
@@ -40,7 +42,10 @@ const Notifications: React.FC = () => {
   return (
     <div className="notifications" ref={menuRef}>
       <button className="notifications-icon" onClick={toggleMenu}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="7" r="4"></circle><path d="M5.2 18.2C6.2 15.3 8.8 13 12 13s5.8 2.3 6.8 5.2"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="7" r="4"></circle>
+          <path d="M5.2 18.2C6.2 15.3 8.8 13 12 13s5.8 2.3 6.8 5.2"></path>
+        </svg>
         {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
       </button>
       {open && (
@@ -60,7 +65,17 @@ const Notifications: React.FC = () => {
               ))
             )}
           </div>
-          <button className="sign-in">Sign in with Google</button>
+
+          {/* Show login/logout based on authentication state */}
+          {!isAuthenticated ? (
+            <button className="sign-in" onClick={() => login()}>Sign in with Google</button>
+          ) : (
+            <div className="user-info">
+              <img src={user?.picture} alt={user?.name} className="user-avatar" />
+              <span className="user-name">{user?.name}</span>
+              <button className="sign-out" onClick={() => logout()}>Sign out</button>
+            </div>
+          )}
         </div>
       )}
       {currentNotification && (
