@@ -8,6 +8,10 @@ import { TranscriptionServiceType } from './enums/TranscriptionServiceType';
 import logger from './utils/logger';
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 interface TranscriptionRequest {
   url?: string;
@@ -28,20 +32,38 @@ const createApp = (transcribe: TranscribeFunction) => {
   const app = express();
   const upload = multer({ dest: 'uploads/' }); // upload directory
 
- // Rate limiter for unauthorized users: 5 requests per 24 hours
+  // Convert time window from .env format to milliseconds
+  const parseTimeWindow = (time: string): number => {
+    const match = time.match(/(\d+)([hms])/);
+    if (!match) return 0;
+    const value = parseInt(match[1]);
+    const unit = match[2];
+    switch (unit) {
+      case 'h':
+        return value * 60 * 60 * 1000;
+      case 'm':
+        return value * 60 * 1000;
+      case 's':
+        return value * 1000;
+      default:
+        return 0;
+    }
+  };
+
+  // Rate limiter for unauthorized users: limit from .env
   const unauthorizedRateLimiter = rateLimit({
-    windowMs: 24 * 60 * 60 * 1000, // 24 hours
-    max: 5, // Limit to 5 requests per 24 hours
+    windowMs: parseTimeWindow(process.env.UNAUTHORIZED_RATE_WINDOW || '24h'), // Default to 24 hours
+    max: parseInt(process.env.UNAUTHORIZED_RATE_LIMIT || '5'), // Default to 5 requests
     keyGenerator: (req) => req.cookies.user_id, // Use user_id cookie as the key
     message: 'You have exceeded the 5 requests in 24 hours limit. Please try again later.',
     standardHeaders: true,
     legacyHeaders: false,
   });
 
-  // Rate limiter for authorized users: 10 requests per hour
+  // Rate limiter for authorized users: limit from .env
   const authorizedRateLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour
-    max: 10, // Limit to 10 requests per hour
+    windowMs: parseTimeWindow(process.env.AUTHORIZED_RATE_WINDOW || '1h'), // Default to 1 hour
+    max: parseInt(process.env.AUTHORIZED_RATE_LIMIT || '10'), // Default to 10 requests
     keyGenerator: (req) => req.cookies.user_id, // Use user_id cookie as the key
     message: 'You have exceeded the 10 requests per hour limit. Please try again later.',
     standardHeaders: true,
