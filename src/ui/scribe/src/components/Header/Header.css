@@ -21,7 +21,7 @@
 .header-right {
   display: flex;
   align-items: center;
-  position: relative; /* Ensure relative positioning for absolute children */
+  position: relative;
 }
 
 .notifications {
@@ -34,6 +34,12 @@
   border: none;
   cursor: pointer;
   padding: 10px;
+}
+
+.notifications-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #000;
 }
 
 .notifications-menu {
@@ -119,4 +125,15 @@
 
 .sign-in:hover {
   background-color: #d1b179;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
 }

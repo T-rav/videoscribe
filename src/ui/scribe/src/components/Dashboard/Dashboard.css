@@ -1,0 +1,23 @@
+.dashboard-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5ecd5;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #4A4A4A;
+    font-family: "DM Sans", sans-serif;
+  }
+  
+  .dashboard-container p {
+    font-size: 18px;
+    color: #4A4A4A;
+    font-family: "Space Mono", monospace;
+    text-align: center;
+  }
+  
