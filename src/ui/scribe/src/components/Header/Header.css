@@ -18,6 +18,13 @@
   color: #000000;
 }
 
+.logo a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit the color from the parent */
+  display: flex; /* Make sure the content inside is flexibly aligned */
+  align-items: center; /* Align items vertically */
+}
+
 .header-right {
   display: flex;
   align-items: center;
