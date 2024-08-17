@@ -6,6 +6,8 @@ import path from 'path';
 import fs from 'fs';
 import { TranscriptionServiceType } from './enums/TranscriptionServiceType';
 import logger from './utils/logger';
+import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
 
 interface TranscriptionRequest {
   url?: string;
@@ -26,6 +28,38 @@ const createApp = (transcribe: TranscribeFunction) => {
   const app = express();
   const upload = multer({ dest: 'uploads/' }); // upload directory
 
+ // Rate limiter for unauthorized users: 5 requests per 24 hours
+  const unauthorizedRateLimiter = rateLimit({
+    windowMs: 24 * 60 * 60 * 1000, // 24 hours
+    max: 5, // Limit to 5 requests per 24 hours
+    keyGenerator: (req) => req.cookies.user_id, // Use user_id cookie as the key
+    message: 'You have exceeded the 5 requests in 24 hours limit. Please try again later.',
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  // Rate limiter for authorized users: 10 requests per hour
+  const authorizedRateLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 10, // Limit to 10 requests per hour
+    keyGenerator: (req) => req.cookies.user_id, // Use user_id cookie as the key
+    message: 'You have exceeded the 10 requests per hour limit. Please try again later.',
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  // Middleware to check if the user is authenticated
+  function isAuthenticated(req: Request): boolean {
+    return req.cookies.isAuthenticated === 'true';
+  }
+
+  app.use((req, res, next) => {
+    if (isAuthenticated(req)) {
+      authorizedRateLimiter(req, res, next);
+    } else {
+      unauthorizedRateLimiter(req, res, next);
+    }
+  });
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true })); // To parse URL-encoded data
