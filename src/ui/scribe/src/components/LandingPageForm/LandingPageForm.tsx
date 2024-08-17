@@ -208,6 +208,10 @@ const LandingPageForm: React.FC = () => {
           </p>
           <div className="cta-message">
             <a href="#">Start optimizing your video experience today!</a>
+            <p>Or</p>
+            <a href="https://www.youtube.com/watch?v=YourVideoID" target="_blank" rel="noopener noreferrer">
+              Watch this quick explainer video to learn more!
+            </a>
           </div>
         </div>
       </div>
