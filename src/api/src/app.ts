@@ -9,22 +9,11 @@ import logger from './utils/logger';
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
+import { TranscriptionRequest } from './TranscriptionRequest';
+import { TranscriptionResponse } from './TranscriptionResponse';
 
 // Load environment variables from .env file
 dotenv.config();
-
-interface TranscriptionRequest {
-  url?: string;
-  transcriptionType: TranscriptionServiceType;
-  filePath?: string;
-}
-
-interface TranscriptionResponse {
-  url?: string;
-  filePath?: string;
-  transcriptionType: TranscriptionServiceType;
-  transcription: string;
-}
 
 type TranscribeFunction = (req: TranscriptionRequest) => Promise<TranscriptionResponse>;
 
