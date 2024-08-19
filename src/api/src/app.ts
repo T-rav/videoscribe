@@ -18,7 +18,7 @@ const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
   const app = express();
 
   app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://scribe.koderex.dev',
     credentials: true,
   }));
   app.use(express.json());

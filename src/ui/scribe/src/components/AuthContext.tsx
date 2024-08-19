@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = () => {
     console.log("AuthContext: Initiating Google OAuth login");
-    window.location.href = 'http://localhost:3001/auth/google'; // Redirect to the backend's Google OAuth route
+    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/auth/google`; // Redirect to the backend's Google OAuth route
   };
 
   const logout = (redirect?: () => void) => {

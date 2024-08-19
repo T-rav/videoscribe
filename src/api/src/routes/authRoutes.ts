@@ -38,9 +38,9 @@ router.get(
     logger.info('Generated JWT:', token);
 
     // Set the token and user information in cookies
-    res.cookie('token', token, { httpOnly: true, sameSite: 'lax' });
-    res.cookie('user', JSON.stringify(user), { httpOnly: false });
-    res.cookie('isAuthenticated', 'true', { httpOnly: false });
+    res.cookie('token', token, { httpOnly: true });
+    res.cookie('user', JSON.stringify(user), { httpOnly: false, sameSite: 'none' });
+    res.cookie('isAuthenticated', 'true', { httpOnly: false, sameSite: 'none' });
 
     logger.info("Auth: Set token and user info in cookies");
 
