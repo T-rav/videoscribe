@@ -17,10 +17,22 @@ dotenv.config();
 const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
   const app = express();
 
+  const allowedOrigins = [
+    'http://localhost:3000',  // Allow localhost for development
+    'https://scribe.koderex.dev',  // Allow your production domain
+  ];
+
   app.use(cors({
-    origin: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://scribe.koderex.dev',
-    credentials: true,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,  // Enable sending of cookies and authentication headers
   }));
+  
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
