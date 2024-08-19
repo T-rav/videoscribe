@@ -13,6 +13,7 @@ const LandingPageForm: React.FC = () => {
   >([]);
 
   const maxFileSizeInMB = 2500;
+  const transriptionType = 'openai-srt';
 
   const isFileSizeValid = (file: File, maxSizeInMB: number): boolean => {
     const maxSizeInBytes = maxSizeInMB * 1024 * 1024; 
@@ -76,7 +77,7 @@ const LandingPageForm: React.FC = () => {
       data = new FormData();
       data.append('file', file);
       data.append('transform', transformOption);
-      data.append('transcriptionType', 'openai');
+      data.append('transcriptionType', transriptionType);
 
       try {
         const response = await fetch('http://localhost:3001/transcribe_file', {
@@ -109,7 +110,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: videoLink,
           transform: transformOption,
-          transcriptionType: 'openai',
+          transcriptionType: transriptionType,
         };
       } else if (videoLink.includes('drive.google.com')) {
         const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
@@ -124,7 +125,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: `https://drive.google.com/uc?export=download&id=${fileId}`,
           transform: transformOption,
-          transcriptionType: 'openai',
+          transcriptionType: transriptionType,
         };
       } else if (videoLink.includes('vimeo.com')) {
         const videoIdMatch = videoLink.match(/vimeo\.com\/(\d+)/);
@@ -139,7 +140,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: videoLink,
           transform: transformOption,
-          transcriptionType: 'openai',
+          transcriptionType: transriptionType,
         };
       } else {
         setError('Unsupported URL. Please provide a valid YouTube, Google Drive, or Vimeo link.');
