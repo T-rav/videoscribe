@@ -18,25 +18,33 @@ export const parseTimeWindow = (time: string): number => {
   }
 };
 
-const createRateLimiter = (windowMs: number, max: number, keyGenerator: (req: Request) => string) =>
-  rateLimit({
-    windowMs,
-    max,
-    keyGenerator,
-    standardHeaders: true,
-    legacyHeaders: false,
-  });
+// Create a rate limiter instance for authenticated users
+const authRateLimiter = rateLimit({
+  windowMs: parseTimeWindow(process.env.AUTHORIZED_RATE_WINDOW || '1h'), // 1 hour window
+  max: parseInt(process.env.AUTHORIZED_RATE_LIMIT || '10'), // Limit each IP to 10 requests per windowMs
+  keyGenerator: (req: Request) => {
+    return req.cookies?.user_id || req.ip; // Ensure this always returns a string
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Create a rate limiter instance for non-authenticated users
+const nonAuthRateLimiter = rateLimit({
+  windowMs: parseTimeWindow(process.env.UNAUTHORIZED_RATE_WINDOW || '24h'), // 24 hour window
+  max: parseInt(process.env.UNAUTHORIZED_RATE_LIMIT || '5'), // Limit each IP to 5 requests per windowMs
+  keyGenerator: (req: Request) => req.ip || '_SOME_IP_', // Ensure this always returns a string
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 export const rateLimiterMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const isAuthenticated = req.cookies.isAuthenticated === 'true';
-  const windowMs = parseTimeWindow(
-    process.env[isAuthenticated ? 'AUTHORIZED_RATE_WINDOW' : 'UNAUTHORIZED_RATE_WINDOW'] || (isAuthenticated ? '1h' : '24h')
-  );
-  const maxRequests = parseInt(
-    process.env[isAuthenticated ? 'AUTHORIZED_RATE_LIMIT' : 'UNAUTHORIZED_RATE_LIMIT'] || (isAuthenticated ? '10' : '5')
-  );
-  const keyGenerator = (req: Request) => req.cookies.user_id;
+  const isAuthenticated = req.cookies?.isAuthenticated === 'true';
 
-  const limiter = createRateLimiter(windowMs, maxRequests, keyGenerator);
-  limiter(req, res, next);
+  // Apply the appropriate rate limiter based on authentication status
+  if (isAuthenticated) {
+    authRateLimiter(req, res, next);
+  } else {
+    nonAuthRateLimiter(req, res, next);
+  }
 };

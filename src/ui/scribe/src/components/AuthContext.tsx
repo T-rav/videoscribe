@@ -51,52 +51,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [navigate]);
 
-  const login = useGoogleLogin({
-    onSuccess: async (response) => {
-      const token = response.access_token;
-
-      // Use secure flag based on environment
-      Cookies.set('token', token, { expires: 1, secure: !isDev });
-
-      // Fetch user profile info
-      const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const profile = await res.json();
-
-      const userProfile: UserProfile = {
-        email: profile.email,
-        name: profile.name,
-        picture: profile.picture,
-      };
-
-      setUser(userProfile);
-      setIsAuthenticated(true);
-
-      Cookies.set('user', JSON.stringify(userProfile), { expires: 1, secure: !isDev });
-      Cookies.set('isAuthenticated', 'true', { expires: 1, secure: !isDev });
-    },
-    onError: () => {
-      console.log('Login Failed');
-    },
-  });
+  const login = () => {
+    window.location.href = 'http://localhost:3001/auth/google'; // Redirect to the backend's Google OAuth route
+  };
+  
 
   const logout = (redirect?: () => void) => {
     setIsAuthenticated(false);
     setUser(null);
-
+  
     // Remove from cookies
     Cookies.remove('user');
     Cookies.remove('isAuthenticated');
     Cookies.remove('token');
-
+  
     if (redirect) {
       redirect();
     } else {
-      navigate('/login');
+      navigate('/login'); // Redirect to login page on logout
     }
   };
 

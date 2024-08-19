@@ -9,10 +9,10 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 // Google OAuth callback route
 router.get(
   '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('http://localhost:3000/dashboard');
   }
 );
 

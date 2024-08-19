@@ -20,6 +20,13 @@ passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((user, done) => {
-  done(null, user as any);
+passport.deserializeUser((id, done) => {
+  // If you have a database, fetch the user by ID
+  // User.findById(id, (err, user) => {
+  //   done(err, user);
+  // });
+
+  // Mock implementation if you don't have a database
+  const user = { id, name: 'Mock User' }; // Replace with actual user fetching logic
+  done(null, user);
 });
