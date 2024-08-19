@@ -39,12 +39,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const storedAuthState = Cookies.get('isAuthenticated');
     const token = Cookies.get('token');
 
+    console.log("AuthContext: Initializing authentication state from cookies");
+    console.log("storedUser:", storedUser);
+    console.log("storedAuthState:", storedAuthState);
+    console.log("token:", token);
+
     if (storedUser && storedAuthState === 'true' && token) {
       const isTokenExpired = checkTokenExpiration(token);
 
       if (isTokenExpired) {
+        console.log("AuthContext: Token is expired, logging out");
         logout(() => navigate('/login')); // Redirect to login if the token is expired
       } else {
+        console.log("AuthContext: Token is valid, setting user state");
         setUser(JSON.parse(storedUser));
         setIsAuthenticated(true);
       }
@@ -52,35 +59,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [navigate]);
 
   const login = () => {
+    console.log("AuthContext: Initiating Google OAuth login");
     window.location.href = 'http://localhost:3001/auth/google'; // Redirect to the backend's Google OAuth route
   };
-  
 
   const logout = (redirect?: () => void) => {
+    console.log("AuthContext: Logging out");
     setIsAuthenticated(false);
     setUser(null);
-  
+
     // Remove from cookies
     Cookies.remove('user');
     Cookies.remove('isAuthenticated');
     Cookies.remove('token');
-  
+
     if (redirect) {
+      console.log("AuthContext: Redirecting after logout");
       redirect();
     } else {
+      console.log("AuthContext: Navigating to /login after logout");
       navigate('/login'); // Redirect to login page on logout
     }
   };
 
   const checkTokenExpiration = (token: string): boolean => {
     try {
+      console.log("AuthContext: Checking token expiration");
       const payload = JSON.parse(atob(token.split('.')[1]));
       const exp = payload.exp;
       const currentTime = Math.floor(Date.now() / 1000);
 
+      console.log("AuthContext: Token expiration time:", exp);
+      console.log("AuthContext: Current time:", currentTime);
+
       return exp < currentTime;
     } catch (error) {
-      console.error('Error checking token expiration:', error);
+      console.error('AuthContext: Error checking token expiration:', error);
       return true; // Treat as expired if there's an error parsing
     }
   };
