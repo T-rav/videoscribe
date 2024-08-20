@@ -273,3 +273,48 @@ input[type="text"], select {
   align-items: center;
   margin-bottom: 10px;
 }
+
+.transcription-tabs {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: 1px solid rgb(199, 162, 107);
+  background-color: #f5ecd5;
+  color: #4a4a4a;
+  cursor: pointer;
+  font-family: "Space Mono", monospace;
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-button:not(:last-child) {
+  border-right: none;
+}
+
+.tab-button.active {
+  background-color: rgb(199, 162, 107);
+  color: white;
+}
+
+.tab-button:hover {
+  background-color: #d2b48c;
+  color: white;
+}
+
+.transcript-content {
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  border: 1px solid rgb(199, 162, 107);
+  padding: 10px;
+  background-color: #FFF9F0;
+}

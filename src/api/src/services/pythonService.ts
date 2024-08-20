@@ -11,9 +11,13 @@ interface TranscriptionRequest {
 
 interface TranscriptionResponse {
   url?: string;
-  filePath?: string;
-  transcriptionType: TranscriptionServiceType;
+  title: string;
+  duration: number;
+  transcription_file_path: string;
+  service: string;
   transcription: string;
+  transformed_transcript: string;
+  transform: string;
 }
 
 export const transcribe = async ({
