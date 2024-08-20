@@ -83,8 +83,9 @@ router.get('/auth/verify', (req: Request, res: Response) => {
       return res.status(403).json({ message: 'Invalid token' });
     }
 
-    logger.info('User verified:', req.cookies.user);
-    res.status(200).json({ user: JSON.parse(req.cookies.user) });
+    const user = { name: `${decodedToken.name.givenName} ${decodedToken.name.familyName}`, id: decodedToken.id, email: decodedToken.email, picture: decodedToken.picture };
+    logger.info('User verified:', user);
+    res.status(200).json({ user: user });
   });
 });
 
