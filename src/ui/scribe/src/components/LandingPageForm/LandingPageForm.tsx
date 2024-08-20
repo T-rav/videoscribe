@@ -4,13 +4,13 @@ import './LandingPageForm.css';
 const LandingPageForm: React.FC = () => {
   const [videoLink, setVideoLink] = useState('');
   const [file, setFile] = useState<File | null>(null);
-  const [transformOption, setTransformOption] = useState('summarize');
+  const [transformOption, setTransformOption] = useState('none');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<
     { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string }[]
   >([]);
-  const [activeTab, setActiveTab] = useState<string>('transformed');
+  const [activeTabs, setActiveTabs] = useState<{ [key: number]: string }>({});
 
   const maxFileSizeInMB = 2500;
   const transriptionType = 'openai-srt';
@@ -97,7 +97,14 @@ const LandingPageForm: React.FC = () => {
             transformOptionUsed: transformOption,
           };
 
-          setResults((prevResults) => [structuredResult, ...prevResults]);
+          setResults((prevResults) => {
+            const updatedResults = [structuredResult, ...prevResults];
+            setActiveTabs((prevTabs) => ({
+              ...prevTabs,
+              [updatedResults.length - 1]: transformOption !== 'none' ? 'transformed' : 'full',
+            }));
+            return updatedResults;
+          });
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -172,7 +179,14 @@ const LandingPageForm: React.FC = () => {
             transformOptionUsed: transformOption,
           };
 
-          setResults((prevResults) => [structuredResult, ...prevResults]);
+          setResults((prevResults) => {
+            const updatedResults = [structuredResult, ...prevResults];
+            setActiveTabs((prevTabs) => ({
+              ...prevTabs,
+              [updatedResults.length - 1]: transformOption !== 'none' ? 'transformed' : 'full',
+            }));
+            return updatedResults;
+          });
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -194,6 +208,18 @@ const LandingPageForm: React.FC = () => {
 
   const closeTranscript = (index: number) => {
     setResults((prevResults) => prevResults.filter((_, i) => i !== index));
+    setActiveTabs((prevTabs) => {
+      const newTabs = { ...prevTabs };
+      delete newTabs[index];
+      return newTabs;
+    });
+  };
+
+  const handleTabClick = (index: number, tab: string) => {
+    setActiveTabs((prevTabs) => ({
+      ...prevTabs,
+      [index]: tab,
+    }));
   };
 
   return (
@@ -284,21 +310,29 @@ const LandingPageForm: React.FC = () => {
             <h4>Title: {result.title}</h4>
             <p>Duration: {result.duration} seconds</p>
             <div className="transcription-tabs">
-              <button
-                className={`tab-button ${activeTab === 'transformed' ? 'active' : ''}`}
-                onClick={() => setActiveTab('transformed')}
-              >
-                Transformed ({result.transformOptionUsed})
-              </button>
-              <button
-                className={`tab-button ${activeTab === 'full' ? 'active' : ''}`}
-                onClick={() => setActiveTab('full')}
-              >
-                Full Transcript
-              </button>
+              {result.transformOptionUsed !== 'none' ? (
+                <>
+                  <button
+                    className={`tab-button ${activeTabs[index] === 'transformed' ? 'active' : ''}`}
+                    onClick={() => handleTabClick(index, 'transformed')}
+                  >
+                    Transformed ({result.transformOptionUsed})
+                  </button>
+                  <button
+                    className={`tab-button ${activeTabs[index] === 'full' ? 'active' : ''}`}
+                    onClick={() => handleTabClick(index, 'full')}
+                  >
+                    Full Transcript
+                  </button>
+                </>
+              ) : (
+                <button className="tab-button active" disabled>
+                  Full Transcript
+                </button>
+              )}
             </div>
             <div className="transcript-content">
-              {activeTab === 'transformed' ? (
+              {activeTabs[index] === 'transformed' && result.transformOptionUsed !== 'none' ? (
                 <pre>{result.transformedTranscript}</pre>
               ) : (
                 <pre>{result.transcript}</pre>
@@ -307,7 +341,7 @@ const LandingPageForm: React.FC = () => {
             <button
               className="copy-button"
               onClick={() =>
-                copyToClipboard(activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
+                copyToClipboard(activeTabs[index] === 'transformed' && result.transformOptionUsed !== 'none' ? result.transformedTranscript : result.transcript)
               }
             >
               Copy
