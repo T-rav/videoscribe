@@ -8,6 +8,6 @@ class SummarizeTransformation(TransformationService):
         self.prompts = Client(api_key=lang_smith_api_key)
         
     def transform(self, transcript: str) -> str:
-        chain = client.pull_prompt("scribe-ai-summary", include_model=True)
+        chain = self.prompts.pull_prompt("scribe-ai-summary", include_model=True)
         summary = chain.invoke({"transcript": transcript})
         return summary
