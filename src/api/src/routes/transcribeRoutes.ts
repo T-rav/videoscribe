@@ -20,7 +20,7 @@ const isValidUrl = (url: string): boolean => {
 export default function transcribeRoutes(transcribe: (req: TranscriptionRequest) => Promise<any>) {
   router.post('/link', async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { url, transcriptionType } = req.body;
+      const { url, transform, transcriptionType } = req.body;
 
       if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
         return res.status(400).json({ error: 'Invalid transcription type' });
@@ -30,7 +30,7 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
         return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo, or Google Drive URL' });
       }
 
-      const result = await transcribe({ url, transcriptionType });
+      const result = await transcribe({ url, transcriptionType, transform });
       res.json(result);
     } catch (error) {
       next(error);
@@ -39,7 +39,7 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
 
   router.post('/file', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
     const file = req.file;
-    const { transcriptionType } = req.body;
+    const { transcriptionType, transform } = req.body;
     let filePath = '';
 
     try {
@@ -55,7 +55,7 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
       filePath = path.join(uploadsDir, file.originalname);
       fs.renameSync(file.path, filePath);
 
-      const result = await transcribe({ url: filePath, transcriptionType });
+      const result = await transcribe({ url: filePath, transcriptionType, transform });
       res.json(result);
     } catch (error) {
       if (file) {

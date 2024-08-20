@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import './LandingPageForm.css';
 
 const LandingPageForm: React.FC = () => {
-  // State management remains the same
   const [videoLink, setVideoLink] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [transformOption, setTransformOption] = useState('summarize');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<
-    { title: string; duration: string; transcript: string }[]
+    { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string }[]
   >([]);
+  const [activeTab, setActiveTab] = useState<string>('transformed');
 
   const maxFileSizeInMB = 2500;
   const transriptionType = 'openai-srt';
@@ -83,7 +83,7 @@ const LandingPageForm: React.FC = () => {
         const response = await fetch('http://localhost:3001/transcribe/file', {
           method: 'POST',
           body: data,
-          credentials: 'include', // Include cookies in the request
+          credentials: 'include',
         });
 
         if (response.ok) {
@@ -93,6 +93,8 @@ const LandingPageForm: React.FC = () => {
             title: result.title,
             duration: result.duration,
             transcript: result.transcript,
+            transformedTranscript: result.transformed_transcript,
+            transformOptionUsed: transformOption,
           };
 
           setResults((prevResults) => [structuredResult, ...prevResults]);
@@ -156,7 +158,7 @@ const LandingPageForm: React.FC = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
-          credentials: 'include', // Include cookies in the request
+          credentials: 'include',
         });
 
         if (response.ok) {
@@ -166,6 +168,8 @@ const LandingPageForm: React.FC = () => {
             title: result.title,
             duration: result.duration,
             transcript: result.transcript,
+            transformedTranscript: result.transformed_transcript,
+            transformOptionUsed: transformOption,
           };
 
           setResults((prevResults) => [structuredResult, ...prevResults]);
@@ -184,9 +188,8 @@ const LandingPageForm: React.FC = () => {
     }
   };
 
-  const copyToClipboard = (transcript: string) => {
-    const formattedText = `Transcript:\n\n${transcript}`;
-    navigator.clipboard.writeText(formattedText);
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
   };
 
   const closeTranscript = (index: number) => {
@@ -268,7 +271,6 @@ const LandingPageForm: React.FC = () => {
             <option value="removefillerwords">Remove Filler Words</option>
             <option value="paragraphs">Make Paragraphs</option>
             <option value="keywords">Keyword Extraction</option>
-            {/* <option value="translation">Translation</option> */}
           </select>
 
           <button type="submit" className="submit-button" disabled={loading}>
@@ -281,9 +283,35 @@ const LandingPageForm: React.FC = () => {
             <h3>#{results.length - index}</h3>
             <h4>Title: {result.title}</h4>
             <p>Duration: {result.duration} seconds</p>
-            <h4>Transcript:</h4>
-            <pre>{result.transcript}</pre>
-            <button className="copy-button" onClick={() => copyToClipboard(result.transcript)}>Copy</button>
+            <div className="transcription-tabs">
+              <button
+                className={`tab-button ${activeTab === 'transformed' ? 'active' : ''}`}
+                onClick={() => setActiveTab('transformed')}
+              >
+                Transformed ({result.transformOptionUsed})
+              </button>
+              <button
+                className={`tab-button ${activeTab === 'full' ? 'active' : ''}`}
+                onClick={() => setActiveTab('full')}
+              >
+                Full Transcript
+              </button>
+            </div>
+            <div className="transcript-content">
+              {activeTab === 'transformed' ? (
+                <pre>{result.transformedTranscript}</pre>
+              ) : (
+                <pre>{result.transcript}</pre>
+              )}
+            </div>
+            <button
+              className="copy-button"
+              onClick={() =>
+                copyToClipboard(activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
+              }
+            >
+              Copy
+            </button>
           </div>
         ))}
       </div>
