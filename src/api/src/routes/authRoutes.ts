@@ -11,9 +11,8 @@ const router = Router();
 interface User {
   id: string;
   email: string;
-  name: string;
+  name: {givenName: string, familyName: string};
   photos: Array<{ value: string }>;
-  // Add any other properties your User model has
 }
 
 // Google OAuth authentication route
@@ -33,7 +32,7 @@ router.get(
       return;
     }
 
-    const token = jwt.sign({ name: user.name, 
+    const token = jwt.sign({ name: `${user.name.givenName} ${user.name.familyName}`, 
                              id: user.id, 
                              email: user.email, 
                              picture: user.photos[0].value 
@@ -83,7 +82,7 @@ router.get('/auth/verify', (req: Request, res: Response) => {
       return res.status(403).json({ message: 'Invalid token' });
     }
 
-    const user = { name: `${decodedToken.name.givenName} ${decodedToken.name.familyName}`, id: decodedToken.id, email: decodedToken.email, picture: decodedToken.picture };
+    const user = { name: `${decodedToken.name}`, id: decodedToken.id, email: decodedToken.email, picture: decodedToken.picture };
     logger.info('User verified:', user);
     res.status(200).json({ user: user });
   });
