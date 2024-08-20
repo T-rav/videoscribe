@@ -1,9 +1,9 @@
 import os
 
-from translator.services.transformation.formatting import FormattingForReadabilityTransformation
-from translator.services.transformation.keywords import FormattingForKeywordsTransformation
-from translator.services.transformation.paragraphs import FormattingForParagraphsTransformation
-from translator.services.transformation.removefillerwords import FormattingForFillerWordsTransformation
+from .formatting import FormattingForReadabilityTransformation
+from .keywords import FormattingForKeywordsTransformation
+from .paragraphs import FormattingForParagraphsTransformation
+from .removefillerwords import FormattingForFillerWordsTransformation
 from .none import NoneTransformation
 from .summarize import SummarizeTransformation
 from .transformation_service import TranscriptionTransformation, TransformationService
