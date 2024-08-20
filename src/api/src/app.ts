@@ -1,103 +1,60 @@
-// src/app.ts
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import cors from 'cors';
-import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
-import { TranscriptionServiceType } from './enums/TranscriptionServiceType';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import { rateLimiterMiddleware } from './middleware/rateLimiter';
+import transcribeRoutes from './routes/transcribeRoutes';
+import authRoutes from './routes/authRoutes';
 import logger from './utils/logger';
+import { TranscriptionRequest } from './TranscriptionRequest';
+import './middleware/passportConfig';
+import passport from 'passport';
+import session, { SessionOptions } from 'express-session';
 
-interface TranscriptionRequest {
-  url?: string;
-  transcriptionType: TranscriptionServiceType;
-  filePath?: string;
-}
+// Load environment variables from .env file
+dotenv.config();
 
-interface TranscriptionResponse {
-  url?: string;
-  filePath?: string;
-  transcriptionType: TranscriptionServiceType;
-  transcription: string;
-}
-
-type TranscribeFunction = (req: TranscriptionRequest) => Promise<TranscriptionResponse>;
-
-const createApp = (transcribe: TranscribeFunction) => {
+const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
   const app = express();
-  const upload = multer({ dest: 'uploads/' }); // upload directory
 
-  app.use(cors());
+  const allowedOrigins = [
+    'http://localhost:3000',  // Allow localhost for development
+    'https://scribe.koderex.dev',  // Allow your production domain
+  ];
+
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,  // Enable sending of cookies and authentication headers
+  }));
+  
   app.use(express.json());
-  app.use(express.urlencoded({ extended: true })); // To parse URL-encoded data
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
 
-  const isValidUrl = (url: string): boolean => {
-    const youtubeRegex = /^(https?:\/\/)?(www\.youtube\.com|youtube\.com|youtu\.?be)\/(watch\?v=|embed\/|v\/|.+\?v=|live\/|shorts\/)?([a-zA-Z0-9_-]{11})$/;
-    const googleDriveRegex = /^(https?:\/\/)?(drive\.google\.com|docs\.google\.com)\/(file\/d\/|present\/d\/|uc\?(export=download&)?id=)([a-zA-Z0-9_-]+)(\/view)?$/;
-    const vimeoRegex = /^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)(\/[a-zA-Z0-9_-]+)?$/;
-    
-    return youtubeRegex.test(url) || googleDriveRegex.test(url) || vimeoRegex.test(url);
-};
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || 'your_secret_key',
+      resave: false,
+      saveUninitialized: false,
+      cookie: { secure: process.env.NODE_ENV === 'production' }
+    })
+  );
 
+  app.use(passport.initialize());
+  app.use(passport.session());
 
-  app.post('/transcribe_link', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { url, transcriptionType } = req.body;
-
-      if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
-        return res.status(400).json({ error: 'Invalid transcription type' });
-      }
-
-      if (!url || !isValidUrl(url)) {
-        return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo or Google Drive URL' });
-      }
-
-      const result = await transcribe({ url, transcriptionType });
-      res.json(result);
-    } catch (error) {
-      next(error); // Pass the error to the global error handler
-    }
-  });
-
-  app.post('/transcribe_file', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
-    const file = req.file;
-    const { transcriptionType } = req.body;
-    let filePath = '';
-
-    try {
-      if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
-        return res.status(400).json({ error: 'Invalid transcription type' });
-      }
-
-      if (!file) {
-        return res.status(400).json({ error: 'No file uploaded' });
-      }
-
-      // Define the directory where you want to store uploaded files
-      const uploadsDir = path.resolve('uploads');
-      filePath = path.join(uploadsDir, file.originalname);
-      fs.renameSync(file.path, filePath);
-
-      // Pass the file path and transform option to the transcribe function
-      const result = await transcribe({ url:filePath, transcriptionType });
-      res.json(result);
-    } catch (error) {
-      if (file) {
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            logger.error('Failed to delete file:', err);
-          } else {
-            logger.info(`Temp file ${filePath} deleted successfully`);
-          }
-        });
-      }
-      next(error); // Pass the error to the global error handler
-    }
-  });
+  app.use('/transcribe', rateLimiterMiddleware, transcribeRoutes(transcribe));
+  app.use(authRoutes);
 
   // Global error handling middleware
-  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    logger.error('Global Error Handler:', err); // Log the error to error.log using winston
-
+  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    logger.error('Global Error Handler:', err);
     res.status(500).json({ error: 'An internal server error occurred' });
   });
 

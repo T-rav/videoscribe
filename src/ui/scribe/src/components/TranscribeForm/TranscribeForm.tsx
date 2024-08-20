@@ -45,12 +45,13 @@ const TranscribeForm: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/transcribe', {
+      const response = await fetch('http://localhost:3001/transcribe/link', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
+        credentials: 'include', // Include cookies in the request
       });
 
       if (response.ok) {

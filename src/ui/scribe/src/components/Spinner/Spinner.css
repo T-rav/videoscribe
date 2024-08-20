@@ -1,0 +1,35 @@
+.spinner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make the spinner take up full height */
+    background-color: #f5ecd5; /* Match your app's background color */
+  }
+  
+  .spinner-circle {
+    width: 50px;
+    height: 50px;
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid #d2b48c;
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spinner-container p {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #4a4a4a;
+    font-family: 'Space Mono', monospace;
+    font-weight: 600;
+  }
+  

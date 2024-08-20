@@ -4,12 +4,12 @@ import Modal from '../Modal/Modal';
 import { useNotificationContext } from '../NotificationContext';
 import { useAuth } from '../AuthContext'; // Import the useAuth hook
 
-const Notifications: React.FC = () => {
+const Menu: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentNotification, setCurrentNotification] = useState<any>(null);
   const { notifications, removeNotification } = useNotificationContext();
-  const { isAuthenticated, user, login, logout } = useAuth(); // Destructure the authentication methods and state
+  const { isAuthenticated, user, login, logout } = useAuth();
   const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
@@ -90,4 +90,4 @@ const Notifications: React.FC = () => {
   );
 };
 
-export default Notifications;
+export default Menu;

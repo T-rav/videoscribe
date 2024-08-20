@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,8 +11,10 @@ interface UserProfile {
 interface AuthContextType {
   isAuthenticated: boolean;
   user: UserProfile | null;
+  loading: boolean; // Add loading state
   login: () => void;
   logout: (redirect?: () => void) => void;
+  verifyAuth: () => void; 
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,92 +30,62 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Initialize loading as true
   const navigate = useNavigate();
 
-  const isDev = process.env.NODE_ENV === 'development';
-
-  // Initialize authentication state from cookies
+  // Check authentication status on initialization
   useEffect(() => {
-    const storedUser = Cookies.get('user');
-    const storedAuthState = Cookies.get('isAuthenticated');
-    const token = Cookies.get('token');
+    verifyAuth();
+  }, []);
 
-    if (storedUser && storedAuthState === 'true' && token) {
-      const isTokenExpired = checkTokenExpiration(token);
-
-      if (isTokenExpired) {
-        logout(() => navigate('/login')); // Redirect to login if the token is expired
-      } else {
-        setUser(JSON.parse(storedUser));
-        setIsAuthenticated(true);
-      }
-    }
-  }, [navigate]);
-
-  const login = useGoogleLogin({
-    onSuccess: async (response) => {
-      const token = response.access_token;
-
-      // Use secure flag based on environment
-      Cookies.set('token', token, { expires: 1, secure: !isDev });
-
-      // Fetch user profile info
-      const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  const verifyAuth = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/verify`, {
+        method: 'GET',
+        credentials: 'include', // Include cookies in the request
       });
 
-      const profile = await res.json();
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user);
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    } catch (error) {
+      console.error('Error verifying auth:', error);
+      setIsAuthenticated(false);
+      setUser(null);
+    } finally {
+      setLoading(false); // Set loading to false after verification
+    }
+  };
 
-      const userProfile: UserProfile = {
-        email: profile.email,
-        name: profile.name,
-        picture: profile.picture,
-      };
-
-      setUser(userProfile);
-      setIsAuthenticated(true);
-
-      Cookies.set('user', JSON.stringify(userProfile), { expires: 1, secure: !isDev });
-      Cookies.set('isAuthenticated', 'true', { expires: 1, secure: !isDev });
-    },
-    onError: () => {
-      console.log('Login Failed');
-    },
-  });
+  const login = () => {
+    console.log("AuthContext: Initiating Google OAuth login");
+    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/auth/google`; // Redirect to the backend's Google OAuth route
+  };
 
   const logout = (redirect?: () => void) => {
+    console.log("AuthContext: Logging out");
     setIsAuthenticated(false);
     setUser(null);
 
     // Remove from cookies
-    Cookies.remove('user');
-    Cookies.remove('isAuthenticated');
     Cookies.remove('token');
 
     if (redirect) {
+      console.log("AuthContext: Redirecting after logout");
       redirect();
     } else {
-      navigate('/login');
-    }
-  };
-
-  const checkTokenExpiration = (token: string): boolean => {
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const exp = payload.exp;
-      const currentTime = Math.floor(Date.now() / 1000);
-
-      return exp < currentTime;
-    } catch (error) {
-      console.error('Error checking token expiration:', error);
-      return true; // Treat as expired if there's an error parsing
+      console.log("AuthContext: Navigating to /login after logout");
+      navigate('/'); // Redirect to login page on logout
     }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, loading, login, logout, verifyAuth }}>
       {children}
     </AuthContext.Provider>
   );

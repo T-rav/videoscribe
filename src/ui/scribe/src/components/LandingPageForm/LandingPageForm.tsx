@@ -80,9 +80,10 @@ const LandingPageForm: React.FC = () => {
       data.append('transcriptionType', transriptionType);
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe_file', {
+        const response = await fetch('http://localhost:3001/transcribe/file', {
           method: 'POST',
           body: data,
+          credentials: 'include', // Include cookies in the request
         });
 
         if (response.ok) {
@@ -149,12 +150,13 @@ const LandingPageForm: React.FC = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe_link', {
+        const response = await fetch('http://localhost:3001/transcribe/link', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
+          credentials: 'include', // Include cookies in the request
         });
 
         if (response.ok) {
@@ -209,6 +211,10 @@ const LandingPageForm: React.FC = () => {
           </p>
           <div className="cta-message">
             <a href="#">Start optimizing your video experience today!</a>
+            <p>Or</p>
+            <a href="https://www.youtube.com/watch?v=YourVideoID" target="_blank" rel="noopener noreferrer">
+              Watch this quick explainer video to learn more!
+            </a>
           </div>
         </div>
       </div>
