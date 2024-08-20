@@ -10,7 +10,7 @@ const LandingPageForm: React.FC = () => {
   const [results, setResults] = useState<
     { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string }[]
   >([]);
-  const [activeTabs, setActiveTabs] = useState<{ [key: number]: string }>({});
+  const [activeTab, setActiveTab] = useState<string>('transformed');
 
   const maxFileSizeInMB = 2500;
   const transriptionType = 'openai-srt';
@@ -74,21 +74,42 @@ const LandingPageForm: React.FC = () => {
     let data: FormData | { url: string; transform: string; transcriptionType: string };
 
     if (file) {
-      // existing file handling logic...
+      data = new FormData();
+      data.append('file', file);
+      data.append('transform', transformOption);
+      data.append('transcriptionType', transriptionType);
+
+      try {
+        const response = await fetch('http://localhost:3001/transcribe/file', {
+          method: 'POST',
+          body: data,
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+
+          const structuredResult = {
+            title: result.title,
+            duration: result.duration,
+            transcript: result.transcript,
+            transformedTranscript: result.transformed_transcript,
+            transformOptionUsed: transformOption,
+          };
+
+          setResults((prevResults) => [structuredResult, ...prevResults]);
+        } else {
+          const error = await response.json();
+          setError(error.error || response.statusText);
+        }
+      } catch (error) {
+        setError('An error occurred while processing the request.');
+      } finally {
+        setLoading(false);
+      }
+
     } else if (videoLink) {
       if (videoLink.includes('youtube.com') || videoLink.includes('youtu.be')) {
-        data = {
-          url: videoLink,
-          transform: transformOption,
-          transcriptionType: transriptionType,
-        };
-      } else if (videoLink.includes('podcasts.apple.com')) {
-        data = {
-          url: videoLink,
-          transform: transformOption,
-          transcriptionType: transriptionType,
-        };
-      } else if (videoLink.includes('iheart.com/podcast')) {
         data = {
           url: videoLink,
           transform: transformOption,
@@ -125,7 +146,7 @@ const LandingPageForm: React.FC = () => {
           transcriptionType: transriptionType,
         };
       } else {
-        setError('Unsupported URL. Please provide a valid YouTube, Google Drive, Vimeo, Apple Podcasts, or iHeartRadio link.');
+        setError('Unsupported URL. Please provide a valid YouTube, Google Drive, or Vimeo link.');
         setLoading(false);
         return;
       }
@@ -151,14 +172,7 @@ const LandingPageForm: React.FC = () => {
             transformOptionUsed: transformOption,
           };
 
-          setResults((prevResults) => {
-            const updatedResults = [structuredResult, ...prevResults];
-            setActiveTabs((prevTabs) => ({
-              ...prevTabs,
-              [updatedResults.length - 1]: transformOption !== 'none' ? 'transformed' : 'full',
-            }));
-            return updatedResults;
-          });
+          setResults((prevResults) => [structuredResult, ...prevResults]);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -180,18 +194,6 @@ const LandingPageForm: React.FC = () => {
 
   const closeTranscript = (index: number) => {
     setResults((prevResults) => prevResults.filter((_, i) => i !== index));
-    setActiveTabs((prevTabs) => {
-      const newTabs = { ...prevTabs };
-      delete newTabs[index];
-      return newTabs;
-    });
-  };
-
-  const handleTabClick = (index: number, tab: string) => {
-    setActiveTabs((prevTabs) => ({
-      ...prevTabs,
-      [index]: tab,
-    }));
   };
 
   return (
@@ -248,13 +250,13 @@ const LandingPageForm: React.FC = () => {
             </label>
           </div>
 
-          <label htmlFor="video-link">Paste a video link</label>
+          <label htmlFor="video-link">Paste a video link from YouTube, Google Drive, or Vimeo</label>
           <input
             type="text"
             id="video-link"
             value={videoLink}
             onChange={handleVideoLinkChange}
-            placeholder="Paste YouTube or Google Drive link here"
+            placeholder="Paste YouTube, Google Drive, or Vimeo link here"
           />
 
           <label htmlFor="transform-option">Enhancement</label>
@@ -282,29 +284,21 @@ const LandingPageForm: React.FC = () => {
             <h4>Title: {result.title}</h4>
             <p>Duration: {result.duration} seconds</p>
             <div className="transcription-tabs">
-              {result.transformOptionUsed !== 'none' ? (
-                <>
-                  <button
-                    className={`tab-button ${activeTabs[index] === 'transformed' ? 'active' : ''}`}
-                    onClick={() => handleTabClick(index, 'transformed')}
-                  >
-                    Transformed ({result.transformOptionUsed})
-                  </button>
-                  <button
-                    className={`tab-button ${activeTabs[index] === 'full' ? 'active' : ''}`}
-                    onClick={() => handleTabClick(index, 'full')}
-                  >
-                    Full Transcript
-                  </button>
-                </>
-              ) : (
-                <button className="tab-button active" disabled>
-                  Full Transcript
-                </button>
-              )}
+              <button
+                className={`tab-button ${activeTab === 'transformed' ? 'active' : ''}`}
+                onClick={() => setActiveTab('transformed')}
+              >
+                Transformed ({result.transformOptionUsed})
+              </button>
+              <button
+                className={`tab-button ${activeTab === 'full' ? 'active' : ''}`}
+                onClick={() => setActiveTab('full')}
+              >
+                Full Transcript
+              </button>
             </div>
             <div className="transcript-content">
-              {activeTabs[index] === 'transformed' && result.transformOptionUsed !== 'none' ? (
+              {activeTab === 'transformed' ? (
                 <pre>{result.transformedTranscript}</pre>
               ) : (
                 <pre>{result.transcript}</pre>
@@ -313,7 +307,7 @@ const LandingPageForm: React.FC = () => {
             <button
               className="copy-button"
               onClick={() =>
-                copyToClipboard(activeTabs[index] === 'transformed' && result.transformOptionUsed !== 'none' ? result.transformedTranscript : result.transcript)
+                copyToClipboard(activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
               }
             >
               Copy

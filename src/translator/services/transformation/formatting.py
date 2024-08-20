@@ -1,6 +1,5 @@
-import logging
 from openai import OpenAI
-from langsmith import Client, client
+from langsmith import Client
 from langchain import hub
 from .transformation_service import TransformationService
 
