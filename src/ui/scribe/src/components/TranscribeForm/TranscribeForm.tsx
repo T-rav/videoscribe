@@ -1,158 +1,322 @@
 import React, { useState } from 'react';
-import './TranscribeForm.css';
-import { useNotificationContext } from '../NotificationContext';
+import './LandingPageForm.css';
 
-const TranscribeForm: React.FC = () => {
+const LandingPageForm: React.FC = () => {
   const [videoLink, setVideoLink] = useState('');
-  const [transcriptionType, setTranscriptionType] = useState('openai');
-  const [transcriptionPrompt, setTranscriptionPrompt] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+  const [transformOption, setTransformOption] = useState('summarize');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<{ title: string; duration: string; transcript: string } | null>(null);
-  const { addNotification } = useNotificationContext();
+  const [results, setResults] = useState<
+    { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string }[]
+  >([]);
+  const [activeTab, setActiveTab] = useState<string>('transformed');
+
+  const maxFileSizeInMB = 2500;
+  const transriptionType = 'openai-srt';
+
+  const isFileSizeValid = (file: File, maxSizeInMB: number): boolean => {
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024; 
+    return file.size <= maxSizeInBytes;
+  };
+  
+  const handleVideoLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVideoLink(e.target.value);
+    setError(null); 
+    setFile(null);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+
+      if (!isFileSizeValid(selectedFile, maxFileSizeInMB)) {
+        setError(`File size exceeds ${maxFileSizeInMB} MB. Please upload a smaller file.`);
+        setFile(null);
+        return;
+      }
+
+      setFile(selectedFile);
+      setError(null);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const selectedFile = e.dataTransfer.files[0];
+
+      if (!isFileSizeValid(selectedFile, maxFileSizeInMB)) {
+        setError(`File size exceeds ${maxFileSizeInMB} MB. Please upload a smaller file.`);
+        setFile(null);
+        return;
+      }
+
+      setFile(selectedFile);
+      setError(null);
+      setVideoLink('');
+      e.dataTransfer.clearData();
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setResult(null);
 
-    let data;
+    let data: FormData | { url: string; transform: string; transcriptionType: string };
 
-    if (videoLink.includes('youtube.com') || videoLink.includes('youtu.be')) {
-      data = {
-        url: videoLink,
-        transcriptionType: transcriptionType,
-      };
-    } else if (videoLink.includes('drive.google.com')) {
-      const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
-      const fileId = fileIdMatch ? fileIdMatch[1] : null;
+    if (file) {
+      data = new FormData();
+      data.append('file', file);
+      data.append('transform', transformOption);
+      data.append('transcriptionType', transriptionType);
 
-      if (!fileId) {
-        setError('Invalid Google Drive URL.');
+      try {
+        const response = await fetch('http://localhost:3001/transcribe/file', {
+          method: 'POST',
+          body: data,
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+
+          const structuredResult = {
+            title: result.title,
+            duration: result.duration,
+            transcript: result.transcript,
+            transformedTranscript: result.transformed_transcript,
+            transformOptionUsed: transformOption,
+          };
+
+          setResults((prevResults) => [structuredResult, ...prevResults]);
+        } else {
+          const error = await response.json();
+          setError(error.error || response.statusText);
+        }
+      } catch (error) {
+        setError('An error occurred while processing the request.');
+      } finally {
+        setLoading(false);
+      }
+
+    } else if (videoLink) {
+      if (videoLink.includes('youtube.com') || videoLink.includes('youtu.be')) {
+        data = {
+          url: videoLink,
+          transform: transformOption,
+          transcriptionType: transriptionType,
+        };
+      } else if (videoLink.includes('drive.google.com')) {
+        const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
+        const fileId = fileIdMatch ? fileIdMatch[1] : null;
+
+        if (!fileId) {
+          setError('Invalid Google Drive URL.');
+          setLoading(false);
+          return;
+        }
+
+        data = {
+          url: `https://drive.google.com/uc?export=download&id=${fileId}`,
+          transform: transformOption,
+          transcriptionType: transriptionType,
+        };
+      } else if (videoLink.includes('vimeo.com')) {
+        const videoIdMatch = videoLink.match(/vimeo\.com\/(\d+)/);
+        const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+        if (!videoId) {
+          setError('Invalid Vimeo URL.');
+          setLoading(false);
+          return;
+        }
+
+        data = {
+          url: videoLink,
+          transform: transformOption,
+          transcriptionType: transriptionType,
+        };
+      } else {
+        setError('Unsupported URL. Please provide a valid YouTube, Google Drive, or Vimeo link.');
         setLoading(false);
         return;
       }
 
-      data = {
-        url: `https://drive.google.com/uc?export=download&id=${fileId}`,
-        transcriptionType: transcriptionType,
-      };
-    } else {
-      setError('Unsupported URL. Please provide a valid YouTube or Google Drive link.');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:3001/transcribe/link', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-        credentials: 'include', // Include cookies in the request
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        
-        const structuredResult = {
-          title: result.title,
-          duration: result.duration,
-          transcript: result.transcript,
-        };
-        
-        // Add notification
-        addNotification({
-          title: structuredResult.title,
-          datetime: new Date().toLocaleString(),
-          length: structuredResult.duration,
-          progress: 'Completed',
-          transcript: structuredResult.transcript,
+      try {
+        const response = await fetch('http://localhost:3001/transcribe/link', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+          credentials: 'include',
         });
 
-        // Set the structured result state to display it below the button
-        setResult(structuredResult);
+        if (response.ok) {
+          const result = await response.json();
 
-      } else {
-        const error = await response.json();
-        setError(error.error || response.statusText);
+          const structuredResult = {
+            title: result.title,
+            duration: result.duration,
+            transcript: result.transcript,
+            transformedTranscript: result.transformed_transcript,
+            transformOptionUsed: transformOption,
+          };
+
+          setResults((prevResults) => [structuredResult, ...prevResults]);
+        } else {
+          const error = await response.json();
+          setError(error.error || response.statusText);
+        }
+      } catch (error) {
+        setError('An error occurred while processing the request.');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setError('An error occurred while processing the request.');
-    } finally {
+    } else {
+      setError('Please provide either a video link or upload a file.');
       setLoading(false);
     }
   };
 
-  const copyToClipboard = () => {
-    if (result) {
-      const formattedText = `Title: ${result.title}\nDuration: ${result.duration}\n\n${result.transcript}`;
-      navigator.clipboard.writeText(formattedText);
-    }
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
   };
 
-  const closeTranscript = () => {
-    // Clear the result and input fields
-    setResult(null);
-    setVideoLink('');
-    setTranscriptionType('openai');
-    setTranscriptionPrompt('');
+  const closeTranscript = (index: number) => {
+    setResults((prevResults) => prevResults.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="form-container">
-      <h2>Transcribe Videos</h2>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="video-link">Video Link</label>
-        <input
-          type="text"
-          id="video-link"
-          value={videoLink}
-          onChange={(e) => setVideoLink(e.target.value)}
-          placeholder="Paste YouTube or Google Drive link here"
-        />
-
-        <label htmlFor="transcription-type">Transcription Type</label>
-        <select
-          id="transcription-type"
-          value={transcriptionType}
-          onChange={(e) => setTranscriptionType(e.target.value)}
-        >
-          <option value="openai">Text</option>
-          <option value="openai-vtt">VTT</option>
-          <option value="openai-srt">SRT</option>
-        </select>
-
-        <label htmlFor="transcription-prompt">Transcription Prompt</label>
-        <textarea
-          id="transcription-prompt"
-          value={transcriptionPrompt}
-          onChange={(e) => setTranscriptionPrompt(e.target.value)}
-          placeholder="Enter a prompt for the transcription (Optional)"
-          rows={3}
-        ></textarea>
-
-        <button type="submit" className="submit-button" disabled={loading}>
-          {loading ? <div className="spinner"></div> : 'Transcribe'}
-        </button>
-      </form>
-
-      {/* Display the result below the button */}
-      {result && (
-        <div className="transcription-result">
-          <button className="close-button" onClick={closeTranscript}>X</button>
-          <h3>Title: {result.title}</h3>
-          <p>Duration: {result.duration} seconds</p>
-          <h4>Transcript:</h4>
-          <pre>{result.transcript}</pre>
-          <button className="copy-button" onClick={copyToClipboard}>Copy Transcript</button>
+    <div className="landing-page">
+      <div className="marketing-copy-container">
+        <div className="marketing-copy">
+          <h1>Unlock Insights from Your Videos Instantly</h1>
+          <p>
+            <strong>Transform the way you consume videos.</strong> Whether it's a lecture, a meeting, or your kid's school sending a video communication, 
+            our tool empowers you to <strong>quickly understand and extract the most important information.</strong>
+          </p>
+          <p>
+            With options to <strong>summarize</strong>, <strong>highlight key points</strong>, or even <strong>just format the content for readability</strong>, 
+            you can now digest hours of video in just minutes.
+          </p>
+          <p>
+            Perfect for <strong>busy professionals</strong>, <strong>students</strong>, <strong>parents</strong>, or anyone looking to <strong>maximize the value of videos.</strong>
+          </p>
+          <div className="cta-message">
+            <a href="#">Start optimizing your video experience today!</a>
+            <p>Or</p>
+            <a href="https://www.youtube.com/watch?v=YourVideoID" target="_blank" rel="noopener noreferrer">
+              Watch this quick explainer video to learn more!
+            </a>
+          </div>
         </div>
-      )}
+      </div>
+      <div className="form-container">
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div
+            className="file-upload-container"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            <input
+              type="file"
+              id="file-upload"
+              accept="video/*"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+            />
+            <label htmlFor="file-upload" className="file-upload-label">
+              <div className="file-dropzone">
+                {file ? (
+                  <span>{file.name}</span>
+                ) : (
+                  <>
+                    <span>Upload file</span>
+                    <p>Click to browse or drag & drop a file here</p>
+                  </>
+                )}
+              </div>
+            </label>
+          </div>
+
+          <label htmlFor="video-link">Paste a video link from YouTube, Google Drive, or Vimeo</label>
+          <input
+            type="text"
+            id="video-link"
+            value={videoLink}
+            onChange={handleVideoLinkChange}
+            placeholder="Paste YouTube, Google Drive, or Vimeo link here"
+          />
+
+          <label htmlFor="transform-option">Enhancement</label>
+          <select
+            id="transform-option"
+            value={transformOption}
+            onChange={(e) => setTransformOption(e.target.value)}
+          >
+            <option value="none">None</option>
+            <option value="summarize">Summarize</option>
+            <option value="formatting">Format for Readability</option>
+            <option value="removefillerwords">Remove Filler Words</option>
+            <option value="paragraphs">Make Paragraphs</option>
+            <option value="keywords">Keyword Extraction</option>
+          </select>
+
+          <button type="submit" className="submit-button" disabled={loading}>
+            {loading ? <div className="spinner"></div> : 'Transcribe'}
+          </button>
+        </form>
+        {results.map((result, index) => (
+          <div key={index} className="transcription-result">
+            <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
+            <h3>#{results.length - index}</h3>
+            <h4>Title: {result.title}</h4>
+            <p>Duration: {result.duration} seconds</p>
+            <div className="transcription-tabs">
+              <button
+                className={`tab-button ${activeTab === 'transformed' ? 'active' : ''}`}
+                onClick={() => setActiveTab('transformed')}
+              >
+                Transformed ({result.transformOptionUsed})
+              </button>
+              <button
+                className={`tab-button ${activeTab === 'full' ? 'active' : ''}`}
+                onClick={() => setActiveTab('full')}
+              >
+                Full Transcript
+              </button>
+            </div>
+            <div className="transcript-content">
+              {activeTab === 'transformed' ? (
+                <pre>{result.transformedTranscript}</pre>
+              ) : (
+                <pre>{result.transcript}</pre>
+              )}
+            </div>
+            <button
+              className="copy-button"
+              onClick={() =>
+                copyToClipboard(activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
+              }
+            >
+              Copy
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default TranscribeForm;
+export default LandingPageForm;

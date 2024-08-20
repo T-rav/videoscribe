@@ -8,9 +8,8 @@ const LandingPageForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<
-    { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string }[]
+    { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string; activeTab: string }[]
   >([]);
-  const [activeTab, setActiveTab] = useState<string>('transformed');
 
   const maxFileSizeInMB = 2500;
   const transriptionType = 'openai-srt';
@@ -95,6 +94,7 @@ const LandingPageForm: React.FC = () => {
             transcript: result.transcript,
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
+            activeTab: 'transformed', // Set default active tab for this result
           };
 
           setResults((prevResults) => [structuredResult, ...prevResults]);
@@ -170,6 +170,7 @@ const LandingPageForm: React.FC = () => {
             transcript: result.transcript,
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
+            activeTab: 'transformed', // Set default active tab for this result
           };
 
           setResults((prevResults) => [structuredResult, ...prevResults]);
@@ -194,6 +195,14 @@ const LandingPageForm: React.FC = () => {
 
   const closeTranscript = (index: number) => {
     setResults((prevResults) => prevResults.filter((_, i) => i !== index));
+  };
+
+  const handleTabChange = (index: number, tab: string) => {
+    setResults((prevResults) =>
+      prevResults.map((result, i) =>
+        i === index ? { ...result, activeTab: tab } : result
+      )
+    );
   };
 
   return (
@@ -285,20 +294,20 @@ const LandingPageForm: React.FC = () => {
             <p>Duration: {result.duration} seconds</p>
             <div className="transcription-tabs">
               <button
-                className={`tab-button ${activeTab === 'transformed' ? 'active' : ''}`}
-                onClick={() => setActiveTab('transformed')}
+                className={`tab-button ${result.activeTab === 'transformed' ? 'active' : ''}`}
+                onClick={() => handleTabChange(index, 'transformed')}
               >
                 Transformed ({result.transformOptionUsed})
               </button>
               <button
-                className={`tab-button ${activeTab === 'full' ? 'active' : ''}`}
-                onClick={() => setActiveTab('full')}
+                className={`tab-button ${result.activeTab === 'full' ? 'active' : ''}`}
+                onClick={() => handleTabChange(index, 'full')}
               >
                 Full Transcript
               </button>
             </div>
             <div className="transcript-content">
-              {activeTab === 'transformed' ? (
+              {result.activeTab === 'transformed' ? (
                 <pre>{result.transformedTranscript}</pre>
               ) : (
                 <pre>{result.transcript}</pre>
@@ -307,7 +316,7 @@ const LandingPageForm: React.FC = () => {
             <button
               className="copy-button"
               onClick={() =>
-                copyToClipboard(activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
+                copyToClipboard(result.activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
               }
             >
               Copy
