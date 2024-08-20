@@ -6,3 +6,4 @@ groq
 pytest 
 pytest-mock
 vimeo_downloader
+langsmith

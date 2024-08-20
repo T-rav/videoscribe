@@ -52,12 +52,10 @@ const nonAuthRateLimiter = rateLimit({
 export const rateLimiterMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
 
-  logger.info('Cookies:!!!');
-
   let isAuthenticated = false;
 
   if (token) {
-    logger.info('Token found:', token);
+    logger.info('Token found');
     try {
       jwt.verify(token, process.env.JWT_SECRET as string);
       isAuthenticated = true;

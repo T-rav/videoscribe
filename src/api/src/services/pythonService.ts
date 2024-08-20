@@ -52,12 +52,14 @@ export const transcribe = async ({
 
     python.on('close', (code) => {
       if (code !== 0) {
+        logger.error(`Python script exited with code ${code}: ${errorOutput}`);
         reject(new Error(`Python script exited with code ${code}: ${errorOutput}`));
       } else {
         try {
           const parsedOutput = JSON.parse(output) as TranscriptionResponse;
           resolve(parsedOutput);
         } catch (error) {
+          logger.error(`Failed to parse Python script output. Raw output: ${output}. Error: ${error}`);
           reject(new Error(`Failed to parse Python script output: ${errorOutput} - [${output}]`));
         }
       }
