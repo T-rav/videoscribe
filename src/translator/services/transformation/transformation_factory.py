@@ -13,10 +13,10 @@ class TransformationFactory:
     _service_map = {
         TranscriptionTransformation.NONE: (NoneTransformation, None, None),
         TranscriptionTransformation.SUMMARIZE: (SummarizeTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
-        TranscriptionTransformation.FORMATTING: (FormattingForReadabilityTransformation, "OPENAI_API_KEY", "LANGSMITH_API_KEY"),
-        TranscriptionTransformation.PARAGRAPHS: (FormattingForParagraphsTransformation, "OPENAI_API_KEY", "LANGSMITH_API_KEY"),
-        TranscriptionTransformation.REMOVEFILLERWORDS: (FormattingForFillerWordsTransformation, "OPENAI_API_KEY", "LANGSMITH_API_KEY"),
-        TranscriptionTransformation.KEYWORDS: (FormattingForKeywordsTransformation, "OPENAI_API_KEY", "LANGSMITH_API_KEY"),
+        TranscriptionTransformation.FORMATTING: (FormattingForReadabilityTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
+        TranscriptionTransformation.PARAGRAPHS: (FormattingForParagraphsTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
+        TranscriptionTransformation.REMOVEFILLERWORDS: (FormattingForFillerWordsTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
+        TranscriptionTransformation.KEYWORDS: (FormattingForKeywordsTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
     }
 
     @staticmethod
