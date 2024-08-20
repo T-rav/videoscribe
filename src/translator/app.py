@@ -7,8 +7,10 @@ from dotenv import load_dotenv
 from services.audio.audio_service import AudioService
 from services.audio.audio_downloader import AudioDownloader
 from services.audio.file_handler import FileHandler
-from services.transcription import TranscriptionServiceType, TranscriptionFactory, TranscriptionTransformation
+from services.transcription import TranscriptionServiceType, TranscriptionFactory
 from pydub import AudioSegment
+
+from services.transformation import TranscriptionTransformation
 
 def get_audio_duration(file_path: str) -> int:
     audio = AudioSegment.from_file(file_path)
