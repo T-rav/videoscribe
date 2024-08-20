@@ -12,5 +12,4 @@ class SummarizeTransformation(TransformationService):
     def transform(self, transcript: str) -> str:
         chain = hub.pull("scribe-ai-summary", include_model=True)
         summary = chain.invoke({"transcript": transcript})
-        logging.info(dir(summary))
         return summary.content
