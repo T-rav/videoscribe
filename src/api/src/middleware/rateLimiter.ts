@@ -32,7 +32,7 @@ const authRateLimiter = rateLimit({
         return (decodedToken as any).email; // Use the user ID from the token if valid
       } catch (err) {
         logger.error('Invalid JWT token:', err);
-        throw err;
+        return req.ip || 'ip';
       }
     }
   },
