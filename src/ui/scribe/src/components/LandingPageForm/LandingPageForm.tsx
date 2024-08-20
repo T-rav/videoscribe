@@ -8,9 +8,8 @@ const LandingPageForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<
-    { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string }[]
+    { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string; activeTab: string }[]
   >([]);
-  const [activeTab, setActiveTab] = useState<string>('transformed');
 
   const maxFileSizeInMB = 2500;
   const transriptionType = 'openai-srt';
@@ -95,6 +94,7 @@ const LandingPageForm: React.FC = () => {
             transcript: result.transcript,
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
+            activeTab: 'transformed', // Set default active tab for this result
           };
 
           setResults((prevResults) => [structuredResult, ...prevResults]);
@@ -170,6 +170,7 @@ const LandingPageForm: React.FC = () => {
             transcript: result.transcript,
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
+            activeTab: 'transformed', // Set default active tab for this result
           };
 
           setResults((prevResults) => [structuredResult, ...prevResults]);
@@ -195,6 +196,26 @@ const LandingPageForm: React.FC = () => {
   const closeTranscript = (index: number) => {
     setResults((prevResults) => prevResults.filter((_, i) => i !== index));
   };
+
+  const handleTabChange = (index: number, tab: string) => {
+    setResults((prevResults) =>
+      prevResults.map((result, i) =>
+        i === index ? { ...result, activeTab: tab } : result
+      )
+    );
+  };
+
+  const formatDuration = (seconds: number) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+  
+    const hDisplay = h > 0 ? h + "h " : "";
+    const mDisplay = m > 0 ? m + "m " : "";
+    const sDisplay = s > 0 ? s + "s" : "";
+    return hDisplay + mDisplay + sDisplay;
+  };
+  
 
   return (
     <div className="landing-page">
@@ -278,42 +299,43 @@ const LandingPageForm: React.FC = () => {
           </button>
         </form>
         {results.map((result, index) => (
-          <div key={index} className="transcription-result">
-            <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
-            <h3>#{results.length - index}</h3>
-            <h4>Title: {result.title}</h4>
-            <p>Duration: {result.duration} seconds</p>
-            <div className="transcription-tabs">
-              <button
-                className={`tab-button ${activeTab === 'transformed' ? 'active' : ''}`}
-                onClick={() => setActiveTab('transformed')}
-              >
-                Transformed ({result.transformOptionUsed})
-              </button>
-              <button
-                className={`tab-button ${activeTab === 'full' ? 'active' : ''}`}
-                onClick={() => setActiveTab('full')}
-              >
-                Full Transcript
-              </button>
-            </div>
-            <div className="transcript-content">
-              {activeTab === 'transformed' ? (
-                <pre>{result.transformedTranscript}</pre>
-              ) : (
-                <pre>{result.transcript}</pre>
-              )}
-            </div>
+        <div key={index} className="transcription-result">
+          <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
+          <h3>#{results.length - index}</h3>
+          <h4>Title: {result.title}</h4>
+          <p>Duration: {formatDuration(Number(result.duration))}</p> {/* Updated line */}
+          <div className="transcription-tabs">
             <button
-              className="copy-button"
-              onClick={() =>
-                copyToClipboard(activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
-              }
+              className={`tab-button ${result.activeTab === 'transformed' ? 'active' : ''}`}
+              onClick={() => handleTabChange(index, 'transformed')}
             >
-              Copy
+              Transformed ({result.transformOptionUsed})
+            </button>
+            <button
+              className={`tab-button ${result.activeTab === 'full' ? 'active' : ''}`}
+              onClick={() => handleTabChange(index, 'full')}
+            >
+              Full Transcript
             </button>
           </div>
-        ))}
+          <div className="transcript-content">
+            {result.activeTab === 'transformed' ? (
+              <pre>{result.transformedTranscript}</pre>
+            ) : (
+              <pre>{result.transcript}</pre>
+            )}
+          </div>
+          <button
+            className="copy-button"
+            onClick={() =>
+              copyToClipboard(result.activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
+            }
+          >
+            Copy
+          </button>
+        </div>
+      ))}
+
       </div>
     </div>
   );
