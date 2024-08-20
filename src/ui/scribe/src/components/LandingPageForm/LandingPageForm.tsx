@@ -205,6 +205,18 @@ const LandingPageForm: React.FC = () => {
     );
   };
 
+  const formatDuration = (seconds: number) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+  
+    const hDisplay = h > 0 ? h + "h " : "";
+    const mDisplay = m > 0 ? m + "m " : "";
+    const sDisplay = s > 0 ? s + "s" : "";
+    return hDisplay + mDisplay + sDisplay;
+  };
+  
+
   return (
     <div className="landing-page">
       <div className="marketing-copy-container">
@@ -287,42 +299,43 @@ const LandingPageForm: React.FC = () => {
           </button>
         </form>
         {results.map((result, index) => (
-          <div key={index} className="transcription-result">
-            <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
-            <h3>#{results.length - index}</h3>
-            <h4>Title: {result.title}</h4>
-            <p>Duration: {result.duration} seconds</p>
-            <div className="transcription-tabs">
-              <button
-                className={`tab-button ${result.activeTab === 'transformed' ? 'active' : ''}`}
-                onClick={() => handleTabChange(index, 'transformed')}
-              >
-                Transformed ({result.transformOptionUsed})
-              </button>
-              <button
-                className={`tab-button ${result.activeTab === 'full' ? 'active' : ''}`}
-                onClick={() => handleTabChange(index, 'full')}
-              >
-                Full Transcript
-              </button>
-            </div>
-            <div className="transcript-content">
-              {result.activeTab === 'transformed' ? (
-                <pre>{result.transformedTranscript}</pre>
-              ) : (
-                <pre>{result.transcript}</pre>
-              )}
-            </div>
+        <div key={index} className="transcription-result">
+          <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
+          <h3>#{results.length - index}</h3>
+          <h4>Title: {result.title}</h4>
+          <p>Duration: {formatDuration(Number(result.duration))}</p> {/* Updated line */}
+          <div className="transcription-tabs">
             <button
-              className="copy-button"
-              onClick={() =>
-                copyToClipboard(result.activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
-              }
+              className={`tab-button ${result.activeTab === 'transformed' ? 'active' : ''}`}
+              onClick={() => handleTabChange(index, 'transformed')}
             >
-              Copy
+              Transformed ({result.transformOptionUsed})
+            </button>
+            <button
+              className={`tab-button ${result.activeTab === 'full' ? 'active' : ''}`}
+              onClick={() => handleTabChange(index, 'full')}
+            >
+              Full Transcript
             </button>
           </div>
-        ))}
+          <div className="transcript-content">
+            {result.activeTab === 'transformed' ? (
+              <pre>{result.transformedTranscript}</pre>
+            ) : (
+              <pre>{result.transcript}</pre>
+            )}
+          </div>
+          <button
+            className="copy-button"
+            onClick={() =>
+              copyToClipboard(result.activeTab === 'transformed' ? result.transformedTranscript : result.transcript)
+            }
+          >
+            Copy
+          </button>
+        </div>
+      ))}
+
       </div>
     </div>
   );
