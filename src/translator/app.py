@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from services.audio.audio_service import AudioService
 from services.audio.audio_downloader import AudioDownloader
 from services.audio.file_handler import FileHandler
-from services.transcription import TranscriptionServiceType, TranscriptionFactory
+from services.transcription import TranscriptionServiceType, TranscriptionFactory, TranscriptionTransformation
 from pydub import AudioSegment
 
 def get_audio_duration(file_path: str) -> int:
@@ -31,6 +31,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='Transcribe audio from a video or local file.')
     parser.add_argument('url', type=str, help='The URL of the video or path to the local file.')
+    parser.add_argument('--transform', type=str, choices=[transform.value for transform in TranscriptionTransformation], default='none', help='The transform to perform on the transcript.')
     parser.add_argument('--path', type=str, default='./incoming', help='The directory path to save the audio file.')
     parser.add_argument('--max_length_minutes', type=int, default=None, help='Maximum length of the video in minutes.')
     parser.add_argument('--prompt', type=str, default=None, help='Prompt for the transcription service.')
@@ -70,13 +71,16 @@ def main():
         # Adjust transcript if necessary
         combined_transcription, transcription_file_path = AudioService.adjust_transcript_if_needed(transcription_file_path, TranscriptionServiceType(args.service))
 
+        # todo : run transformation if needed
+
         result = {
             "url": args.url,
             "title": video_info.get("title", "Unknown Title"),
             "duration": video_info.get("duration", 0),
             "service": args.service,
-            "transcription_file_path": transcription_file_path,  # Return adjusted file if applicable
-            "transcript": combined_transcription  # Return the adjusted transcript text
+            "transcription_file_path": transcription_file_path,
+            "transcript": combined_transcription,
+            "transform": args.transform
         }
 
         os.remove(audio_file_path)

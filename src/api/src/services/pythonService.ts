@@ -1,10 +1,12 @@
 import { spawn } from 'child_process';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
+import { TranscriptionTransformation } from '../enums/TranscriptionTransformations';
 
 interface TranscriptionRequest {
   url?: string;
   transcriptionType: TranscriptionServiceType;
+  transform: TranscriptionTransformation;
 }
 
 interface TranscriptionResponse {
@@ -17,12 +19,13 @@ interface TranscriptionResponse {
 export const transcribe = async ({
   url,
   transcriptionType,
+  transform,
 }: TranscriptionRequest): Promise<TranscriptionResponse> => {
   return new Promise((resolve, reject) => {
     let scriptArgs: string[] = [];
 
     // Log the input parameters
-    logger.log('info', `Received transcription request with URL: ${url} and Transcription Type: ${transcriptionType}`);
+    logger.log('info', `Received transcription request with URL: ${url} and Transcription Type: ${transcriptionType} and Transform: ${transform}`);
 
     if (url) {
       scriptArgs.push(url);
@@ -30,7 +33,7 @@ export const transcribe = async ({
       return reject(new Error('Either URL or file must be provided'));
     }
 
-    scriptArgs.push('--service', transcriptionType, '--path', './incoming');
+    scriptArgs.push('--service', transcriptionType, '--transform', transform, '--path', './incoming');
 
     const python = spawn('python3', ['../translator/app.py', ...scriptArgs]);
 
