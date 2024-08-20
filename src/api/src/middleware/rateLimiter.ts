@@ -32,7 +32,7 @@ const authRateLimiter = rateLimit({
         return (decodedToken as any).email; // Use the user ID from the token if valid
       } catch (err) {
         logger.error('Invalid JWT token:', err);
-        return req.ip || 'ip';
+        return req.hostname || 'ip';
       }
     }
   },
@@ -44,7 +44,7 @@ const authRateLimiter = rateLimit({
 const nonAuthRateLimiter = rateLimit({
   windowMs: parseTimeWindow(process.env.UNAUTHORIZED_RATE_WINDOW || '24h'), // 24 hour window
   max: parseInt(process.env.UNAUTHORIZED_RATE_LIMIT || '5'), // Limit each IP to 5 requests per windowMs
-  keyGenerator: (req: Request) => req.ip || 'ip', // Use IP as the identifier for non-authenticated users
+  keyGenerator: (req: Request) => req.hostname || 'ip', // Use IP as the identifier for non-authenticated users
   standardHeaders: true,
   legacyHeaders: false,
 });
@@ -53,6 +53,12 @@ export const rateLimiterMiddleware = (req: Request, res: Response, next: NextFun
   const token = req.cookies.token;
 
   let isAuthenticated = false;
+
+  const isLocalhost = req.hostname === 'localhost' || req.ip === '127.0.0.1' || req.ip === '::1';
+  if (isLocalhost) {
+    logger.info('Bypassing rate limiter for localhost');
+    return next();
+  }
 
   if (token) {
     logger.info('Token found');
