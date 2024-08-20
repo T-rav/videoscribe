@@ -41,9 +41,6 @@ router.get(
                            {
                             expiresIn: '24h',
                            });
-
-    logger.info('Generated JWT:', token);
-
     // Set the token and user information in cookies
     res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' });
 
@@ -67,8 +64,6 @@ router.get('/logout', (req: Request, res: Response, next: NextFunction) => {
 // API route to verify the user's authentication status
 router.get('/auth/verify', (req: Request, res: Response) => {
   const token = req.cookies.token;
-
-  logger.info('Received token:', token);
 
   if (!token) {
     logger.error('Token is missing');
