@@ -45,10 +45,9 @@ router.get(
     logger.info('Generated JWT:', token);
 
     // Set the token and user information in cookies
-    res.cookie('token', token, { httpOnly: true });
-    res.cookie('user', JSON.stringify(user), { httpOnly: false, sameSite: 'none' });
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' });
 
-    logger.info("Auth: Set token and user info in cookies");
+    logger.info("Auth: Set token in cookies");
 
     // Redirect to dashboard or home
     res.redirect('http://localhost:3000/dashboard');

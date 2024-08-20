@@ -82,6 +82,7 @@ const LandingPageForm: React.FC = () => {
         const response = await fetch('http://localhost:3001/transcribe/file', {
           method: 'POST',
           body: data,
+          credentials: 'include', // Include cookies in the request
         });
 
         if (response.ok) {
@@ -154,6 +155,7 @@ const LandingPageForm: React.FC = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
+          credentials: 'include', // Include cookies in the request
         });
 
         if (response.ok) {

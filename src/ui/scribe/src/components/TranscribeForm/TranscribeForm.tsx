@@ -51,6 +51,7 @@ const TranscribeForm: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
+        credentials: 'include', // Include cookies in the request
       });
 
       if (response.ok) {

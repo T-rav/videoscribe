@@ -22,7 +22,6 @@ const logger = createLogger({
     format.splat(),
     format.json()
   ),
-  defaultMeta: { service: 'transcription-service' },
   transports: [
     new transports.File({ filename: path.join('logs', getLogFileName()) }), // Log all errors to a timestamped file
   ],
