@@ -17,7 +17,7 @@ interface User {
 }
 
 // Google OAuth authentication route
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'], prompt: 'none'}));
 
 // Google OAuth callback route
 router.get(
