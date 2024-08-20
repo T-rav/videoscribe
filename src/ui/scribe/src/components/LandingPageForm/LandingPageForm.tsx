@@ -79,7 +79,7 @@ const LandingPageForm: React.FC = () => {
       data.append('transcriptionType', 'openai');
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe_file', {
+        const response = await fetch('http://localhost:3001/transcribe/file', {
           method: 'POST',
           body: data,
         });
@@ -148,7 +148,7 @@ const LandingPageForm: React.FC = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe_link', {
+        const response = await fetch('http://localhost:3001/transcribe/link', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const isValidUrl = (url: string): boolean => {
 };
 
 export default function transcribeRoutes(transcribe: (req: TranscriptionRequest) => Promise<any>) {
-  router.post('/transcribe_link', async (req: Request, res: Response, next: NextFunction) => {
+  router.post('/link', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { url, transcriptionType } = req.body;
 
@@ -37,7 +37,7 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
     }
   });
 
-  router.post('/transcribe_file', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
+  router.post('/file', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
     const file = req.file;
     const { transcriptionType } = req.body;
     let filePath = '';

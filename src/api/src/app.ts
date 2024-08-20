@@ -49,10 +49,8 @@ const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use(rateLimiterMiddleware);
-
+  app.use('/transcribe', rateLimiterMiddleware, transcribeRoutes(transcribe));
   app.use(authRoutes);
-  app.use('/transcribe', transcribeRoutes(transcribe));
 
   // Global error handling middleware
   app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

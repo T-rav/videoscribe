@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       redirect();
     } else {
       console.log("AuthContext: Navigating to /login after logout");
-      navigate('/login'); // Redirect to login page on logout
+      navigate('/'); // Redirect to login page on logout
     }
   };
 
