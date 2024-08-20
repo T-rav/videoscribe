@@ -265,7 +265,7 @@ const LandingPageForm: React.FC = () => {
             <option value="none">None</option>
             <option value="summarize">Summarize</option>
             <option value="formatting">Format for Readability</option>
-            <option value="fillerremoval">Remove Filler Words</option>
+            <option value="removefillerwords">Remove Filler Words</option>
             <option value="paragraphs">Make Paragraphs</option>
             <option value="keywords">Keyword Extraction</option>
             {/* <option value="translation">Translation</option> */}
