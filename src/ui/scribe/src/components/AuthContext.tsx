@@ -73,8 +73,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(null);
 
     // Remove from cookies
-    Cookies.remove('user');
-    Cookies.remove('isAuthenticated');
     Cookies.remove('token');
 
     if (redirect) {
