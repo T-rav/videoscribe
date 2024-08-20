@@ -8,9 +8,14 @@ import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import { NotificationProvider } from './components/NotificationContext';
 import { useAuth } from './components/AuthContext';
+import Spinner from './components/Spinner/Spinner';
 
 const App: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return <Spinner />; 
+  }
 
   return (
     <NotificationProvider>

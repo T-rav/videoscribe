@@ -8,10 +8,10 @@ interface UserProfile {
   picture: string;
 }
 
-
 interface AuthContextType {
   isAuthenticated: boolean;
   user: UserProfile | null;
+  loading: boolean; // Add loading state
   login: () => void;
   logout: (redirect?: () => void) => void;
   verifyAuth: () => void; 
@@ -30,6 +30,7 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Initialize loading as true
   const navigate = useNavigate();
 
   // Check authentication status on initialization
@@ -56,6 +57,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Error verifying auth:', error);
       setIsAuthenticated(false);
       setUser(null);
+    } finally {
+      setLoading(false); // Set loading to false after verification
     }
   };
 
@@ -84,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, verifyAuth }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, loading, login, logout, verifyAuth }}>
       {children}
     </AuthContext.Provider>
   );
