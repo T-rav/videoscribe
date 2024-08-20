@@ -7,7 +7,7 @@ from .transformation_service import TranscriptionTransformation, TransformationS
 class TransformationFactory:
     _service_map = {
         TranscriptionTransformation.NONE: (NoneTransformation, None, None),
-        TranscriptionTransformation.SUMMARIZE: (SummarizeTransformation, "OPENAI_API_KEY", "LANG_SMITH_API_KEY")
+        TranscriptionTransformation.SUMMARIZE: (SummarizeTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY")
     }
 
     @staticmethod

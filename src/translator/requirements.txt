@@ -7,3 +7,4 @@ pytest
 pytest-mock
 vimeo_downloader
 langsmith
+langchain

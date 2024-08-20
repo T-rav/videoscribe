@@ -1,5 +1,7 @@
+import logging
 from openai import OpenAI
 from langsmith import Client, client
+from langchain import hub
 from .transformation_service import TransformationService
 
 class SummarizeTransformation(TransformationService):
@@ -8,6 +10,7 @@ class SummarizeTransformation(TransformationService):
         self.prompts = Client(api_key=lang_smith_api_key)
         
     def transform(self, transcript: str) -> str:
-        chain = self.prompts.pull_prompt("scribe-ai-summary", include_model=True)
+        chain = hub.pull("scribe-ai-summary", include_model=True)
         summary = chain.invoke({"transcript": transcript})
-        return summary
+        logging.info(dir(summary))
+        return summary.content
