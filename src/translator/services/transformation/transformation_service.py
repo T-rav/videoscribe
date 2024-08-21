@@ -8,6 +8,8 @@ class TranscriptionTransformation(Enum):
     REMOVEFILLERWORDS = "removefillerwords"
     PARAGRAPHS = "paragraphs"
     KEYWORDS = "keywords"
+    YOUTUBEHIGHLIGHTS = "youtubehighlights"
+    YOUTUBESUMMARY = "youtubesummary"
     TRANSLATION = "translation"
     IMAGE = "image"
 
