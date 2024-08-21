@@ -91,7 +91,7 @@ const LandingPageForm: React.FC = () => {
 
           const structuredResult = {
             title: result.title,
-            duration: formatDuration(result.duration), // Format the duration here
+            duration: result.duration, 
             transcript: result.transcript,
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
@@ -167,7 +167,7 @@ const LandingPageForm: React.FC = () => {
 
           const structuredResult = {
             title: result.title,
-            duration: formatDuration(result.duration), // Format the duration here
+            duration: result.duration, // Format the duration here
             transcript: result.transcript,
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
@@ -197,13 +197,24 @@ const LandingPageForm: React.FC = () => {
   const closeTranscript = (index: number) => {
     setResults((prevResults) => prevResults.filter((_, i) => i !== index));
   };
-
   const formatDuration = (seconds: number): string => {
-    const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
-    const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-    const s = Math.floor(seconds % 60).toString().padStart(2, '0');
-    return `${h}:${m}:${s}`;
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+  
+    const timeString = [h, m, s]
+      .map(unit => unit.toString().padStart(2, '0'))
+      .join(':');
+  
+    if (h > 0) {
+      return `${timeString} hours`;
+    } else if (m > 0) {
+      return `${timeString} minutes`;
+    } else {
+      return `${timeString} seconds`;
+    }
   };
+    
 
   return (
     <div className="landing-page">
@@ -291,7 +302,7 @@ const LandingPageForm: React.FC = () => {
             <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
             <h3>#{results.length - index}</h3>
             <h4>Title: {result.title}</h4>
-            <p>Duration: {result.duration} seconds</p>
+            <p>Duration: {formatDuration(parseInt(result.duration, 10))}</p>
             <div className="transcription-tabs">
               {result.transformOptionUsed !== 'none' && (
                 <button

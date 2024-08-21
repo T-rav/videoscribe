@@ -1,0 +1,615 @@
+----- FILE: src/TranscriptionRequest.ts -----
+import { TranscriptionServiceType } from "./enums/TranscriptionServiceType";
+import { TranscriptionTransformation } from "./enums/TranscriptionTransformations";
+
+export interface TranscriptionRequest {
+  url?: string;
+  transcriptionType: TranscriptionServiceType;
+  transform: TranscriptionTransformation;
+  filePath?: string;
+}
+
+
+----- FILE: src/app.test.ts -----
+// src/app.test.ts
+import request from 'supertest';
+import createApp from './app';
+import { transcribe } from './services/mockService';
+
+const app = createApp(transcribe);
+
+describe('POST /transcribe', () => {
+  it('should return dummy transcription text for valid YouTube URL and transcription type', async () => {
+    const response = await request(app)
+      .post('/transcribe')
+      .send({
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        transcriptionType: 'openai',
+      });
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      transcriptionType: 'openai',
+      transcription: 'This is a dummy transcription from the mock service.',
+    });
+  });
+
+  it('should return an error for invalid transcription type', async () => {
+    const response = await request(app)
+      .post('/transcribe')
+      .send({
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        transcriptionType: 'invalid-type',
+      });
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({
+      error: 'Invalid transcription type',
+    });
+  });
+
+  it('should return an error for invalid YouTube URL', async () => {
+    const response = await request(app)
+      .post('/transcribe')
+      .send({
+        url: 'http://example.com',
+        transcriptionType: 'openai',
+      });
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({
+      error: 'Invalid YouTube URL',
+    });
+  });
+});
+
+
+----- FILE: src/middleware/rateLimiter.ts -----
+import rateLimit from 'express-rate-limit';
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import logger from '../utils/logger';
+
+export const parseTimeWindow = (time: string): number => {
+  const match = time.match(/(\d+)([hms])/);
+  if (!match) return 0;
+  const value = parseInt(match[1]);
+  const unit = match[2];
+  switch (unit) {
+    case 'h':
+      return value * 60 * 60 * 1000;
+    case 'm':
+      return value * 60 * 1000;
+    case 's':
+      return value * 1000;
+    default:
+      return 0;
+  }
+};
+
+// Create a rate limiter instance for authenticated users
+const authRateLimiter = rateLimit({
+  windowMs: parseTimeWindow(process.env.AUTHORIZED_RATE_WINDOW || '1h'), // 1 hour window
+  max: parseInt(process.env.AUTHORIZED_RATE_LIMIT || '10'), // Limit each IP to 10 requests per windowMs
+  keyGenerator: (req: Request) => {
+    const token = req.cookies.token;
+    if (token) {
+      try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string);
+        return (decodedToken as any).email; // Use the user ID from the token if valid
+      } catch (err) {
+        logger.error('Invalid JWT token:', err);
+        return req.ip || 'ip';
+      }
+    }
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Create a rate limiter instance for non-authenticated users
+const nonAuthRateLimiter = rateLimit({
+  windowMs: parseTimeWindow(process.env.UNAUTHORIZED_RATE_WINDOW || '24h'), // 24 hour window
+  max: parseInt(process.env.UNAUTHORIZED_RATE_LIMIT || '5'), // Limit each IP to 5 requests per windowMs
+  keyGenerator: (req: Request) => req.ip || 'ip', // Use IP as the identifier for non-authenticated users
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+export const rateLimiterMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  const token = req.cookies.token;
+
+  let isAuthenticated = false;
+
+  if (token) {
+    logger.info('Token found');
+    try {
+      jwt.verify(token, process.env.JWT_SECRET as string);
+      isAuthenticated = true;
+    } catch (err) {
+      logger.error('Invalid JWT token:', err);
+    }
+  }else{
+    logger.info('No token found');
+  }
+
+  logger.info(`Rate Limiter Middleware - isAuthenticated: ${isAuthenticated}`);
+
+  // Apply the appropriate rate limiter based on authentication status
+  if (isAuthenticated) {
+    authRateLimiter(req, res, next);
+  } else {
+    nonAuthRateLimiter(req, res, next);
+  }
+};
+
+
+----- FILE: src/middleware/passportConfig.ts -----
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      callbackURL: '/auth/google/callback',
+    },
+    (accessToken, refreshToken, profile, done) => {
+      // In a real application, you'd want to associate the Google account with a user record in your database
+      done(null, profile);
+    }
+  )
+);
+
+// Serialize and deserialize user instances to and from the session
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((id, done) => {
+  // If you have a database, fetch the user by ID
+  // User.findById(id, (err, user) => {
+  //   done(err, user);
+  // });
+
+  // Mock implementation if you don't have a database
+  const user = { id, name: 'Mock User' }; // Replace with actual user fetching logic
+  done(null, user);
+});
+
+
+----- FILE: src/app.ts -----
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import { rateLimiterMiddleware } from './middleware/rateLimiter';
+import transcribeRoutes from './routes/transcribeRoutes';
+import authRoutes from './routes/authRoutes';
+import logger from './utils/logger';
+import { TranscriptionRequest } from './TranscriptionRequest';
+import './middleware/passportConfig';
+import passport from 'passport';
+import session, { SessionOptions } from 'express-session';
+
+// Load environment variables from .env file
+dotenv.config();
+
+const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
+  const app = express();
+
+  const allowedOrigins = [
+    'http://localhost:3000',  // Allow localhost for development
+    'https://scribe.koderex.dev',  // Allow your production domain
+  ];
+
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,  // Enable sending of cookies and authentication headers
+  }));
+  
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
+
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || 'your_secret_key',
+      resave: false,
+      saveUninitialized: false,
+      cookie: { secure: process.env.NODE_ENV === 'production' }
+    })
+  );
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  app.use('/transcribe', rateLimiterMiddleware, transcribeRoutes(transcribe));
+  app.use(authRoutes);
+
+  // Global error handling middleware
+  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    logger.error('Global Error Handler:', err);
+    res.status(500).json({ error: 'An internal server error occurred' });
+  });
+
+  return app;
+};
+
+export default createApp;
+
+
+----- FILE: src/enums/TranscriptionTransformations.ts -----
+export enum TranscriptionTransformation {
+    NONE = "none",
+    SUMMARIZE = "summarize",
+    FORMATTING = "formatting",
+    REMOVEFILLERWORDS = "removefillerwords",
+    PARAGRAPHS = "paragraphs",
+    KEYWORDS = "keywords",
+    TRANSLATION = "translation",
+    IMAGE = "image"
+}
+
+----- FILE: src/enums/TranscriptionServiceType.ts -----
+export enum TranscriptionServiceType {
+    OPENAI = "openai",
+    OPENAI_VTT = "openai-vtt",
+    OPENAI_SRT = "openai-srt",
+    GROQ = "groq"
+}
+
+
+----- FILE: src/TranscriptionResponse.ts -----
+import { TranscriptionServiceType } from "./enums/TranscriptionServiceType";
+
+export interface TranscriptionResponse {
+  url?: string;
+  filePath?: string;
+  transcriptionType: TranscriptionServiceType;
+  transcription: string;
+}
+
+
+----- FILE: src/utils/logger.ts -----
+import { createLogger, format, transports } from 'winston';
+import path from 'path';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
+// Function to generate a timestamped log file name
+const getLogFileName = () => {
+  const timestamp = new Date().toISOString().split('T')[0]; // Get only the date part (YYYY-MM-DD)
+  return `api_${timestamp}.log`;
+};
+
+// Get the log level from environment variables or default to 'info'
+const logLevel = process.env.LOG_LEVEL || 'info';
+
+const logger = createLogger({
+  level: logLevel, // Log level from environment variable or default to 'info'
+  format: format.combine(
+    format.timestamp(),
+    format.errors({ stack: true }),
+    format.splat(),
+    format.json()
+  ),
+  transports: [
+    new transports.File({ filename: path.join('logs', getLogFileName()) }), // Log all errors to a timestamped file
+  ],
+});
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new transports.Console({
+    format: format.combine(
+      format.colorize(),
+      format.simple()
+    ),
+  }));
+}
+
+export default logger;
+
+
+----- FILE: src/server.ts -----
+// src/server.ts
+import createApp from './app';
+import { transcribe } from './services/pythonService';
+
+const app = createApp(transcribe);
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+
+----- FILE: src/routes/transcribeRoutes.ts -----
+import { Router, Request, Response, NextFunction } from 'express';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
+import { TranscriptionRequest } from '../TranscriptionRequest';
+import logger from '../utils/logger';
+
+const router = Router();
+const upload = multer({ dest: 'uploads/' });
+
+const isValidUrl = (url: string): boolean => {
+  const youtubeRegex = /^(https?:\/\/)?(www\.youtube\.com|youtube\.com|youtu\.?be)\/(watch\?v=|embed\/|v\/|.+\?v=|live\/|shorts\/)?([a-zA-Z0-9_-]{11})$/;
+  const googleDriveRegex = /^(https?:\/\/)?(drive\.google\.com|docs\.google\.com)\/(file\/d\/|present\/d\/|uc\?(export=download&)?id=)([a-zA-Z0-9_-]+)(\/view)?$/;
+  const vimeoRegex = /^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)(\/[a-zA-Z0-9_-]+)?(\?.*)?$/;
+  
+  return youtubeRegex.test(url) || googleDriveRegex.test(url) || vimeoRegex.test(url);
+};
+
+export default function transcribeRoutes(transcribe: (req: TranscriptionRequest) => Promise<any>) {
+  router.post('/link', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { url, transform, transcriptionType } = req.body;
+
+      if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
+        return res.status(400).json({ error: 'Invalid transcription type' });
+      }
+
+      if (!url || !isValidUrl(url)) {
+        return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo, or Google Drive URL' });
+      }
+
+      const result = await transcribe({ url, transcriptionType, transform });
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  router.post('/file', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
+    const file = req.file;
+    const { transcriptionType, transform } = req.body;
+    let filePath = '';
+
+    try {
+      if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
+        return res.status(400).json({ error: 'Invalid transcription type' });
+      }
+
+      if (!file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const uploadsDir = path.resolve('uploads');
+      filePath = path.join(uploadsDir, file.originalname);
+      fs.renameSync(file.path, filePath);
+
+      const result = await transcribe({ url: filePath, transcriptionType, transform });
+      res.json(result);
+    } catch (error) {
+      if (file) {
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            logger.error('Failed to delete file:', err);
+          } else {
+            logger.info(`Temp file ${filePath} deleted successfully`);
+          }
+        });
+      }
+      next(error);
+    }
+  });
+
+  return router;
+}
+
+
+----- FILE: src/routes/authRoutes.ts -----
+import { Router, Request, Response, NextFunction } from 'express';
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import logger from '../utils/logger';
+
+dotenv.config();
+
+const router = Router();
+
+interface User {
+  id: string;
+  email: string;
+  name: {givenName: string, familyName: string};
+  photos: Array<{ value: string }>;
+}
+
+// Google OAuth authentication route
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'], prompt: 'none'}));
+
+// Google OAuth callback route
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login?msg=failed' }),
+  (req: Request, res: Response) => {
+    // Create a token for the authenticated user
+    const user = req.user as User | undefined; // The authenticated user object
+
+    if (!user) {
+      logger.error('User object is undefined after successful authentication');
+      res.redirect('/login?msg=failed');
+      return;
+    }
+
+    const token = jwt.sign({ name: `${user.name.givenName} ${user.name.familyName}`, 
+                             id: user.id, 
+                             email: user.email, 
+                             picture: user.photos[0].value 
+                           }, 
+                            process.env.JWT_SECRET as string || 'your_jwt_secret', 
+                           {
+                            expiresIn: '24h',
+                           });
+    // Set the token and user information in cookies
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' });
+
+    logger.info("Auth: Set token in cookies");
+
+    // Redirect to dashboard or home
+    res.redirect('http://localhost:3000/dashboard');
+  }
+);
+
+// Logout route
+router.get('/logout', (req: Request, res: Response, next: NextFunction) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+});
+
+// API route to verify the user's authentication status
+router.get('/auth/verify', (req: Request, res: Response) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    logger.error('Token is missing');
+    return res.status(401).json({ message: 'Authentication token is missing' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET as string, (err: any, decodedToken: any) => {
+    if (err) {
+      logger.error('Token verification failed:', err);
+      return res.status(403).json({ message: 'Invalid token' });
+    }
+
+    const user = { name: `${decodedToken.name}`, id: decodedToken.id, email: decodedToken.email, picture: decodedToken.picture };
+    logger.info('User verified:', user);
+    res.status(200).json({ user: user });
+  });
+});
+
+export default router;
+
+
+----- FILE: src/services/pythonService.ts -----
+import { spawn } from 'child_process';
+import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
+import logger from '../utils/logger';
+import { TranscriptionTransformation } from '../enums/TranscriptionTransformations';
+
+interface TranscriptionRequest {
+  url?: string;
+  transcriptionType: TranscriptionServiceType;
+  transform: TranscriptionTransformation;
+}
+
+interface TranscriptionResponse {
+  url?: string;
+  filePath?: string;
+  transcriptionType: TranscriptionServiceType;
+  transcription: string;
+}
+
+export const transcribe = async ({
+  url,
+  transcriptionType,
+  transform,
+}: TranscriptionRequest): Promise<TranscriptionResponse> => {
+  return new Promise((resolve, reject) => {
+    let scriptArgs: string[] = [];
+
+    // Log the input parameters
+    logger.log('info', `Received transcription request with URL: ${url} and Transcription Type: ${transcriptionType} and Transform: ${transform}`);
+
+    if (url) {
+      scriptArgs.push(url);
+    } else {
+      return reject(new Error('Either URL or file must be provided'));
+    }
+
+    scriptArgs.push('--service', transcriptionType, '--transform', transform, '--path', './incoming');
+
+    const python = spawn('python3', ['../translator/app.py', ...scriptArgs]);
+
+    python.stdin.end();
+
+    let output = '';
+    let errorOutput = '';
+
+    python.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+
+    python.stderr.on('data', (data) => {
+      errorOutput += data.toString();
+    });
+
+    python.on('close', (code) => {
+      if (code !== 0) {
+        logger.error(`Python script exited with code ${code}: ${errorOutput}`);
+        reject(new Error(`Python script exited with code ${code}: ${errorOutput}`));
+      } else {
+        try {
+          const parsedOutput = JSON.parse(output) as TranscriptionResponse;
+          resolve(parsedOutput);
+        } catch (error) {
+          logger.error(`Failed to parse Python script output. Raw output: ${output}. Error: ${error}`);
+          reject(new Error(`Failed to parse Python script output: ${errorOutput} - [${output}]`));
+        }
+      }
+    });
+  });
+};
+
+
+----- FILE: src/services/mockService.ts -----
+import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
+
+interface TranscriptionRequest {
+  url?: string;
+  filePath?: string;
+  transcriptionType: TranscriptionServiceType;
+}
+
+interface TranscriptionResponse {
+  url?: string;
+  filePath?: string;
+  transcriptionType: TranscriptionServiceType;
+  transcription: string;
+}
+
+export const transcribe = async ({
+  url,
+  filePath,
+  transcriptionType,
+}: TranscriptionRequest): Promise<TranscriptionResponse> => {
+  // Simulate a delay to mimic an external service call
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  // Create a mock transcription response based on whether a URL or file was provided
+  let transcription: string;
+
+  if (url) {
+    transcription = `This is a dummy transcription from the mock service for the URL: ${url}.`;
+  } else if (filePath) {
+    transcription = `This is a dummy transcription from the mock service for the file: ${filePath}.`;
+  } else {
+    throw new Error('Either url or filePath must be provided.');
+  }
+
+  // Return the mock transcription response
+  return {
+    url,
+    filePath,
+    transcriptionType,
+    transcription,
+  };
+};
+
+
