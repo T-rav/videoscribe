@@ -96,7 +96,6 @@ const LandingPageForm: React.FC = () => {
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
             activeTab: transformOption !== 'none' ? 'transformed' : 'full', // Default active tab based on transform option
-          };
 
           setResults((prevResults) => [structuredResult, ...prevResults]);
         } else {
@@ -215,6 +214,26 @@ const LandingPageForm: React.FC = () => {
     }
   };
     
+
+  const handleTabChange = (index: number, tab: string) => {
+    setResults((prevResults) =>
+      prevResults.map((result, i) =>
+        i === index ? { ...result, activeTab: tab } : result
+      )
+    );
+  };
+
+  const formatDuration = (seconds: number) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+  
+    const hDisplay = h > 0 ? h + "h " : "";
+    const mDisplay = m > 0 ? m + "m " : "";
+    const sDisplay = s > 0 ? s + "s" : "";
+    return hDisplay + mDisplay + sDisplay;
+  };
+  
 
   return (
     <div className="landing-page">
@@ -340,11 +359,10 @@ const LandingPageForm: React.FC = () => {
                 copyToClipboard(result.activeTab === 'transformed' && result.transformOptionUsed !== 'none' ? result.transformedTranscript : result.transcript)
               }
             >
-              Copy
+              Full Transcript
             </button>
           </div>
         ))}
-
       </div>
     </div>
   );
