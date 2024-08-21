@@ -4,6 +4,8 @@ from .formatting import FormattingForReadabilityTransformation
 from .keywords import FormattingForKeywordsTransformation
 from .paragraphs import FormattingForParagraphsTransformation
 from .removefillerwords import FormattingForFillerWordsTransformation
+from .youtubehighlights import FormattingForYoutubeHighlightsTransformation
+from .youtubesummary import FormattingForYoutubeSummaryTransformation
 from .none import NoneTransformation
 from .summarize import SummarizeTransformation
 from .transformation_service import TranscriptionTransformation, TransformationService
@@ -17,6 +19,8 @@ class TransformationFactory:
         TranscriptionTransformation.PARAGRAPHS: (FormattingForParagraphsTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
         TranscriptionTransformation.REMOVEFILLERWORDS: (FormattingForFillerWordsTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
         TranscriptionTransformation.KEYWORDS: (FormattingForKeywordsTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
+        TranscriptionTransformation.YOUTUBEHIGHLIGHTS : (FormattingForYoutubeHighlightsTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
+        TranscriptionTransformation.YOUTUBESUMMARY : (FormattingForYoutubeSummaryTransformation, "OPENAI_API_KEY", "LANGCHAIN_API_KEY"),
     }
 
     @staticmethod

@@ -10,7 +10,6 @@ const LandingPageForm: React.FC = () => {
   const [results, setResults] = useState<
   { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string; activeTab: string }[]
 >([]);
-  const [activeTab, setActiveTab] = useState<string>('transformed');
 
   const maxFileSizeInMB = 2500;
   const transriptionType = 'openai-srt';
@@ -291,6 +290,8 @@ const LandingPageForm: React.FC = () => {
             <option value="removefillerwords">Remove Filler Words</option>
             <option value="paragraphs">Make Paragraphs</option>
             <option value="keywords">Keyword Extraction</option>
+            <option value="youtubehighlights">YouTube Highlights</option>
+            <option value="youtubesummary">YouTube Summary</option>
           </select>
 
           <button type="submit" className="submit-button" disabled={loading}>
