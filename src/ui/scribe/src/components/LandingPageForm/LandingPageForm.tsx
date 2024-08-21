@@ -91,7 +91,7 @@ const LandingPageForm: React.FC = () => {
 
           const structuredResult = {
             title: result.title,
-            duration: result.duration,
+            duration: formatDuration(result.duration),
             transcript: result.transcript,
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
@@ -166,7 +166,7 @@ const LandingPageForm: React.FC = () => {
 
           const structuredResult = {
             title: result.title,
-            duration: result.duration,
+            duration: formatDuration(result.duration),
             transcript: result.transcript,
             transformedTranscript: result.transformed_transcript,
             transformOptionUsed: transformOption,
@@ -194,6 +194,13 @@ const LandingPageForm: React.FC = () => {
 
   const closeTranscript = (index: number) => {
     setResults((prevResults) => prevResults.filter((_, i) => i !== index));
+  };
+
+  const formatDuration = (seconds: number): string => {
+    const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+    const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+    const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${h}:${m}:${s}`;
   };
 
   return (
