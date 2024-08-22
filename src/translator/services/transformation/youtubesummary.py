@@ -10,5 +10,5 @@ class FormattingForYoutubeSummaryTransformation(TransformationService):
         
     def transform(self, transcript: str, metadata: dict) -> str:
         chain = hub.pull("scribe-ai-format-3000char-summary", include_model=True, api_key=self.llmOpsKey)
-        summary = chain.invoke({"transcript": transcript})
+        summary = chain.invoke({"transcript": transcript, "length": metadata.get("length", 3000)})
         return summary.content

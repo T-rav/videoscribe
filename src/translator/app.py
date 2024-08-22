@@ -81,8 +81,10 @@ def main():
             logging.info(f"Running transformation {args.transform}")
             # build metadata
             metadata = {
-                "duration" : video_info.get("duration", 0),
+                "duration" : video_info.get("duration", 0), # used for youtube highlights
+                "length" : 3000, # used for youtube summary
             }
+            logging.info(f"Metadata: {metadata} for transformation {args.transform}")
             transformation = TransformationFactory.get_transformation_service(TranscriptionTransformation(args.transform))
             transformed_transcript = transformation.transform(combined_transcription, metadata=metadata)
         except Exception as e:
