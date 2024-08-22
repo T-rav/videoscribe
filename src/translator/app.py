@@ -79,12 +79,18 @@ def main():
 
             # Run the transformation
             logging.info(f"Running transformation {args.transform}")
+            # build metadata
+            metadata = {
+                "duration" : video_info.get("duration", 0),
+            }
             transformation = TransformationFactory.get_transformation_service(TranscriptionTransformation(args.transform))
-            transformed_transcript = transformation.transform(combined_transcription)
+            transformed_transcript = transformation.transform(combined_transcription, metadata=metadata)
         except Exception as e:
             logging.error(f"An error occurred during transcript adjustment or transformation: {str(e)}")
             print(json.dumps({"error": f"An error occurred: {str(e)}"}))
             raise
+        finally:
+            os.remove(audio_file_path)
 
         result = {
             "url": args.url,
@@ -97,7 +103,7 @@ def main():
             "transform": args.transform
         }
 
-        os.remove(audio_file_path)
+        
 
         print(json.dumps(result))
 

@@ -7,7 +7,7 @@ class FormattingForParagraphsTransformation(TransformationService):
         self.llmOpsKey = lang_smith_api_key
         self.client = OpenAI(api_key=openai_api_key)
         
-    def transform(self, transcript: str) -> str:
+    def transform(self, transcript: str, metadata: dict) -> str:
         chain = hub.pull("scribe-ai-format-for-paragraphs", include_model=True, api_key=self.llmOpsKey)
         summary = chain.invoke({"transcript": transcript})
         return summary.content

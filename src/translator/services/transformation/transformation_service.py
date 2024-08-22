@@ -15,5 +15,5 @@ class TranscriptionTransformation(Enum):
 
 class TransformationService(ABC):
     @abstractmethod
-    def transform(self, transcript: str) -> str:
+    def transform(self, transcript: str, metadata: dict = None) -> str:
         pass
