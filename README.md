@@ -1,4 +1,4 @@
-# VideoScribe
+# Scribe AI
 
 A simple RAG tool chain used to back the `@Video Scribe` GPT able to import youtube and local video files in to an elasticsearch endpoint.
 
