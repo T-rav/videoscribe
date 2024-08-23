@@ -19,7 +19,7 @@ The Gen AI component is the `Enhancements` dropdown, which transforms the transc
 A Node.js back-end that provides authentication and transcript endpoints, along with rate-limiting middleware for both authorized and non-authorized users.
 
 ### Translator
-The Python script where it all began. This script handles both translation and transformation tasks. It is invoked by the API in-process, with a future plan to move it to respond to Blob Storage files in a queue.
+The Python script where it all began. This script handles both transcription and transformation tasks. It is invoked by the API in-process, with a future plan to move it to respond to Blob Storage files in a queue.
 
 This component includes Speech-to-Text conversion and related transformations, leveraging the LangSmith repository of prompts.
 
