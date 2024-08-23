@@ -39,7 +39,7 @@ export const transcribe = async ({
 
     scriptArgs.push('--service', transcriptionType, '--transform', transform, '--path', './incoming');
 
-    const python = spawn('python3', ['../translator/app.py', ...scriptArgs]);
+    const python = spawn('python', ['../translator/app.py', ...scriptArgs]);
 
     python.stdin.end();
 
