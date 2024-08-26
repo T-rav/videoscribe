@@ -9,7 +9,7 @@ class FormattingForYoutubeHighlightsTransformation(TransformationService):
         self.client = OpenAI(api_key=openai_api_key)
         
     def transform(self, transcript: str, metadata: dict) -> str:
-        chain = hub.pull("scribe-ai-format-youtube-highlights", include_model=True, api_key=self.llmOpsKey)
+        chain = hub.pull("scribe-ai-format-youtube-highlights-v2", include_model=True, api_key=self.llmOpsKey)
         summary = chain.invoke({"transcript": transcript, "duration": self.format_duration(metadata.get("duration", 0))})
         return summary.content
     
