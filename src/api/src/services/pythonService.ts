@@ -2,11 +2,15 @@ import { spawn } from 'child_process';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
 import { TranscriptionTransformation } from '../enums/TranscriptionTransformations';
+import fs from 'fs';
+import path from 'path';
+import { BlobServiceClient } from '@azure/storage-blob';
 
 interface TranscriptionRequest {
   url?: string;
   transcriptionType: TranscriptionServiceType;
   transform: TranscriptionTransformation;
+  filePath?: string; // Added filePath for local file uploads
 }
 
 interface TranscriptionResponse {
@@ -20,53 +24,55 @@ interface TranscriptionResponse {
   transform: string;
 }
 
+const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING || '');
+
 export const transcribe = async ({
   url,
   transcriptionType,
   transform,
+  filePath,
 }: TranscriptionRequest): Promise<TranscriptionResponse> => {
-  return new Promise((resolve, reject) => {
-    let scriptArgs: string[] = [];
+  return new Promise(async (resolve, reject) => {
+    try {
+      const containerClient = blobServiceClient.getContainerClient('transcriptions');
+      const blobName = `transcription-${Date.now()}.json`;
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-    // Log the input parameters
-    logger.log('info', `Received transcription request with URL: ${url} and Transcription Type: ${transcriptionType} and Transform: ${transform}`);
+      let message: any = {
+        transcriptionType,
+        transform,
+        isFile: false, // Default to false
+      };
 
-    if (url) {
-      scriptArgs.push(url);
-    } else {
-      return reject(new Error('Either URL or file must be provided'));
-    }
-
-    scriptArgs.push('--service', transcriptionType, '--transform', transform, '--path', './incoming');
-
-    const python = spawn('python', ['../translator/app.py', ...scriptArgs]);
-
-    python.stdin.end();
-
-    let output = '';
-    let errorOutput = '';
-
-    python.stdout.on('data', (data) => {
-      output += data.toString();
-    });
-
-    python.stderr.on('data', (data) => {
-      errorOutput += data.toString();
-    });
-
-    python.on('close', (code) => {
-      if (code !== 0) {
-        logger.error(`Python script exited with code ${code}: ${errorOutput}`);
-        reject(new Error(`Python script exited with code ${code}: ${errorOutput}`));
+      if (url) {
+        message.url = url;
+      } else if (filePath) {
+        const fileBuffer = fs.readFileSync(filePath);
+        message.file = fileBuffer.toString('base64');
+        message.isFile = true; // Set to true if file is provided
       } else {
-        try {
-          const parsedOutput = JSON.parse(output) as TranscriptionResponse;
-          resolve(parsedOutput);
-        } catch (error) {
-          logger.error(`Failed to parse Python script output. Raw output: ${output}. Error: ${error}`);
-          reject(new Error(`Failed to parse Python script output: ${errorOutput} - [${output}]`));
-        }
+        return reject(new Error('Either URL or file must be provided'));
       }
-    });
+
+      // Log the input parameters
+      logger.log('info', `Publishing transcription request with URL: ${url} and Transcription Type: ${transcriptionType} and Transform: ${transform}`);
+
+      const data = JSON.stringify(message);
+      await blockBlobClient.upload(data, data.length);
+
+      resolve({
+        url,
+        title: '',
+        duration: 0,
+        transcription_file_path: blobName,
+        service: transcriptionType,
+        transcription: '',
+        transformed_transcript: '',
+        transform: transform.toString(),
+      });
+    } catch (error) {
+      logger.error(`Failed to publish message to blob storage. Error: ${error}`);
+      reject(new Error(`Failed to publish message to blob storage: ${error}`));
+    }
   });
 };
