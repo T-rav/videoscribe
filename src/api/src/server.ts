@@ -1,6 +1,6 @@
 // src/server.ts
 import createApp from './app';
-import { transcribe } from './services/pythonService';
+import { transcribe } from './services/blobStorage';
 
 const app = createApp(transcribe);
 

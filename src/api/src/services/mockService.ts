@@ -1,63 +1,48 @@
-import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
-
-interface TranscriptionRequest {
-  url?: string;
-  filePath?: string;
-  transcriptionType: TranscriptionServiceType;
-  service?: string;
-  transform?: boolean;
-}
-
-interface TranscriptionResponse {
-  url?: string;
-  title: string;
-  duration: number;
-  service?: string;
-  transcriptionFilePath: string;
-  transcript: string;
-  transformedTranscript: string;
-  transform?: boolean;
-}
+import { TranscriptionRequest, TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
 
 export const transcribe = async ({
   url,
   filePath,
   transcriptionType,
-  service,
   transform,
 }: TranscriptionRequest): Promise<TranscriptionResponse> => {
   // Simulate a delay to mimic an external service call
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  // Mock video info for demonstration purposes
-  const videoInfo = {
-    title: url ? "Sample Video Title" : "Unknown Title",
-    duration: url ? 120 : 0, // Assuming 120 seconds for the example
+  let message: TranscriptionMessage = {
+    transcriptionType,
+    transform,
+    isFile: false,
+    content: '',
   };
 
-  // Create a mock transcription response based on whether a URL or file was provided
-  let transcript: string;
-  let transformedTranscript: string;
-
   if (url) {
-    transcript = `This is a dummy transcription from the mock service for the URL: ${url}.`;
-    transformedTranscript = transform ? `Transformed with ${transform}: ${transcript}` : transcript;
+    message.content = url;
   } else if (filePath) {
-    transcript = `This is a dummy transcription from the mock service for the file: ${filePath}.`;
-    transformedTranscript = transform ? `Transformed with ${transform}: ${transcript}` : transcript;
+    message.content = `mock_file_content_for_${filePath}`;
+    message.isFile = true;
   } else {
     throw new Error('Either url or filePath must be provided.');
   }
 
-  // Return the mock transcription response with the new shape
+  // Mock video info for demonstration purposes
+  const videoInfo = {
+    title: message.isFile ? "Unknown Title" : "Sample Video Title",
+    duration: message.isFile ? 0 : 120, // Assuming 120 seconds for URL example
+  };
+
+  // Create a mock transcription response
+  const transcript = `This is a dummy transcription from the mock service for the ${message.isFile ? 'file' : 'URL'}: ${message.content}.`;
+  const transformedTranscript = `Transformed with ${transform}: ${transcript}`;
+
+  // Return the mock transcription response
   return {
-    url,
+    url: message.isFile ? undefined : message.content,
     title: videoInfo.title,
     duration: videoInfo.duration,
-    service,
-    transcriptionFilePath: filePath || '',
     transcript,
     transformedTranscript,
-    transform,
+    service: message.transcriptionType,
+    transform: message.transform,
   };
 };

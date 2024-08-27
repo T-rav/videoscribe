@@ -3,26 +3,8 @@ import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
 import { TranscriptionTransformation } from '../enums/TranscriptionTransformations';
 import fs from 'fs';
-import path from 'path';
 import { BlobServiceClient } from '@azure/storage-blob';
-
-interface TranscriptionRequest {
-  url?: string;
-  transcriptionType: TranscriptionServiceType;
-  transform: TranscriptionTransformation;
-  filePath?: string; // Added filePath for local file uploads
-}
-
-interface TranscriptionResponse {
-  url?: string;
-  title: string;
-  duration: number;
-  transcription_file_path: string;
-  service: string;
-  transcription: string;
-  transformed_transcript: string;
-  transform: string;
-}
+import { TranscriptionRequest, TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING || '');
 
@@ -38,17 +20,18 @@ export const transcribe = async ({
       const blobName = `transcription-${Date.now()}.json`;
       const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-      let message: any = {
+      let message: TranscriptionMessage = {
         transcriptionType,
         transform,
         isFile: false, // Default to false
+        content: '',
       };
 
       if (url) {
-        message.url = url;
+        message.content = url;
       } else if (filePath) {
         const fileBuffer = fs.readFileSync(filePath);
-        message.file = fileBuffer.toString('base64');
+        message.content = fileBuffer.toString('base64');
         message.isFile = true; // Set to true if file is provided
       } else {
         return reject(new Error('Either URL or file must be provided'));
@@ -60,14 +43,14 @@ export const transcribe = async ({
       const data = JSON.stringify(message);
       await blockBlobClient.upload(data, data.length);
 
+      // todo : clean this up to return a call back url to the client to check the status of the transcription
       resolve({
         url,
         title: '',
         duration: 0,
-        transcription_file_path: blobName,
         service: transcriptionType,
-        transcription: '',
-        transformed_transcript: '',
+        transcript: '', 
+        transformedTranscript: '',
         transform: transform.toString(),
       });
     } catch (error) {
