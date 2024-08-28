@@ -9,6 +9,7 @@ export interface TranscriptionRequest {
 }
 
 export interface TranscriptionMessage {
+  jobId: string;
   transcriptionType: TranscriptionServiceType;
   transform: TranscriptionTransformation;
   isFile: boolean;

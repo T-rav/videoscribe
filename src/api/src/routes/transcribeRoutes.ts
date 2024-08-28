@@ -4,7 +4,8 @@ import fs from 'fs';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
 import { saveJobToStorage } from '../services/blobStorage';
-import { TranscriptionMessage } from '../services/interfaces/transcription';
+import { TranscriptionMessage, TranscriptionRequest } from '../services/interfaces/transcription';
+import { v4 as uuidv4 } from 'uuid';
 
 const router = Router();
 const upload = multer({ dest: 'uploads/' });
@@ -17,7 +18,7 @@ const isValidUrl = (url: string): boolean => {
   return youtubeRegex.test(url) || googleDriveRegex.test(url) || vimeoRegex.test(url);
 };
 
-export default function transcribeRoutes() {
+export default function transcribeRoutes(transcribe: (req: TranscriptionRequest) => Promise<any>) {
   router.post('/link', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { url, transform, transcriptionType } = req.body;
@@ -27,6 +28,7 @@ export default function transcribeRoutes() {
       }
 
       const transcriptionMessage: TranscriptionMessage = {
+        jobId: uuidv4(),
         transcriptionType,
         transform,
         isFile: false,
@@ -56,6 +58,7 @@ export default function transcribeRoutes() {
       }
 
       const transcriptionMessage: TranscriptionMessage = {
+        jobId: uuidv4(),
         transcriptionType,
         transform,
         isFile: true,

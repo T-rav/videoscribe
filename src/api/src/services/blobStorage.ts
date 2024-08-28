@@ -17,6 +17,7 @@ const ensureContainerExists = async (containerClient: ContainerClient, container
 };
 
 export const saveJobToStorage = async ({
+  jobId,
   transcriptionType,
   transform,
   isFile,
@@ -37,6 +38,7 @@ export const saveJobToStorage = async ({
       const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
       let message: TranscriptionMessage = {
+        jobId,
         transcriptionType,
         transform,
         isFile,
