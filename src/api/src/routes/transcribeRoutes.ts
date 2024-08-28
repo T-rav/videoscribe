@@ -1,9 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import multer from 'multer';
-import path from 'path';
 import fs from 'fs';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
-import { TranscriptionRequest } from '../services/interfaces/transcription';
 import logger from '../utils/logger';
 import { saveJobToStorage } from '../services/blobStorage';
 import { TranscriptionMessage } from '../services/interfaces/transcription';
@@ -19,13 +17,13 @@ const isValidUrl = (url: string): boolean => {
   return youtubeRegex.test(url) || googleDriveRegex.test(url) || vimeoRegex.test(url);
 };
 
-export default function transcribeRoutes(transcribe: (req: TranscriptionRequest) => Promise<any>) {
+export default function transcribeRoutes() {
   router.post('/link', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { url, transform, transcriptionType } = req.body;
 
       if (!isValidUrl(url)) {
-        return res.status(400).json({ error: 'Invalid URL' });
+        return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo, or Google Drive URL' });
       }
 
       const transcriptionMessage: TranscriptionMessage = {

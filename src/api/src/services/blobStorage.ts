@@ -44,7 +44,6 @@ export const saveJobToStorage = async ({
         userId,
       };
 
-      // Log the input parameters
       logger.log('info', `Publishing transcription request for Transcription Type: ${transcriptionType} and Transform: ${transform}`);
 
       const data = JSON.stringify(message);

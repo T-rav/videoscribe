@@ -64,7 +64,7 @@ const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
 };
 
 // Create and start the server
-const app = createApp((req: TranscriptionRequest) => Promise.resolve({})); // Replace with actual transcribe function
+const app = createApp((req: TranscriptionRequest) => Promise.resolve({}));
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
