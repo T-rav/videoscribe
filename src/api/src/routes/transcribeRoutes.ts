@@ -3,8 +3,10 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
-import { TranscriptionRequest } from '../TranscriptionRequest';
+import { TranscriptionRequest } from '../services/interfaces/transcription';
 import logger from '../utils/logger';
+import { saveJobToStorage } from '../services/blobStorage';
+import { TranscriptionMessage } from '../services/interfaces/transcription';
 
 const router = Router();
 const upload = multer({ dest: 'uploads/' });
@@ -22,15 +24,19 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
     try {
       const { url, transform, transcriptionType } = req.body;
 
-      if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
-        return res.status(400).json({ error: 'Invalid transcription type' });
+      if (!isValidUrl(url)) {
+        return res.status(400).json({ error: 'Invalid URL' });
       }
 
-      if (!url || !isValidUrl(url)) {
-        return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo, or Google Drive URL' });
-      }
+      const transcriptionMessage: TranscriptionMessage = {
+        transcriptionType,
+        transform,
+        isFile: false,
+        content: url,
+        userId: undefined // todo: properly extract user id
+      };
 
-      const result = await transcribe({ url, transcriptionType, transform });
+      const result = await saveJobToStorage(transcriptionMessage);
       res.json(result);
     } catch (error) {
       next(error);
@@ -51,11 +57,17 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
         return res.status(400).json({ error: 'No file uploaded' });
       }
 
-      const uploadsDir = path.resolve('uploads');
-      filePath = path.join(uploadsDir, file.originalname);
-      fs.renameSync(file.path, filePath);
+      const transcriptionMessage: TranscriptionMessage = {
+        transcriptionType,
+        transform,
+        isFile: true,
+        content: file.buffer.toString('base64'),
+        mimeType: file.mimetype,
+        fileName: file.originalname,
+        userId: undefined // todo: properly extract user id
+      };
 
-      const result = await transcribe({ url: filePath, transcriptionType, transform });
+      const result = await saveJobToStorage(transcriptionMessage);
       res.json(result);
     } catch (error) {
       if (file) {

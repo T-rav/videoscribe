@@ -6,13 +6,15 @@ import { rateLimiterMiddleware } from './middleware/rateLimiter';
 import transcribeRoutes from './routes/transcribeRoutes';
 import authRoutes from './routes/authRoutes';
 import logger from './utils/logger';
-import { TranscriptionRequest } from './TranscriptionRequest';
 import './middleware/passportConfig';
 import passport from 'passport';
-import session, { SessionOptions } from 'express-session';
+import session from 'express-session';
+import { TranscriptionRequest } from './services/interfaces/transcription';
 
 // Load environment variables from .env file
 dotenv.config();
+
+const PORT = process.env.PORT || 3001;
 
 const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
   const app = express();
@@ -61,4 +63,11 @@ const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
   return app;
 };
 
-export default createApp;
+// Create and start the server
+const app = createApp((req: TranscriptionRequest) => Promise.resolve({})); // Replace with actual transcribe function
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+export default app;
+

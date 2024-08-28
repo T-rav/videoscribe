@@ -1,51 +1,57 @@
-import { spawn } from 'child_process';
-import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
-import { TranscriptionTransformation } from '../enums/TranscriptionTransformations';
-import fs from 'fs';
-import { BlobServiceClient } from '@azure/storage-blob';
-import { TranscriptionRequest, TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
+import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
+import { TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING || '');
 
-export const transcribe = async ({
-  url,
+const ensureContainerExists = async (containerClient: ContainerClient, containerName: string) => {
+  if (!containerName) {
+    throw new Error('Container name is required');
+  }
+  const containerExists = await containerClient.exists();
+  if (!containerExists) {
+    logger.log('info', `Container ${containerName} does not exist. Creating it...`);
+    await containerClient.create();
+    logger.log('info', `Container ${containerName} created successfully.`);
+  }
+};
+
+export const saveJobToStorage = async ({
   transcriptionType,
   transform,
-  filePath,
-}: TranscriptionRequest): Promise<TranscriptionResponse> => {
+  isFile,
+  content,
+  userId,
+}: TranscriptionMessage): Promise<TranscriptionResponse> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const containerClient = blobServiceClient.getContainerClient('transcriptions');
+      const containerName = userId
+        ? process.env.AZURE_STORAGE_CONTAINER_NAME || ''
+        : process.env.AZURE_STORAGE_CONTAINER_NAME_DEMO || '';
+      
+      const containerClient = blobServiceClient.getContainerClient(containerName);
+      
+      await ensureContainerExists(containerClient, containerName);
+
       const blobName = `transcription-${Date.now()}.json`;
       const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
       let message: TranscriptionMessage = {
         transcriptionType,
         transform,
-        isFile: false, // Default to false
-        content: '',
+        isFile,
+        content,
+        userId,
       };
 
-      if (url) {
-        message.content = url;
-      } else if (filePath) {
-        const fileBuffer = fs.readFileSync(filePath);
-        message.content = fileBuffer.toString('base64');
-        message.isFile = true; // Set to true if file is provided
-      } else {
-        return reject(new Error('Either URL or file must be provided'));
-      }
-
       // Log the input parameters
-      logger.log('info', `Publishing transcription request with URL: ${url} and Transcription Type: ${transcriptionType} and Transform: ${transform}`);
+      logger.log('info', `Publishing transcription request for Transcription Type: ${transcriptionType} and Transform: ${transform}`);
 
       const data = JSON.stringify(message);
       await blockBlobClient.upload(data, data.length);
 
       // todo : clean this up to return a call back url to the client to check the status of the transcription
       resolve({
-        url,
         title: '',
         duration: 0,
         service: transcriptionType,

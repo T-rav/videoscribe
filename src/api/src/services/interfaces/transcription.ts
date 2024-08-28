@@ -13,6 +13,9 @@ export interface TranscriptionMessage {
   transform: TranscriptionTransformation;
   isFile: boolean;
   content: string;
+  userId?: string;
+  mimeType?: string;
+  fileName?: string;
 }
 
 export interface TranscriptionResponse {
