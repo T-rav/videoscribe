@@ -34,7 +34,7 @@ export const saveJobToStorage = async ({
       
       await ensureContainerExists(containerClient, containerName);
 
-      const blobName = `transcription-${Date.now()}.json`;
+      const blobName = `${jobId}-transcription.json`;
       const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
       let message: TranscriptionMessage = {

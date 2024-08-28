@@ -36,6 +36,7 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
         userId: undefined // todo: properly extract user id
       };
 
+      // todo : log the job in the database too!
       const result = await saveJobToStorage(transcriptionMessage);
       res.json(result);
     } catch (error) {
