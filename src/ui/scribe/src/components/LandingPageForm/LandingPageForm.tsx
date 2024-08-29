@@ -86,18 +86,8 @@ const LandingPageForm: React.FC = () => {
         });
 
         if (response.ok) {
-          const result = await response.json();
-
-          const structuredResult = {
-            title: result.title,
-            duration: result.duration, 
-            transcript: result.transcript,
-            transformedTranscript: result.transformed_transcript,
-            transformOptionUsed: transformOption,
-            activeTab: transformOption !== 'none' ? 'transformed' : 'full', // Default active tab based on transform option
-          };
-
-          setResults((prevResults) => [structuredResult, ...prevResults]);
+          const { jobId } = await response.json();
+          await pollJobStatus(jobId);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -162,18 +152,8 @@ const LandingPageForm: React.FC = () => {
         });
 
         if (response.ok) {
-          const result = await response.json();
-
-          const structuredResult = {
-            title: result.title,
-            duration: result.duration, // Format the duration here
-            transcript: result.transcript,
-            transformedTranscript: result.transformed_transcript,
-            transformOptionUsed: transformOption,
-            activeTab: transformOption !== 'none' ? 'transformed' : 'full', // Default active tab based on transform option
-          };
-
-          setResults((prevResults) => [structuredResult, ...prevResults]);
+          const { jobId } = await response.json();
+          await pollJobStatus(jobId);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -186,6 +166,50 @@ const LandingPageForm: React.FC = () => {
     } else {
       setError('Please provide either a video link or upload a file.');
       setLoading(false);
+    }
+  };
+
+  const pollJobStatus = async (jobId: string) => {
+    try {
+      let jobStatus = 'pending';
+      let result;
+
+      while (jobStatus === 'pending') {
+        const response = await fetch(`http://localhost:3001/status/${jobId}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          result = await response.json();
+          jobStatus = result.status;
+        } else {
+          const error = await response.json();
+          setError(error.error || response.statusText);
+          return;
+        }
+
+        if (jobStatus === 'pending') {
+          await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds before polling again
+        }
+      }
+
+      if (jobStatus === 'finished') {
+        const structuredResult = {
+          title: result.title,
+          duration: result.duration,
+          transcript: result.transcript,
+          transformedTranscript: result.transformed_transcript,
+          transformOptionUsed: transformOption,
+          activeTab: transformOption !== 'none' ? 'transformed' : 'full',
+        };
+
+        setResults((prevResults) => [structuredResult, ...prevResults]);
+      } else {
+        setError('Job failed to complete.');
+      }
+    } catch (error) {
+      setError('An error occurred while polling the job status.');
     }
   };
 
