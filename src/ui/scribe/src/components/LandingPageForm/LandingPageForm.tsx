@@ -182,7 +182,7 @@ const LandingPageForm: React.FC = () => {
       let result;
 
       while (jobStatus === 'pending') {
-        const response = await fetch(`${serverUrl}/status/${jobId}`, {
+        const response = await fetch(`${serverUrl}/transcribe/status/${jobId}`, {
           method: 'GET',
           credentials: 'include',
         });
