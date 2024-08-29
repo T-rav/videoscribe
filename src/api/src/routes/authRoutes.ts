@@ -90,7 +90,7 @@ router.get('/auth/verify', (req: Request, res: Response) => {
             picture: decoded.picture,
           },
           process.env.JWT_SECRET as string,
-          { expiresIn: '1h' } // Set your desired expiration time
+          { expiresIn: '24h' } // Set your desired expiration time
         );
 
         // Set the new token in the cookies
