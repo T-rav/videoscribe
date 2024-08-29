@@ -8,7 +8,7 @@ import { TranscriptionMessage, TranscriptionRequest } from '../services/interfac
 import { v4 as uuidv4 } from 'uuid';
 
 const router = Router();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 
 const isValidUrl = (url: string): boolean => {
   const youtubeRegex = /^(https?:\/\/)?(www\.youtube\.com|youtube\.com|youtu\.?be)\/(watch\?v=|embed\/|v\/|.+\?v=|live\/|shorts\/)?([a-zA-Z0-9_-]{11})$/;
