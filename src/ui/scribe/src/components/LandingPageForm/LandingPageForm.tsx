@@ -12,7 +12,7 @@ const LandingPageForm: React.FC = () => {
 >([]);
 
   const maxFileSizeInMB = 2500;
-  const transriptionType = 'openai-srt';
+  const transcriptionType = 'openai-srt';
 
   const isFileSizeValid = (file: File, maxSizeInMB: number): boolean => {
     const maxSizeInBytes = maxSizeInMB * 1024 * 1024; 
@@ -70,16 +70,18 @@ const LandingPageForm: React.FC = () => {
     setLoading(true);
     setError(null);
 
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
+
     let data: FormData | { url: string; transform: string; transcriptionType: string };
 
     if (file) {
       data = new FormData();
       data.append('file', file);
       data.append('transform', transformOption);
-      data.append('transcriptionType', transriptionType);
+      data.append('transcriptionType', transcriptionType);
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe/file', {
+        const response = await fetch(`${serverUrl}/transcribe/file`, {
           method: 'POST',
           body: data,
           credentials: 'include',
@@ -103,7 +105,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: videoLink,
           transform: transformOption,
-          transcriptionType: transriptionType,
+          transcriptionType: transcriptionType,
         };
       } else if (videoLink.includes('drive.google.com')) {
         const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
@@ -118,7 +120,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: `https://drive.google.com/uc?export=download&id=${fileId}`,
           transform: transformOption,
-          transcriptionType: transriptionType,
+          transcriptionType: transcriptionType,
         };
       } else if (videoLink.includes('vimeo.com')) {
         const videoIdMatch = videoLink.match(/vimeo\.com\/(\d+)/);
@@ -133,7 +135,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: videoLink,
           transform: transformOption,
-          transcriptionType: transriptionType,
+          transcriptionType: transcriptionType,
         };
       } else {
         setError('Unsupported URL. Please provide a valid YouTube, Google Drive, or Vimeo link.');
@@ -142,7 +144,7 @@ const LandingPageForm: React.FC = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe/link', {
+        const response = await fetch(`${serverUrl}/transcribe/link`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -170,12 +172,14 @@ const LandingPageForm: React.FC = () => {
   };
 
   const pollJobStatus = async (jobId: string) => {
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
+
     try {
       let jobStatus = 'pending';
       let result;
 
       while (jobStatus === 'pending') {
-        const response = await fetch(`http://localhost:3001/status/${jobId}`, {
+        const response = await fetch(`${serverUrl}/status/${jobId}`, {
           method: 'GET',
           credentials: 'include',
         });
