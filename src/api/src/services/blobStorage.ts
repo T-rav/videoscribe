@@ -50,6 +50,7 @@ export const saveJobToStorage = async ({
 
       const data = JSON.stringify(message);
       await blockBlobClient.upload(data, data.length);
+      logger.log('info', `Message published to blob storage. Blob name: ${blobName}`);
     } catch (error) {
       logger.error(`Failed to publish message to blob storage. Error: ${error}`);
       reject(new Error(`Failed to publish message to blob storage: ${error}`));
