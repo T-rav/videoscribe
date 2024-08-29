@@ -72,15 +72,6 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
       const result = await saveJobToStorage(transcriptionMessage);
       res.json(result);
     } catch (error) {
-      if (file) {
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            logger.error('Failed to delete file:', err);
-          } else {
-            logger.info(`Temp file ${filePath} deleted successfully`);
-          }
-        });
-      }
       next(error);
     }
   });
