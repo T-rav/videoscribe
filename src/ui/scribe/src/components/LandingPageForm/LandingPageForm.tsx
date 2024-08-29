@@ -89,6 +89,7 @@ const LandingPageForm: React.FC = () => {
 
         if (response.ok) {
           const { jobId } = await response.json();
+          console.log('jobId', jobId);
           await pollJobStatus(jobId);
         } else {
           const error = await response.json();
@@ -153,8 +154,10 @@ const LandingPageForm: React.FC = () => {
           credentials: 'include',
         });
 
+        console.log('response', response);
         if (response.ok) {
           const { jobId } = await response.json();
+          console.log('jobId', jobId);
           await pollJobStatus(jobId);
         } else {
           const error = await response.json();

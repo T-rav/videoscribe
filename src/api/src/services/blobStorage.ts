@@ -24,36 +24,35 @@ export const saveJobToStorage = async ({
   content,
   userId,
 }: TranscriptionMessage): Promise<TranscriptionResponse> => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const containerName = userId
-        ? process.env.AZURE_STORAGE_CONTAINER_NAME || ''
-        : process.env.AZURE_STORAGE_CONTAINER_NAME_DEMO || '';
-      
-      const containerClient = blobServiceClient.getContainerClient(containerName);
-      
-      await ensureContainerExists(containerClient, containerName);
+  try {
+    const containerName = userId
+      ? process.env.AZURE_STORAGE_CONTAINER_NAME || ''
+      : process.env.AZURE_STORAGE_CONTAINER_NAME_DEMO || '';
+    
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    
+    await ensureContainerExists(containerClient, containerName);
 
-      const blobName = `${jobId}-transcription.json`;
-      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+    const blobName = `${jobId}-transcription.json`;
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-      let message: TranscriptionMessage = {
-        jobId,
-        transcriptionType,
-        transform,
-        isFile,
-        content,
-        userId,
-      };
+    let message: TranscriptionMessage = {
+      jobId,
+      transcriptionType,
+      transform,
+      isFile,
+      content,
+      userId,
+    };
 
-      logger.log('info', `Publishing transcription request for Transcription Type: ${transcriptionType} and Transform: ${transform}`);
+    logger.log('info', `Publishing transcription request for Transcription Type: ${transcriptionType} and Transform: ${transform}`);
+    const data = JSON.stringify(message);
+    await blockBlobClient.upload(data, data.length);
+    logger.log('info', `Message published to blob storage. Blob name: ${blobName}`);
 
-      const data = JSON.stringify(message);
-      await blockBlobClient.upload(data, data.length);
-      logger.log('info', `Message published to blob storage. Blob name: ${blobName}`);
-    } catch (error) {
-      logger.error(`Failed to publish message to blob storage. Error: ${error}`);
-      reject(new Error(`Failed to publish message to blob storage: ${error}`));
-    }
-  });
+    return { jobId };
+  } catch (error) {
+    logger.error(`Failed to publish message to blob storage. Error: ${error}`);
+    throw new Error(`Failed to publish message to blob storage: ${error}`);
+  }
 };

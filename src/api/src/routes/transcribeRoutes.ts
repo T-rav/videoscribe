@@ -47,16 +47,19 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
         transform,
         isFile: false,
         content: url,
-        userId: undefined // todo: properly extract user id
+        userId: '0' // todo: properly extract user id
       };
 
       // todo : log the job in the database too!
       await saveJobToStorage(transcriptionMessage);
+      logger.info(`Job ID: xx  published to blob storage`);
       const result: TranscriptionResponse = {
         jobId: transcriptionMessage.jobId
       };
+      
       res.json(result);
     } catch (error) {
+      logger.error(`Error in transcribeRoutes.ts: ${error}`);
       next(error);
     }
   });
@@ -83,7 +86,7 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
         content: file.buffer.toString('base64'),
         mimeType: file.mimetype,
         fileName: file.originalname,
-        userId: undefined // todo: properly extract user id
+        userId: '0' // todo: properly extract user id
       };
 
       await saveJobToStorage(transcriptionMessage);
@@ -92,6 +95,7 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
       };
       res.json(result);
     } catch (error) {
+      logger.error(`Error in transcribeRoutes.ts: ${error}`);
       next(error);
     }
   });
