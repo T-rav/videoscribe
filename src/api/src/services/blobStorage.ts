@@ -50,16 +50,6 @@ export const saveJobToStorage = async ({
 
       const data = JSON.stringify(message);
       await blockBlobClient.upload(data, data.length);
-
-      // todo : clean this up to return a call back url to the client to check the status of the transcription
-      resolve({
-        title: '',
-        duration: 0,
-        service: transcriptionType,
-        transcript: '', 
-        transformedTranscript: '',
-        transform: transform.toString(),
-      });
     } catch (error) {
       logger.error(`Failed to publish message to blob storage. Error: ${error}`);
       reject(new Error(`Failed to publish message to blob storage: ${error}`));

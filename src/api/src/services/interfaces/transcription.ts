@@ -20,11 +20,5 @@ export interface TranscriptionMessage {
 }
 
 export interface TranscriptionResponse {
-  url?: string;
-  title: string;
-  duration: number;
-  transcript: string;
-  transformedTranscript: string;
-  service: string;
-  transform: string;
+  jobId: string;
 }

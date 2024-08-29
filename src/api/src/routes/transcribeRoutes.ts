@@ -4,7 +4,7 @@ import fs from 'fs';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
 import { saveJobToStorage } from '../services/blobStorage';
-import { TranscriptionMessage, TranscriptionRequest } from '../services/interfaces/transcription';
+import { TranscriptionMessage, TranscriptionRequest, TranscriptionResponse } from '../services/interfaces/transcription';
 import { v4 as uuidv4 } from 'uuid';
 
 const router = Router();
@@ -16,6 +16,20 @@ const isValidUrl = (url: string): boolean => {
   const vimeoRegex = /^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)(\/[a-zA-Z0-9_-]+)?(\?.*)?$/;
   
   return youtubeRegex.test(url) || googleDriveRegex.test(url) || vimeoRegex.test(url);
+};
+
+export const getJobStatusFromStorage = async (jobId: string) => {
+  // Dummy implementation: Replace with actual DB lookup logic
+  const dummyJobStatus = {
+    jobId,
+    status: 'finished', // or 'pending', 'failed', etc.
+    title: 'Dummy Title',
+    duration: '120',
+    transcript: 'Dummy transcript content',
+    transformed_transcript: 'Dummy transformed transcript content',
+  };
+
+  return dummyJobStatus;
 };
 
 export default function transcribeRoutes(transcribe: (req: TranscriptionRequest) => Promise<any>) {
@@ -37,7 +51,10 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
       };
 
       // todo : log the job in the database too!
-      const result = await saveJobToStorage(transcriptionMessage);
+      await saveJobToStorage(transcriptionMessage);
+      const result: TranscriptionResponse = {
+        jobId: transcriptionMessage.jobId
+      };
       res.json(result);
     } catch (error) {
       next(error);
@@ -69,8 +86,28 @@ export default function transcribeRoutes(transcribe: (req: TranscriptionRequest)
         userId: undefined // todo: properly extract user id
       };
 
-      const result = await saveJobToStorage(transcriptionMessage);
+      await saveJobToStorage(transcriptionMessage);
+      const result: TranscriptionResponse = {
+        jobId: transcriptionMessage.jobId
+      };
       res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  router.get('/status/:jobId', async (req: Request, res: Response, next: NextFunction) => {
+    const { jobId } = req.params;
+
+    try {
+      // Dummy implementation to simulate DB lookup
+      const jobStatus = await getJobStatusFromStorage(jobId);
+
+      if (!jobStatus) {
+        return res.status(404).json({ error: 'Job not found' });
+      }
+
+      res.json(jobStatus);
     } catch (error) {
       next(error);
     }

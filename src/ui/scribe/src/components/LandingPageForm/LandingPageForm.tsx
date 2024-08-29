@@ -70,7 +70,7 @@ const LandingPageForm: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    const serverUrl = process.env.REACT_APP_SERVER_URL;
+    const serverUrl = process.env.REACT_APP_API_BASE_URL;
 
     let data: FormData | { url: string; transform: string; transcriptionType: string };
 
@@ -172,7 +172,7 @@ const LandingPageForm: React.FC = () => {
   };
 
   const pollJobStatus = async (jobId: string) => {
-    const serverUrl = process.env.REACT_APP_SERVER_URL;
+    const serverUrl = process.env.REACT_APP_API_BASE_URL;
 
     try {
       let jobStatus = 'pending';
