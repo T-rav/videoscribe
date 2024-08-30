@@ -12,7 +12,7 @@ const LandingPageForm: React.FC = () => {
 >([]);
 
   const maxFileSizeInMB = 2500;
-  const transriptionType = 'openai-srt';
+  const transcriptionType = 'openai-srt';
 
   const isFileSizeValid = (file: File, maxSizeInMB: number): boolean => {
     const maxSizeInBytes = maxSizeInMB * 1024 * 1024; 
@@ -70,34 +70,27 @@ const LandingPageForm: React.FC = () => {
     setLoading(true);
     setError(null);
 
+    const serverUrl = process.env.REACT_APP_API_BASE_URL;
+
     let data: FormData | { url: string; transform: string; transcriptionType: string };
 
     if (file) {
       data = new FormData();
       data.append('file', file);
       data.append('transform', transformOption);
-      data.append('transcriptionType', transriptionType);
+      data.append('transcriptionType', transcriptionType);
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe/file', {
+        const response = await fetch(`${serverUrl}/transcribe/file`, {
           method: 'POST',
           body: data,
           credentials: 'include',
         });
 
         if (response.ok) {
-          const result = await response.json();
-
-          const structuredResult = {
-            title: result.title,
-            duration: result.duration, 
-            transcript: result.transcript,
-            transformedTranscript: result.transformed_transcript,
-            transformOptionUsed: transformOption,
-            activeTab: transformOption !== 'none' ? 'transformed' : 'full', // Default active tab based on transform option
-          };
-
-          setResults((prevResults) => [structuredResult, ...prevResults]);
+          const { jobId } = await response.json();
+          console.log('jobId', jobId);
+          await pollJobStatus(jobId);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -113,7 +106,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: videoLink,
           transform: transformOption,
-          transcriptionType: transriptionType,
+          transcriptionType: transcriptionType,
         };
       } else if (videoLink.includes('drive.google.com')) {
         const fileIdMatch = videoLink.match(/\/d\/(.*?)\//);
@@ -128,7 +121,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: `https://drive.google.com/uc?export=download&id=${fileId}`,
           transform: transformOption,
-          transcriptionType: transriptionType,
+          transcriptionType: transcriptionType,
         };
       } else if (videoLink.includes('vimeo.com')) {
         const videoIdMatch = videoLink.match(/vimeo\.com\/(\d+)/);
@@ -143,7 +136,7 @@ const LandingPageForm: React.FC = () => {
         data = {
           url: videoLink,
           transform: transformOption,
-          transcriptionType: transriptionType,
+          transcriptionType: transcriptionType,
         };
       } else {
         setError('Unsupported URL. Please provide a valid YouTube, Google Drive, or Vimeo link.');
@@ -152,7 +145,7 @@ const LandingPageForm: React.FC = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:3001/transcribe/link', {
+        const response = await fetch(`${serverUrl}/transcribe/link`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -161,19 +154,11 @@ const LandingPageForm: React.FC = () => {
           credentials: 'include',
         });
 
+        console.log('response', response);
         if (response.ok) {
-          const result = await response.json();
-
-          const structuredResult = {
-            title: result.title,
-            duration: result.duration, // Format the duration here
-            transcript: result.transcript,
-            transformedTranscript: result.transformed_transcript,
-            transformOptionUsed: transformOption,
-            activeTab: transformOption !== 'none' ? 'transformed' : 'full', // Default active tab based on transform option
-          };
-
-          setResults((prevResults) => [structuredResult, ...prevResults]);
+          const { jobId } = await response.json();
+          console.log('jobId', jobId);
+          await pollJobStatus(jobId);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
@@ -186,6 +171,52 @@ const LandingPageForm: React.FC = () => {
     } else {
       setError('Please provide either a video link or upload a file.');
       setLoading(false);
+    }
+  };
+
+  const pollJobStatus = async (jobId: string) => {
+    const serverUrl = process.env.REACT_APP_API_BASE_URL;
+
+    try {
+      let jobStatus = 'pending';
+      let result;
+
+      while (jobStatus === 'pending') {
+        const response = await fetch(`${serverUrl}/transcribe/status/${jobId}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          result = await response.json();
+          jobStatus = result.status;
+        } else {
+          const error = await response.json();
+          setError(error.error || response.statusText);
+          return;
+        }
+
+        if (jobStatus === 'pending') {
+          await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds before polling again
+        }
+      }
+
+      if (jobStatus === 'finished') {
+        const structuredResult = {
+          title: result.title,
+          duration: result.duration,
+          transcript: result.transcript,
+          transformedTranscript: result.transformed_transcript,
+          transformOptionUsed: transformOption,
+          activeTab: transformOption !== 'none' ? 'transformed' : 'full',
+        };
+
+        setResults((prevResults) => [structuredResult, ...prevResults]);
+      } else {
+        setError('Job failed to complete.');
+      }
+    } catch (error) {
+      setError('An error occurred while polling the job status.');
     }
   };
 

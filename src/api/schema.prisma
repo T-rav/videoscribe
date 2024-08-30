@@ -1,0 +1,53 @@
+    datasource db {
+      provider = "postgresql"
+      url      = env("DATABASE_URL")
+    }
+
+    generator client {
+      provider = "prisma-client-js"
+    }
+
+    enum AccountType {
+      google
+      local
+    }
+
+    enum JobStatus {
+      finished
+      pending
+      failed
+      in_progress
+    }
+
+    model User {
+      id          Int         @id @default(autoincrement())
+      qid         String      @unique @default(uuid())
+      firstName   String
+      lastName    String
+      email       String      @unique
+      picture     String
+    accountType AccountType
+      cts         DateTime    @default(now())
+      ets         DateTime    @updatedAt
+      jobs        Job[]
+
+      @@index([qid])
+    }
+
+    model Job {
+      id          Int      @id @default(autoincrement())
+      qid         String   @unique @default(uuid())
+      title       String
+      description String
+      userId      Int?
+      user        User?    @relation(fields: [userId], references: [id])
+      status      JobStatus
+      transcriptionType  String
+      transform          String
+      contentReference   String
+      contentDuration    Int?
+      cts         DateTime @default(now())
+      ets         DateTime @updatedAt
+
+      @@index([qid])
+    }
