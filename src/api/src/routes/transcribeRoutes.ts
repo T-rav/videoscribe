@@ -6,6 +6,7 @@ import logger from '../utils/logger';
 import { saveJobToStorage } from '../services/blobStorage';
 import { TranscriptionMessage, TranscriptionRequest, TranscriptionResponse } from '../services/interfaces/transcription';
 import { v4 as uuidv4 } from 'uuid';
+import { verifyTokenFromCookie } from '../middleware/verifyTokenFromCookie';
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -32,73 +33,82 @@ export const getJobStatusFromStorage = async (jobId: string) => {
   return dummyJobStatus;
 };
 
+const handleLinkTranscription = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { url, transform, transcriptionType } = req.body;
+    const user = req.user as any;
+
+    if (!isValidUrl(url)) {
+      return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo, or Google Drive URL' });
+    }
+
+    const transcriptionMessage: TranscriptionMessage = {
+      jobId: uuidv4(),
+      transcriptionType,
+      transform,
+      isFile: false,
+      content: url,
+      userId: user?.qid || '0' 
+    };
+
+    // todo : log the job in the database too!
+    await saveJobToStorage(transcriptionMessage);
+    logger.info(`Job ID: ${transcriptionMessage.jobId} published to blob storage`);
+    const result: TranscriptionResponse = {
+      jobId: transcriptionMessage.jobId
+    };
+    
+    res.json(result);
+  } catch (error) {
+    logger.error(`Error in transcribeRoutes.ts: ${error}`);
+    next(error);
+  }
+};
+
+const handleFileTranscription = async (req: Request, res: Response, next: NextFunction) => {
+  const file = req.file;
+  const { transcriptionType, transform } = req.body;
+  const user = req.user as any;
+
+  try {
+    if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
+      return res.status(400).json({ error: 'Invalid transcription type' });
+    }
+
+    if (!file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    const transcriptionMessage: TranscriptionMessage = {
+      jobId: uuidv4(),
+      transcriptionType,
+      transform,
+      isFile: true,
+      content: file.buffer.toString('base64'),
+      mimeType: file.mimetype,
+      fileName: file.originalname,
+      userId: user?.qid || '0' 
+    };
+
+    await saveJobToStorage(transcriptionMessage);
+    const result: TranscriptionResponse = {
+      jobId: transcriptionMessage.jobId
+    };
+    res.json(result);
+  } catch (error) {
+    logger.error(`Error in transcribeRoutes.ts: ${error}`);
+    next(error);
+  }
+};
+
 export default function transcribeRoutes(transcribe: (req: TranscriptionRequest) => Promise<any>) {
-  router.post('/link', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { url, transform, transcriptionType } = req.body;
+  router.post('/link', verifyTokenFromCookie, handleLinkTranscription);
 
-      if (!isValidUrl(url)) {
-        return res.status(400).json({ error: 'Invalid URL. It needs to be a valid YouTube, Vimeo, or Google Drive URL' });
-      }
+  router.post('/link/demo', handleLinkTranscription);
 
-      const transcriptionMessage: TranscriptionMessage = {
-        jobId: uuidv4(),
-        transcriptionType,
-        transform,
-        isFile: false,
-        content: url,
-        userId: '0' // todo: properly extract user id
-      };
+  router.post('/file', upload.single('file'), handleFileTranscription);
 
-      // todo : log the job in the database too!
-      await saveJobToStorage(transcriptionMessage);
-      logger.info(`Job ID: xx  published to blob storage`);
-      const result: TranscriptionResponse = {
-        jobId: transcriptionMessage.jobId
-      };
-      
-      res.json(result);
-    } catch (error) {
-      logger.error(`Error in transcribeRoutes.ts: ${error}`);
-      next(error);
-    }
-  });
-
-  router.post('/file', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
-    const file = req.file;
-    const { transcriptionType, transform } = req.body;
-    let filePath = '';
-
-    try {
-      if (!Object.values(TranscriptionServiceType).includes(transcriptionType)) {
-        return res.status(400).json({ error: 'Invalid transcription type' });
-      }
-
-      if (!file) {
-        return res.status(400).json({ error: 'No file uploaded' });
-      }
-
-      const transcriptionMessage: TranscriptionMessage = {
-        jobId: uuidv4(),
-        transcriptionType,
-        transform,
-        isFile: true,
-        content: file.buffer.toString('base64'),
-        mimeType: file.mimetype,
-        fileName: file.originalname,
-        userId: '0' // todo: properly extract user id
-      };
-
-      await saveJobToStorage(transcriptionMessage);
-      const result: TranscriptionResponse = {
-        jobId: transcriptionMessage.jobId
-      };
-      res.json(result);
-    } catch (error) {
-      logger.error(`Error in transcribeRoutes.ts: ${error}`);
-      next(error);
-    }
-  });
+  router.post('/file/demo', upload.single('file'), handleFileTranscription);
 
   router.get('/status/:jobId', async (req: Request, res: Response, next: NextFunction) => {
     const { jobId } = req.params;
