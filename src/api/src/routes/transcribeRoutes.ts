@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import multer from 'multer';
-import fs from 'fs';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
 import { saveJobToStorage } from '../services/blobStorage';
@@ -76,7 +75,6 @@ const handleLinkTranscription = async (req: Request, res: Response, next: NextFu
     };
 
     await logJobInDatabase(transcriptionMessage, user?.id || null, url);
-
     await saveJobToStorage(transcriptionMessage);
     logger.info(`Job ID: ${transcriptionMessage.jobId} published to blob storage`);
     const result: TranscriptionResponse = {
