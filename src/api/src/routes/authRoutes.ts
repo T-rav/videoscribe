@@ -3,7 +3,7 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import logger from '../utils/logger';
-import { PrismaClient } from '@prisma/client'; // Import Prisma Client
+import { AccountType, PrismaClient } from '@prisma/client'; // Import Prisma Client
 
 dotenv.config();
 
@@ -27,57 +27,20 @@ router.get(
   async (req: Request, res: Response) => {
     const user = req.user as any; // The authenticated user object
 
-    let unwrappedUser: User | undefined;
+    const dbUser = await prisma.user.findFirst({
+      where: { qid: user.qid, accountType: AccountType.google },
+    });
 
-    if (user && user._json) {
-      const { email, given_name, family_name, picture } = user._json;
-      unwrappedUser = {
-        id: user.id,
-        email: email,
-        name: { givenName: given_name, familyName: family_name },
-        photos: [{ value: picture }],
-      };
-      logger.info('Unwrapped User object:', unwrappedUser);
-    } else {
-      logger.info('User object:', user);
-    }
-
-    if (!unwrappedUser) {
-      logger.error('User object is undefined after successful authentication');
-      res.redirect('/login?msg=failed');
-      return;
-    }
-
-    // Save user to the database
-    try {
-      const existingUser = await prisma.user.findUnique({ where: { email: unwrappedUser.email } });
-      if (!existingUser) {
-        await prisma.user.create({
-          data: {
-            qid: unwrappedUser.id,
-            firstName: unwrappedUser.name.givenName,
-            lastName: unwrappedUser.name.familyName,
-            email: unwrappedUser.email,
-            picture: unwrappedUser.photos[0].value,
-            accountType: 'google',
-          },
-        });
-        logger.info('New user saved to the database');
-      } else {
-        logger.info('User already exists in the database');
-      }
-    } catch (error) {
-      logger.error('Error saving user to the database:', error);
-      res.redirect('/login?msg=failed');
-      return;
+    if (!dbUser) {
+      return res.status(404).json({ message: 'User not found' });
     }
 
     const token = jwt.sign(
       {
-        name: `${unwrappedUser.name.givenName} ${unwrappedUser.name.familyName}`,
-        id: unwrappedUser.id,
-        email: unwrappedUser.email,
-        picture: unwrappedUser.photos[0].value,
+        name: `${dbUser?.firstName} ${dbUser?.lastName}`,
+        id: dbUser?.qid,
+        email: dbUser?.email,
+        picture: dbUser?.picture,
       },
       process.env.JWT_SECRET as string || 'your_jwt_secret',
       {
@@ -108,8 +71,6 @@ router.get('/logout', (req: Request, res: Response, next: NextFunction) => {
 // API route to verify the user's authentication status
 router.get('/auth/verify', async (req: Request, res: Response) => {
   const token = req.cookies.token;
-
-  logger.info('Token:', req.cookies);
 
   if (!token) {
     logger.error('Token is missing');
@@ -159,7 +120,6 @@ router.get('/auth/verify', async (req: Request, res: Response) => {
       email: decodedToken.email,
       picture: decodedToken.picture,
     };
-    logger.info('User verified:', user);
     res.status(200).json({ user: user });
   });
 });

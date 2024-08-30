@@ -1,5 +1,8 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { AccountType, PrismaClient, User } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 passport.use(
   new GoogleStrategy(
@@ -8,9 +11,28 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       callbackURL: '/auth/google/callback',
     },
-    (accessToken, refreshToken, profile, done) => {
-      // In a real application, you'd want to associate the Google account with a user record in your database
-      done(null, profile);
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const user = await prisma.user.upsert({
+          where: { email: profile.emails ? profile.emails[0].value : '' },
+          update: {
+            firstName: profile.name?.givenName || '',
+            lastName: profile.name?.familyName || '',
+            picture: profile.photos ? profile.photos[0].value : '',
+          },
+          create: {
+            qid : profile.id,
+            accountType: AccountType.google,
+            firstName: profile.name?.givenName || '',
+            lastName: profile.name?.familyName || '',
+            email: profile.emails ? profile.emails[0].value : '',
+            picture: profile.photos ? profile.photos[0].value : '',
+          },
+        });
+        done(null, user);
+      } catch (error) {
+        done(error);
+      }
     }
   )
 );
@@ -20,13 +42,9 @@ passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((id, done) => {
-  // If you have a database, fetch the user by ID
-  // User.findById(id, (err, user) => {
-  //   done(err, user);
-  // });
-
-  // Mock implementation if you don't have a database
-  const user = { id, name: 'Mock User' }; // Replace with actual user fetching logic
+passport.deserializeUser(async (authUser : User, done) => {
+  const user = await prisma.user.findFirst({
+    where: { qid: authUser.qid as string },
+  });
   done(null, user);
 });
