@@ -10,7 +10,6 @@ import './middleware/passportConfig';
 import passport from 'passport';
 import session from 'express-session';
 import { TranscriptionRequest } from './services/interfaces/transcription';
-import 'reflect-metadata';
 
 // Load environment variables from .env file
 dotenv.config();

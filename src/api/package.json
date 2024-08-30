@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/app.ts",
-  "type": "module",
   "scripts": {
     "start": "ts-node-dev src/app.ts",
     "test": "jest"
