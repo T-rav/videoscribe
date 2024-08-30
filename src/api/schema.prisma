@@ -44,7 +44,8 @@
       status      JobStatus
       transcriptionType  String
       transform          String
-      contentReference        String
+      contentReference   String
+      contentDuration    Int?
       cts         DateTime @default(now())
       ets         DateTime @updatedAt
 

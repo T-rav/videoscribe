@@ -7,10 +7,33 @@ import { saveJobToStorage } from '../services/blobStorage';
 import { TranscriptionMessage, TranscriptionRequest, TranscriptionResponse } from '../services/interfaces/transcription';
 import { v4 as uuidv4 } from 'uuid';
 import { verifyTokenFromCookie } from '../middleware/verifyTokenFromCookie';
-import { JobStatus } from 'src/enums/JobStatus';
+import { JobStatus } from '../enums/JobStatus';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
+
+const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, userId: string | null, contentReference: string) => {
+    const user = await prisma.user.findFirst({
+        where: {
+            qid: userId || '0'
+        }
+    });
+    await prisma.job.create({
+      data: {
+        qid: transcriptionMessage.jobId,
+      title: transcriptionMessage.isFile ? 'File Transcription Job' : 'Link Transcription Job',
+      description: transcriptionMessage.isFile ? 'Transcription job for a file' : 'Transcription job for a link',
+      userId: user?.id,
+      status: JobStatus.pending,
+      transcriptionType: transcriptionMessage.transcriptionType,
+      transform: transcriptionMessage.transform,
+      contentReference,
+    },
+  });
+};
 
 const isValidUrl = (url: string): boolean => {
   const youtubeRegex = /^(https?:\/\/)?(www\.youtube\.com|youtube\.com|youtu\.?be)\/(watch\?v=|embed\/|v\/|.+\?v=|live\/|shorts\/)?([a-zA-Z0-9_-]{11})$/;
@@ -52,7 +75,8 @@ const handleLinkTranscription = async (req: Request, res: Response, next: NextFu
       userId: user?.qid || '0' 
     };
 
-    // todo : log the job in the database too!
+    await logJobInDatabase(transcriptionMessage, user?.id || null, url);
+
     await saveJobToStorage(transcriptionMessage);
     logger.info(`Job ID: ${transcriptionMessage.jobId} published to blob storage`);
     const result: TranscriptionResponse = {
@@ -90,6 +114,8 @@ const handleFileTranscription = async (req: Request, res: Response, next: NextFu
       fileName: file.originalname,
       userId: user?.qid || '0' 
     };
+
+    await logJobInDatabase(transcriptionMessage, user?.id || null, file.originalname);
 
     await saveJobToStorage(transcriptionMessage);
     const result: TranscriptionResponse = {
