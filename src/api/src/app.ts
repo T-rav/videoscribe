@@ -11,20 +11,11 @@ import passport from 'passport';
 import session from 'express-session';
 import { TranscriptionRequest } from './services/interfaces/transcription';
 import 'reflect-metadata';
-import { AppDataSource } from './ormconfig';
 
 // Load environment variables from .env file
 dotenv.config();
 
 const PORT = process.env.PORT || 3001;
-
-AppDataSource.initialize()
-  .then(() => {
-    console.log('Data Source has been initialized!');
-  })
-  .catch((err) => {
-    console.error('Error during Data Source initialization:', err);
-  });
 
 const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
   const app = express();

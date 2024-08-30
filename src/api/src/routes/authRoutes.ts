@@ -3,10 +3,12 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import logger from '../utils/logger';
+import { PrismaClient } from '@prisma/client'; // Import Prisma Client
 
 dotenv.config();
 
 const router = Router();
+const prisma = new PrismaClient(); // Initialize Prisma Client
 
 interface User {
   id: string;
@@ -22,7 +24,7 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 router.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login?msg=failed' }),
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     // Create a token for the authenticated user
     const user = req.user as User | undefined; // The authenticated user object
 
@@ -32,15 +34,42 @@ router.get(
       return;
     }
 
-    const token = jwt.sign({ name: `${user.name.givenName} ${user.name.familyName}`, 
-                             id: user.id, 
-                             email: user.email, 
-                             picture: user.photos[0].value 
-                           }, 
-                            process.env.JWT_SECRET as string || 'your_jwt_secret', 
-                           {
-                            expiresIn: '24h',
-                           });
+    // Save user to the database
+    try {
+      const existingUser = await prisma.user.findUnique({ where: { email: user.email } });
+      if (!existingUser) {
+        await prisma.user.create({
+          data: {
+            qid: user.id,
+            firstName: user.name.givenName,
+            lastName: user.name.familyName,
+            email: user.email,
+            picture: user.photos[0].value,
+            accountType: 'google',
+          },
+        });
+        logger.info('New user saved to the database');
+      } else {
+        logger.info('User already exists in the database');
+      }
+    } catch (error) {
+      logger.error('Error saving user to the database:', error);
+      res.redirect('/login?msg=failed');
+      return;
+    }
+
+    const token = jwt.sign(
+      {
+        name: `${user.name.givenName} ${user.name.familyName}`,
+        id: user.id,
+        email: user.email,
+        picture: user.photos[0].value,
+      },
+      process.env.JWT_SECRET as string || 'your_jwt_secret',
+      {
+        expiresIn: '24h',
+      }
+    );
     // Set the token and user information in cookies
     res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' });
 
@@ -62,7 +91,7 @@ router.get('/logout', (req: Request, res: Response, next: NextFunction) => {
 });
 
 // API route to verify the user's authentication status
-router.get('/auth/verify', (req: Request, res: Response) => {
+router.get('/auth/verify', async (req: Request, res: Response) => {
   const token = req.cookies.token;
 
   if (!token) {
@@ -70,7 +99,7 @@ router.get('/auth/verify', (req: Request, res: Response) => {
     return res.status(401).json({ message: 'Authentication token is missing' });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET as string, (err: any, decodedToken: any) => {
+  jwt.verify(token, process.env.JWT_SECRET as string, async (err: any, decodedToken: any) => {
     if (err) {
       if (err.name === 'TokenExpiredError') {
         // Handle token expiration
@@ -78,9 +107,12 @@ router.get('/auth/verify', (req: Request, res: Response) => {
         if (!decoded) {
           return res.status(403).json({ message: 'Invalid token' });
         }
-        
-        // Optionally, verify the user exists in your database before issuing a new token
-        // You can perform a DB lookup here based on decoded.id or decoded.email, for example
+
+        // Verify the user exists in the database before issuing a new token
+        const existingUser = await prisma.user.findUnique({ where: { email: decoded.email } });
+        if (!existingUser) {
+          return res.status(403).json({ message: 'User not found' });
+        }
 
         const newToken = jwt.sign(
           {
