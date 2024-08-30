@@ -18,3 +18,7 @@ export const verifyTokenFromCookie = (req: Request, res: Response, next: NextFun
     next();
   });
 };
+
+// wanted a single route to keep things bundled, but its doing too much
+// so we'll split transcribe up into two routes
+// one for auth and one for demo - the back office can use 0 for unauthenticated
