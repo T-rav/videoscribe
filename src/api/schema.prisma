@@ -7,15 +7,35 @@
       provider = "prisma-client-js"
     }
 
+    enum AccountType {
+      google
+      local
+    }
+
     model User {
-      id        Int      @id @default(autoincrement())
-      qid       String   @unique @default(uuid())
-      firstName String
-      lastName  String
-      email     String   @unique
-      picture   String
-      cts       DateTime @default(now())
-      ets       DateTime @updatedAt
+      id          Int         @id @default(autoincrement())
+      qid         String      @unique @default(uuid())
+      firstName   String
+      lastName    String
+      email       String      @unique
+      picture     String
+      cts         DateTime    @default(now())
+      ets         DateTime    @updatedAt
+      accountType AccountType
+      jobs        Job[]
+
+      @@index([qid])
+    }
+
+    model Job {
+      id          Int      @id @default(autoincrement())
+      qid         String   @unique @default(uuid())
+      title       String
+      description String
+      userId      Int?
+      user        User?    @relation(fields: [userId], references: [id])
+      cts         DateTime @default(now())
+      ets         DateTime @updatedAt
 
       @@index([qid])
     }
