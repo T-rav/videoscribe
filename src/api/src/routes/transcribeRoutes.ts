@@ -7,6 +7,7 @@ import { saveJobToStorage } from '../services/blobStorage';
 import { TranscriptionMessage, TranscriptionRequest, TranscriptionResponse } from '../services/interfaces/transcription';
 import { v4 as uuidv4 } from 'uuid';
 import { verifyTokenFromCookie } from '../middleware/verifyTokenFromCookie';
+import { JobStatus } from 'src/enums/JobStatus';
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -23,7 +24,7 @@ export const getJobStatusFromStorage = async (jobId: string) => {
   // Dummy implementation: Replace with actual DB lookup logic
   const dummyJobStatus = {
     jobId,
-    status: 'finished', // or 'pending', 'failed', etc.
+    status: 'finished',
     title: 'Dummy Title',
     duration: '120',
     transcript: 'Dummy transcript content',
