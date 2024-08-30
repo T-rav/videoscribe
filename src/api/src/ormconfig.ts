@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE || 'scribe.ai',
     synchronize: false,
     logging: false,
-    entities: [__dirname + './entity/*.ts'],
-    migrations: [__dirname + './migration/*.ts'],
-    subscribers: [__dirname + './subscriber/*.ts'],
+    entities: [__dirname + '/entity/*.ts'],
+    migrations: [__dirname + '/migration/*.ts'],
+    subscribers: [__dirname + '/subscriber/*.ts'],
 });
