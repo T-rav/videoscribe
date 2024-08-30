@@ -108,6 +108,8 @@ router.get('/logout', (req: Request, res: Response, next: NextFunction) => {
 router.get('/auth/verify', async (req: Request, res: Response) => {
   const token = req.cookies.token;
 
+  logger.info('Token:', req.cookies);
+
   if (!token) {
     logger.error('Token is missing');
     return res.status(401).json({ message: 'Authentication token is missing' });
@@ -140,7 +142,7 @@ router.get('/auth/verify', async (req: Request, res: Response) => {
         );
 
         // Set the new token in the cookies
-        res.cookie('token', newToken, { httpOnly: true });
+        res.cookie('token', newToken, { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' });
 
         logger.info('Token refreshed for user:', decoded.name);
         return res.status(200).json({ message: 'Token refreshed', user: decoded });
