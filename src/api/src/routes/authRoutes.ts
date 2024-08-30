@@ -25,10 +25,24 @@ router.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login?msg=failed' }),
   async (req: Request, res: Response) => {
-    // Create a token for the authenticated user
-    const user = req.user as User | undefined; // The authenticated user object
+    const user = req.user as any; // The authenticated user object
 
-    if (!user) {
+    let unwrappedUser: User | undefined;
+
+    if (user && user._json) {
+      const { email, given_name, family_name, picture } = user._json;
+      unwrappedUser = {
+        id: user.id,
+        email: email,
+        name: { givenName: given_name, familyName: family_name },
+        photos: [{ value: picture }],
+      };
+      logger.info('Unwrapped User object:', unwrappedUser);
+    } else {
+      logger.info('User object:', user);
+    }
+
+    if (!unwrappedUser) {
       logger.error('User object is undefined after successful authentication');
       res.redirect('/login?msg=failed');
       return;
@@ -36,15 +50,15 @@ router.get(
 
     // Save user to the database
     try {
-      const existingUser = await prisma.user.findUnique({ where: { email: user.email } });
+      const existingUser = await prisma.user.findUnique({ where: { email: unwrappedUser.email } });
       if (!existingUser) {
         await prisma.user.create({
           data: {
-            qid: user.id,
-            firstName: user.name.givenName,
-            lastName: user.name.familyName,
-            email: user.email,
-            picture: user.photos[0].value,
+            qid: unwrappedUser.id,
+            firstName: unwrappedUser.name.givenName,
+            lastName: unwrappedUser.name.familyName,
+            email: unwrappedUser.email,
+            picture: unwrappedUser.photos[0].value,
             accountType: 'google',
           },
         });
@@ -60,10 +74,10 @@ router.get(
 
     const token = jwt.sign(
       {
-        name: `${user.name.givenName} ${user.name.familyName}`,
-        id: user.id,
-        email: user.email,
-        picture: user.photos[0].value,
+        name: `${unwrappedUser.name.givenName} ${unwrappedUser.name.familyName}`,
+        id: unwrappedUser.id,
+        email: unwrappedUser.email,
+        picture: unwrappedUser.photos[0].value,
       },
       process.env.JWT_SECRET as string || 'your_jwt_secret',
       {
