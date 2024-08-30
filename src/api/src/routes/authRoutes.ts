@@ -85,7 +85,8 @@ router.get(
       }
     );
     // Set the token and user information in cookies
-    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' });
+    // { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' }
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none' } );
 
     logger.info("Auth: Set token in cookies");
 
@@ -142,7 +143,7 @@ router.get('/auth/verify', async (req: Request, res: Response) => {
         );
 
         // Set the new token in the cookies
-        res.cookie('token', newToken, { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' });
+        res.cookie('token', newToken, { httpOnly: true, sameSite: 'none' });
 
         logger.info('Token refreshed for user:', decoded.name);
         return res.status(200).json({ message: 'Token refreshed', user: decoded });
