@@ -15,4 +15,11 @@ def ProcessTransribeRequest(request: func.InputStream):
     logging.info(f"Python blob trigger function processed blob"
                 f"Name: {request.name}")
     content = request.read()
-    logging.info(f"Blob Size: {len(content)} bytes")
+    
+    # Parse the content into a dictionary
+    transcription_message = json.loads(content)
+    
+    # Log the parsed content
+    logging.info(f"Parsed Transcription Message: {transcription_message}")
+
+    # todo : now process through the transcription service
