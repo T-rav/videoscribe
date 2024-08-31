@@ -16,10 +16,14 @@ def ProcessTransribeRequest(request: func.InputStream):
                 f"Name: {request.name}")
     content = request.read()
     
-    # Parse the content into a dictionary
-    transcription_message = json.loads(content)
-    
-    # Log the parsed content
-    logging.info(f"Parsed Transcription Message: {transcription_message}")
+    try:
+        # Parse the content into a dictionary
+        transcription_message = json.loads(content)
+        
+        # Log the parsed content
+        logging.info(f"Parsed Transcription Message: {transcription_message}")
+    except json.JSONDecodeError as e:
+        logging.error(f"Failed to parse JSON content: {e} for {request.name}")
+        return
 
     # todo : now process through the transcription service
