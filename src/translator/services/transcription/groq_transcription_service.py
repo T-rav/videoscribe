@@ -13,8 +13,8 @@ class GroqTranscriptionService(TranscriptionService):
                 trimmed_prompt = self.take_last_896_chars(prompt)
                 transcription = self.client.audio.transcriptions.create(
                     model="whisper-large-v3", 
-                    file=audio_file,
-                    response_format="json"  # Correctly specify the response format here
+                    file=(audio_file_path, audio_file.read()),
+                    response_format="verbose_json"
                 )
             return transcription.text
         except Exception as e:
