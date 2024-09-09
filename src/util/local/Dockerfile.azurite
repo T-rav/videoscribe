@@ -1,0 +1,11 @@
+# Use the official Node.js image
+FROM node:14
+
+# Install Azurite
+RUN npm install -g azurite
+
+# Expose Azurite ports
+EXPOSE 10000 10001 10002
+
+# Start Azurite
+CMD ["azurite", "--silent"]
