@@ -8,3 +8,4 @@ pytest-mock
 vimeo_downloader
 langsmith
 langchain
+pika

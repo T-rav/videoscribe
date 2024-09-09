@@ -1,0 +1,16 @@
+version: '3'
+services:
+  rabbitmq-listener:
+    image: rabbitmq-listener
+    environment:
+      - RABBITMQ_URL=amqp://your_rabbitmq_url
+      - RABBITMQ_QUEUE_NAME=your_queue_name
+    deploy:
+      replicas: 3
+    restart: always
+    networks:
+      - your_network
+
+networks:
+  your_network:
+    driver: bridge
