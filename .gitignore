@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 uploads/
+__azurite*
 
 # Node
 node_modules
