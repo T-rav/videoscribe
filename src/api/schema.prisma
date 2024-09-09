@@ -12,6 +12,13 @@
       local
     }
 
+    enum JobStatus {
+      finished
+      pending
+      failed
+      in_progress
+    }
+
     model User {
       id          Int         @id @default(autoincrement())
       qid         String      @unique @default(uuid())
@@ -19,9 +26,9 @@
       lastName    String
       email       String      @unique
       picture     String
+    accountType AccountType
       cts         DateTime    @default(now())
       ets         DateTime    @updatedAt
-      accountType AccountType
       jobs        Job[]
 
       @@index([qid])
@@ -34,6 +41,11 @@
       description String
       userId      Int?
       user        User?    @relation(fields: [userId], references: [id])
+      status      JobStatus
+      transcriptionType  String
+      transform          String
+      contentReference   String
+      contentDuration    Int?
       cts         DateTime @default(now())
       ets         DateTime @updatedAt
 

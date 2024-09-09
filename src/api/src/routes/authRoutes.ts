@@ -3,12 +3,12 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import logger from '../utils/logger';
-import { AccountType, PrismaClient } from '@prisma/client'; // Import Prisma Client
+import { AccountType, PrismaClient } from '@prisma/client';
 
 dotenv.config();
 
 const router = Router();
-const prisma = new PrismaClient(); // Initialize Prisma Client
+const prisma = new PrismaClient();
 
 interface User {
   id: string;
@@ -50,10 +50,6 @@ router.get(
     // Set the token and user information in cookies
     // { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' }
     res.cookie('token', token, { httpOnly: true, sameSite: 'none' } );
-
-    logger.info("Auth: Set token in cookies");
-
-    // Redirect to dashboard or home
     res.redirect('http://localhost:3000/dashboard');
   }
 );
@@ -105,8 +101,6 @@ router.get('/auth/verify', async (req: Request, res: Response) => {
 
         // Set the new token in the cookies
         res.cookie('token', newToken, { httpOnly: true, sameSite: 'none' });
-
-        logger.info('Token refreshed for user:', decoded.name);
         return res.status(200).json({ message: 'Token refreshed', user: decoded });
       } else {
         logger.error('Token verification failed:', err);
