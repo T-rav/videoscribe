@@ -1,6 +1,6 @@
 import logger from '../utils/logger';
 import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
-import { StorageResponse, TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
+import { StorageRequest, StorageResponse, TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING || '');
 
@@ -18,12 +18,9 @@ const ensureContainerExists = async (containerClient: ContainerClient, container
 
 export const saveJobToStorage = async ({
   jobId,
-  transcriptionType,
-  transform,
-  isFile,
   content,
   userId,
-}: TranscriptionMessage): Promise<StorageResponse> => {
+}: StorageRequest): Promise<StorageResponse> => {
   try {
     logger.log('info', `Saving job to storage for user: ${userId}`);
     const containerName = userId !== '0'
@@ -34,24 +31,21 @@ export const saveJobToStorage = async ({
     
     await ensureContainerExists(containerClient, containerName);
 
-    const blobName = `${jobId}-transcription.json`;
+    const blobName = `$${userId}-${jobId}.json`;
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-    let message: TranscriptionMessage = {
+    let message: StorageRequest = {
       jobId,
-      transcriptionType,
-      transform,
-      isFile,
-      content,
       userId,
+      content,
     };
 
-    logger.log('info', `Publishing transcription request for Transcription Type: ${transcriptionType} and Transform: ${transform}`);
+    logger.log('info', `Publishing storage artifacts for ${jobId}`);
     const data = JSON.stringify(message);
     await blockBlobClient.upload(data, data.length);
     logger.log('info', `Message published to blob storage. Blob name: ${blobName}`);
 
-    return { jobId, blobName };
+    return { jobId, blobName: `${containerName}/${blobName}` };
   } catch (error) {
     logger.error(`Failed to publish message to blob storage. Error: ${error}`);
     throw new Error(`Failed to publish message to blob storage: ${error}`);

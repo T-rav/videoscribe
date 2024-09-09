@@ -75,9 +75,9 @@ const handleLinkTranscription = async (req: Request, res: Response, next: NextFu
       userId: user?.qid || '0' 
     };
 
+    // todo : replace with message on queue instead since it a link
     
-    const storageResponse = await saveJobToStorage(transcriptionMessage);
-    await logJobInDatabase(transcriptionMessage, user?.id || null, url, storageResponse.blobName);
+    await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, url, '');
     logger.info(`Job ID: ${transcriptionMessage.jobId} published to blob storage`);
     const result: TranscriptionResponse = {
       jobId: transcriptionMessage.jobId,
@@ -115,8 +115,9 @@ const handleFileTranscription = async (req: Request, res: Response, next: NextFu
       userId: user?.qid || '0' 
     };
 
+    // todo : publish message to queue as well with blob location 
     const storageResponse = await saveJobToStorage(transcriptionMessage);
-    await logJobInDatabase(transcriptionMessage, user?.id || null, file.originalname, storageResponse.blobName);
+    await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, file.originalname, storageResponse.blobName);
 
     const result: TranscriptionResponse = {
       jobId: transcriptionMessage.jobId

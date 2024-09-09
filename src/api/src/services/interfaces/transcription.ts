@@ -14,7 +14,7 @@ export interface TranscriptionMessage {
   transform: TranscriptionTransformation;
   isFile: boolean;
   content: string;
-  userId?: string;
+  userId: string;
   mimeType?: string;
   fileName?: string;
 }
@@ -26,4 +26,10 @@ export interface TranscriptionResponse {
 export interface StorageResponse {
   jobId: string;
   blobName: string;
+}
+
+export interface StorageRequest {
+  jobId: string;
+  userId: string;
+  content: string;
 }
