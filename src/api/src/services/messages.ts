@@ -5,30 +5,30 @@ import amqp from 'amqplib';
 
 const connectionString = process.env.RABBITMQ_CONNECTION_STRING!;
 const queueName = process.env.TRANSCRIPTION_QUEUE_NAME!;
+const queueNameDemo = process.env.TRANSCRIPTION_QUEUE_NAME_DEMO!;
 
 export async function createJob(toSend: TranscriptionMessage) {
     const connection = await amqp.connect(connectionString);
     const channel = await connection.createChannel();
-    await channel.assertQueue(queueName, { durable: true });
+    const isDemo = toSend.userId === '0';
+    const selectedQueueName = isDemo ? queueNameDemo : queueName;
+
+    await channel.assertQueue(selectedQueueName, { durable: true });
 
     const message = {
-        body: {
-            jobId: toSend.jobId,
-            transcriptionType: toSend.transcriptionType,
-            transform: toSend.transform,
-            isFile: toSend.isFile,
-            content: toSend.content,
-            userId: toSend.userId
-        } as JobMessage,
-        contentType: 'application/json',
-        isDemo : toSend.userId === '0' // flag if the job is a demo job and filter on the consumer side to only process demo jobs
-    };
+        jobId: toSend.jobId,
+        transcriptionType: toSend.transcriptionType,
+        transform: toSend.transform,
+        isFile: toSend.isFile,
+        content: toSend.content,
+        userId: toSend.userId
+    } as JobMessage;
 
-    channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)), {
+    channel.sendToQueue(selectedQueueName, Buffer.from(JSON.stringify(message)), {
         contentType: 'application/json'
     });
 
-    logger.debug('Job sent to RabbitMQ:', message.body.jobId);
+    logger.debug(`Job sent to RabbitMQ: ${message.jobId}`);
 
     await channel.close();
     await connection.close();
