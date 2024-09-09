@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
-import { saveJobToStorage } from '../services/blobStorage';
+import { saveJobToStorage } from '../services/fileStorage';
 import { TranscriptionMessage, TranscriptionRequest, TranscriptionResponse } from '../services/interfaces/transcription';
 import { v4 as uuidv4 } from 'uuid';
 import { verifyTokenFromCookie } from '../middleware/verifyTokenFromCookie';
@@ -77,7 +77,7 @@ const handleLinkTranscription = async (req: Request, res: Response, next: NextFu
 
     await createJob(transcriptionMessage);
     await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, url);
-    logger.info(`Job ID: ${transcriptionMessage.jobId} published to blob storage`);
+    logger.info(`Job ID: [${transcriptionMessage.jobId}] published`);
     const result: TranscriptionResponse = {
       jobId: transcriptionMessage.jobId,
     };
@@ -114,8 +114,9 @@ const handleFileTranscription = async (req: Request, res: Response, next: NextFu
       userId: user?.qid || '0' 
     };
 
-    // todo : publish message to queue as well with blob location 
     const storageResponse = await saveJobToStorage(transcriptionMessage);
+    transcriptionMessage.content = storageResponse.blobName; // update the content with the blob name
+    await createJob(transcriptionMessage);
     await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, storageResponse.blobName);
 
     const result: TranscriptionResponse = {

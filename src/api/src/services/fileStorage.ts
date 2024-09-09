@@ -34,7 +34,7 @@ export const saveJobToStorage = async ({
     
     await ensureContainerExists(containerClient, containerName);
 
-    const blobName = `$${userId}-${jobId}.json`;
+    const blobName = `${userId}-${jobId}.json`;
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
     let message: StorageRequest = {

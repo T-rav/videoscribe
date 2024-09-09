@@ -1,4 +1,5 @@
 import logger from "../utils/logger";
+import { JobMessage } from "./interfaces/jobs";
 import { TranscriptionMessage } from "./interfaces/transcription";
 import amqp from 'amqplib';
 
@@ -11,7 +12,14 @@ export async function createJob(toSend: TranscriptionMessage) {
     await channel.assertQueue(queueName, { durable: true });
 
     const message = {
-        body: toSend,
+        body: {
+            jobId: toSend.jobId,
+            transcriptionType: toSend.transcriptionType,
+            transform: toSend.transform,
+            isFile: toSend.isFile,
+            content: toSend.content,
+            userId: toSend.userId
+        } as JobMessage,
         contentType: 'application/json'
     };
 
@@ -19,7 +27,7 @@ export async function createJob(toSend: TranscriptionMessage) {
         contentType: 'application/json'
     });
 
-    logger.debug('Job sent to RabbitMQ:', message.body);
+    logger.debug('Job sent to RabbitMQ:', message.body.jobId);
 
     await channel.close();
     await connection.close();
