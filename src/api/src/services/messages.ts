@@ -20,7 +20,8 @@ export async function createJob(toSend: TranscriptionMessage) {
             content: toSend.content,
             userId: toSend.userId
         } as JobMessage,
-        contentType: 'application/json'
+        contentType: 'application/json',
+        isDemo : toSend.userId === '0' // flag if the job is a demo job and filter on the consumer side to only process demo jobs
     };
 
     channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)), {
