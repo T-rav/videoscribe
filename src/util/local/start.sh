@@ -35,3 +35,6 @@ EOF
         docker run -d --name azurite-container -p 10000:10000 -p 10001:10001 -p 10002:10002 azurite
     fi
 fi
+
+# Run Prisma migrations
+# npx prisma migrate deploy
