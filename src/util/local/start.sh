@@ -36,5 +36,22 @@ EOF
     fi
 fi
 
+# Check if RabbitMQ container is running
+if [ "$(docker ps -q -f name=rabbitmq-container)" ]; then
+    echo "RabbitMQ container is already running."
+else
+    # Check if RabbitMQ container exists but is not running
+    if [ "$(docker ps -aq -f status=exited -f name=rabbitmq-container)" ]; then
+        # Start the existing RabbitMQ container
+        docker start rabbitmq-container
+    else
+        # Run the RabbitMQ Docker container
+        docker run -d --name rabbitmq-container -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+    fi
+fi
+
 # Run Prisma migrations
-# npx prisma migrate deploy
+echo "Running migrations..."
+
+cd ../../api/
+npx prisma migrate deploy
