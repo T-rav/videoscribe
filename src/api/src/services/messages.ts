@@ -25,7 +25,8 @@ export async function createJob(toSend: TranscriptionMessage) {
     } as JobMessage;
 
     channel.sendToQueue(selectedQueueName, Buffer.from(JSON.stringify(message)), {
-        contentType: 'application/json'
+        contentType: 'application/json',
+        persistent: true
     });
 
     logger.debug(`Job sent to RabbitMQ: ${message.jobId}`);
