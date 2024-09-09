@@ -76,7 +76,7 @@ class RabbitMQListener(AbstractJobListener):
                 ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-    def publish_job_update(self, message):
+    def publish_to_rabbitmq(self, message):
         try:
             if self.channel is None or self.channel.is_closed:
                 self.establish_connection()
