@@ -25,7 +25,8 @@ export const saveJobToStorage = async ({
   userId,
 }: TranscriptionMessage): Promise<StorageResponse> => {
   try {
-    const containerName = userId
+    logger.log('info', `Saving job to storage for user: ${userId}`);
+    const containerName = userId !== '0'
       ? process.env.AZURE_STORAGE_CONTAINER_NAME || ''
       : process.env.AZURE_STORAGE_CONTAINER_NAME_DEMO || '';
     
