@@ -5,7 +5,7 @@ import time
 import json
 import random
 from dotenv import load_dotenv
-from abstract_listener import AbstractListener
+from translator.listeners.abstract_listener import AbstractListener
 
 load_dotenv()
 
@@ -18,6 +18,7 @@ class RabbitMQListener(AbstractListener):
     def __init__(self):
         self.connection = None
         self.channel = None
+        self.handler = None
         self.establish_connection()
 
     def establish_connection(self):
@@ -31,7 +32,8 @@ class RabbitMQListener(AbstractListener):
                 logging.error(f"Connection to RabbitMQ failed: {e}. Retrying in 5 seconds...")
                 time.sleep(5)
 
-    def listen(self, callback):
+    def listen(self, handler):
+        self.handler = handler # set the handler to the handler passed in, this way we can avoid the retry logic in the callback
         self.establish_connection()
         self.channel.queue_declare(
             queue=job_queue_name,
@@ -45,7 +47,7 @@ class RabbitMQListener(AbstractListener):
         dead_letter_queue = f"{job_queue_name}_dlq"
         self.channel.queue_declare(queue=dead_letter_queue, durable=True)
 
-        self.channel.basic_consume(queue=job_queue_name, on_message_callback=callback, auto_ack=False)
+        self.channel.basic_consume(queue=job_queue_name, on_message_callback=self.callback, auto_ack=False)
         logging.info(f"Listening for messages on RabbitMQ queue: {job_queue_name}")
         self.channel.start_consuming()
 
@@ -54,7 +56,7 @@ class RabbitMQListener(AbstractListener):
         try:
             transcription_message = json.loads(body)
             logging.info(f"Parsed Transcription Message: {transcription_message}")
-            self.process_transcription_message(transcription_message)
+            self.handler(transcription_message)
             ch.basic_ack(delivery_tag=method.delivery_tag)
         except json.JSONDecodeError as e:
             logging.error(f"Failed to parse JSON content: {e} for message: {body}")

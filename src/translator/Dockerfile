@@ -18,4 +18,4 @@ ENV RABBITMQ_URL=amqp://guest:guest@localhost:5672/
 ENV TRANSCRIPTION_QUEUE_NAME=transcription-jobs
 ENV TRANSCRIPTION_QUEUE_NAME_DEMO=transcription-jobs-demo
 
-CMD ["python", "listener.py"]
+CMD ["python", "message_handler.py"]
