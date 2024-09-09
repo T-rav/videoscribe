@@ -1,6 +1,6 @@
 import logger from '../utils/logger';
 import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
-import { TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
+import { StorageResponse, TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING || '');
 
@@ -23,7 +23,7 @@ export const saveJobToStorage = async ({
   isFile,
   content,
   userId,
-}: TranscriptionMessage): Promise<TranscriptionResponse> => {
+}: TranscriptionMessage): Promise<StorageResponse> => {
   try {
     const containerName = userId
       ? process.env.AZURE_STORAGE_CONTAINER_NAME || ''
@@ -50,7 +50,7 @@ export const saveJobToStorage = async ({
     await blockBlobClient.upload(data, data.length);
     logger.log('info', `Message published to blob storage. Blob name: ${blobName}`);
 
-    return { jobId };
+    return { jobId, blobName };
   } catch (error) {
     logger.error(`Failed to publish message to blob storage. Error: ${error}`);
     throw new Error(`Failed to publish message to blob storage: ${error}`);

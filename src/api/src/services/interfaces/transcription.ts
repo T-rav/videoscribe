@@ -22,3 +22,8 @@ export interface TranscriptionMessage {
 export interface TranscriptionResponse {
   jobId: string;
 }
+
+export interface StorageResponse {
+  jobId: string;
+  blobName: string;
+}

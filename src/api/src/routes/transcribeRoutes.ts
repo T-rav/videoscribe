@@ -14,7 +14,7 @@ const prisma = new PrismaClient();
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, userId: string | null, contentReference: string) => {
+const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, userId: string | null, contentReference: string, blobName: string) => {
     const user = await prisma.user.findFirst({
         where: {
             qid: userId || '0'
@@ -22,7 +22,7 @@ const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, user
     });
     await prisma.job.create({
       data: {
-        qid: transcriptionMessage.jobId,
+      qid: transcriptionMessage.jobId,
       title: transcriptionMessage.isFile ? 'File Transcription Job' : 'Link Transcription Job',
       description: transcriptionMessage.isFile ? 'Transcription job for a file' : 'Transcription job for a link',
       userId: user?.id,
@@ -30,6 +30,7 @@ const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, user
       transcriptionType: transcriptionMessage.transcriptionType,
       transform: transcriptionMessage.transform,
       contentReference,
+      blobName
     },
   });
 };
@@ -74,11 +75,12 @@ const handleLinkTranscription = async (req: Request, res: Response, next: NextFu
       userId: user?.qid || '0' 
     };
 
-    await logJobInDatabase(transcriptionMessage, user?.id || null, url);
-    await saveJobToStorage(transcriptionMessage);
+    
+    const storageResponse = await saveJobToStorage(transcriptionMessage);
+    await logJobInDatabase(transcriptionMessage, user?.id || null, url, storageResponse.blobName);
     logger.info(`Job ID: ${transcriptionMessage.jobId} published to blob storage`);
     const result: TranscriptionResponse = {
-      jobId: transcriptionMessage.jobId
+      jobId: transcriptionMessage.jobId,
     };
     
     res.json(result);
@@ -113,9 +115,9 @@ const handleFileTranscription = async (req: Request, res: Response, next: NextFu
       userId: user?.qid || '0' 
     };
 
-    await logJobInDatabase(transcriptionMessage, user?.id || null, file.originalname);
+    const storageResponse = await saveJobToStorage(transcriptionMessage);
+    await logJobInDatabase(transcriptionMessage, user?.id || null, file.originalname, storageResponse.blobName);
 
-    await saveJobToStorage(transcriptionMessage);
     const result: TranscriptionResponse = {
       jobId: transcriptionMessage.jobId
     };
