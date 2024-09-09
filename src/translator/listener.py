@@ -40,6 +40,8 @@ def callback(ch, method, properties, body):
 def process_transcription_message(message):
     # Add your message processing logic here
     logging.info(f"Processing message: {message}")
+    # todo : integrate with the translator service in app.py to bring this to life!!!
+    # todo : add in the ability to send updates back to the api via rabbitmq
 
 def listen_to_rabbitmq():
     connection = pika.BlockingConnection(pika.URLParameters(rabbitmq_url))
