@@ -13,6 +13,7 @@ rabbitmq_url = os.getenv("RABBITMQ_CONNECTION_STRING")
 job_queue_name = os.getenv("TRANSCRIPTION_JOB_QUEUE_NAME")
 update_queue_name = os.getenv('TRANSCRIPTION_UPDATE_QUEUE_NAME')
 dead_letter_exchange = os.getenv("DEAD_LETTER_EXCHANGE")
+max_retries = os.getenv("MAX_RETRIES", 5)
 
 class RabbitMQListener(AbstractJobListener):
     def __init__(self):
@@ -33,7 +34,7 @@ class RabbitMQListener(AbstractJobListener):
                 time.sleep(5)
 
     def listen(self, handler):
-        self.handler = handler # set the handler to the handler passed in, this way we can avoid the retry logic in the callback
+        self.handler = handler # set the handler to the handler passed in, this way we can centralize the retry logic for the callback
         self.establish_connection()
         self.channel.queue_declare(
             queue=job_queue_name,
@@ -60,9 +61,10 @@ class RabbitMQListener(AbstractJobListener):
             ch.basic_ack(delivery_tag=method.delivery_tag)
         except json.JSONDecodeError as e:
             logging.error(f"Failed to parse JSON content: {e} for message: {body}")
-            time.sleep(random.randint(1, 3))  # sleep to not instantly re-queue the message
+            time.sleep(random.randint(1, 5))  # sleep to not instantly re-queue the message
             retry_count = properties.headers.get("x-retry-count", 0) if properties.headers else 0
-            if retry_count >= 5:
+            if retry_count >= max_retries:
+                logging.error(f"Max retries reached for message: {body}")
                 ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
             else:
                 properties.headers = properties.headers or {}
