@@ -46,7 +46,6 @@
       transform          String
       contentReference   String
       contentDuration    Int?
-      blobName           String?
       cts         DateTime @default(now())
       ets         DateTime @updatedAt
 

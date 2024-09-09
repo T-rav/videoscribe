@@ -8,13 +8,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { verifyTokenFromCookie } from '../middleware/verifyTokenFromCookie';
 import { JobStatus } from '../enums/JobStatus';
 import { PrismaClient } from '@prisma/client';
+import { createJob } from '../services/messages';
 
 const prisma = new PrismaClient();
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, userId: string | null, contentReference: string, blobName: string) => {
+const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, userId: string | null, contentReference: string) => {
     const user = await prisma.user.findFirst({
         where: {
             qid: userId || '0'
@@ -29,8 +30,7 @@ const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, user
       status: JobStatus.pending,
       transcriptionType: transcriptionMessage.transcriptionType,
       transform: transcriptionMessage.transform,
-      contentReference,
-      blobName
+      contentReference
     },
   });
 };
@@ -75,9 +75,8 @@ const handleLinkTranscription = async (req: Request, res: Response, next: NextFu
       userId: user?.qid || '0' 
     };
 
-    // todo : replace with message on queue instead since it a link
-    
-    await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, url, '');
+    await createJob(transcriptionMessage);
+    await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, url);
     logger.info(`Job ID: ${transcriptionMessage.jobId} published to blob storage`);
     const result: TranscriptionResponse = {
       jobId: transcriptionMessage.jobId,
@@ -117,7 +116,7 @@ const handleFileTranscription = async (req: Request, res: Response, next: NextFu
 
     // todo : publish message to queue as well with blob location 
     const storageResponse = await saveJobToStorage(transcriptionMessage);
-    await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, file.originalname, storageResponse.blobName);
+    await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, storageResponse.blobName);
 
     const result: TranscriptionResponse = {
       jobId: transcriptionMessage.jobId

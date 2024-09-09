@@ -1,6 +1,7 @@
 import logger from '../utils/logger';
 import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
-import { StorageRequest, StorageResponse, TranscriptionMessage, TranscriptionResponse } from './interfaces/transcription';
+import { TranscriptionMessage } from './interfaces/transcription';
+import { StorageRequest, StorageResponse } from './interfaces/storage';
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING || '');
 
@@ -20,7 +21,9 @@ export const saveJobToStorage = async ({
   jobId,
   content,
   userId,
-}: StorageRequest): Promise<StorageResponse> => {
+  fileName,
+  mimeType
+}: TranscriptionMessage): Promise<StorageResponse> => {
   try {
     logger.log('info', `Saving job to storage for user: ${userId}`);
     const containerName = userId !== '0'
@@ -38,12 +41,14 @@ export const saveJobToStorage = async ({
       jobId,
       userId,
       content,
+      fileName: fileName ?? '',
+      mimeType: mimeType ?? ''
     };
-
-    logger.log('info', `Publishing storage artifacts for ${jobId}`);
+    
+    logger.info('info', `Publishing storage artifacts for ${jobId}`);
     const data = JSON.stringify(message);
     await blockBlobClient.upload(data, data.length);
-    logger.log('info', `Message published to blob storage. Blob name: ${blobName}`);
+    logger.info('info', `Message published to blob storage. Blob name: ${blobName}`);
 
     return { jobId, blobName: `${containerName}/${blobName}` };
   } catch (error) {

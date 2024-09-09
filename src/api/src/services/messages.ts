@@ -1,18 +1,26 @@
+import logger from "../utils/logger";
 import { TranscriptionMessage } from "./interfaces/transcription";
+import amqp from 'amqplib';
 
-const { ServiceBusClient } = require('@azure/service-bus');
+const connectionString = process.env.RABBITMQ_CONNECTION_STRING!;
+const queueName = process.env.TRANSCRIPTION_QUEUE_NAME!;
 
-// Create a Service Bus client
-const connectionString = "your-service-bus-connection-string";
-const queueName = "blob-processing-jobs";
-const serviceBusClient = new ServiceBusClient(connectionString);
-const sender = serviceBusClient.createSender(queueName);
+export async function createJob(toSend: TranscriptionMessage) {
+    const connection = await amqp.connect(connectionString);
+    const channel = await connection.createChannel();
+    await channel.assertQueue(queueName, { durable: true });
 
-async function createJob(toSend: TranscriptionMessage) {
     const message = {
         body: toSend,
         contentType: 'application/json'
     };
-    await sender.sendMessages(message);
-    console.log('Job sent to Service Bus:', message.body);
+
+    channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)), {
+        contentType: 'application/json'
+    });
+
+    logger.debug('Job sent to RabbitMQ:', message.body);
+
+    await channel.close();
+    await connection.close();
 }

@@ -22,14 +22,3 @@ export interface TranscriptionMessage {
 export interface TranscriptionResponse {
   jobId: string;
 }
-
-export interface StorageResponse {
-  jobId: string;
-  blobName: string;
-}
-
-export interface StorageRequest {
-  jobId: string;
-  userId: string;
-  content: string;
-}
