@@ -9,3 +9,5 @@ vimeo_downloader
 langsmith
 langchain
 pika
+azure-storage-blob
+validators

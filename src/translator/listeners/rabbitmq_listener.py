@@ -5,7 +5,7 @@ import time
 import json
 import random
 from dotenv import load_dotenv
-from translator.listeners.abstract_listener import AbstractJobListener
+from listeners.abstract_listener import AbstractJobListener
 
 load_dotenv()
 
