@@ -17,9 +17,10 @@ from azure.storage.blob import BlobServiceClient
 def download_blob_to_local(blob_name, download_path):
     connect_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
     
+    logging.info(f"Connecting to Azure Storage {connect_str}")
     container_name, blob_path = blob_name.split('/', 1) # Extract container name and blob path
-    logging.info(f"Downloading blob {blob_name} to {download_path}")
-    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+    blob_service_client = BlobServiceClient.from_connection_string("UseDevelopmentStorage=true")
+    logging.info(f"Getting blob client for {container_name}/{blob_path}")
     blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_path)
 
     with open(download_path, "wb") as download_file:
