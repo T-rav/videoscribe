@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { verifyTokenFromCookie } from '../middleware/verifyTokenFromCookie';
 import { JobStatus } from '../enums/JobStatus';
 import { PrismaClient } from '@prisma/client';
-import { createJob } from '../services/messages';
+import { createJob } from '../services/job';
 
 const prisma = new PrismaClient();
 
