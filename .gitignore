@@ -3,8 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# local
 uploads/
 __azurite*
+__blobstorage__
+__queuestorage__
 
 # Node
 node_modules

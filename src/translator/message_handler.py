@@ -1,7 +1,7 @@
 from datetime import datetime
 import logging
 import os
-from translator.listeners.rabbitmq_listener import RabbitMQListener
+from .listeners.rabbitmq_listener import RabbitMQListener
 
 logs_dir = 'logs'
 os.makedirs(logs_dir, exist_ok=True)
