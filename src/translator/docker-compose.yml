@@ -10,16 +10,7 @@ services:
     restart: always
     networks:
       - your_network
-  job-update-service:
-    build: .
-    environment:
-      - RABBITMQ_CONNECTION_STRING=amqp://guest:guest@localhost:5672/
-      - UPDATE_QUEUE_NAME=transcription-updates
-    ports:
-      - "80:80"
-    networks:
-      - your_network
-
+      
 networks:
   your_network:
     driver: bridge

@@ -26,28 +26,49 @@
       lastName    String
       email       String      @unique
       picture     String
-    accountType AccountType
+      accountType AccountType
       cts         DateTime    @default(now())
       ets         DateTime    @updatedAt
       jobs        Job[]
+      transcriptions Transcription[] // Added relation to Transcription
 
+      @@index([id])
       @@index([qid])
     }
 
     model Job {
-      id          Int      @id @default(autoincrement())
-      qid         String   @unique @default(uuid())
-      title       String
-      description String
-      userId      Int?
-      user        User?    @relation(fields: [userId], references: [id])
-      status      JobStatus
+      id                 Int      @id @default(autoincrement())
+      qid                String   @unique @default(uuid())
+      title              String
+      description        String
+      userId             Int?
+      user               User?    @relation(fields: [userId], references: [id])
+      status             JobStatus
       transcriptionType  String
       transform          String
       contentReference   String
       contentDuration    Int?
-      cts         DateTime @default(now())
-      ets         DateTime @updatedAt
+      cts                DateTime @default(now())
+      ets                DateTime @updatedAt
+      transcriptions     Transcription[]
 
+      @@index([id])
       @@index([qid])
+    }
+
+    model Transcription {
+      id                Int      @id @default(autoincrement())
+      jobId             Int
+      job               Job      @relation(fields: [jobId], references: [id])
+      userId            Int?
+      user              User?    @relation(fields: [userId], references: [id])
+      transcriptionType String
+      transform         String
+      blobUrl           String
+      cts               DateTime @default(now())
+      ets               DateTime @updatedAt
+
+      @@index([jobId])
+      @@index([userId]) 
+      @@index([id])
     }
