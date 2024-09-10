@@ -3,11 +3,20 @@ services:
   rabbitmq-listener:
     image: rabbitmq-listener
     environment:
-      - RABBITMQ_URL=amqp://your_rabbitmq_url
+      - RABBITMQ_CONNECTION_STRING=amqp://guest:guest@localhost:5672/
       - RABBITMQ_QUEUE_NAME=your_queue_name
     deploy:
       replicas: 3
     restart: always
+    networks:
+      - your_network
+  api-service:
+    build: .
+    environment:
+      - RABBITMQ_CONNECTION_STRING=amqp://guest:guest@localhost:5672/
+      - UPDATE_QUEUE_NAME=transcription-updates
+    ports:
+      - "80:80"
     networks:
       - your_network
 
