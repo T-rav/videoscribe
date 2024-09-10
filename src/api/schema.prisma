@@ -30,7 +30,7 @@
       cts               DateTime    @default(now())
       ets               DateTime    @updatedAt
       jobs              Job[]
-      transcriptions    Transcription[] // Relation to Transcription
+      media             Media[]     // Relation to Media
 
       @@index([id])
       @@index([qid])
@@ -50,22 +50,24 @@
       contentDuration    Int?
       cts                DateTime @default(now())
       ets                DateTime @updatedAt
-      transcriptions     Transcription[]
+      media              Media[] // Relation to Media
 
       @@index([id])
       @@index([qid])
     }
 
-    model Transcription {
+    model Media {
       id                Int      @id @default(autoincrement())
+      qid               String   @unique @default(uuid())
       jobId             Int
       job               Job      @relation(fields: [jobId], references: [id])
-      userId            Int?
-      user              User?    @relation(fields: [userId], references: [id])
-      transcriptionType String
+      userId            Int
+      user              User     @relation(fields: [userId], references: [id])
+      mediaType         String
       blobUrl           String
       cts               DateTime @default(now())
       ets               DateTime @updatedAt
+      transcriptions    Transcription[] // Relation to Transcription
       transformations   Transformation[] // Relation to Transformation
 
       @@index([jobId])
@@ -73,15 +75,31 @@
       @@index([id])
     }
 
+    model Transcription {
+      id                Int      @id @default(autoincrement())
+      mediaId           Int
+      media             Media    @relation(fields: [mediaId], references: [id])
+      transcriptionType String
+      cts               DateTime @default(now())
+      ets               DateTime @updatedAt
+      transformations   Transformation[] // Relation to Transformation
+
+      @@index([mediaId])
+      @@index([id])
+    }
+
     model Transformation {
       id                Int      @id @default(autoincrement())
-      transcriptionId   Int
-      transcription     Transcription @relation(fields: [transcriptionId], references: [id])
+      mediaId           Int
+      media             Media    @relation(fields: [mediaId], references: [id])
+      transcriptionId   Int?
+      transcription     Transcription? @relation(fields: [transcriptionId], references: [id])
       type              String
       details           String
       cts               DateTime @default(now())
       ets               DateTime @updatedAt
 
       @@index([id])
+      @@index([mediaId])
       @@index([transcriptionId])
     }
