@@ -20,4 +20,4 @@ ENV TRANSCRIPTION_QUEUE_NAME_DEMO=transcription-jobs-demo
 ENV UPDATE_QUEUE_NAME=transcription-updates
 
 # Run the app
-CMD ["node", "src/api/src/updater.ts"]
+CMD ["node", "src/api/src/updateProcessor.ts"]

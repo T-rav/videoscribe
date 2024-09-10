@@ -1,6 +1,4 @@
 import logger from "../utils/logger";
-import { JobMessage } from "./interfaces/jobs";
-import { TranscriptionMessage } from "./interfaces/transcription";
 import amqp from 'amqplib';
 
 const connectionString = process.env.RABBITMQ_CONNECTION_STRING!;
@@ -28,11 +26,10 @@ class RabbitMQListener {
     public async listen(handler: (msg: any) => void) {
         this.handler = handler;
         await this.establishConnection();
-        const listenQueueName = process.env.LISTEN_QUEUE_NAME!;
 
-        await this.channel!.assertQueue(listenQueueName, { durable: true });
+        await this.channel!.assertQueue(queueName, { durable: true });
 
-        this.channel!.consume(listenQueueName, (msg) => {
+        this.channel!.consume(queueName, (msg) => {
             if (msg !== null) {
                 const messageContent = msg.content.toString();
                 logger.info(`Received message: ${messageContent}`);
@@ -47,7 +44,7 @@ class RabbitMQListener {
             }
         }, { noAck: false });
 
-        logger.info(`Listening for messages on queue: ${listenQueueName}`);
+        logger.info(`Listening for messages on queue: ${queueName}`);
     }
 }
 
