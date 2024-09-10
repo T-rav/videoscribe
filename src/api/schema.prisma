@@ -47,7 +47,7 @@
       transcriptionType  String
       transform          String   @default("none")
       contentReference   String
-      contentDuration    Int?
+
       cts                DateTime @default(now())
       ets                DateTime @updatedAt
       media              Media[] // Relation to Media
@@ -65,6 +65,7 @@
       user              User     @relation(fields: [userId], references: [id])
       mediaType         String
       blobUrl           String
+      duration          Int?
       cts               DateTime @default(now())
       ets               DateTime @updatedAt
       transcriptions    Transcription[] // Relation to Transcription
