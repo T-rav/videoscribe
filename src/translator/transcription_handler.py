@@ -167,7 +167,8 @@ class TranscriptionHandler:
                 logging.error(f"An error occurred during transcript adjustment or transformation: {str(e)}")
                 result = {
                     "jobId": job_id,
-                    "status": JobStatus.FAILED.value
+                    "status": JobStatus.FAILED.value,
+                    "error" : str(e)
                 }
                 return result
             finally:
