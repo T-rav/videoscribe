@@ -15,6 +15,33 @@ listener.listen(async (message : TranscriptionUpdate) => {
     
     try {
         await prisma.$transaction(async (prisma) => {
+            if (message.status === JobStatus.failed) {
+                await prisma.job.update({
+                    where: { qid: message.jobId },
+                    data: { status: message.status, error: message.error },
+                });
+            }
+            if (message.status === JobStatus.in_progress) {
+
+                const job = await prisma.job.update({
+                    where: { qid: message.jobId },
+                    data: { status: message.status },
+                });
+                
+                const media = await prisma.media.create({
+                    data: {
+                        userId: job.userId,
+                        title: message.title,
+                        duration: message.duration,
+                        blobUrl: message.blobUrl,
+                    },
+                });
+                
+                await prisma.job.update({
+                    where: { qid: message.jobId },
+                    data: { mediaId: media.id},
+                });
+            }
             if (message.status === JobStatus.finished) {
                 await prisma.job.update({
                     where: { qid: message.jobId },
@@ -28,12 +55,7 @@ listener.listen(async (message : TranscriptionUpdate) => {
                 //     });
                         
             }
-            if (message.status === JobStatus.failed) {
-                await prisma.job.update({
-                    where: { qid: message.jobId },
-                    data: { status: message.status, error: message.error },
-                });
-            }
+
         }, {
             timeout: 5000, // Timeout in milliseconds
             isolationLevel: Prisma.TransactionIsolationLevel.Serializable // Set the desired isolation level

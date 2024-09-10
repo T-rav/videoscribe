@@ -61,7 +61,6 @@
       qid               String   @unique @default(uuid())
       userId            Int?
       user              User?    @relation(fields: [userId], references: [id])
-      mediaType         String
       blobUrl           String
       duration          Int?
       title             String
