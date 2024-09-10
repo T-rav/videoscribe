@@ -7,4 +7,5 @@ export interface TranscriptionUpdate {
     blobUrl?: string;
     transcript?: string;
     transformed?: string;
+    description?: string;
 }

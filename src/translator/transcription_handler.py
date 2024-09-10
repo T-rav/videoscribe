@@ -125,7 +125,7 @@ class TranscriptionHandler:
 
         media_message = {
             "jobId": job_id,
-            "title": video_info.get("title", "Unknown Title"),
+            "title": video_info.get("title", "Unknown Title").split(".")[-2] if "." in video_info.get("title", "Unknown Title") else video_info.get("title", "Unknown Title"),
             "duration": video_info.get("duration", 0),
             "blobUrl": "todo://save.to.blob.storage",
             "status": JobStatus.IN_PROGRESS.value
@@ -178,7 +178,7 @@ class TranscriptionHandler:
                 "jobId": job_id,
                 "transcript": combined_transcription,
                 "transformed": transformed_transcript,
-                "status": JobStatus.COMPLETED.value
+                "status": JobStatus.FINISHED.value
             }
 
             return result
