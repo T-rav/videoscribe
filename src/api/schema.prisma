@@ -45,6 +45,7 @@
       user               User?    @relation(fields: [userId], references: [id])
       status             JobStatus
       transcriptionType  String
+      transform          String   @default("none")
       contentReference   String
       contentDuration    Int?
       cts                DateTime @default(now())
