@@ -70,8 +70,7 @@ class RabbitMQListener(AbstractJobListener):
             
             if update is not None:
                 try:
-                    update_message = json.dumps(update)
-                    self.publish_job_update(update_message)
+                    self.publish_job_update(update)
                     ch.basic_ack(delivery_tag=method.delivery_tag)
                 except (TypeError, ValueError) as e:
                     raise ValueError(f"Failed to serialize update object: {e}")
