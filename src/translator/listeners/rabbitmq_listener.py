@@ -28,6 +28,14 @@ class RabbitMQListener(AbstractJobListener):
                 self.connection = pika.BlockingConnection(pika.URLParameters(rabbitmq_url))
                 self.channel = self.connection.channel()
                 logging.info("Successfully connected to RabbitMQ")
+                # Declare the dead-letter exchange
+                self.channel.exchange_declare(exchange=dead_letter_exchange, exchange_type='direct', durable=True)
+
+                # Declare the dead-letter queue
+                dead_letter_queue = f"{job_queue_name}_dlq"
+                self.channel.queue_declare(queue=dead_letter_queue, durable=True)
+                self.channel.queue_bind(exchange=dead_letter_exchange, queue=dead_letter_queue, routing_key=f"{job_queue_name}-dlq")
+
                 break
             except pika.exceptions.AMQPConnectionError as e:
                 logging.error(f"Connection to RabbitMQ failed: {e}. Retrying in 5 seconds...")
@@ -54,7 +62,7 @@ class RabbitMQListener(AbstractJobListener):
         self.channel.start_consuming()
 
     def callback(self, ch, method, properties, body):
-        logging.info(f"Received message from RabbitMQ: {body}")
+        logging.info(f"Received message from RabbitMQ...")
         try:
             transcription_message = json.loads(body)
             logging.info(f"Parsed Transcription Message: {transcription_message}")

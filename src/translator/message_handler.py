@@ -18,6 +18,7 @@ def download_blob_to_local(blob_name, download_path):
     connect_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
     
     container_name, blob_path = blob_name.split('/', 1) # Extract container name and blob path
+    logging.info(f"Downloading blob {blob_name} to {download_path}")
     blob_service_client = BlobServiceClient.from_connection_string(connect_str)
     blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_path)
 
@@ -25,8 +26,6 @@ def download_blob_to_local(blob_name, download_path):
         download_file.write(blob_client.download_blob().readall())
 
 def process_transcription_message(message):
-    
-    logging.info(f"Processing message: {message}")
 
     max_length_minutes = os.getenv("MAX_LENGTH_MINUTES")
     if max_length_minutes == "0":
@@ -38,10 +37,13 @@ def process_transcription_message(message):
 
     url = message.get("content") # url or blob name
     if not validators.url(url): # its a blob name
+        logging.info(f"Downloading blob {url}")
         file_name = os.path.basename(url)
         local_file_path = os.path.join(path, "blobs", file_name)
         download_blob_to_local(url, local_file_path)
         url = local_file_path
+    else:
+        logging.info(f"Processing url {url}")
     
     transform = message.get("transform") 
     prompt = None

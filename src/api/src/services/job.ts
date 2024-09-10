@@ -13,9 +13,24 @@ export async function createJob(toSend: TranscriptionMessage) {
     const isDemo = toSend.userId === '0';
     const selectedQueueName = isDemo ? queueNameDemo : queueName;
 
-    await channel.assertQueue(selectedQueueName, { durable: true, arguments: { 'x-message-ttl': 604800000, 
-                                                                                'x-dead-letter-exchange': `${selectedQueueName}-dlx`,
-                                                                                'x-dead-letter-routing-key': `${selectedQueueName}-dlq` }  });
+    // Declare the dead-letter exchange
+    const deadLetterExchange = `${selectedQueueName}-dlx`;
+    await channel.assertExchange(deadLetterExchange, 'direct', { durable: true });
+
+    // Declare the dead-letter queue
+    const deadLetterQueue = `${selectedQueueName}_dlq`;
+    await channel.assertQueue(deadLetterQueue, { durable: true });
+    await channel.bindQueue(deadLetterQueue, deadLetterExchange, `${selectedQueueName}-dlq`);
+
+    // Declare the main queue with dead-letter exchange and routing key
+    await channel.assertQueue(selectedQueueName, {
+        durable: true,
+        arguments: {
+            'x-message-ttl': 604800000, // 1 week in milliseconds
+            'x-dead-letter-exchange': deadLetterExchange,
+            'x-dead-letter-routing-key': `${selectedQueueName}-dlq`
+        }
+    });
 
     const message = {
         jobId: toSend.jobId,
