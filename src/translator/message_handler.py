@@ -47,12 +47,14 @@ def process_transcription_message(message):
     prompt = None
     service = message.get("transcriptionType")
 
-    return process_audio(url, 
-                            transform, 
-                            path, 
-                            max_length_minutes, 
-                            prompt, 
-                            service)
+    return {}
+
+    # return process_audio(url, 
+    #                         transform, 
+    #                         path, 
+    #                         max_length_minutes, 
+    #                         prompt, 
+    #                         service)
 
 def get_audio_duration(file_path: str) -> int:
     audio = AudioSegment.from_file(file_path)
@@ -133,7 +135,7 @@ if __name__ == "__main__":
     logs_dir = 'logs'
     os.makedirs(logs_dir, exist_ok=True)
     log_filename = os.path.join(logs_dir, f"transcription_{datetime.now().strftime('%Y-%m-%d')}.log")
-    logging.basicConfig(filename=log_filename, level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
+    logging.basicConfig(filename=log_filename, level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
 
     listener = RabbitMQListener()
     try:

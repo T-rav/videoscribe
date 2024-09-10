@@ -13,7 +13,7 @@ rabbitmq_url = os.getenv("RABBITMQ_CONNECTION_STRING")
 job_queue_name = os.getenv("TRANSCRIPTION_JOB_QUEUE_NAME")
 update_queue_name = os.getenv('TRANSCRIPTION_UPDATE_QUEUE_NAME')
 dead_letter_exchange = os.getenv("DEAD_LETTER_EXCHANGE")
-max_retries = os.getenv("MAX_RETRIES", 5)
+max_retries = int(os.getenv("MAX_RETRIES", 5))
 
 class RabbitMQListener(AbstractJobListener):
     def __init__(self):
@@ -41,6 +41,7 @@ class RabbitMQListener(AbstractJobListener):
             durable=True,
             arguments={
                 'x-dead-letter-exchange': dead_letter_exchange,
+                'x-dead-letter-routing-key': f"{job_queue_name}-dlq",
                 'x-message-ttl': 1000 * 60 * 60 * 24 * 7  # 1 week in milliseconds
             }
         )
