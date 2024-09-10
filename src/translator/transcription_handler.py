@@ -130,7 +130,7 @@ class TranscriptionHandler:
             "blobUrl": "todo://save.to.blob.storage",
         }
 
-        # send media message to rabbitmq
+        # send media message to rabbit mq (title, duration updates)
         self.listener.publish_job_update(media_message);
 
         logging.info(f"Audio file is ready at {audio_file_path}")
@@ -169,14 +169,9 @@ class TranscriptionHandler:
                 os.remove(audio_file_path)
 
             result = {
-                "url": url,
-                "title": video_info.get("title", "Unknown Title"),
-                "duration": video_info.get("duration", 0),
-                "service": service,
-                "transcription_file_path": transcription_file_path,
+                "jobId": job_id,
                 "transcript": combined_transcription,
-                "transformed_transcript": transformed_transcript,
-                "transform": transform
+                "transformed": transformed_transcript
             }
 
             return result # todo: adjust this object type to be the same as the app.py file

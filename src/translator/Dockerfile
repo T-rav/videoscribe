@@ -10,12 +10,9 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
-
 # Define environment variables
 ENV RABBITMQ_URL=amqp://guest:guest@localhost:5672/
 ENV TRANSCRIPTION_QUEUE_NAME=transcription-jobs
 ENV TRANSCRIPTION_QUEUE_NAME_DEMO=transcription-jobs-demo
 
-CMD ["python", "message_handler.py"]
+CMD ["python", "transcription_handler.py"]
