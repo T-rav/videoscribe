@@ -94,9 +94,10 @@ def process_audio(url, transform, path, max_length_minutes, prompt, service):
     else:
         logging.info("Processing file...")
         audio_file_path = FileHandler.handle_local_file(url, path)
+        os.remove(url) # remove the tmp file after audio is extracted
         video_info = {"title": os.path.basename(url), "duration": get_audio_duration(audio_file_path)}
     
-    # todo: send media message
+    # todo: send media message !!!!!!
 
     logging.info(f"Audio file is ready at {audio_file_path}")
 
