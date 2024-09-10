@@ -80,6 +80,7 @@
       mediaId           Int
       media             Media    @relation(fields: [mediaId], references: [id])
       transcriptionType String
+      blobUrl           String
       cts               DateTime @default(now())
       ets               DateTime @updatedAt
       transformations   Transformation[] // Relation to Transformation
@@ -95,7 +96,7 @@
       transcriptionId   Int?
       transcription     Transcription? @relation(fields: [transcriptionId], references: [id])
       type              String
-      details           String
+      blobUrl           String
       cts               DateTime @default(now())
       ets               DateTime @updatedAt
 
