@@ -1,7 +1,7 @@
 version: '3'
 services:
-  rabbitmq-listener:
-    image: rabbitmq-listener
+  scribe-ai-jobs-listener:
+    image: scribe-ai-jobs-listener
     environment:
       - RABBITMQ_CONNECTION_STRING=amqp://guest:guest@localhost:5672/
       - RABBITMQ_QUEUE_NAME=your_queue_name
@@ -10,7 +10,7 @@ services:
     restart: always
     networks:
       - your_network
-  api-service:
+  job-update-service:
     build: .
     environment:
       - RABBITMQ_CONNECTION_STRING=amqp://guest:guest@localhost:5672/
