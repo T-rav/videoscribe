@@ -43,22 +43,35 @@ listener.listen(async (message : TranscriptionUpdate) => {
                 });
             }
             if (message.status === JobStatus.finished) {
-                await prisma.job.update({
+                const job = await prisma.job.update({
                     where: { qid: message.jobId },
                     data: { status: message.status },
                 });
-                // await prisma.transcription.create({
-                //     data: {
-                //         jobId: message.jobId,
-                //         transcript: message.transcript,
-                //         transformed: message.transformed,
-                //     });
-                        
+
+                const transcription = await prisma.transcription.create({
+                    data: {
+                        jobId: message.jobId,
+                        mediaId: job.mediaId,
+                        transcript: message.transcript,
+                        transformed: message.transformed,
+                        transcriptionType: job.transcriptionType,
+                        blobUrl: message.blobUrl,
+                    },
+                });
+
+                const transformation = await prisma.transformation.create({
+                    data: {
+                        transcriptionId: transcription.id,
+                        mediaId: job.mediaId,
+                        type: job.transform,
+                        blobUrl: message.blobUrl,
+                    },
+                });
             }
 
         }, {
-            timeout: 5000, // Timeout in milliseconds
-            isolationLevel: Prisma.TransactionIsolationLevel.Serializable // Set the desired isolation level
+            timeout: 30000, // 30 seconds
+            isolationLevel: Prisma.TransactionIsolationLevel.Serializable
         });
         logger.info("Database updated successfully");
     } catch (error) {
