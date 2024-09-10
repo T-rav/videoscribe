@@ -20,17 +20,17 @@
     }
 
     model User {
-      id          Int         @id @default(autoincrement())
-      qid         String      @unique @default(uuid())
-      firstName   String
-      lastName    String
-      email       String      @unique
-      picture     String
-      accountType AccountType
-      cts         DateTime    @default(now())
-      ets         DateTime    @updatedAt
-      jobs        Job[]
-      transcriptions Transcription[] // Added relation to Transcription
+      id                Int         @id @default(autoincrement())
+      qid               String      @unique @default(uuid())
+      firstName         String
+      lastName          String
+      email             String      @unique
+      picture           String
+      accountType       AccountType
+      cts               DateTime    @default(now())
+      ets               DateTime    @updatedAt
+      jobs              Job[]
+      transcriptions    Transcription[] // Relation to Transcription
 
       @@index([id])
       @@index([qid])
@@ -45,7 +45,6 @@
       user               User?    @relation(fields: [userId], references: [id])
       status             JobStatus
       transcriptionType  String
-      transform          String
       contentReference   String
       contentDuration    Int?
       cts                DateTime @default(now())
@@ -63,12 +62,25 @@
       userId            Int?
       user              User?    @relation(fields: [userId], references: [id])
       transcriptionType String
-      transform         String
       blobUrl           String
       cts               DateTime @default(now())
       ets               DateTime @updatedAt
+      transformations   Transformation[] // Relation to Transformation
 
       @@index([jobId])
-      @@index([userId]) 
+      @@index([userId])
       @@index([id])
+    }
+
+    model Transformation {
+      id                Int      @id @default(autoincrement())
+      transcriptionId   Int
+      transcription     Transcription @relation(fields: [transcriptionId], references: [id])
+      type              String
+      details           String
+      cts               DateTime @default(now())
+      ets               DateTime @updatedAt
+
+      @@index([id])
+      @@index([transcriptionId])
     }
