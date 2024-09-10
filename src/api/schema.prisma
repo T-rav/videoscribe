@@ -50,7 +50,8 @@
 
       cts                DateTime @default(now())
       ets                DateTime @updatedAt
-      media              Media[] // Relation to Media
+      media              Media?   @relation(fields: [mediaId], references: [id])
+      mediaId            Int?     @unique
 
       @@index([id])
       @@index([qid])
@@ -59,8 +60,6 @@
     model Media {
       id                Int      @id @default(autoincrement())
       qid               String   @unique @default(uuid())
-      jobId             Int
-      job               Job      @relation(fields: [jobId], references: [id])
       userId            Int
       user              User     @relation(fields: [userId], references: [id])
       mediaType         String
@@ -70,8 +69,8 @@
       ets               DateTime @updatedAt
       transcriptions    Transcription[] // Relation to Transcription
       transformations   Transformation[] // Relation to Transformation
+      job               Job?     @relation
 
-      @@index([jobId])
       @@index([userId])
       @@index([id])
     }
