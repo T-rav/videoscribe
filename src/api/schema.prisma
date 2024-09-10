@@ -38,11 +38,11 @@
 
     model Job {
       id       Int    @id @default(autoincrement())
-      mediaId  Int
       qid                String   @unique @default(uuid())
       userId             Int?
       user               User?    @relation(fields: [userId], references: [id])
       status             JobStatus
+      error              String?
       transcriptionType  String
       transform          String   @default("none")
       contentReference   String
