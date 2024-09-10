@@ -39,8 +39,6 @@
     model Job {
       id                 Int      @id @default(autoincrement())
       qid                String   @unique @default(uuid())
-      title              String
-      description        String
       userId             Int?
       user               User?    @relation(fields: [userId], references: [id])
       status             JobStatus
@@ -60,11 +58,13 @@
     model Media {
       id                Int      @id @default(autoincrement())
       qid               String   @unique @default(uuid())
-      userId            Int
-      user              User     @relation(fields: [userId], references: [id])
+      userId            Int?
+      user              User?    @relation(fields: [userId], references: [id])
       mediaType         String
       blobUrl           String
       duration          Int?
+      title             String
+      description       String
       cts               DateTime @default(now())
       ets               DateTime @updatedAt
       transcriptions    Transcription[] // Relation to Transcription
