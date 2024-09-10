@@ -12,9 +12,9 @@ from services.transformation.transformation_factory import TransformationFactory
 from services.transformation.transformation_service import TranscriptionTransformation
 from services.audio.file_handler import FileHandler
 from listeners.rabbitmq_listener import RabbitMQListener
-import validators
 from azure.storage.blob import BlobServiceClient
 import base64
+from enums.JobStatus import JobStatus
 
 class TranscriptionHandler:
     def __init__(self):
@@ -128,7 +128,8 @@ class TranscriptionHandler:
             "title": video_info.get("title", "Unknown Title"),
             "duration": video_info.get("duration", 0),
             "blobUrl": "todo://save.to.blob.storage",
-        }
+            "status": JobStatus.IN_PROGRESS.value
+        } 
 
         # send media message to rabbit mq (title, duration updates)
         self.listener.publish_job_update(media_message);
@@ -164,17 +165,22 @@ class TranscriptionHandler:
                 transformed_transcript = transformation.transform(combined_transcription, metadata=metadata)
             except Exception as e:
                 logging.error(f"An error occurred during transcript adjustment or transformation: {str(e)}")
-                raise
+                result = {
+                    "jobId": job_id,
+                    "status": JobStatus.FAILED.value
+                }
+                return result
             finally:
                 os.remove(audio_file_path)
 
             result = {
                 "jobId": job_id,
                 "transcript": combined_transcription,
-                "transformed": transformed_transcript
+                "transformed": transformed_transcript,
+                "status": JobStatus.COMPLETED.value
             }
 
-            return result # todo: adjust this object type to be the same as the app.py file
+            return result
 
 if __name__ == "__main__":
     handler = TranscriptionHandler()

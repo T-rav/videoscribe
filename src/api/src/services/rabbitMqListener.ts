@@ -3,6 +3,8 @@ import amqp from 'amqplib';
 
 const connectionString = process.env.RABBITMQ_CONNECTION_STRING!;
 const queueName = process.env.UPDATE_QUEUE_NAME!;
+const deadLetterExchange = process.env.DEAD_LETTER_EXCHANGE!;
+const maxRetries = 5;
 
 class RabbitMQListener {
     private connection: amqp.Connection | null = null;
@@ -27,7 +29,14 @@ class RabbitMQListener {
         this.handler = handler;
         await this.establishConnection();
 
-        await this.channel!.assertQueue(queueName, { durable: true });
+        await this.channel!.assertQueue(queueName, {
+            durable: true,
+            arguments: {
+                'x-dead-letter-exchange': deadLetterExchange,
+                'x-dead-letter-routing-key': `${queueName}-dlq`,
+                'x-message-ttl': 1000 * 60 * 60 * 24 * 7  // 1 week in milliseconds
+            }
+        });
 
         this.channel!.consume(queueName, (msg) => {
             if (msg !== null) {
@@ -39,12 +48,29 @@ class RabbitMQListener {
                     this.channel!.ack(msg);
                 } catch (e) {
                     logger.error(`Failed to process message: ${e}`);
-                    this.channel!.nack(msg, false, false);
+                    this.handleRetry(msg);
                 }
             }
         }, { noAck: false });
 
         logger.info(`Listening for messages on queue: ${queueName}`);
+    }
+
+    private handleRetry(msg: amqp.Message) {
+        const headers = msg.properties.headers || {};
+        const retryCount = headers['x-retry-count'] || 0;
+
+        if (retryCount < maxRetries) {
+            this.channel!.nack(msg, false, true);
+            this.channel!.sendToQueue(queueName, msg.content, {
+                headers: { 'x-retry-count': retryCount + 1 },
+                persistent: true
+            });
+            logger.info(`Retrying message, attempt ${retryCount + 1}`);
+        } else {
+            this.channel!.nack(msg, false, false);
+            logger.error(`Message failed after ${maxRetries} attempts, sending to dead-letter queue`);
+        }
     }
 }
 

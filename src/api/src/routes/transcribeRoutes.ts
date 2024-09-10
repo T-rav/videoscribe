@@ -24,8 +24,6 @@ const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, user
     await prisma.job.create({
       data: {
       qid: transcriptionMessage.jobId,
-      title: transcriptionMessage.isFile ? 'File Transcription Job' : 'Link Transcription Job',
-      description: transcriptionMessage.isFile ? 'Transcription job for a file' : 'Transcription job for a link',
       userId: user?.id,
       status: JobStatus.pending,
       transcriptionType: transcriptionMessage.transcriptionType,

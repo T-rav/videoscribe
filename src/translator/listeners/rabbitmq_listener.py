@@ -32,7 +32,7 @@ class RabbitMQListener(AbstractJobListener):
                 self.channel.exchange_declare(exchange=dead_letter_exchange, exchange_type='direct', durable=True)
 
                 # Declare the dead-letter queue
-                dead_letter_queue = f"{job_queue_name}_dlq"
+                dead_letter_queue = f"{job_queue_name}-dlq"
                 self.channel.queue_declare(queue=dead_letter_queue, durable=True)
                 self.channel.queue_bind(exchange=dead_letter_exchange, queue=dead_letter_queue, routing_key=f"{job_queue_name}-dlq")
 
@@ -54,7 +54,7 @@ class RabbitMQListener(AbstractJobListener):
             }
         )
 
-        dead_letter_queue = f"{job_queue_name}_dlq"
+        dead_letter_queue = f"{job_queue_name}-dlq"
         self.channel.queue_declare(queue=dead_letter_queue, durable=True)
 
         self.channel.basic_consume(queue=job_queue_name, on_message_callback=self.callback, auto_ack=False)
@@ -100,7 +100,16 @@ class RabbitMQListener(AbstractJobListener):
             if self.channel is None or self.channel.is_closed:
                 self.establish_connection()
             
-            self.channel.queue_declare(queue=update_queue_name, durable=True)
+            # Declare the update queue with dead-lettering
+            self.channel.queue_declare(
+                queue=update_queue_name,
+                durable=True,
+                arguments={
+                    'x-dead-letter-exchange': dead_letter_exchange,
+                    'x-dead-letter-routing-key': f"{update_queue_name}-dlq",
+                    'x-message-ttl': 1000 * 60 * 60 * 24 * 7  # 1 week in milliseconds
+                }
+            )
             
             media_message_json = json.dumps(message)
 

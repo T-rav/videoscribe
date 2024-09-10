@@ -6,6 +6,7 @@ import amqp from 'amqplib';
 const connectionString = process.env.RABBITMQ_CONNECTION_STRING!;
 const queueName = process.env.TRANSCRIPTION_QUEUE_NAME!;
 const queueNameDemo = process.env.TRANSCRIPTION_QUEUE_NAME_DEMO!;
+const deadLetterExchange = process.env.DEAD_LETTER_EXCHANGE!;
 
 export async function createJob(toSend: TranscriptionMessage) {
     const connection = await amqp.connect(connectionString);
@@ -14,11 +15,10 @@ export async function createJob(toSend: TranscriptionMessage) {
     const selectedQueueName = isDemo ? queueNameDemo : queueName;
 
     // Declare the dead-letter exchange
-    const deadLetterExchange = `${selectedQueueName}-dlx`;
     await channel.assertExchange(deadLetterExchange, 'direct', { durable: true });
 
     // Declare the dead-letter queue
-    const deadLetterQueue = `${selectedQueueName}_dlq`;
+    const deadLetterQueue = `${selectedQueueName}-dlq`;
     await channel.assertQueue(deadLetterQueue, { durable: true });
     await channel.bindQueue(deadLetterQueue, deadLetterExchange, `${selectedQueueName}-dlq`);
 

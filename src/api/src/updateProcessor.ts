@@ -1,4 +1,8 @@
 import { RabbitMQListener } from './services/rabbitMqListener';
+import dotenv from 'dotenv';
+
+// Load environment variables from a .env file into process.env
+dotenv.config();
 
 const listener = new RabbitMQListener();
 
