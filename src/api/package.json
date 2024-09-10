@@ -5,6 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node-dev src/server.ts",
+    "updater": "ts-node-dev src/updateProcessor.ts",
     "test": "jest"
   },
   "keywords": [],
