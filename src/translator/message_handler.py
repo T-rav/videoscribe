@@ -10,21 +10,40 @@ from services.transcription.transcription_factory import TranscriptionFactory
 from services.transcription.transcription_service import TranscriptionServiceType
 from services.transformation.transformation_factory import TransformationFactory
 from services.transformation.transformation_service import TranscriptionTransformation
+from services.audio.file_handler import FileHandler
 from listeners.rabbitmq_listener import RabbitMQListener
 import validators
 from azure.storage.blob import BlobServiceClient
+import base64
 
 def download_blob_to_local(blob_name, download_path):
     connect_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
     
     logging.info(f"Connecting to Azure Storage {connect_str}")
     container_name, blob_path = blob_name.split('/', 1) # Extract container name and blob path
-    blob_service_client = BlobServiceClient.from_connection_string("UseDevelopmentStorage=true")
-    logging.info(f"Getting blob client for {container_name}/{blob_path}")
+    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
     blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_path)
 
-    with open(download_path, "wb") as download_file:
-        download_file.write(blob_client.download_blob().readall())
+    # Download the blob content to memory
+    blob_data = blob_client.download_blob().readall()
+
+    # Read the JSON content from the blob data
+    data = json.loads(blob_data)
+    content = data.get("content")
+    file_name = data.get("fileName")
+    
+    # Decode the base64 content
+    decoded_content = base64.b64decode(content)
+    
+    # Save the decoded content to the file system
+    os.makedirs(download_path, exist_ok=True)
+    content_path = os.path.join(download_path, file_name)
+    with open(content_path, "wb") as content_file:
+        content_file.write(decoded_content)
+    
+    logging.info(f"Extracted content saved to {content_path}")
+
+    return content_path
 
 def process_transcription_message(message):
 
@@ -39,10 +58,8 @@ def process_transcription_message(message):
     url = message.get("content") # url or blob name
     if not validators.url(url): # its a blob name
         logging.info(f"Downloading blob {url}")
-        file_name = os.path.basename(url)
-        local_file_path = os.path.join(path, "blobs", file_name)
-        download_blob_to_local(url, local_file_path)
-        url = local_file_path
+        local_file_path = os.path.join(path, "blobs")
+        url = download_blob_to_local(url, local_file_path)
     else:
         logging.info(f"Processing url {url}")
     
@@ -50,14 +67,12 @@ def process_transcription_message(message):
     prompt = None
     service = message.get("transcriptionType")
 
-    return {}
-
-    # return process_audio(url, 
-    #                         transform, 
-    #                         path, 
-    #                         max_length_minutes, 
-    #                         prompt, 
-    #                         service)
+    return process_audio(url, 
+                            transform, 
+                            path, 
+                            max_length_minutes, 
+                            prompt, 
+                            service)
 
 def get_audio_duration(file_path: str) -> int:
     audio = AudioSegment.from_file(file_path)
@@ -67,7 +82,6 @@ def get_audio_duration(file_path: str) -> int:
 def process_audio(url, transform, path, max_length_minutes, prompt, service):
     logging.info("Processing audio...")
 
-    # todo : emit, media and status message !!!!!!!
     if url.startswith("https://drive.google.com"):
         audio_file_path = AudioDownloader.download_google_drive_video(url, path, max_length_minutes=max_length_minutes)
         video_info = {"title": "Google Drive Video", "duration": get_audio_duration(audio_file_path)}  # Google Drive doesn't give video info easily
@@ -79,8 +93,10 @@ def process_audio(url, transform, path, max_length_minutes, prompt, service):
         audio_file_path = AudioDownloader.download_audio(url, f'{path}/audio', max_length_minutes=max_length_minutes)
     else:
         logging.info("Processing file...")
-        audio_file_path = logging.FileHandler.handle_local_file(url, path)
+        audio_file_path = FileHandler.handle_local_file(url, path)
         video_info = {"title": os.path.basename(url), "duration": get_audio_duration(audio_file_path)}
+    
+    # todo: send media message
 
     logging.info(f"Audio file is ready at {audio_file_path}")
 
@@ -145,6 +161,9 @@ if __name__ == "__main__":
         listener.listen(process_transcription_message)
     except KeyboardInterrupt:
         logging.info("Interrupted by user")
+    except Exception as e:
+        logging.error(f"An error occurred: {str(e)}")
+        print(json.dumps({"error": f"An error occurred: {str(e)}"}))
     finally:
         if listener.connection and not listener.connection.is_closed:
             listener.connection.close()
