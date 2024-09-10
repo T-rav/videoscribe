@@ -59,20 +59,17 @@ class RabbitMQListener(AbstractJobListener):
             logging.info(f"Parsed Transcription Message: {transcription_message}")
             update = self.handler(transcription_message)
             
-            # Ensure the update is an object and should be sent
             if update is not None:
                 try:
                     update_message = json.dumps(update)
                     self.publish_job_update(update_message)
                     ch.basic_ack(delivery_tag=method.delivery_tag)
                 except (TypeError, ValueError) as e:
-                    logging.error(f"Failed to serialize update object: {e}")
-                    ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
+                    raise ValueError(f"Failed to serialize update object: {e}")
             else:
-                logging.error(f"Invalid update object: {update}")
-                ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
-        except json.JSONDecodeError as e:
-            logging.error(f"Failed to parse JSON content: {e} for message: {body}")
+                raise ValueError(f"Invalid update object: {update}")
+        except (json.JSONDecodeError, ValueError) as e:
+            logging.error(f"Error processing message: {e} for message: {body}")
             time.sleep(random.randint(1, 5))  # sleep to not instantly re-queue the message
             retry_count = properties.headers.get("x-retry-count", 0) if properties.headers else 0
             if retry_count >= max_retries:
