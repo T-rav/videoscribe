@@ -34,8 +34,7 @@ class TranscriptionHandler:
         except KeyboardInterrupt:
             logging.info("Interrupted by user")
         except Exception as e:
-            logging.error(f"An error occurred: {str(e)}")
-            print(json.dumps({"error": f"An error occurred: {str(e)}"}))
+            logging.error(f"An error occurred: {str(e)}", exc_info=True)
         finally:
             if self.listener.connection and not self.listener.connection.is_closed:
                 self.listener.connection.close()
@@ -165,7 +164,6 @@ class TranscriptionHandler:
                 transformed_transcript = transformation.transform(combined_transcription, metadata=metadata)
             except Exception as e:
                 logging.error(f"An error occurred during transcript adjustment or transformation: {str(e)}")
-                print(json.dumps({"error": f"An error occurred: {str(e)}"}))
                 raise
             finally:
                 os.remove(audio_file_path)

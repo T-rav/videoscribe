@@ -96,20 +96,24 @@ class RabbitMQListener(AbstractJobListener):
                 ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-    def publish_job_update(self, message):
+    def publish_job_update(self, message : dict):
         try:
             if self.channel is None or self.channel.is_closed:
                 self.establish_connection()
             
             self.channel.queue_declare(queue=update_queue_name, durable=True)
             
+            media_message_json = json.dumps(message)
+
             self.channel.basic_publish(
                 exchange='',
                 routing_key=update_queue_name,
-                body=message,
+                body=media_message_json,
                 properties=pika.BasicProperties(
                     delivery_mode=2,  # make message persistent
                 ))
         except pika.exceptions.AMQPError as e:
             logging.error(f"Failed to publish message: {e}")
             self.establish_connection()  # Re-establish connection if it fails
+        except Exception as e:
+            logging.error(f"Failed to publish message: {e}", exc_info=True)
