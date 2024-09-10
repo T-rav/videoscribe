@@ -125,7 +125,7 @@ class TranscriptionHandler:
 
         media_message = {
             "jobId": job_id,
-            "title": video_info.get("title", "Unknown Title").split(".")[-2] if "." in video_info.get("title", "Unknown Title") else video_info.get("title", "Unknown Title"),
+            "title": os.path.splitext(video_info.get("title", "Unknown Title"))[0],  # Trim the file extension
             "duration": video_info.get("duration", 0),
             "blobUrl": "todo://save.to.blob.storage",
             "status": JobStatus.IN_PROGRESS.value
