@@ -44,8 +44,7 @@ class TranscriptionHandler:
                 self.listener.connection.close()
                 logging.info("Connection to RabbitMQ closed")
 
-    def process_transcription_message(self, message: dict):
-        transcription_message = TranscriptionMessage(**message)
+    def process_transcription_message(self, message: TranscriptionMessage):
         max_length_minutes = os.getenv("MAX_LENGTH_MINUTES")
         if max_length_minutes == "0":
             max_length_minutes = None
@@ -54,12 +53,12 @@ class TranscriptionHandler:
         if path is None:
             path = "./incoming" # default it if missing
 
-        url = transcription_message.content # url or blob name
-        is_file = transcription_message.isFile
-        transform = transcription_message.transform 
+        url = message.content # url or blob name
+        is_file = message.isFile
+        transform = message.transform 
         prompt = None
-        service = transcription_message.transcriptionType
-        job_id = transcription_message.jobId
+        service = message.transcriptionType
+        job_id = message.jobId
 
         if is_file:
             logging.info(f"Downloading blob {url}")

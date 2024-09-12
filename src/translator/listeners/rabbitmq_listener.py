@@ -6,6 +6,7 @@ import json
 import random
 from dotenv import load_dotenv
 from listeners.abstract_listener import AbstractJobListener
+from messages.transcription_message import TranscriptionMessage
 
 load_dotenv()
 
@@ -64,7 +65,7 @@ class RabbitMQListener(AbstractJobListener):
     def callback(self, ch, method, properties, body):
         logging.info(f"Received message from RabbitMQ...")
         try:
-            transcription_message = json.loads(body)
+            transcription_message = TranscriptionMessage.model_validate_json(body)
             logging.info(f"Parsed Transcription Message: {transcription_message}")
             update = self.handler(transcription_message)
             
