@@ -1,10 +1,10 @@
 import os
 from .transcription_service import TranscriptionService
-from ...enums.transcription_service_type import TranscriptionServiceType
 from .openai_transcription_service import OpenAITranscriptionService
 from .openai_srt_transcription_service import OpenAISrtTranscriptionService
 from .openai_vtt_transcription_service import OpenAIVttTranscriptionService
 from .groq_transcription_service import GroqTranscriptionService
+from enums.transcription_service_type import TranscriptionServiceType
 
 class TranscriptionFactory:
     _service_map = {

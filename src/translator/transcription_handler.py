@@ -13,7 +13,7 @@ from services.audio.file_handler import FileHandler
 from listeners.rabbitmq_listener import RabbitMQListener
 from azure.storage.blob import BlobServiceClient
 import base64
-from translator.enums.job_status import JobStatus
+from enums.job_status import JobStatus
 from messages.transcription_message import TranscriptionMessage
 from messages.media_message import MediaMessage
 from messages.transcription_result import TranscriptionResult

@@ -9,8 +9,7 @@ from .youtubesummary import FormattingForYoutubeSummaryTransformation
 from .none import NoneTransformation
 from .summarize import SummarizeTransformation
 from .transformation_service import TransformationService
-from ...enums.transcription_transformation import TranscriptionTransformation
-
+from enums.transcription_transformation import TranscriptionTransformation
 
 class TransformationFactory:
     _service_map = {
