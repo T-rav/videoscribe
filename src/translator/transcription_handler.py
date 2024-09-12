@@ -2,19 +2,23 @@ from datetime import datetime
 import json
 import logging
 import os
+from typing import Optional
 from pydub import AudioSegment
 from dotenv import load_dotenv
 from services.audio.audio_downloader import AudioDownloader
 from services.audio.audio_service import AudioService
 from services.transcription.transcription_factory import TranscriptionFactory
-from services.transcription.transcription_service import TranscriptionServiceType
 from services.transformation.transformation_factory import TransformationFactory
-from services.transformation.transformation_service import TranscriptionTransformation
 from services.audio.file_handler import FileHandler
 from listeners.rabbitmq_listener import RabbitMQListener
 from azure.storage.blob import BlobServiceClient
 import base64
-from enums.JobStatus import JobStatus
+from translator.enums.job_status import JobStatus
+from messages.transcription_message import TranscriptionMessage
+from messages.media_message import MediaMessage
+from messages.transcription_result import TranscriptionResult
+from enums.transcription_service_type import TranscriptionServiceType
+from enums.transcription_transformation import TranscriptionTransformation
 
 class TranscriptionHandler:
     def __init__(self):
@@ -40,7 +44,8 @@ class TranscriptionHandler:
                 self.listener.connection.close()
                 logging.info("Connection to RabbitMQ closed")
 
-    def process_transcription_message(self, message):
+    def process_transcription_message(self, message: dict):
+        transcription_message = TranscriptionMessage(**message)
         max_length_minutes = os.getenv("MAX_LENGTH_MINUTES")
         if max_length_minutes == "0":
             max_length_minutes = None
@@ -49,12 +54,12 @@ class TranscriptionHandler:
         if path is None:
             path = "./incoming" # default it if missing
 
-        url = message.get("content") # url or blob name
-        is_file = message.get("isFile")
-        transform = message.get("transform") 
+        url = transcription_message.content # url or blob name
+        is_file = transcription_message.isFile
+        transform = transcription_message.transform 
         prompt = None
-        service = message.get("transcriptionType")
-        job_id = message.get("jobId")
+        service = transcription_message.transcriptionType
+        job_id = transcription_message.jobId
 
         if is_file:
             logging.info(f"Downloading blob {url}")
@@ -71,7 +76,7 @@ class TranscriptionHandler:
                                   service,
                                   job_id)
 
-    def download_blob_to_local(self, blob_name, download_path):
+    def download_blob_to_local(self, blob_name: str, download_path: str) -> str:
         connect_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
         
         logging.info(f"Connecting to Azure Storage {connect_str}")
@@ -102,10 +107,17 @@ class TranscriptionHandler:
 
     def get_audio_duration(self, file_path: str) -> int:
         audio = AudioSegment.from_file(file_path)
-        duration_seconds = len(audio) / 1000  # pydub returns length in milliseconds
+        duration_seconds = int(len(audio) / 1000)  # pydub returns length in milliseconds
         return duration_seconds
 
-    def process_audio(self, url, transform, path, max_length_minutes, prompt, service, job_id):
+    def process_audio(self, url: str, 
+                            transform: TranscriptionTransformation, 
+                            path: str, 
+                            max_length_minutes: 
+                            Optional[int], 
+                            prompt: Optional[str], 
+                            service: TranscriptionServiceType, 
+                            job_id: str) -> TranscriptionResult:
         logging.info("Processing audio...")
 
         if url.startswith("https://drive.google.com"):
@@ -123,22 +135,22 @@ class TranscriptionHandler:
             os.remove(url) # remove the tmp file after audio is extracted
             video_info = {"title": os.path.basename(url), "duration": self.get_audio_duration(audio_file_path)}
 
-        media_message = {
-            "jobId": job_id,
-            "title": os.path.splitext(video_info.get("title", "Unknown Title"))[0],  # Trim the file extension
-            "duration": video_info.get("duration", 0),
-            "blobUrl": "todo://save.to.blob.storage",
-            "status": JobStatus.IN_PROGRESS.value
-        } 
+        media_message = MediaMessage(
+            jobId=job_id,
+            title=os.path.splitext(video_info.get("title", "Unknown Title"))[0],  # Trim the file extension
+            duration=video_info.get("duration", 0),
+            blobUrl="todo://save.to.blob.storage",
+            status=JobStatus.IN_PROGRESS.value
+        )
 
         # send media message to rabbit mq (title, duration updates)
-        self.listener.publish_job_update(media_message);
+        self.listener.publish_job_update(media_message.dict())
 
         logging.info(f"Audio file is ready at {audio_file_path}")
 
         if audio_file_path is not None:
             logging.info(f"Running transcription on {audio_file_path}")
-            transcription_service = TranscriptionFactory.get_transcription_service(TranscriptionServiceType(service)) 
+            transcription_service = TranscriptionFactory.get_transcription_service(service) 
             combined_transcription = AudioService.transcribe_audio(audio_file_path, transcription_service, prompt)
             
             transcription_file_path = f'{os.path.splitext(audio_file_path)[0]}_transcript{transcription_service.file_name_extension()}'.replace("audio/", "transcript/")
@@ -147,11 +159,10 @@ class TranscriptionHandler:
             logging.info(f"Writing transcript to {transcription_file_path}")
             with open(transcription_file_path, 'w', encoding='utf-8') as file:
                 file.write(combined_transcription)
-
             try:
                 # Adjust transcript if necessary
                 logging.info("Adjusting transcript timings if needed...")
-                combined_transcription, transcription_file_path = AudioService.adjust_transcript_if_needed(transcription_file_path, TranscriptionServiceType(service))
+                combined_transcription, transcription_file_path = AudioService.adjust_transcript_if_needed(transcription_file_path, service)
 
                 # Run the transformation
                 logging.info(f"Running transformation {transform}")
@@ -161,25 +172,25 @@ class TranscriptionHandler:
                     "length" : 3000, # used for youtube summary
                 }
                 logging.info(f"Metadata: {metadata} for transformation {transform}")
-                transformation = TransformationFactory.get_transformation_service(TranscriptionTransformation(transform))
+                transformation = TransformationFactory.get_transformation_service(transform)
                 transformed_transcript = transformation.transform(combined_transcription, metadata=metadata)
             except Exception as e:
                 logging.error(f"An error occurred during transcript adjustment or transformation: {str(e)}")
-                result = {
-                    "jobId": job_id,
-                    "status": JobStatus.FAILED.value,
-                    "error" : str(e)
-                }
+                result = TranscriptionResult(
+                    jobId=job_id,
+                    transcript=combined_transcription,
+                    status=JobStatus.FAILED.value,
+                    error=str(e)
+                )
                 return result
             finally:
                 os.remove(audio_file_path)
-
-            result = {
-                "jobId": job_id,
-                "transcript": combined_transcription,
-                "transformed": transformed_transcript,
-                "status": JobStatus.FINISHED.value
-            }
+            result = TranscriptionResult(
+                jobId=job_id,
+                transcript=combined_transcription,
+                transformed=transformed_transcript,
+                status=JobStatus.FINISHED.value
+            )
 
             return result
 

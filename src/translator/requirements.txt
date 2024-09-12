@@ -11,3 +11,4 @@ langchain
 pika
 azure-storage-blob
 validators
+pydantic

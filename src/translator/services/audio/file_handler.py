@@ -1,7 +1,5 @@
 import os
-import subprocess
 import logging
-import io
 from pydub import AudioSegment
 
 class FileHandler:
