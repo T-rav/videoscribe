@@ -2,18 +2,23 @@ import { Router, Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import { TranscriptionServiceType } from '../enums/TranscriptionServiceType';
 import logger from '../utils/logger';
-import { saveJobToStorage } from '../services/fileStorage';
+import { uploadToBlobStorage } from '../services/fileStorage';
 import { TranscriptionMessage, TranscriptionRequest, TranscriptionResponse } from '../services/interfaces/transcription';
 import { v4 as uuidv4 } from 'uuid';
 import { verifyTokenFromCookie } from '../middleware/verifyTokenFromCookie';
 import { JobStatus } from '../enums/JobStatus';
 import { PrismaClient } from '@prisma/client';
 import { createJob } from '../services/job';
+import { BlobServiceClient } from '@azure/storage-blob';
 
 const prisma = new PrismaClient();
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
+
+// Configure Azure Blob Storage
+const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING || '');
+const containerClient = blobServiceClient.getContainerClient(process.env.AZURE_STORAGE_CONTAINER_NAME || '');
 
 const logJobInDatabase = async (transcriptionMessage: TranscriptionMessage, userId: string | null, contentReference: string) => {
     const user = await prisma.user.findFirst({
@@ -101,21 +106,22 @@ const handleFileTranscription = async (req: Request, res: Response, next: NextFu
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
+    const jobId = uuidv4();
+    const blobName = await uploadToBlobStorage(user?.qid || '0', jobId, file.buffer);
+
     const transcriptionMessage: TranscriptionMessage = {
-      jobId: uuidv4(),
+      jobId,
       transcriptionType,
       transform,
       isFile: true,
-      content: file.buffer.toString('base64'),
+      content: blobName,
       mimeType: file.mimetype,
       fileName: file.originalname,
       userId: user?.qid || '0' 
     };
 
-    const storageResponse = await saveJobToStorage(transcriptionMessage);
-    transcriptionMessage.content = storageResponse.blobName; // update the content with the blob name
     await createJob(transcriptionMessage);
-    await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, storageResponse.blobName);
+    await logJobInDatabase(transcriptionMessage, transcriptionMessage.userId, blobName);
 
     const result: TranscriptionResponse = {
       jobId: transcriptionMessage.jobId

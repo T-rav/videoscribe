@@ -1,7 +1,5 @@
 import logger from '../utils/logger';
 import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
-import { TranscriptionMessage } from './interfaces/transcription';
-import { StorageRequest, StorageResponse } from './interfaces/storage';
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING || '');
 
@@ -17,42 +15,20 @@ const ensureContainerExists = async (containerClient: ContainerClient, container
   }
 };
 
-export const saveJobToStorage = async ({
-  jobId,
-  content,
-  userId,
-  fileName,
-  mimeType
-}: TranscriptionMessage): Promise<StorageResponse> => {
-  try {
-    logger.log('info', `Saving job to storage for user: ${userId}`);
-    const containerName = userId !== '0'
-      ? process.env.AZURE_STORAGE_CONTAINER_NAME || ''
-      : process.env.AZURE_STORAGE_CONTAINER_NAME_DEMO || '';
-    
-    const containerClient = blobServiceClient.getContainerClient(containerName);
-    
-    await ensureContainerExists(containerClient, containerName);
+export const uploadToBlobStorage = async (userId: string, jobId: string, data: Buffer): Promise<string> => {
+  const containerName = userId !== '0'
+    ? process.env.AZURE_STORAGE_CONTAINER_NAME || ''
+    : process.env.AZURE_STORAGE_CONTAINER_NAME_DEMO || '';
+  
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  
+  await ensureContainerExists(containerClient, containerName);
 
-    const blobName = `${userId}-${jobId}.json`;
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+  const blobName = `${userId}-${jobId}.json`;
+  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-    let message: StorageRequest = {
-      jobId,
-      userId,
-      content,
-      fileName: fileName ?? '',
-      mimeType: mimeType ?? ''
-    };
-    
-    logger.info('info', `Publishing storage artifacts for ${jobId}`);
-    const data = JSON.stringify(message);
-    await blockBlobClient.upload(data, data.length);
-    logger.info('info', `Message published to blob storage. Blob name: ${blobName}`);
+  await blockBlobClient.upload(data, data.length);
+  logger.info('info', `Message published to blob storage. Blob name: ${blobName}`);
 
-    return { jobId, blobName: `${containerName}/${blobName}` };
-  } catch (error) {
-    logger.error(`Failed to publish message to blob storage. Error: ${error}`);
-    throw new Error(`Failed to publish message to blob storage: ${error}`);
-  }
+  return `${containerName}/${blobName}`;
 };
