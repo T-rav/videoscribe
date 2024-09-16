@@ -1,6 +1,6 @@
 import os
-import subprocess
 import logging
+from pydub import AudioSegment
 
 class FileHandler:
     
@@ -14,14 +14,18 @@ class FileHandler:
         if ext.lower() in [".mov", ".mp4", ".avi", ".mkv", ".webm"]:
             logging.debug(f"Converting video file {file_name} to audio and saving to {audio_file_path}")
             os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
-            subprocess.run(['ffmpeg', '-i', file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
+            audio = AudioSegment.from_file(file_path)
+            audio.export(audio_file_path, format="ipod", bitrate="128k", parameters=["-ar", "16000", "-ac", "1"])
         elif ext.lower() not in [".m4a", ".mp3"]:
             logging.debug(f"Converting unsupported audio file {file_name} to m4a...")
             os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
-            subprocess.run(['ffmpeg', '-i', file_path, '-vn', '-ar', '16000', '-ac', '1', '-ab', '128k', '-f', 'ipod', audio_file_path], check=True)
+            audio = AudioSegment.from_file(file_path)
+            audio.export(audio_file_path, format="ipod", bitrate="128k", parameters=["-ar", "16000", "-ac", "1"])
         else:
             logging.debug(f"No conversion needed for file {file_name}, copying to output directory...")
             os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
-            subprocess.run(['cp', file_path, audio_file_path])
+            with open(file_path, "rb") as src_file:
+                with open(audio_file_path, "wb") as dst_file:
+                    dst_file.write(src_file.read())
 
         return audio_file_path

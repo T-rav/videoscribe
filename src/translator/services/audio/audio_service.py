@@ -3,9 +3,10 @@ import logging
 from typing import List
 from pydub import AudioSegment
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from services.transcription import TranscriptionServiceType, TranscriptionService
 from services.audio.srt_adjuster import SrtAdjuster
 from services.audio.vtt_adjuster import VttAdjuster
+from enums.transcription_service_type import TranscriptionServiceType
+from services.transcription.transcription_service import TranscriptionService
 
 class AudioService:
 

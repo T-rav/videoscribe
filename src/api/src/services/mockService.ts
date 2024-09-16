@@ -14,6 +14,8 @@ export const transcribe = async ({
     transform,
     isFile: false,
     content: '',
+    jobId: '',
+    userId: ''
   };
 
   if (url) {

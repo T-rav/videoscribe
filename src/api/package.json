@@ -5,16 +5,20 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node-dev src/server.ts",
+    "updater": "ts-node-dev src/updaters/updateProcessor.ts",
     "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@azure/service-bus": "^7.9.5",
     "@azure/storage-blob": "^12.24.0",
     "@prisma/client": "^5.19.0",
+    "@types/amqplib": "^0.10.5",
     "@types/express": "^4.17.21",
     "@types/express-session": "^1.18.0",
+    "amqplib": "^0.10.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

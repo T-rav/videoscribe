@@ -6,6 +6,7 @@ export const verifyTokenFromCookie = (req: Request, res: Response, next: NextFun
   const token = req.cookies.token;
 
   if (!token) {
+    logger.error('Authentication token is missing');
     return res.status(401).json({ message: 'Authentication token is missing' });
   }
 
