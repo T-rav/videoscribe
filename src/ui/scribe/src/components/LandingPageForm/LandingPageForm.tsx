@@ -276,10 +276,10 @@ const LandingPageForm: React.FC = () => {
     <div className="landing-page">
       <div className="marketing-copy-container">
         <div className="marketing-copy">
-          <h1>Unlock Video Insights</h1>
+          <h1>Unlock Insights</h1>
           <div className="tab-content">
             <p>
-              <strong>Transform your video consumption.</strong> Quickly understand and extract key information from lectures, meetings, and more. Options to <strong>summarize</strong>, <strong>highlight key points</strong>, or <strong>format for readability</strong> allow you to digest hours of video in minutes. Perfect for <strong>professionals</strong>, <strong>students</strong>, and <strong>parents</strong> looking to maximize video value.
+            <strong>Unlock the power of transcription.</strong> Effortlessly capture and understand key information from lectures, meetings, and more. Options to <strong>summarize</strong>, <strong>highlight key points</strong>, or <strong>format for readability</strong> allow you to digest hours of content in minutes. Perfect for <strong>professionals</strong>, <strong>students</strong>, and <strong>parents</strong> looking to maximize the value of their time.
             </p>
           </div>
         </div>
