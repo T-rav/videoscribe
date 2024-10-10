@@ -256,6 +256,7 @@ const LandingPageForm: React.FC = () => {
       clearInterval(timerRef.current!);
       timerRef.current = null;
     } else {
+      setRecordingTime(0); // Reset timer when starting
       timerRef.current = setInterval(() => {
         setRecordingTime(prevTime => prevTime + 1);
       }, 1000);
@@ -364,7 +365,7 @@ const LandingPageForm: React.FC = () => {
             <button onClick={handleRecordingToggle} className="record-button">
               {isRecording ? 'Stop Recording' : 'Start Recording'}
             </button>
-            {isRecording && <div className="timer">Recording Time: {recordingTime}s</div>}
+            <div className="timer">Recording Time: {recordingTime}s</div>
             <textarea
               value={realTimeTranscript}
               readOnly
