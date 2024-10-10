@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './LandingPageForm.css';
 
 const LandingPageForm: React.FC = () => {
@@ -14,6 +14,8 @@ const LandingPageForm: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'recordings' | 'realTime'>('recordings');
   const [isRecording, setIsRecording] = useState(false);
   const [realTimeTranscript, setRealTimeTranscript] = useState('');
+  const [recordingTime, setRecordingTime] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const maxFileSizeInMB = 2500;
   const transcriptionType = 'openai-srt';
@@ -250,9 +252,24 @@ const LandingPageForm: React.FC = () => {
   };
 
   const handleRecordingToggle = () => {
+    if (isRecording) {
+      clearInterval(timerRef.current!);
+      timerRef.current = null;
+    } else {
+      timerRef.current = setInterval(() => {
+        setRecordingTime(prevTime => prevTime + 1);
+      }, 1000);
+    }
     setIsRecording(!isRecording);
-    // Add logic to start/stop recording and update realTimeTranscript
   };
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="landing-page">
@@ -347,6 +364,7 @@ const LandingPageForm: React.FC = () => {
             <button onClick={handleRecordingToggle} className="record-button">
               {isRecording ? 'Stop Recording' : 'Start Recording'}
             </button>
+            {isRecording && <div className="timer">Recording Time: {recordingTime}s</div>}
             <textarea
               value={realTimeTranscript}
               readOnly
