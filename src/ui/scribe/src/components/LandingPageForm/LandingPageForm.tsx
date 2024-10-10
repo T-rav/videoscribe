@@ -11,6 +11,10 @@ const LandingPageForm: React.FC = () => {
   { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string; activeTab: string }[]
 >([]);
 
+  const [activeTab, setActiveTab] = useState<'recordings' | 'realTime'>('recordings');
+  const [isRecording, setIsRecording] = useState(false);
+  const [realTimeTranscript, setRealTimeTranscript] = useState('');
+
   const maxFileSizeInMB = 2500;
   const transcriptionType = 'openai-srt';
 
@@ -244,91 +248,113 @@ const LandingPageForm: React.FC = () => {
       return `${timeString} seconds`;
     }
   };
-    
+
+  const handleRecordingToggle = () => {
+    setIsRecording(!isRecording);
+    // Add logic to start/stop recording and update realTimeTranscript
+  };
 
   return (
     <div className="landing-page">
       <div className="marketing-copy-container">
         <div className="marketing-copy">
-          <h1>Unlock Insights from Your Videos Instantly</h1>
-          <p>
-            <strong>Transform the way you consume videos.</strong> Whether it's a lecture, a meeting, or your kid's school sending a video communication, 
-            our tool empowers you to <strong>quickly understand and extract the most important information.</strong>
-          </p>
-          <p>
-            With options to <strong>summarize</strong>, <strong>highlight key points</strong>, or even <strong>just format the content for readability</strong>, 
-            you can now digest hours of video in just minutes.
-          </p>
-          <p>
-            Perfect for <strong>busy professionals</strong>, <strong>students</strong>, <strong>parents</strong>, or anyone looking to <strong>maximize the value of videos.</strong>
-          </p>
-          <div className="cta-message">
-            <a href="#">Start optimizing your video experience today!</a>
-            <p>Or</p>
-            <a href="https://www.youtube.com/watch?v=YourVideoID" target="_blank" rel="noopener noreferrer">
-              Watch this quick explainer video to learn more!
-            </a>
+          <h1>Unlock Video Insights</h1>
+          <div className="tab-content">
+            <p>
+              <strong>Transform your video consumption.</strong> Quickly understand and extract key information from lectures, meetings, and more. Options to <strong>summarize</strong>, <strong>highlight key points</strong>, or <strong>format for readability</strong> allow you to digest hours of video in minutes. Perfect for <strong>professionals</strong>, <strong>students</strong>, and <strong>parents</strong> looking to maximize video value.
+            </p>
           </div>
+        </div>
+        <div className="tab-label-container">
+          <label className="tab-label">Select Option:</label>
+        </div>
+        <div className="tab-buttons">
+          <button
+            className={`tab-button ${activeTab === 'recordings' ? 'active' : ''}`}
+            onClick={() => setActiveTab('recordings')}
+          >
+            Recordings
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'realTime' ? 'active' : ''}`}
+            onClick={() => setActiveTab('realTime')}
+          >
+            Real-Time
+          </button>
         </div>
       </div>
       <div className="form-container">
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div
-            className="file-upload-container"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-          >
+        {activeTab === 'recordings' ? (
+          <form onSubmit={handleSubmit}>
+            {/* Existing form for recordings */}
+            <div
+              className="file-upload-container"
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+            >
+              <input
+                type="file"
+                id="file-upload"
+                accept="video/*"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+              <label htmlFor="file-upload" className="file-upload-label">
+                <div className="file-dropzone">
+                  {file ? (
+                    <span>{file.name}</span>
+                  ) : (
+                    <>
+                      <span>Upload file</span>
+                      <p>Click to browse or drag & drop a file here</p>
+                    </>
+                  )}
+                </div>
+              </label>
+            </div>
+
+            <label htmlFor="video-link">Paste a video link from YouTube, Google Drive, or Vimeo</label>
             <input
-              type="file"
-              id="file-upload"
-              accept="video/*"
-              onChange={handleFileChange}
-              style={{ display: 'none' }}
+              type="text"
+              id="video-link"
+              value={videoLink}
+              onChange={handleVideoLinkChange}
+              placeholder="Paste YouTube, Google Drive, or Vimeo link here"
             />
-            <label htmlFor="file-upload" className="file-upload-label">
-              <div className="file-dropzone">
-                {file ? (
-                  <span>{file.name}</span>
-                ) : (
-                  <>
-                    <span>Upload file</span>
-                    <p>Click to browse or drag & drop a file here</p>
-                  </>
-                )}
-              </div>
-            </label>
+
+            <label htmlFor="transform-option">Enhancement</label>
+            <select
+              id="transform-option"
+              value={transformOption}
+              onChange={(e) => setTransformOption(e.target.value)}
+            >
+              <option value="none">None</option>
+              <option value="summarize">Summarize</option>
+              <option value="formatting">Format for Readability</option>
+              <option value="removefillerwords">Remove Filler Words</option>
+              <option value="paragraphs">Make Paragraphs</option>
+              <option value="keywords">Keyword Extraction</option>
+              <option value="youtubehighlights">YouTube Highlights</option>
+              <option value="youtubesummary">YouTube Summary</option>
+            </select>
+
+            <button type="submit" className="submit-button" disabled={loading}>
+              {loading ? <div className="spinner"></div> : 'Transcribe'}
+            </button>
+          </form>
+        ) : (
+          <div className="real-time-form">
+            <button onClick={handleRecordingToggle} className="record-button">
+              {isRecording ? 'Stop Recording' : 'Start Recording'}
+            </button>
+            <textarea
+              value={realTimeTranscript}
+              readOnly
+              placeholder="Real-time transcription will appear here..."
+              className="transcription-area"
+            />
           </div>
-
-          <label htmlFor="video-link">Paste a video link from YouTube, Google Drive, or Vimeo</label>
-          <input
-            type="text"
-            id="video-link"
-            value={videoLink}
-            onChange={handleVideoLinkChange}
-            placeholder="Paste YouTube, Google Drive, or Vimeo link here"
-          />
-
-          <label htmlFor="transform-option">Enhancement</label>
-          <select
-            id="transform-option"
-            value={transformOption}
-            onChange={(e) => setTransformOption(e.target.value)}
-          >
-            <option value="none">None</option>
-            <option value="summarize">Summarize</option>
-            <option value="formatting">Format for Readability</option>
-            <option value="removefillerwords">Remove Filler Words</option>
-            <option value="paragraphs">Make Paragraphs</option>
-            <option value="keywords">Keyword Extraction</option>
-            <option value="youtubehighlights">YouTube Highlights</option>
-            <option value="youtubesummary">YouTube Summary</option>
-          </select>
-
-          <button type="submit" className="submit-button" disabled={loading}>
-            {loading ? <div className="spinner"></div> : 'Transcribe'}
-          </button>
-        </form>
+        )}
         {results.map((result, index) => (
           <div key={index} className="transcription-result">
             <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
@@ -376,7 +402,6 @@ const LandingPageForm: React.FC = () => {
             </button>
           </div>
         ))}
-
       </div>
     </div>
   );
