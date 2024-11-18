@@ -28,8 +28,8 @@ services:
       - "10001:10001"
       - "10002:10002"
     volumes:
-      - ./services/storage/__blobstorage__:/data/blob
-      - ./services/storage/__queuestorage__:/data/queue
+      - azurite_blob_data:/data/blob
+      - azurite_queue_data:/data/queue
     healthcheck:
       test: ["CMD", "wget", "--spider", "http://localhost:10000"]
       interval: 5s
@@ -56,3 +56,5 @@ services:
 volumes:
   postgres_data:
   rabbitmq_data:
+  azurite_blob_data:
+  azurite_queue_data:
