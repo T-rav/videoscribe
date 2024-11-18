@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:15.9-bookworm
     container_name: scribe-ai-postgres-container
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-user}
