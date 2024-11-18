@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    build:
-      context: ./services/pgsql
-      dockerfile: Dockerfile
+    image: postgres:latest
     container_name: scribe-ai-postgres-container
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-user}
