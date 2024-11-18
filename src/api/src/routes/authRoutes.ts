@@ -48,8 +48,11 @@ router.get(
       }
     );
     // Set the token and user information in cookies
-    // { httpOnly: true, sameSite: 'none', secure: process.env.NODE_ENV === 'production' }
-    res.cookie('token', token, { httpOnly: true, sameSite: 'none' } );
+    res.cookie('token', token, { 
+      httpOnly: true, 
+      sameSite: 'none',
+      secure: true  // Required when sameSite is 'none'
+    });
     res.redirect('http://localhost:3000/dashboard');
   }
 );
