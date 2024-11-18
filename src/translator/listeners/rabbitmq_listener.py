@@ -67,6 +67,7 @@ class RabbitMQListener(AbstractJobListener):
         try:
             transcription_message = TranscriptionMessage.model_validate_json(body)
             logging.info(f"Parsed Transcription Message: {transcription_message}")
+            # todo : publish in_progress message?
             update = self.handler(transcription_message)
             
             if update is not None:
