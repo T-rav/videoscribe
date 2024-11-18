@@ -67,8 +67,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     window.location.href = `${process.env.REACT_APP_API_BASE_URL}/auth/google`; // Redirect to the backend's Google OAuth route
   };
 
-  const logout = (redirect?: () => void) => {
+  const logout = async (redirect?: () => void) => {
     console.log("AuthContext: Logging out");
+    
+    try {
+      // Call backend logout endpoint
+      await fetch(`${process.env.REACT_APP_API_BASE_URL}/logout`, {
+        method: 'GET',
+        credentials: 'include', // Include cookies in the request
+      });
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+
     setIsAuthenticated(false);
     setUser(null);
 

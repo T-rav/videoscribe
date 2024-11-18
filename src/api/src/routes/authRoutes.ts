@@ -63,7 +63,15 @@ router.get('/logout', (req: Request, res: Response, next: NextFunction) => {
     if (err) {
       return next(err);
     }
-    res.redirect('/');
+    
+    // Clear the token cookie
+    res.clearCookie('token', {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true
+    });
+    
+    res.status(200).json({ message: 'Logged out successfully' });
   });
 });
 
