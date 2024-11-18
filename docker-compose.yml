@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     build:
-      context: ./src/util/local
+      context: ./services/pgsql
       dockerfile: Dockerfile
     container_name: scribe-ai-postgres-container
     environment:
@@ -28,8 +28,8 @@ services:
       - "10001:10001"
       - "10002:10002"
     volumes:
-      - ./src/util/local/__blobstorage__:/data/blob
-      - ./src/util/local/__queuestorage__:/data/queue
+      - ./services/storage/__blobstorage__:/data/blob
+      - ./services/storage/__queuestorage__:/data/queue
     healthcheck:
       test: ["CMD", "wget", "--spider", "http://localhost:10000"]
       interval: 5s
