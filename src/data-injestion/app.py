@@ -1,5 +1,4 @@
 from langchain_elasticsearch import ElasticsearchStore
-from langchain_openai import OpenAIEmbeddings
 from langchain_community.document_loaders import TextLoader
 import hashlib
 from elasticsearch import Elasticsearch

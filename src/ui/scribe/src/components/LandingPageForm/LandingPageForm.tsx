@@ -81,7 +81,7 @@ const LandingPageForm: React.FC = () => {
       data.append('transcriptionType', transcriptionType);
 
       try {
-        const response = await fetch(`${serverUrl}/transcribe/file`, {
+        const response = await fetch(`${serverUrl}/transcribe/file/demo`, {
           method: 'POST',
           body: data,
           credentials: 'include',
@@ -145,7 +145,7 @@ const LandingPageForm: React.FC = () => {
       }
 
       try {
-        const response = await fetch(`${serverUrl}/transcribe/link`, {
+        const response = await fetch(`${serverUrl}/transcribe/link/demo`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

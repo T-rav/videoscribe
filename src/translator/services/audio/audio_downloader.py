@@ -33,16 +33,17 @@ class AudioDownloader:
         try:
             result = subprocess.run(command, check=True, capture_output=True, text=True)
             file_path_match = re.search(r'Destination:\s+(.*\.m4a)', result.stdout)
-            
+
             if file_path_match:
-                file_path = file_path_match.group(1).strip()
+                file_path = file_path_match.group(1)
                 if max_length_minutes:
                     trimmed_file_path = file_path.replace('.m4a', '_trimmed.m4a')
                     subprocess.run(['ffmpeg', '-i', file_path, '-ss', '00:00:00', '-t', f'{max_length_minutes * 60}', trimmed_file_path], check=True)
                     os.remove(file_path)
                     return trimmed_file_path
                 return file_path
-            logging.error("File path not found in yt-dlp output")
+            else:
+                logging.error("File path not found in yt-dlp output")
         except subprocess.CalledProcessError as e:
             logging.error(f"Error: {e.stderr}")
         return None

@@ -20,34 +20,87 @@
     }
 
     model User {
-      id          Int         @id @default(autoincrement())
-      qid         String      @unique @default(uuid())
-      firstName   String
-      lastName    String
-      email       String      @unique
-      picture     String
-    accountType AccountType
-      cts         DateTime    @default(now())
-      ets         DateTime    @updatedAt
-      jobs        Job[]
+      id                Int         @id @default(autoincrement())
+      qid               String      @unique @default(uuid())
+      firstName         String
+      lastName          String
+      email             String      @unique
+      picture           String
+      accountType       AccountType
+      cts               DateTime    @default(now())
+      ets               DateTime    @updatedAt
+      jobs              Job[]
+      media             Media[]     // Relation to Media
 
+      @@index([id])
       @@index([qid])
     }
 
     model Job {
-      id          Int      @id @default(autoincrement())
-      qid         String   @unique @default(uuid())
-      title       String
-      description String
-      userId      Int?
-      user        User?    @relation(fields: [userId], references: [id])
-      status      JobStatus
+      id       Int    @id @default(autoincrement())
+      qid                String   @unique @default(uuid())
+      userId             Int?
+      user               User?    @relation(fields: [userId], references: [id])
+      status             JobStatus
+      error              String?
       transcriptionType  String
-      transform          String
+      transform          String   @default("none")
       contentReference   String
-      contentDuration    Int?
-      cts         DateTime @default(now())
-      ets         DateTime @updatedAt
 
+      cts                DateTime @default(now())
+      ets                DateTime @updatedAt
+      media              Media?   @relation(fields: [mediaId], references: [id])
+      mediaId            Int?     @unique
+
+      @@index([id])
       @@index([qid])
+    }
+
+    model Media {
+      id                Int      @id @default(autoincrement())
+      qid               String   @unique @default(uuid())
+      userId            Int?
+      user              User?    @relation(fields: [userId], references: [id])
+      blobUrl           String
+      duration          Int?
+      title             String
+      description       String
+      cts               DateTime @default(now())
+      ets               DateTime @updatedAt
+      transcriptions    Transcription[] // Relation to Transcription
+      transformations   Transformation[] // Relation to Transformation
+      job               Job?     @relation
+
+      @@index([userId])
+      @@index([id])
+    }
+
+    model Transcription {
+      id                Int      @id @default(autoincrement())
+      mediaId           Int
+      media             Media    @relation(fields: [mediaId], references: [id])
+      transcriptionType String
+      blobUrl           String
+      cts               DateTime @default(now())
+      ets               DateTime @updatedAt
+      transformations   Transformation[] // Relation to Transformation
+
+      @@index([mediaId])
+      @@index([id])
+    }
+
+    model Transformation {
+      id                Int      @id @default(autoincrement())
+      mediaId           Int
+      media             Media    @relation(fields: [mediaId], references: [id])
+      transcriptionId   Int?
+      transcription     Transcription? @relation(fields: [transcriptionId], references: [id])
+      type              String
+      blobUrl           String
+      cts               DateTime @default(now())
+      ets               DateTime @updatedAt
+
+      @@index([id])
+      @@index([mediaId])
+      @@index([transcriptionId])
     }

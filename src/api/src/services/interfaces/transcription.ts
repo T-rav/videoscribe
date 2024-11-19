@@ -14,7 +14,7 @@ export interface TranscriptionMessage {
   transform: TranscriptionTransformation;
   isFile: boolean;
   content: string;
-  userId?: string;
+  userId: string;
   mimeType?: string;
   fileName?: string;
 }
