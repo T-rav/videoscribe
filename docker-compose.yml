@@ -60,6 +60,7 @@ services:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-scribe.ai}
       - RABBITMQ_URL=amqp://${RABBITMQ_USER:-guest}:${RABBITMQ_PASSWORD:-guest}@rabbitmq:5672
       - AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;QueueEndpoint=http://azurite:10001/devstoreaccount1;TableEndpoint=http://azurite:10002/devstoreaccount1;
+      - PORT=3001
     ports:
       - "3001:3001"
     depends_on:
@@ -93,8 +94,50 @@ services:
       azurite:
         condition: service_healthy
 
+  translator:
+    build:
+      context: ./src/translator
+      dockerfile: Dockerfile
+    container_name: scribe-ai-translator-container
+    environment:
+      - RABBITMQ_URL=amqp://${RABBITMQ_USER:-guest}:${RABBITMQ_PASSWORD:-guest}@rabbitmq:5672
+      - AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;QueueEndpoint=http://azurite:10001/devstoreaccount1;TableEndpoint=http://azurite:10002/devstoreaccount1;
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2:-true}
+      - LANGCHAIN_ENDPOINT=${LANGCHAIN_ENDPOINT:-https://api.smith.langchain.com}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-scribe-ai}
+      - TRANSCRIPTION_JOB_QUEUE_NAME=${TRANSCRIPTION_JOB_QUEUE_NAME:-transcription-jobs-demo}
+      - TRANSCRIPTION_UPDATE_QUEUE_NAME=${TRANSCRIPTION_UPDATE_QUEUE_NAME:-transcription-updates}
+      - DEAD_LETTER_EXCHANGE=${DEAD_LETTER_EXCHANGE:-scribe-ai-dlx}
+      - MAX_RETRIES=${MAX_RETRIES:-5}
+      - MAX_LENGTH_MINUTES=${MAX_LENGTH_MINUTES:-0}
+    volumes:
+      - translator_data:/app/incoming
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      azurite:
+        condition: service_healthy
+
+  ui:
+    build:
+      context: ./src/ui/scribe
+      dockerfile: Dockerfile
+    container_name: scribe-ai-ui-container
+    environment:
+      - REACT_APP_API_URL=http://localhost:3001
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+
 volumes:
   postgres_data:
   rabbitmq_data:
   azurite_blob_data:
   azurite_queue_data:
+  translator_data:
