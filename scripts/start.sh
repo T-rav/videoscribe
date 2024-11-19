@@ -4,7 +4,15 @@
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # Start all services
-docker compose up -d
+if ! docker info >/dev/null 2>&1; then
+  echo "Error: Docker daemon is not running"
+  exit 1
+fi
+
+if ! docker compose up -d; then
+  echo "Error: Failed to start Docker services"
+  exit 1
+fi
 
 # Wait for PostgreSQL to be ready
 echo "Waiting for PostgreSQL to be ready..."
