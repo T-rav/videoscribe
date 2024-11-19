@@ -12,3 +12,36 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  projects  Project[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  files       File[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model File {
+  id          String   @id @default(uuid())
+  name        String
+  status      String   @default("pending") // pending, processing, completed, error
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id])
+  blobPath    String?  // Path in Azure Blob Storage
+  transcript  String?  // The generated transcript
+  error       String?  // Any error message
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

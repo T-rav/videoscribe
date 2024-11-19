@@ -13,26 +13,30 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d scribe.ai"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-user} -d ${POSTGRES_DB:-scribe.ai}"]
       interval: 5s
       timeout: 5s
       retries: 5
 
   azurite:
-    image: mcr.microsoft.com/azure-storage/azurite:3.23.0
+    build:
+      context: ./src/azurite
+      dockerfile: Dockerfile
     container_name: azurite-container
     ports:
       - "10000:10000"
       - "10001:10001"
       - "10002:10002"
     volumes:
-      - azurite_blob_data:/data/blob
-      - azurite_queue_data:/data/queue
+      - azurite_blob_data:/opt/azurite/blob
+      - azurite_queue_data:/opt/azurite/queue
+    command: azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0 --blobPort 10000 --queuePort 10001 --tablePort 10002 --location /opt/azurite
     healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:10000"]
-      interval: 5s
+      test: ["CMD", "nc", "-z", "localhost", "10000"]
+      interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 5s
 
   rabbitmq:
     image: rabbitmq:3.11-management

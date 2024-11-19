@@ -2,8 +2,12 @@ FROM node:20-slim
 
 WORKDIR /app
 
-# Install netcat for healthcheck
-RUN apt-get update && apt-get install -y netcat-traditional && rm -rf /var/lib/apt/lists/*
+# Install netcat for healthcheck and OpenSSL for Prisma
+RUN apt-get update && \
+    apt-get install -y \
+    netcat-traditional \
+    openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies first (for better caching)
 COPY package*.json ./
