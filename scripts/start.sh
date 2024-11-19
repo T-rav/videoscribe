@@ -24,6 +24,29 @@ done
 echo "PostgreSQL is ready! Running migrations..."
 
 # Run Prisma migrations
-cd "$PROJECT_ROOT/src/api"
-npm install
-npx prisma migrate deploy
+cd "$PROJECT_ROOT/src/api" || {
+  echo "Error: Failed to change directory to $PROJECT_ROOT/src/api"
+  exit 1
+}
+
+# Verify Node.js installation
+if ! command -v node >/dev/null 2>&1; then
+  echo "Error: Node.js is not installed"
+  exit 1
+fi
+
+# Install dependencies
+echo "Installing dependencies..."
+if ! npm install; then
+  echo "Error: Failed to install dependencies"
+  exit 1
+fi
+
+# Run migrations
+echo "Running database migrations..."
+if ! npx prisma migrate deploy; then
+  echo "Error: Failed to run database migrations"
+  exit 1
+fi
+
+echo "Setup completed successfully!"
