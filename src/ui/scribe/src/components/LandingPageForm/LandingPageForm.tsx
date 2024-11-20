@@ -7,9 +7,10 @@ const LandingPageForm: React.FC = () => {
   const [transformOption, setTransformOption] = useState('summarize');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [jobProgress, setJobProgress] = useState<{ status: string; message: string; jobId: string | null }>({ status: '', message: '', jobId: null });
   const [results, setResults] = useState<
-  { title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string; activeTab: string }[]
->([]);
+    { id: string; title: string; duration: string; transcript: string; transformedTranscript: string; transformOptionUsed: string; activeTab: string }[]
+  >([]);
 
   const maxFileSizeInMB = 2500;
   const transcriptionType = 'openai-srt';
@@ -90,13 +91,16 @@ const LandingPageForm: React.FC = () => {
         if (response.ok) {
           const { jobId } = await response.json();
           console.log('jobId', jobId);
+          setJobProgress({ status: 'uploading', message: 'Uploading file...', jobId });
           await pollJobStatus(jobId);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
+          setJobProgress({ status: '', message: '', jobId: null });
         }
       } catch (error) {
         setError('An error occurred while processing the request.');
+        setJobProgress({ status: '', message: '', jobId: null });
       } finally {
         setLoading(false);
       }
@@ -158,13 +162,16 @@ const LandingPageForm: React.FC = () => {
         if (response.ok) {
           const { jobId } = await response.json();
           console.log('jobId', jobId);
+          setJobProgress({ status: 'processing', message: 'Processing file...', jobId });
           await pollJobStatus(jobId);
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
+          setJobProgress({ status: '', message: '', jobId: null });
         }
       } catch (error) {
         setError('An error occurred while processing the request.');
+        setJobProgress({ status: '', message: '', jobId: null });
       } finally {
         setLoading(false);
       }
@@ -181,7 +188,7 @@ const LandingPageForm: React.FC = () => {
       let jobStatus = 'pending';
       let result;
 
-      while (jobStatus === 'pending') {
+      while (jobStatus === 'pending' || jobStatus === 'in_progress') {
         const response = await fetch(`${serverUrl}/transcribe/status/${jobId}`, {
           method: 'GET',
           credentials: 'include',
@@ -190,19 +197,41 @@ const LandingPageForm: React.FC = () => {
         if (response.ok) {
           result = await response.json();
           jobStatus = result.status;
+          
+          // Update progress message based on status
+          switch (jobStatus) {
+            case 'pending':
+              setJobProgress({ status: 'pending', message: 'Waiting in queue...', jobId });
+              break;
+            case 'in_progress':
+              setJobProgress({ 
+                status: 'in_progress', 
+                message: result.progress_message || 'Processing media...',
+                jobId
+              });
+              break;
+            case 'finished':
+              setJobProgress({ status: 'finished', message: 'Completed!', jobId });
+              break;
+            case 'failed':
+              setJobProgress({ status: 'failed', message: 'Job failed', jobId });
+              break;
+          }
         } else {
           const error = await response.json();
           setError(error.error || response.statusText);
+          setJobProgress({ status: '', message: '', jobId: null });
           return;
         }
 
-        if (jobStatus === 'pending') {
-          await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds before polling again
+        if (jobStatus === 'pending' || jobStatus === 'in_progress') {
+          await new Promise(resolve => setTimeout(resolve, 5000));
         }
       }
 
       if (jobStatus === 'finished') {
         const structuredResult = {
+          id: jobId,
           title: result.title,
           duration: result.duration,
           transcript: result.transcript,
@@ -217,6 +246,7 @@ const LandingPageForm: React.FC = () => {
       }
     } catch (error) {
       setError('An error occurred while polling the job status.');
+      setJobProgress({ status: '', message: '', jobId: null });
     }
   };
 
@@ -330,9 +360,19 @@ const LandingPageForm: React.FC = () => {
           </button>
         </form>
         {results.map((result, index) => (
-          <div key={index} className="transcription-result">
+          <div key={result.id} className="transcription-result">
             <button className="close-button" onClick={() => closeTranscript(index)}>X</button>
-            <h3>#{results.length - index}</h3>
+            <div className="result-header">
+              <h3>#{results.length - index}</h3>
+              {jobProgress.jobId === result.id && (
+                <div className={`job-progress ${jobProgress.status}`}>
+                  <div className="progress-spinner"></div>
+                  <div className="progress-message">
+                    <p>{jobProgress.message}</p>
+                  </div>
+                </div>
+              )}
+            </div>
             <h4>Title: {result.title}</h4>
             <p>Duration: {formatDuration(parseInt(result.duration, 10))}</p>
             <div className="transcription-tabs">
@@ -376,7 +416,6 @@ const LandingPageForm: React.FC = () => {
             </button>
           </div>
         ))}
-
       </div>
     </div>
   );

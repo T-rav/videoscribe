@@ -324,4 +324,108 @@ input[type="text"], select {
   color: #a0a0a0;
   cursor: not-allowed;
 }
- 
+
+.job-progress {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
+.job-progress.starting {
+  background-color: #e8f4f8;
+  border-color: #bee5eb;
+}
+
+.job-progress.uploading {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.job-progress.processing, .job-progress.pending, .job-progress.in_progress {
+  background-color: #e8f4f8;
+  border-color: #bee5eb;
+}
+
+.job-progress.finished {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.job-progress.failed {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.progress-spinner {
+  width: 24px;
+  height: 24px;
+  margin-right: 1rem;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.job-progress.finished .progress-spinner {
+  border-top-color: #28a745;
+}
+
+.job-progress.failed .progress-spinner {
+  border-top-color: #dc3545;
+}
+
+.progress-message {
+  flex: 1;
+}
+
+.progress-message h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.progress-message p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.result-header h3 {
+  margin: 0;
+}
+
+.result-header .job-progress {
+  flex: 1;
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+.result-header .progress-message {
+  margin: 0;
+}
+
+.result-header .progress-message p {
+  margin: 0;
+}
+
+.result-header .progress-spinner {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
