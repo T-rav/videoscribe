@@ -1,22 +1,19 @@
-FROM node:20-slim
-
+# Base stage for shared dependencies
+FROM node:20-slim as base
 WORKDIR /app
-
-# Install dependencies first (for better caching)
 COPY package*.json ./
+
+# Development stage
+FROM base as development
 RUN npm install
-
-# Copy the rest of the application
-COPY . .
-
-# Build the application
-RUN npm run build
-
-# Install serve to run the built application
-RUN npm install -g serve
-
-# Expose the port the app runs on
 EXPOSE 3000
+CMD ["npm", "start"]
 
-# Run the application
+# Production stage
+FROM base as production
+RUN npm install
+COPY . .
+RUN npm run build
+RUN npm install -g serve
+EXPOSE 3000
 CMD ["serve", "-s", "build", "-l", "3000"]

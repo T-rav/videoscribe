@@ -41,6 +41,7 @@ services:
   rabbitmq:
     image: rabbitmq:3.11-management
     container_name: rabbitmq-container
+    user: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -50,10 +51,10 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
-      interval: 5s
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 3
 
   api:
     build:
@@ -129,12 +130,18 @@ services:
     build:
       context: ./src/ui/scribe
       dockerfile: Dockerfile
+      target: development
     container_name: scribe-ai-ui-container
     environment:
       - REACT_APP_API_URL=http://localhost:3001
       - PORT=3000
+      - WATCHPACK_POLLING=true
     ports:
       - "3000:3000"
+    volumes:
+      - ./src/ui/scribe:/app
+      - /app/node_modules
+    command: npm start
     depends_on:
       api:
         condition: service_healthy
