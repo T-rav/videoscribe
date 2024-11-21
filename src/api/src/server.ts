@@ -21,7 +21,7 @@ const createApp = (transcribe: (req: TranscriptionRequest) => Promise<any>) => {
 
   const allowedOrigins = [
     'http://localhost:3000',  // Allow localhost for development
-    'https://scribe.koderex.dev',  // Allow your production domain
+    'https://echoscript.ai',  // Allow your production domain
   ];
 
   app.use(cors({

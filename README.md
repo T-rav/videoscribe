@@ -1,4 +1,4 @@
-# Scribe AI
+# EchoScript.ai
 
 Transform the way you consume videos. Whether it's a lecture, a meeting, or a video communication from your child's school, our tool empowers you to quickly understand and extract the most important information.
 

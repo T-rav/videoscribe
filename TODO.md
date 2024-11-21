@@ -1,4 +1,4 @@
-# VScribe Project TODO
+# EchoScript.ai Project TODO
 
 ## Docker Service Integration
 - [ ] Add API service to docker-compose.yml
