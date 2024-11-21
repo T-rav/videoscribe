@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>© 2024 EchoScript.ai - Transcribe Videos Effortlessly. Transform Them Endlessly!</p>
+        <p>© 2024 EchoScript.ai - Turn Conversations into Creations. Amplify Every Idea!</p>
       </div>
     </footer>
   );
