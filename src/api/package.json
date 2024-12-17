@@ -6,7 +6,10 @@
   "scripts": {
     "start": "ts-node-dev src/server.ts",
     "updater": "ts-node-dev src/updaters/updateProcessor.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev:updater": "ts-node-dev --respawn --transpile-only src/updaters/updateProcessor.ts"
   },
   "keywords": [],
   "author": "",

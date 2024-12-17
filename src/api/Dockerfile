@@ -1,5 +1,5 @@
-FROM node:20-slim
-
+# Base stage for shared setup
+FROM node:20-slim as base
 WORKDIR /app
 
 # Install netcat for healthcheck and OpenSSL for Prisma
@@ -9,19 +9,27 @@ RUN apt-get update && \
     openssl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies first (for better caching)
+# Copy dependency files
 COPY package*.json ./
-RUN npm install
-
-# Copy prisma schema and generate client
 COPY prisma ./prisma/
+
+# Development stage
+FROM base as development
+RUN npm install
 RUN npx prisma generate
 
-# Copy the rest of the application
-COPY . .
-
-# Expose the port the app runs on
+# Mount the source code volume in docker-compose
 EXPOSE 3001
+CMD npm run start
 
-# Run database migrations and start the application in development mode
-CMD npx prisma migrate deploy && npm run start
+# Production stage
+FROM base as production
+RUN npm install
+RUN npx prisma generate
+
+# Copy and build the application
+COPY . .
+RUN npm run build
+
+EXPOSE 3001
+CMD ["node", "dist/server.js"]
