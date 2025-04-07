@@ -236,12 +236,18 @@ if __name__ == "__main__":
 
     logging.debug("Processing audio...")
 
-    # Get video info
-    video_info = get_video_info(args.url)
-    title = video_info.get("title", "Unknown Title")
-    duration = video_info.get("duration", 0)
+    # Initialize variables for video info
+    title = "Unknown Title"
+    duration = 0
     
     if args.url.startswith("https://"):
+        # Get video info for URLs only
+        try:
+            video_info = get_video_info(args.url)
+            title = video_info.get("title", "Unknown Title")
+            duration = video_info.get("duration", 0)
+        except Exception as e:
+            logging.error(f"Error getting video info: {e}")
         audio_file_path = download_audio(args.url, f'{args.path}/audio', max_length_minutes=args.max_length_minutes)
     else:
         # assume it is a local file
@@ -279,6 +285,10 @@ if __name__ == "__main__":
         with open(transcription_file_path, 'w', encoding='utf-8') as file:
             file.write(combined_transcription)
 
+        # For local files, use the filename as the title
+        if not args.url.startswith("https://"):
+            title = os.path.basename(args.url)
+            
         result = {
             "url": args.url,
             "title": title,
