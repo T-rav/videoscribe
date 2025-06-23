@@ -1,5 +1,5 @@
-yt-dlp
-openai
-python-dotenv
-pydub
-groq
+yt-dlp>=2025.6.9
+openai>=1.91.0
+python-dotenv>=1.1.0
+pydub>=0.25.1
+groq>=0.28.0
